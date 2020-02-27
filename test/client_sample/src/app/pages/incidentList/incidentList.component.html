@@ -1,0 +1,83 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header">
+        <button (click)="downloadCSV()" class="btn btn-primary csv">Download CSV</button>
+        <h4 class="card-title">All Incidents</h4>
+      </div>
+      <div class="col-md-6">
+        <form>
+          <div class="input-group no-border">
+            <input type="text" value="" class="form-control" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="Search...">
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <i class="nc-icon nc-zoom-split"></i>
+              </div>
+            </div>
+            <select name="search" [(ngModel)]="searchStatus">
+              <option>Pending</option>
+              <option>Verified</option>
+              <option>Completed</option>
+              <option>Rejected</option>
+              <option>Deleted</option>
+            </select>
+          </div>
+        </form>
+      </div>
+      <div class="card-body">
+            <div *ngFor = "let incidentRecord of incidentRecords | filter:searchText | filter:searchStatus;
+                     let i = index; let lastCall=last">
+                <button class="collapsible">{{i+1}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <b>{{incidentRecord.incident_type}}</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                     <i> {{incidentRecord.incident_status}}</i><span class="inc_date">{{incidentRecord.record_date}}</span></button>
+                <div class="content closed">
+                  <table cellpadding="10">
+                    <tr>
+                      <td *ngIf="incidentRecord.incident_status == 'Rejected'"><b>Reason why Rejected:</b></td>
+                      <td *ngIf="incidentRecord.incident_status == 'Rejected'">{{incidentRecord.incident_reason}}</td>
+                      <td><b>Incident Date:</b></td>
+                      <td>{{incidentRecord.incident_when}}</td>
+                    </tr>
+                    <tr>
+                      <td><b>Person Concerned About:</b></td>
+                      <td>{{incidentRecord.incident_who}}</td>
+                      <td><b>Comments:</b></td>
+                      <td>{{incidentRecord.incident_comments}}</td>
+                    </tr>
+                    <tr>
+                      <td><b>Attachment/s:</b></td>
+                      <td>{{incidentRecord.incident_attachment}}</td>
+                      <td><b>Reported by:</b></td>
+                      <td><i *ngIf="incidentRecord.anonymous == true"> Anonymous</i>
+                        <i *ngIf="incidentRecord.anonymous == false">
+                          <span *ngFor = "let user of users">
+                            <span *ngIf="incidentRecord.incident_complainant_id == user._id">
+                              {{user.user_lastname}}, {{user.user_firstname}}
+                            </span>
+                          </span>
+                        </i></td>
+                    </tr>
+                  </table>
+                 
+                  <form class="reject">
+                    <input *ngIf="incidentRecord.incident_status == 'Pending'" type="text" [(ngModel)]="incident_reason" name="incident_reason" placeholder="Reason why rejected?">
+                    <button *ngIf="incidentRecord.incident_status == 'Pending'" type="submit" class="btn btn-danger btn-round" (click)="rejectStatus(incidentRecord)">Reject</button>
+                  </form> 
+                  <div class="update ml-auto mr-auto" *ngIf="incidentRecord.incident_status != 'Completed' && incidentRecord.incident_status != 'Rejected'">
+                    <button *ngIf="incidentRecord.incident_status == 'Pending'" type="submit" class="btn btn-info btn-round" (click)="verifyStatus(incidentRecord)">Verify</button>
+                    <button *ngIf="incidentRecord.incident_status == 'Verified'" type="submit" class="btn btn-success btn-round" (click)="updateStatus(incidentRecord)">Complete</button>
+                  </div>
+                </div>
+                <span *ngIf="lastCall">{{collapsed()}}</span>
+                <br><br>
+            </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+

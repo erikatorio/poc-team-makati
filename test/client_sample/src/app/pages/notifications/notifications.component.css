@@ -1,0 +1,69 @@
+.time{
+    float: right;
+}
+
+.chatbox{
+    background-color: #333;
+    overflow: hidden;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+.typeArea {
+    width: 100%;
+}
+
+.row.box {
+    position: sticky;
+    bottom: 0;
+    background-color: #66c4de;
+}
+
+.black {
+    color: white;
+}
+
+.inputArea {
+    width: 100%;
+}
+
+.admin{
+    width:fit-content;
+}
+
+.user{
+    width:fit-content;
+}
+
+.chatTable{
+    width: 100%;
+}
+
+.refreshbar{
+    position: fixed;
+    right: 0;
+    top: 30%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    z-index: 10;
+}
+
+.refresh{
+    background-color: #0089af;
+    color: white;
+    -webkit-border-top-right-radius: 0;
+    -webkit-border-bottom-right-radius: 0;
+    -moz-border-radius-topright: 0;
+    -moz-border-radius-bottomright: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    z-index: 10;
+}
+
+.selector{
+    position: sticky;
+    top: 0;
+    z-index: 5;
+}

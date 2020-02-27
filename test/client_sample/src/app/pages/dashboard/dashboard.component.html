@@ -1,0 +1,171 @@
+
+<div class="row" id="refreshHome">
+  <div class="col-lg-3 col-md-6 col-sm-6">
+    <div class="refreshbar">
+      <button class="btn btn-round nc-icon nc-refresh-69 refresh" (click)="refreshDash()"></button>
+    </div>
+    <div class="card card-stats">
+      <div class="card-body ">
+        <div class="row">
+          <div class="col-5 col-md-4">
+            <div class="icon-big text-center icon-warning">
+              <i class="nc-icon nc-email-85 text-warning"></i>
+            </div>
+          </div>
+          <div class="col-7 col-md-8">
+            <div class="numbers">
+              <p class="card-category">Incident Today</p>
+              <p class="card-title">{{incidentRecordsToday}}
+                <p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer ">
+  
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-3 col-md-6 col-sm-6">
+    <div class="card card-stats">
+      <div class="card-body ">
+        <div class="row">
+          <div class="col-5 col-md-4">
+            <div class="icon-big text-center icon-warning">
+              <i class="nc-icon nc-paper text-success"></i>
+            </div>
+          </div>
+          <div class="col-7 col-md-8">
+            <div class="numbers">
+              <p class="card-category" >Total Incident</p>
+              <p class="card-title">{{incidentRecords}}
+                <p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer ">
+    
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-3 col-md-6 col-sm-6">
+    <div class="card card-stats">
+      <div class="card-body ">
+        <div class="row">
+          <div class="col-5 col-md-4">
+            <div class="icon-big text-center icon-warning">
+              <i class="nc-icon nc-button-pause text-danger"></i>
+            </div>
+          </div>
+          <div class="col-7 col-md-8">
+            <div class="numbers">
+              <p class="card-category">Pending</p>
+              <p class="card-title">{{incidentRecordsPending}}
+                <p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer ">
+     
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-3 col-md-6 col-sm-6">
+    <div class="card card-stats">
+      <div class="card-body ">
+        <div class="row">
+          <div class="col-5 col-md-4">
+            <div class="icon-big text-center icon-warning">
+              <i class="nc-icon nc-circle-10 text-primary"></i>
+            </div>
+          </div>
+          <div class="col-7 col-md-8">
+            <div class="numbers">
+              <p class="card-category">Total Users</p>
+              <p class="card-title">{{users}}
+                <p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer ">
+    
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-6">
+    <div class="card ">
+      <div class="card-header ">
+        <h5 class="card-title">Frequency of All Incidents</h5>
+        <p class="card-category"></p>
+      </div>
+
+
+      <div class="boxChart__container">
+        <div>
+          <highcharts-chart 
+            id="container"
+            [Highcharts]="Highcharts"
+            [constructorType]="chartConstructor"
+            [options]="chartOptions"
+            [callbackFunction]="chartCallback"
+            [(update)]="updateFromInput"
+            [oneToOne]="true"
+            style="width: 90%; height: 600px; display:block;"
+          >
+          </highcharts-chart>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+
+  <div class="col-md-6">
+  <div class="card ">
+  <div class="card-header ">
+    <h4 class="card-title">Highest Incident</h4>
+    <p class="card-category"></p>
+  </div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="card highest">
+      <div class="card-header ">
+        <h4 class="card-title"><b>1st</b></h4>
+        <p class="card-category"></p>
+      </div>
+      <div class="card-body text-center">
+        <span><h5 id="first"></h5> <h5 id="firstMax"></h5></span>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-12">
+    <div class="card highest">
+      <div class="card-header ">
+        <h4 class="card-title"><b>2nd</b></h4>
+        <p class="card-category"></p>
+      </div>
+      <div class="card-body text-center">
+        <span><h5 id="second"></h5> <h5 id="secondMax"></h5></span>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-12">
+    <div class="card highest">
+      <div class="card-header ">
+        <h4 class="card-title"><b>3rd</b></h4>
+        <p class="card-category"></p>
+      </div>
+      <div class="card-body text-center">
+        <span><h5 id="third"></h5> <h5 id="thirdMax"></h5></span>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+</div>

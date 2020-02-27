@@ -1,0 +1,76 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header">
+        <h5 class="card-title">Users' Logs</h5> 
+      </div>
+        <div class="col-md-6">
+        <form class="search">
+          <div class="input-group no-border">
+            <input type="text" value="" class="form-control" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="Search...">
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <i class="nc-icon nc-zoom-split"></i>
+              </div>
+            </div>
+            <select name="search" [(ngModel)]="searchLog">
+              <option>User Login</option>
+              <option>Sent Report</option>
+              <option>Deleted Report</option>
+              <option>Updated Profile</option>
+              <option>Sent new Message</option>
+            </select>
+          </div>
+        </form>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card card-plain">
+              <div class="card-body">
+                <div *ngFor="let log of logs | filter:searchText | filter:searchLog;">
+                  <div class="alert alert-primary alert-with-icon alert-dismissible fade show" 
+                      *ngIf="log.action_id == 1">
+                    <span data-notify="icon" class="nc-icon nc-single-02"></span>
+                    <span><b> {{log.user_name}} </b> &#9;
+                      {{log.action_name}} <span class="date">{{log.action_date}}</span></span>
+                  </div>
+                  <div class="alert alert-info alert-with-icon alert-dismissible fade show" 
+                      *ngIf="log.action_id == 2">
+                      <span data-notify="icon" class="nc-icon nc-circle-10"></span>
+                    <span><b> {{log.user_name}} </b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      {{log.action_name}} <span class="date">{{log.action_date}}</span></span>
+                  </div>
+                  <div class="alert alert-success alert-with-icon alert-dismissible fade show" 
+                      *ngIf="log.action_id == 3">
+                      <span data-notify="icon" class="nc-icon nc-check-2"></span>
+                    <span><b> {{log.user_name}} </b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      {{log.action_name}} <span span class="date">{{log.action_date}}</span></span>
+                  </div>
+                  <div class="alert alert-warning alert-with-icon alert-dismissible fade show" 
+                      *ngIf="log.action_id == 4">
+                      <span data-notify="icon" class="nc-icon nc-badge"></span>
+                    <span><b> {{log.user_name}} </b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      {{log.action_name}} <span span class="date">{{log.action_date}}</span></span>
+                  </div>
+                  <div class="alert alert-danger alert-with-icon alert-dismissible fade show" 
+                      *ngIf="log.action_id == 5">
+                      <span data-notify="icon" class="nc-icon nc-simple-remove"></span>
+                    <span><b> {{log.user_name}} </b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      {{log.action_name}} <span class="date">{{log.action_date}}</span></span>
+                  </div>
+                  <div class="alert alert-primary alert-with-icon alert-dismissible fade show" 
+                      *ngIf="log.action_id == 6">
+                      <span data-notify="icon" class="nc-icon nc-send"></span>
+                    <span><b> {{log.user_name}} </b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      {{log.action_name}} <span class="date">{{log.action_date}}</span></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,77 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header">
+        <form class="search">
+          <div class="input-group no-border">
+            <input type="text" value="" class="form-control" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="Search...">
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <i class="nc-icon nc-zoom-split"></i>
+              </div>
+            </div>
+          </div>
+        </form>
+        <h4 class="card-title">All Users</h4>
+        <br>
+        <div class="table-responsive">
+        <table class="table">
+          <thead class=" text-primary">
+            <th>
+              #
+            </th>
+            <th>
+              Username
+              <button name="desc" type="button" aria-hidden="true" class="sort" data-dismiss="alert" aria-label="Close" (click)="usernameSortA()">
+                <i class="nc-icon nc-minimal-up"></i>
+              </button>
+              <button name="asc" type="button" aria-hidden="true" class="sort" data-dismiss="alert" aria-label="Close" (click)="usernameSortD()">
+                <i class="nc-icon nc-minimal-down"></i>
+              </button>
+            </th>
+            <th>
+              Firstname
+              <button type="button" aria-hidden="true" class="sort" data-dismiss="alert" aria-label="Close" (click)="firstnameSortA()">
+                <i class="nc-icon nc-minimal-up"></i>
+              </button>
+              <button name="asc" type="button" aria-hidden="true" class="sort" data-dismiss="alert" aria-label="Close" (click)="firstnameSortD()">
+                <i class="nc-icon nc-minimal-down"></i>
+              </button>
+            </th>
+            <th>
+              Lastname
+              <button type="button" aria-hidden="true" class="sort" data-dismiss="alert" aria-label="Close" (click)="lastnameSortA()">
+                <i class="nc-icon nc-minimal-up"></i>
+              </button>
+              <button name="asc" type="button" aria-hidden="true" class="sort" data-dismiss="alert" aria-label="Close" (click)="lastnameSortD()">
+                <i class="nc-icon nc-minimal-down"></i>
+              </button>
+            </th>
+            <th>
+              Department
+              <button type="button" aria-hidden="true" class="sort" data-dismiss="alert" aria-label="Close" (click)="deptSortA()">
+                <i class="nc-icon nc-minimal-up"></i>
+              </button>
+              <button name="asc" type="button" aria-hidden="true" class="sort" data-dismiss="alert" aria-label="Close" (click)="deptSortD()">
+                <i class="nc-icon nc-minimal-down"></i>
+              </button>
+            </th>
+          </thead>
+          <tbody *ngFor="let user of users | filter:searchText; let i = index">
+            <tr>
+              <td>{{i+1}}</td>
+              <td>{{user.user_name}}</td>
+              <td>{{user.user_firstname}}</td>
+              <td>{{user.user_lastname}}</td>
+              <td>{{user.user_grp}}</td>
+           </tr>              
+          </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  

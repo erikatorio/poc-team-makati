@@ -1,0 +1,86 @@
+
+<nav class="navbar navbar-expand-lg navbar-absolute fixed-top navbar-transparent">
+  <div class="container-fluid">
+    <div class="navbar-wrapper">
+      <div class="navbar-toggle">
+        <button type="button" class="navbar-toggler" (click)="sidebarToggle()">
+          <span class="navbar-toggler-bar bar1"></span>
+          <span class="navbar-toggler-bar bar2"></span>
+          <span class="navbar-toggler-bar bar3"></span>
+        </button>
+      </div>
+      <a class="navbar-brand" href="javascript:void(0)">{{getTitle()}}</a>
+    </div>
+
+    <button class="navbar-toggler" type="button" (click)="collapse()"
+      [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample">
+      <span class="navbar-toggler-bar navbar-kebab"></span>
+      <span class="navbar-toggler-bar navbar-kebab"></span>
+      <span class="navbar-toggler-bar navbar-kebab"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="collapseExample" [ngbCollapse]="isCollapsed">
+      <ul class="navbar-nav">
+
+        <label style="margin-top: 12px;">Translate </label>
+        <div style="margin-top: 8px;" id="google_translate_element"></div>
+
+        <li class="nav-item btn-rotate" ngbDropdown placement="bottom-left">
+          <a aria-haspopup="true" class="nav-link" ngbDropdownToggle id="navbarDropdownMenuLink" >
+            <i class="nc-icon nc-bell-55"></i><span *ngIf="unviewed > 0" class="badge badge-danger count-notif">{{unviewed}}</span>
+            <p>
+              <span class="d-lg-none d-md-block">Notification</span>
+            </p>
+          </a>
+          
+          <div ngbDropdownMenu aria-labelledby="navbarDropdownMenuLink" style="width: 740%;"
+               class="dropdown-menu dropdown-menu-right"> 
+            <div *ngFor="let log of logs">
+              <a *ngIf="log.action_viewed == false && log.action_id==3" ngbDropdownItem 
+                  style="background-color:peachpuff; border-radius: 0%;" (click)="viewedLog(log)"
+                  routerLink="/admin/incidentList">
+                <b> {{log.user_name}} </b>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{log.action_name}}!
+                <button style="float: right;" type="button" aria-hidden="true" class="close btn btn-xs" data-dismiss="alert" aria-label="Close" 
+                (click)="removed(log)" routerLink="/admin/dashboard">
+                  <i class="nc-icon nc-simple-remove"></i>
+                </button>
+              </a>
+              
+              <a *ngIf="log.action_viewed == false && log.action_id==6" ngbDropdownItem 
+                  style="background-color:peachpuff; border-radius: 0%;" (click)="viewedChat(log)"
+                  routerLink="/admin/chat">
+                <b> {{log.user_name}} </b>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{log.action_name}}!
+                <button style="float: right;" type="button" aria-hidden="true" class="close btn btn-xs" data-dismiss="alert" aria-label="Close" 
+                (click)="removed(log)" routerLink="/admin/dashboard">
+                  <i class="nc-icon nc-simple-remove"></i>
+                </button>
+              </a>
+              <a *ngIf="log.action_viewed == true && log.action_id==3" ngbDropdownItem 
+                  style="border-radius: 0%;" routerLink="/admin/incidentList">
+                <b> {{log.user_name}} </b>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{log.action_name}}!
+                <button style="float: right;" type="button" aria-hidden="true" class="close btn btn-xs" data-dismiss="alert" aria-label="Close" 
+                (click)="removed(log)" routerLink="/admin/dashboard">
+                  <i class="nc-icon nc-simple-remove"></i>
+                </button>
+              </a>
+            </div>
+          </div>
+        </li>
+        
+        <li class="nav-item btn-rotate" ngbDropdown placement="bottom-left">
+          <a class="nav-link" ngbDropdownToggle id="navbarDropdownMenuLink" >
+            <i class="nc-icon nc-settings-gear-65"></i>
+            <p>
+              <span class="d-lg-none d-md-block">Log Out</span>
+            </p>
+          </a>
+          <div ngbDropdownMenu aria-labelledby="navbarDropdownMenuLink" class="dropdown-menu dropdown-menu-right">
+            <a ngbDropdownItem (click)="logout()">Log Out</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

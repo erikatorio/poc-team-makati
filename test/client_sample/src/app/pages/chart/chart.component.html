@@ -1,0 +1,107 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header ">
+        <h5 class="card-title">Departments</h5>
+        <p class="card-category">Total Incidents Per Department</p>
+      </div>
+
+            <div class=" col-sm-12">
+              <div class="btn-group btn-group-toggle " data-toggle="buttons">
+                <label class=" btn btn-sm btn-danger btn-simple" (click)="data=datasets[0];updateOptions();
+                clicked=true;clicked1=false;clicked2=false;clicked3=false;clicked4=false;clicked5=false;
+                clicked6=false;clicked7=false" [ngClass]="{'active':clicked===true}">
+                  <input checked="checked" name="options" type="radio" />
+                <span class=" d-none d-sm-block d-md-block d-lg-block d-xl-block">
+                  Admin
+                </span>
+                  <span class=" d-block d-sm-none">
+                    <i class=" tim-icons icon-single-02"> </i>
+                  </span>
+                </label>
+
+                <label class=" btn btn-sm btn-danger btn-simple" (click)="data=datasets[1];updateOptions();
+                clicked=false;clicked1=true;clicked2=false;clicked3=false;clicked4=false;clicked5=false;
+                clicked6=false;clicked7=false" [ngClass]="{'active':clicked1===true}">
+                  <input
+                    class=" d-none d-sm-none"
+                    name="options"
+                    type="radio"
+                  />
+                  <span class=" d-none d-sm-block d-md-block d-lg-block d-xl-block">Finance</span>
+                  <span class=" d-block d-sm-none">
+                    <i class=" tim-icons icon-gift-2"> </i>
+                  </span>
+                </label>
+
+                <label class=" btn btn-sm btn-danger btn-simple" (click)="data=datasets[2];updateOptions();
+                clicked=false;clicked1=false;clicked2=true;clicked3=false;clicked4=false;clicked5=false;
+                clicked6=false;clicked7=false" [ngClass]="{'active':clicked2===true}">
+                  <input class=" d-none" name="options" type="radio" />
+                  <span class=" d-none d-sm-block d-md-block d-lg-block d-xl-block">Engineering</span>
+                  <span class=" d-block d-sm-none">
+                    <i class=" tim-icons icon-tap-02"> </i>
+                  </span>
+                </label>
+
+                <label class=" btn btn-sm btn-danger btn-simple" (click)="data=datasets[3];updateOptions();
+                clicked=false;clicked1=false;clicked2=false;clicked3=true;clicked4=false;clicked5=false;
+                clicked6=false;clicked7=false" [ngClass]="{'active':clicked3===true}">
+                  <input class=" d-none" name="options" type="radio" />
+                  <span class=" d-none d-sm-block d-md-block d-lg-block d-xl-block">MIS</span>
+                  <span class=" d-block d-sm-none">
+                    <i class=" tim-icons icon-tap-02"> </i>
+                  </span>
+                </label>
+
+                <label class=" btn btn-sm btn-danger btn-simple" (click)="data=datasets[4];updateOptions();
+                clicked=false;clicked1=false;clicked2=false;clicked3=false;clicked4=true;clicked5=false;
+                clicked6=false;clicked7=false" [ngClass]="{'active':clicked4===true}">
+                  <input class=" d-none" name="options" type="radio" />
+                  <span class=" d-none d-sm-block d-md-block d-lg-block d-xl-block">Q&S</span>
+                  <span class=" d-block d-sm-none">
+                    <i class=" tim-icons icon-tap-02"> </i>
+                  </span>
+                </label>
+
+                <label class=" btn btn-sm btn-danger btn-simple" (click)="data=datasets[5];updateOptions();
+                clicked=false;clicked1=false;clicked2=false;clicked3=false;clicked4=false;clicked5=true;
+                clicked6=false;clicked7=false" [ngClass]="{'active':clicked5===true}">
+                  <input class=" d-none" name="options" type="radio" />
+                  <span class=" d-none d-sm-block d-md-block d-lg-block d-xl-block">RD</span>
+                  <span class=" d-block d-sm-none">
+                    <i class=" tim-icons icon-tap-02"> </i>
+                  </span>
+                </label>
+
+                <label class=" btn btn-sm btn-danger btn-simple" (click)="data=datasets[6];updateOptions();
+                clicked=false;clicked1=false;clicked2=false;clicked3=false;clicked4=false;clicked5=false;
+                clicked6=true;clicked7=false" [ngClass]="{'active':clicked6===true}">
+                  <input class=" d-none" name="options" type="radio" />
+                  <span class=" d-none d-sm-block d-md-block d-lg-block d-xl-block">Action</span>
+                  <span class=" d-block d-sm-none">
+                    <i class=" tim-icons icon-tap-02"> </i>
+                  </span>
+                </label>
+
+                <label class=" btn btn-sm btn-danger btn-simple" (click)="data=datasets[7];updateOptions();
+                clicked=false;clicked1=false;clicked2=false;clicked3=false;clicked4=false;clicked5=false;
+                clicked6=false;clicked7=true" [ngClass]="{'active':clicked7===true}">
+                  <input class=" d-none" name="options" type="radio" />
+                  <span class=" d-none d-sm-block d-md-block d-lg-block d-xl-block">Anonymous</span>
+                  <span class=" d-block d-sm-none">
+                    <i class=" tim-icons icon-tap-02"> </i>
+                  </span>
+                </label>
+                              
+        </div>
+        <br><br><br>
+        <div class=" card-body">
+          <div class=" chart-area" ><canvas id="chartBig1" width="400" height="200"> </canvas></div>
+        </div>
+    </div>
+
+  </div>
+</div>
+
+

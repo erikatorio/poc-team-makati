@@ -1,0 +1,84 @@
+<div class="row" id="chatbox">
+  <div class="col-md-12">
+    <div class="card selector">
+      <div class="card-body">
+        <div class="refreshbar">
+          <button class="btn btn-round nc-icon nc-refresh-69 refresh" (click)="refreshChat()"></button>
+        </div>
+      
+        <div class="row">
+          <div class="col-sm-7">
+            <h5 class="card-title" style="margin-top: 5px;">Chat</h5>
+          </div>
+          <div class="col-sm-5">
+              <div class="form-group">
+                  <select class="form-control" [(ngModel)]="receiver" name="receiver" aria-placeholder="Select user...">
+                    <option *ngFor="let user of users" value="{{user._id}}">{{user.user_name}}</option>
+                  </select>
+              </div>
+          </div>
+      </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card card-plain">
+              <div class="container-fluid">
+                
+
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="card card-plain">
+                      <div class="card-body">
+                        <table class="chatTable">
+                        <tr *ngFor="let chat of adminChats | filter:receiver; let lastCall=last">
+                          <!-- for user -->
+                          <td *ngIf="chat.sender != 'Admin'">
+                            <span class="card-category">{{chat.sender}} &#9; {{chat.dateTime}} </span>
+                            <div class="user alert alert-info alert-with-icon alert-dismissible fade show"> 
+                              <span data-notify="icon" class="nc-icon nc-circle-10"></span>
+                              <span data-notify="message">{{chat.messages}}</span>
+                            </div>
+                          </td >
+                           <!-- for admin -->
+                          <td *ngIf="chat.sender == 'Admin'" align="right">
+                            <span class="card-category">Admin &#9; {{chat.dateTime}}</span>
+                            <div class="admin alert alert-success alert-with-icon alert-dismissible fade show">
+                              <span data-notify="icon" class="nc-icon nc-circle-10"></span>
+                              <span data-notify="message">{{chat.messages}}</span>
+                            </div>
+                          </td>
+                          <span *ngIf="lastCall">{{scrollHere()}}</span>
+                        </tr>
+                      </table>
+                
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="row box">
+                  <div class="col-md-12">
+                        <div class="alert alert-info alert-with-icon fade show">
+                          <table class="inputArea">
+                            <tr>
+                              <td><span data-notify="icon" class="nc-icon nc-circle-10"></span></td>
+                              <td rowspan="2"  style="width: 100%;"><input type="text" class="typeArea form-control" id="msg_box" [(ngModel)]="messages" name="messages" placeholder="Enter message..."/></td>
+                              <td></td>
+                              <td><button class="btn btn-round nc-icon nc-send" (click)="sendMessage()">&nbsp;Send</button></td>
+                            </tr>
+                          </table>
+                        </div>
+                  </div>
+                </div>
+
+          </div>
+        </div>
+      </div>
+
+     </div>
+    </div>
+  </div>
+</div>   

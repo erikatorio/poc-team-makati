@@ -1,0 +1,20 @@
+
+<div style="background-image:url('assets/img/gif1.gif'); background-size: cover;">
+	<div class="limiter">
+		<div class="container-login100">
+			<div class="wrap-login100">
+				<form class="well">
+					<div class="wrap-input100 validate-input" data-validate = "Enter username">
+						<input type="text" [(ngModel)]="user_name" name="user_name" id="userName" class="input100" placeholder="Username" required>
+					</div>
+					<div class="wrap-input100 validate-input" data-validate="Enter password">
+						<input type="password" [(ngModel)]="user_password" name="user_password" id="userPw" class="input100" placeholder="Password" required>
+					</div>
+					<div class="container-login100-form-btn">
+						<button type="button" (click)="tryLogin($event)" id="login_btn">Log In</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

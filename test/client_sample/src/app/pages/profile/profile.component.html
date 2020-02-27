@@ -1,0 +1,25 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="card card-user">
+      <div class="image">
+        <img src="assets/img/damir-bosnjak.jpg" alt="...">
+      </div>
+      <div class="card-body">
+        <div class="author">
+            <img class="avatar border-gray" src="assets/img/dp.png" alt="...">
+            <h5>
+              <div *ngFor="let user of users">
+                <div *ngIf="user.user_type == 2">
+                  <div class="profile">
+                    <p><b>Firstname:</b> {{user.user_firstname}}</p>
+                    <p><b>Lastname:</b> {{user.user_lastname}}</p>
+                    <p><b>Username:</b> {{user.user_name}}</p>
+                  </div>
+                </div>
+              </div>
+            </h5>
+        </div>
+      </div>
+  </div>
+  </div>
+</div>

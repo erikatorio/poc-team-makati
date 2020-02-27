@@ -1,0 +1,28 @@
+.sidebar-wrapper{
+    /* background-image:url('assets/img/gif1.gif');
+    background-size: cover;
+    opacity: 0.9; */
+
+    background-image: 
+      linear-gradient(rgba(0, 0, 0, 0.4),rgba(0, 0, 0, 0.4)),
+      url('assets/img/gif1.gif'); 
+    background-repeat: no-repeat; 
+    background-size:cover;
+}
+
+.logo{
+    background: rgba(255, 255, 255, 0.4);
+  }
+  .logo a{
+    color: black !important;
+    font-weight: bold;
+  }
+  li p, li i {
+    opacity: 1 !important;
+    color: white !important;
+    transition: 0.5s;
+  }
+  li:hover{
+    background: rgba(0, 0, 0, 0.7);
+    transition: 0.5s;
+  }
