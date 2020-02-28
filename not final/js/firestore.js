@@ -40,6 +40,7 @@ async function fileUpload(file_data, reportData) {
     task.on('state_changed', function (snapshot) {
         progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
         //document.getElementById('progress').innerHTML = Math.round(progress) + "\%";
+        $('#submit_btn2').attr('disabled', true);
         console.log(progress);
     }, function (error) {
         console.log(error.message);
@@ -47,6 +48,7 @@ async function fileUpload(file_data, reportData) {
         task.snapshot.ref.getDownloadURL().then(function (downloadURL) {
             reportData.attachFile = downloadURL;
             sendReport(reportData);
+            $('#submit_btn2').attr('disabled', false);
         });
     });
 
@@ -97,6 +99,7 @@ async function storeData(e) {
         fileUpload(file_data, reportData);
     }else{
         sendReport(reportData);
+        $('#submit_btn2').attr('disabled', true);
     }
 }
 
@@ -116,7 +119,13 @@ async function sendReport(reportData) {
     db.collection("reports").doc().set(reportData)
         .then(function () {
             console.log("Document successfully written!");
-            sessionStorage.removeItem("category");       
+            $('#submit_modal').modal('toggle');
+            sessionStorage.removeItem("category");
+            $("input[name='who']").val("");
+            $("input[name='when']").val("");
+            $("input[name='where']").val("");
+            $("input[name='how']").val("");
+            $('#submit_btn2').attr('disabled', false);
         })
         .catch(function (error) {
             console.error("Error writing document: ", error);
