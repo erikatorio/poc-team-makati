@@ -178,7 +178,7 @@ async function logIn(e) {
             sessionStorage.setItem("userId", docs[0].id);
             if (anon)
                 sessionStorage.setItem("isAnonymous", true);
-            location.href = "/home.html";
+            location.href = "home.html";
         }
     } else
         alert("Incorrect username or password")
@@ -225,7 +225,7 @@ async function logInJp(e) {
 }
 
 function logOut() {
-    location.href = "/index.html";
+    location.href = "index.html";
     sessionStorage.clear();    
 }
 

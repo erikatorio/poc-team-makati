@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Session -->
+  <script>
+    if (!sessionStorage.getItem("username"))
+      location.href = "index.html";
+  </script>
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -60,7 +66,7 @@
             aria-labelledby="navbarDropdownMenuLink-55">
             <div class="logo-wrapper sn-ad-avatar-wrapper">
               <a href="#"><img id="profpicx" src="./img/user.png"
-                  class="rounded-circle"><span>rickybowen</span>さん</a>
+                  class="rounded-circle"><span id="userName">User</span>さん</a>
             </div>
             <a class="dropdown-item t-nav" href="editprofile.html"><i class="fas fa-edit"></i>プロファイル編集</a>
             <a class="dropdown-item t-nav" href="index.html" onclick="logOut()"><i class="fas fa-sign-out-alt"></i>ログアウト</a>
