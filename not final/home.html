@@ -86,7 +86,7 @@
           <img src="./img/fist.png" alt="" class="card-image">
         </div>
         <!-- Card content -->
-        <a href="#!" data-toggle="modal" data-target="#submit_modal" onclick="sendReport(0)">
+        <a href="#!" data-toggle="modal" data-target="#submit_modal" onclick="getCategory(0)">
           <div class="mask rgba-white-slight"></div>
           <div class="card-body">
             <!-- Title -->
@@ -102,7 +102,7 @@
           <img src="./img/sad.png" alt="" class="card-image">
         </div>
         <!-- Card content -->
-        <a href="#!" data-toggle="modal" data-target="#submit_modal">
+        <a href="#!" data-toggle="modal" data-target="#submit_modal" onclick="getCategory(1)">
           <div class="mask rgba-white-slight"></div>
           <div class="card-body">
             <!-- Title -->
@@ -118,7 +118,7 @@
           <img src="./img/wheelchair.png" alt="" class="card-image">
         </div>
         <!-- Card content -->
-        <a href="#!" data-toggle="modal" data-target="#submit_modal">
+        <a href="#!" data-toggle="modal" data-target="#submit_modal" onclick="getCategory(2)">
           <div class="mask rgba-white-slight"></div>
           <div class="card-body">
             <!-- Title -->
@@ -135,7 +135,7 @@
           
         </div>
         <!-- Card content -->
-        <a href="#!" data-toggle="modal" data-target="#submit_modal">
+        <a href="#!" data-toggle="modal" data-target="#submit_modal" onclick="getCategory(3)">
           <div class="mask rgba-white-slight"></div>
           <div class="card-body">
             <!-- Title -->
@@ -151,7 +151,7 @@
           <img src="./img/error.png" alt="" class="card-image">
         </div>
         <!-- Card content -->
-        <a href="#!" data-toggle="modal" data-target="#submit_modal">
+        <a href="#!" data-toggle="modal" data-target="#submit_modal" onclick="getCategory(4)">
           <div class="mask rgba-white-slight"></div>
           <div class="card-body">
             <!-- Title -->
@@ -167,7 +167,7 @@
           <img src="./img/sexual-harassment.png" alt="" class="card-image">
         </div>
         <!-- Card content -->
-        <a href="#!" data-toggle="modal" data-target="#submit_modal">
+        <a href="#!" data-toggle="modal" data-target="#submit_modal" onclick="getCategory(5)">
           <div class="mask rgba-white-slight"></div>
           <div class="card-body">
             <!-- Title -->
@@ -183,7 +183,7 @@
           <img src="./img/team.png" alt="" class="card-image">
         </div>
         <!-- Card content -->
-        <a href="#!" data-toggle="modal" data-target="#submit_modal">
+        <a href="#!" data-toggle="modal" data-target="#submit_modal" onclick="getCategory(6)">
           <div class="mask rgba-white-slight"></div>
           <div class="card-body">
             <!-- Title -->
@@ -200,7 +200,7 @@
           
         </div>
         <!-- Card content -->
-        <a href="#!" data-toggle="modal" data-target="#submit_modal">
+        <a href="#!" data-toggle="modal" data-target="#submit_modal" onclick="getCategory(7)">
           <div class="mask rgba-white-slight"></div>
           <div class="card-body">
             <!-- Title -->
@@ -248,7 +248,7 @@
                               </div>
                               <div class="custom-file">
                                 <input type="file" class="custom-file-input" id="inputGroupFile01"
-                                  aria-describedby="inputGroupFileAddon01">
+                                  aria-describedby="inputGroupFileAddon01" accept="audio/*,video/*,image/*">
                                 <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
                               </div>
                             </div>
@@ -258,7 +258,7 @@
                 </div>
                 <div class="modal-footer">
                 <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
-                <button id="submit_btn2" type="submit" class="btn" data-toggle="modal">Submit Report</button>
+                <button id="submit_btn2" type="submit" class="btn" data-toggle="modal" onclick="storeData(event)">Submit Report</button>
                 </div>
         </div>
         </div>
@@ -295,7 +295,7 @@
       <!--user message sample-->
       <div class="d-flex justify-content-between">
         <span class="timestamp text-muted">01/21/2020 9:56AM</span>
-        <img id="chat_pic" src="./img/ricky.JPG"
+        <img id="chat_pic" src="./img/user.png"
                   class="rounded-circle">
       </div>
       <div class="row no-gutters">
@@ -306,7 +306,7 @@
       <!--user message sample-->
       <div class="d-flex justify-content-between">
         <span class="timestamp text-muted">01/21/2020 9:56AM</span>
-        <img id="chat_pic" src="./img/ricky.JPG"
+        <img id="chat_pic" src="./img/user.png"
                   class="rounded-circle">
       </div>
       <div class="row no-gutters">
@@ -335,13 +335,15 @@
 
   <!-- Firebase core Javascript-->
   <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-storage.js"></script>
   <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-firestore.js"> </script>
   <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-messaging.js"> </script>
   <script src="js/firestore.js"> </script>
 
   <!-- Custom JS -->
   <script type="text/javascript" src="js/home.js"></script>
-  <script type="text/javascript" src="js/user.js"></script>
+  <script type="text/javascript" src="js/file.js"></script>
+  
 
   <script>
     $(document).ready(function(){
@@ -374,7 +376,7 @@
         //if user, check if received or sending
         //if admin, check if receeived or sending and who is
         //the user/chatbox owner
-        var sender = "./img/ricky.JPG";
+        var sender = "./img/user.png";
 
         //get current timestamp
         var timestamp = "01/23/2020 10:56AM"

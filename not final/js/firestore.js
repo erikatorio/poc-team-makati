@@ -21,46 +21,44 @@ var details = false
 //     return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
 // }
 
-// async function fileUpload(file_data, reportData) {
-//     var fileUrl = "";
-//     var timestamp = Number(new Date());
-//     if (isImage(file_data.name)) {
-//         var storageRef = firebase.storage().ref("images/" + timestamp.toString() + file_data.name);
-//     } else if (isVideo(file_data.name)) {
-//         var storageRef = firebase.storage().ref("videos/" + timestamp.toString() + file_data.name);
-//     } else if (isAudio(file_data.name)) {
-//         var storageRef = firebase.storage().ref("audios/" + timestamp.toString() + file_data.name);
-//     } else {
-//         return "";
-//     }
-//     var task = storageRef.put(file_data);
-//     var progress = 0;
-//     task.on('state_changed', function (snapshot) {
-//         progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-//         document.getElementById('progress').innerHTML = Math.round(progress) + "\%";
-//         console.log(progress);
-//     }, function (error) {
-//         console.log(error.message);
-//     }, function () {
-//         task.snapshot.ref.getDownloadURL().then(function (downloadURL) {
-//             reportData.attachFile = downloadURL;
-//             sendReport(reportData);
-//         });
+async function fileUpload(file_data, reportData) {
 
-//     });
+    var timestamp = Number(new Date());
+    if (isImage(file_data.name)) {
+        var storageRef = firebase.storage().ref("images/" + timestamp.toString() + file_data.name);
+    } else if (isVideo(file_data.name)) {
+        var storageRef = firebase.storage().ref("videos/" + timestamp.toString() + file_data.name);
+    } else if (isAudio(file_data.name)) {
+        var storageRef = firebase.storage().ref("audios/" + timestamp.toString() + file_data.name);
+    } else {
+        return "";
+    }
 
-// }
+    var task = storageRef.put(file_data);
+    var progress = 0;
+    
+    task.on('state_changed', function (snapshot) {
+        progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        //document.getElementById('progress').innerHTML = Math.round(progress) + "\%";
+        console.log(progress);
+    }, function (error) {
+        console.log(error.message);
+    }, function () {
+        task.snapshot.ref.getDownloadURL().then(function (downloadURL) {
+            reportData.attachFile = downloadURL;
+            sendReport(reportData);
+        });
+    });
 
-async function storeData(e, skip) {
+}
+
+async function storeData(e) {
     e.preventDefault();
-    details = !skip
-    var sendButton = document.getElementById('sendButton');
-    if(sendButton.classList.contains("disabled") )
-        return;
-    document.getElementById("L9").style.display = "inline-block";
+
     category = sessionStorage.getItem("category");
-    username = sessionStorage.getItem("isAnonymous") ? "anonymous" : sessionStorage.getItem("username");
+    username = sessionStorage.getItem("username");
     group = sessionStorage.getItem("group");
+    
     var dateInfo = "NA";
     var personInfo = "NA";
     var otherDetails = "";
@@ -68,28 +66,43 @@ async function storeData(e, skip) {
     var created = "";
     var read = false;
     var status = "pending"
-    var reportData = { category, username, group, created, dateInfo, personInfo, otherDetails, attachFile, read, status}
-    if (!skip) {
-        disableButtons();
-        reportData.dateInfo = $("input[name='date']").is(':checked') ? $("input[name='date']:checked").val() : "NA";
-        reportData.personInfo = $("input[name='person']").is(':checked') ? $("input[name='person']:checked").val() : "NA";
-        reportData.otherDetails = $.trim($("#comment").val());
-        if ($("#fileInput").val() != "") {
-            console.log('in');
-            file_data = $("#fileInput").prop("files")[0];
-            fileUpload(file_data, reportData);
-        }else{
-            sendReport(reportData);
-        }
-    } else {
-        disableButtons();
-        console.log("out");
+    var who = $("input[name='who']").val();
+    var when = $("input[name='when']").val();
+    var where = $("input[name='where']").val();
+    var how = $("input[name='how']").val();
+
+    var reportData = { 
+        category, 
+        username, 
+        group, 
+        created, 
+        dateInfo, 
+        personInfo, 
+        otherDetails, 
+        attachFile, 
+        read, 
+        status,
+        who,
+        when,
+        where,
+        how  
+    }
+    
+    reportData.dateInfo = when;//$("input[name='date']").is(':checked') ? $("input[name='date']:checked").val() : "NA";
+    reportData.personInfo = "N/A";//$("input[name='person']").is(':checked') ? $("input[name='person']:checked").val() : "NA";
+    reportData.otherDetails = "N/A";//$.trim($("#comment").val());
+    
+    if ($("#inputGroupFile01").val() != "") {
+        file_data = $("#inputGroupFile01").prop("files")[0];
+        fileUpload(file_data, reportData);
+    }else{
         sendReport(reportData);
     }
 }
 
 async function sendReport(reportData) {
     reportData.created = firebase.firestore.FieldValue.serverTimestamp();
+
     await db.collection("ids").get().then(function (querySnapshot) {
         reportData.id = querySnapshot.docs[0].data().reportID + 1;
         querySnapshot.forEach(function (doc) {
@@ -103,48 +116,39 @@ async function sendReport(reportData) {
     db.collection("reports").doc().set(reportData)
         .then(function () {
             console.log("Document successfully written!");
-            sessionStorage.removeItem("category");
-            document.getElementById("L9").style.display = "none";
-            $('#detailsModal').modal('hide');
-            enableButtons();
-            sentReportNotify();
-            if(details)
-                location.href = "/user.html";
-                
+            sessionStorage.removeItem("category");       
         })
         .catch(function (error) {
             console.error("Error writing document: ", error);
         });
 }
 
-function sentReportNotify(){
-    PNotify.success({
-        title: "Report Sent Successfully",
-        delay: 3000,
-        modules: {
-            Buttons: {
-                closer: true,
-                closerHover: true,
-                sticker: false
-            },
-            Desktop: {
-                desktop: true,
-                fallback: true,
-                icon: null
-            },
-            Mobile: {
-                swipeDismiss: true,
-                styling: true
-            }
-        }
-    });
-}
+// function sentReportNotify(){
+//     PNotify.success({
+//         title: "Report Sent Successfully",
+//         delay: 3000,
+//         modules: {
+//             Buttons: {
+//                 closer: true,
+//                 closerHover: true,
+//                 sticker: false
+//             },
+//             Desktop: {
+//                 desktop: true,
+//                 fallback: true,
+//                 icon: null
+//             },
+//             Mobile: {
+//                 swipeDismiss: true,
+//                 styling: true
+//             }
+//         }
+//     });
+// }
 
 function getCategory(id) {
     sessionStorage.setItem("category",id);
-    buttonId = id
 }
-
 
 async function logIn(e) {
     var anon = false;

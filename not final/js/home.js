@@ -1,10 +1,5 @@
-function sendReport(value){
-    console.log("hello");
-
-    //identifier = value;
-    
-    //*insert details
-
-    // something = req.body.who;
-    //["name"]
-}
+$(document).ready(function() {
+    if(sessionStorage.getItem("username") !== null){
+        document.getElementById("userName").innerHTML = sessionStorage.getItem("username");
+    }
+});
