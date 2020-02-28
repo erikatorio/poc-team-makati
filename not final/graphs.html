@@ -7,7 +7,6 @@
     <title>ITR</title>
     <link rel="icon" href="./img/flower.png" type="image/x-icon">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="./css/graphs.css">
     <!-- Google fonts -->
     <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed&display=swap" rel="stylesheet">
@@ -39,7 +38,7 @@
         <!-- 3d graph container -->
         <div class="tab-pane container active" id="firstgraph">
             <div class="container graph-container">
-                <!-- insert 3d graph here -->
+                <div id="graph3d" class="h-100"></div>
             </div>
         </div>
         <div class="tab-pane container fade" id="secondgraph">
@@ -57,7 +56,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <!-- insert 2d graph  here -->
+                    <canvas id="bargraph"></canvas>
                 </div>
             </div>
         </div>
@@ -104,7 +103,13 @@
 
     </div>
     <!-- scripts -->
-    <!-- bootstrap jquery -->
+
+    <!-- jQuery -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <!-- Bootstrap jQuery -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
@@ -121,5 +126,28 @@
             element.className += "active";
         }
     </script>
+
+    <!-- Firebase core Javascript-->
+    <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-storage.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-firestore.js"> </script>
+    <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-messaging.js"> </script>
+    <script src="js/firestore.js"> </script>
+
+    <!-- Vis Js core JavaScript-->
+    <script type="text/javascript" src="https://unpkg.com/vis-graph3d@latest/dist/vis-graph3d.min.js"></script>
+
+    <!-- Chart JS -->
+    <script type="text/javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.min.js"></script>
+
+    <!-- Custom JS -->
+    <script src="js/graph3d.js"></script>
+    <script src="js/graph2d.js"></script>
+
+    <script>
+        var ctx2d = document.getElementById('bargraph').getContext('2d');
+    </script>
+
 </body>
 </html>
