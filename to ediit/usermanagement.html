@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>User Management</title>
+
+    <!-- Bootstrap CSS CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
+        integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <!-- Our Custom CSS -->
+    <link rel="stylesheet" href="css/admincontent.css">
+    <link rel="stylesheet" href="css/chat.css">
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!-- DataTable CSS -->
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.20/b-1.6.1/b-html5-1.6.1/r-2.2.3/sc-2.0.1/datatables.min.css" />
+
+    <!-- Font Awesome JS -->
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"
+        integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ"
+        crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"
+        integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/moment@2.24.0/moment.min.js"></script>
+</head>
+
+<body style="overflow: hidden;">
+
+    <div class="wrapper">
+        <!-- Sidebar  -->
+        <nav id="sidebar">
+            <div class="sidebar-header row justify-content-between align-items-center m-0">
+                <h3 class="mx-auto">Admin Menu</h3>
+                <strong class="mx-auto">AM</strong>
+                <div class="my-auto text-center">
+                    <a class="my-auto btn" href="#" id="notifDropdown" role="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false"><i class="fas fa-bell"></i></a>
+                    <!-- Dropdown - Notif Information -->
+                    <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in scroll-secondary"
+                        aria-labelledby="notifDropdown" id="notifItem" style="max-height:40vh;overflow: auto;">
+                        <div class="dropdown-item py-0">
+                            <hr>
+                            <div class="row">
+                                <p class="col-12 m-0 text-success p-0">All reports are read.</p>
+                            </div>
+                            <hr>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sidebar Contents -->
+            <ul class="list-unstyled components">
+                <li>
+                    <a href="reportsummary.html">
+                        <i class="fas fa-home sidebaricon"></i>
+                        <span class="sidebartext"> Home</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#chartSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                        <i class="fas fa-chart-bar sidebaricon"></i>
+                        <span class="sidebartext"> Charts</span>
+                    </a>
+                    <ul class="collapse list-unstyled" id="chartSubmenu">
+                        <li>
+                            <a href="3dpiegraph.html">
+                                <i class="fas fa-cube sidebaricon" data-toggle="tooltip" data-placement="top" title="3d"
+                                    aria-hidden="true"></i><span class="pl-2 sidebartext">3D & Pie Graph</span></a>
+                        </li>
+                        <li>
+                            <a href="bargraphs.html">
+                                <i class="fas fa-chart-bar sidebaricon" data-toggle="tooltip" data-placement="top" title="3d"
+                                    aria-hidden="true"></i><span class="pl-2 sidebartext">Bar Graphs</span></a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="category.html">
+                        <i class="fas fa-list sidebaricon"></i> <span class="sidebartext"> Category</span>
+                    </a>
+                </li>
+
+                <li class="active">
+                    <a href="#">
+                        <i class="fas fa-user-alt sidebaricon"></i> <span class="sidebartext"> Users</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="table.html"><i class="fas fa-table sidebaricon"></i> <span class="sidebartext">  Table</span></a>
+                </li>
+
+                <li>
+                    <a href="print.html"><i class="fas fa-print sidebaricon"></i> <span class="sidebartext">Print Report</span></a>
+                </li>
+            </ul>
+
+            <ul class="list-unstyled components">
+                <li id="adminname" class="pl-1">
+                    Admin
+                </li>
+                <li>
+                    <a href="#language" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                        <i class="fas fa-language sidebaricon"></i> <span class="sidebartext">Language</span>
+                    </a>
+                    <ul class="collapse list-unstyled" id="language">
+                        <li>
+                            <a href="">
+                                <!-- <i class="fas fa-cube" data-toggle="tooltip" data-placement="top" title="3d"
+                            aria-hidden="true"></i> -->
+                                <span class="pl-2">English </span></a>
+                        </li>
+                        <li>
+                            <a href="JP/usermanagement.html">
+                                <!-- <i class="fas fa-chart-bar" data-toggle="tooltip" data-placement="top" title="3d"
+                            aria-hidden="true"></i> -->
+                                <span class="pl-2">Japanese </span></a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#logoutModal">
+                        <i class="fas fa-sign-out-alt sidebaricon"></i> <span class="sidebartext">Logout</span>
+                    </a>
+                </li>
+            </ul>
+            <!-- End of Sidebar -->
+
+        </nav>
+
+        <!-- Page Content  -->
+        <div id="content" style="overflow: auto;">
+
+            <nav id="menubutton" class="navbar navbar-expand-lg navbar-light">
+                <div class="container-fluid">
+                    <button type="button" id="sidebarCollapse" class="btn">
+                        <i class="fas fa-align-left"></i>
+                        <span>Admin Menu</span>
+                    </button>
+
+                    <h4 id="header_text" class="mb-0">Users</h4 id="header_text">
+                </div>
+            </nav>
+
+            <div class="container">
+                <div class="row py-1">
+                    <div id="maincontainer" class="col-md rounded shadow-sm pt-2 pb-4">
+                        <div class="row">
+                            <div class="col-md h-25">
+                                <h2 id="pagetitle" class="text-center my-0">User Management:</h2>
+                                <button id="addUserButton" class="material-icons" type="button" data-toggle="modal"
+                                    data-target="#userModal" data-toggle="tooltip" data-placement="top"
+                                    title="Add Users">add</button>
+                                <div id="showUsersTable" class="pt-2">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- Add User Modal-->
+    <div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form action="" autocomplete="off" onsubmit="event.preventDefault();" class="w-100">
+                    <div class="modal-header">
+                        <h5 id="categoryModalTitle" class="modal-title">Add Users</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <table id='addUsersTable' class='display'>
+                            <thead class='thead-inverse bg-custom text-custom'>
+                                <tr>
+                                    <th style='width:50%;'>Username</th>
+                                    <th style='width:50%;'>Group</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class=" modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                        <button id="userModalButton" type="submit" class="btn btn-primary disabled" role="button"
+                            aria-disabled="true">Add Users</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- End of Add User Modal -->
+
+    <!-- Update User Modal-->
+    <div class="modal fade" id="updateUserModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <form action="" autocomplete="on" onsubmit="event.preventDefault();" class="w-100">
+                    <div class="modal-header">
+                        <h5 id="userModalTitle" class="modal-title">Update User</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="row pl-4 pb-4 w-100">
+                            <div class="col">
+                                <div class="row">
+                                    <h3 id="userModalh3">Update User</h3>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row pl-4 w-100">
+                            <div class="row w-100">
+                                <ul class="list-unstyled pl-2">
+                                    <li id="userID">User ID: </li>
+                                    <li id="userName">Username: </li>
+                                </ul>
+                                <div class="row pl-4 w-100">
+                                    <label for="userGroup" class="h6">Group:</label>
+                                </div>
+                                <div class="row pl-4 pb-2">
+                                    <input type="text" id="userGroup" onfocus="userGroupSearch()" placeholder="Group"
+                                        required />
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                        <button id="userModalButton" type="submit" class="btn btn-primary">Update</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <button class="btn btn-primary" onclick="logOut()">Logout</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Chat  -->
+    <div id="open-button" class="btn btn-raised" onclick="openForm(1)">
+        <div id="chat-overlay"></div>
+        <i class="material-icons" style="font-size: 30px;">message</i>
+    </div>
+
+    <div class="chat-popup" id="myForm">
+        <div class="card-header">
+            <button class="minimize" onclick="closeForm(1);" class="cursor-pointer">
+                <i class="material-icons">minimize</i>
+            </button>
+            <div class="input-group">
+                <div id="peopleIcon">
+                    <i class="material-icons">people</i>
+                </div>
+                <input onkeyup="searchUser()" id="searchUser" type="text" placeholder="Search..." name=""
+                    class="form-control search">
+                <div class="input-group-prepend">
+                    <span class="input-group-text search_btn"><i class="fas fa-search"></i></span>
+                </div>
+            </div>
+        </div>
+        <div class="card-body contacts_body scroll">
+            <ui id="users" class="contacts">
+            </ui>
+        </div>
+    </div>
+
+    <div class="chat-popup" id="messageBox">
+        <div class="card-header">
+            <button class="minimize" onclick="closeForm(1);">
+                <i class="material-icons">minimize</i>
+            </button>
+            <button onclick="backToContacts();" class="back-button">
+                <i class="material-icons">keyboard_backspace</i>
+            </button>
+            <div class="input-group">
+                <div>
+                    <img src="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-ios7-contact-512.png"
+                        class="rounded-circle user_img">
+                </div>
+                <div class="user_info">
+                    <span id="user_name"></span>
+                    <p id="user_group"></p>
+                </div>
+            </div>
+        </div>
+
+        <div id="messagesList">
+            <!-- <li class="pl-2 pr-2 bg-primary rounded text-white text-center send-msg mb-1">
+              hiii
+            </li>
+            <li class="p-1 rounded mb-1">
+                <div class="receive-msg">
+                    <img src="http://nicesnippets.com/demo/image1.jpg">
+                    <div class="receive-msg-desc  text-center mt-1 ml-1 pl-2 pr-2">
+                        <p class="pl-2 pr-2 rounded">hello</p>
+                    </div>
+                </div>
+            </li> -->
+        </div>
+        <div class="message-box ">
+            <form id="message-form" action="#" autocomplete="off" class="row justify-content-between mx-2">
+                <input id="messageInput" type="text" class="pl-1 pr-0" placeholder="Type a message..." />
+                <div class="buttons">
+                    <input id="mediaCapture" type="file" accept="image/*" capture="camera">
+                    <button id="submitImage"><i class="material-icons">image</i></button>
+                    <button id="submitMessage" type="submit" disabled><i class="material-icons">send</i></button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- Firebase core Javascript-->
+    <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-firestore.js"> </script>
+    <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-messaging.js"> </script>
+    <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-storage.js"></script>
+    <!-- jQuery CDN - Slim version (=without AJAX) -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <!-- Popper.JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <!-- Bootstrap JS -->
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"
+        integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
+        crossorigin="anonymous"></script>
+    <!-- PNotify Javascript-->
+    <script type="text/javascript" src="node_modules/pnotify/dist/iife/PNotify.js"></script>
+    <link href="node_modules/pnotify/dist/PNotifyBrightTheme.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="node_modules/pnotify/dist/iife/PNotifyButtons.js"></script>
+    <script type="text/javascript" src="node_modules/pnotify/dist/iife/PNotifyCallbacks.js"></script>
+    <script type="text/javascript" src="node_modules/pnotify/dist/iife/PNotifyMobile.js"></script>
+    <script type="text/javascript" src="node_modules/pnotify/dist/iife/PNotifyHistory.js"></script>
+    <script type="text/javascript" src="node_modules/pnotify/dist/iife/PNotifyDesktop.js"></script>
+    <script type="text/javascript" src="node_modules/pnotify/dist/iife/PNotifyConfirm.js"></script>
+    <script type="text/javascript" src="node_modules/pnotify/dist/iife/PNotifyReference.js"></script>
+    <script type="text/javascript">
+        window.centerModalStack = {
+            'dir1': 'down',
+            'firstpos1': 25,
+            'modal': true,
+            'overlayClose': true
+        };
+        PNotify.modules.History.defaults.maxInStack = 3;
+    </script>
+    <!-- Password Generator -->
+    <script src="https://cdn.rawgit.com/bermi/password-generator/master/dist/password-generator.min.js"
+        type="text/javascript"></script>
+    <!-- Cipboard JS -->
+    <script src="https://cdn.rawgit.com/zenorocha/clipboard.js/v2.0.4/dist/clipboard.min.js"></script>
+    <!-- DataTable JS -->
+    <script type="text/javascript"
+        src="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.20/b-1.6.1/b-colvis-1.6.1/b-html5-1.6.1/r-2.2.3/sc-2.0.1/sl-1.3.1/datatables.min.js"></script>
+    <script src="js/sidebar.js"> </script>
+    <script src="js/firestore.js"> </script>
+    <script src="js/notif.js"></script>
+    <script src="js/usermanagement.js"></script>
+    <script src="js/chat.js"></script>
+
+
+</body>
+
+</html>
