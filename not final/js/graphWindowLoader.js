@@ -16,35 +16,33 @@ window.addEventListener("load", async () => {
     byCategory();
     findMax();
     
-    loadData(1).then(function () {
+    loadData(2).then(function () {
         drawVisualization(data);
-        drawVisualization2d(search, 1);
-        drawPie(1);
+        drawVisualization2d(search, 2);
+        drawPie(2);
     });
     
-    $('#group').change(function () {
+    $('#category').change(function () {
         generateColors(1);
         search = 1;
         document.getElementById("search").value = search.toString();
         buttonEnabler(search);
         drawVisualization2d(search, 1);
-        drawPie(1);
     });
-
-    $('#category').change(function () {
+    
+    $('#group').change(function () {
         generateColors(2);
         search = 1;
         document.getElementById("search").value = search.toString();
         buttonEnabler(search);
         drawVisualization2d(search, 2);
-        drawPie(2);
-    });
-
-    $('#dept').change(function () {
-        drawPie(1);
     });
 
     $('#incident').change(function () {
+        drawPie(1);
+    });
+
+    $('#dept').change(function () {
         drawPie(2);
     });
 });

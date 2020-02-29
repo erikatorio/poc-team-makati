@@ -3,11 +3,11 @@ async function drawPie(groupBy) {
     let displayLabel = [];
 
     if (groupBy == 1) {
-        displayData = groupsCount;
-        displayLabel = groups;
-    } else {
         displayData = categoriesCount;
         displayLabel = categories;
+    } else {
+        displayData = groupsCount;
+        displayLabel = groups;
     }
     if (pieChart != null) {
         pieChart.destroy();
@@ -38,12 +38,12 @@ async function drawVisualization2d(search, sortBy) {
     let displayMax = 0;
     let index = search - 1;
 
-    let labelStr = sortBy == 1 ? 'Incident' : 'Department';
+    let labelStr = sortBy == 1 ? 'Department' : 'Incident';
 
-    arrayLabel = sortBy == 1 ? groups : categories;
-    displayLabel = sortBy == 1 ? categories : groups;
-    displayData = sortBy == 1 ? byGroupCount[index] : byCategoryCount[index];
-    displayMax = sortBy == 1 ? maxGroupCount : maxCategoryCount;
+    arrayLabel = sortBy == 1 ? categories : groups;
+    displayLabel = sortBy == 1 ? groups : categories;
+    displayData = sortBy == 1 ? byCategoryCount[index] : byGroupCount[index];
+    displayMax = sortBy == 1 ? maxCategoryCount : maxGroupCount;
     displayMax = Math.ceil((displayMax + 1) / 10) * 10;
 
     if (barGraph != null) {
