@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <script>
+      if (!sessionStorage.getItem("username"))
+        location.href = "/index.html";
+    </script>
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -78,21 +83,21 @@
     <div class="row w-100">
         <div class="col-3 edit">
             <div class="edit-image row justify-content-center">
-                <img src="./img/user.png" alt="" class="rounded-circle edit-img">
-                <div class="img-overlay rounded-circle"><input id='fileid' type='file' hidden/><a href="" onclick="showDialog()"><img src="./img/edit.png" alt=""></a></div>
+                <img id="user_picture" src="./img/user.png" alt="" class="rounded-circle edit-img">
+                <div class="img-overlay rounded-circle"><input id='fileid' class="custom-file-input" accept="image/*" value="" type='file' hidden><a href="#" onclick="showDialog()"><img src="./img/edit.png" alt=""></a></div>
             </div>
             <div class="row justify-content-center">
-                <p class="t-content username">  rickybowen</p>
+                <p id="username" class="t-content username">Username</p>
             </div>
             <div class="row justify-content-center">
-                <p class="t-content">Department 1</p>
+                <p id="department" class="t-content">Department</p>
             </div>
         </div>
         <div class="col-9 edit">
             <form action="" class="edit-profile">
                 <!-- username -->
                 <div class="md-form">
-                    <input type="email" id="materialFormCardEmailEx" class="form-control" placeholder="rickybowen">
+                    <input type="email" id="materialFormCardEmailEx" class="form-control" placeholder="New Username">
                     <label for="materialFormCardEmailEx" class="font-weight-light">Username</label>
                 </div>
 
@@ -109,7 +114,7 @@
                 </div>
 
                 <div class="save-profile">
-                    <button class="btn btn-secondary btn-block my-4" type="submit">Save</button>
+                    <button class="btn btn-secondary btn-block my-4" type="submit" onclick="saveProfile(event)">Save</button>
                 </div>
             </form>
         </div>
@@ -147,7 +152,7 @@
       <!--user message sample-->
       <div class="d-flex justify-content-between">
         <span class="timestamp text-muted">01/21/2020 9:56AM</span>
-        <img id="chat_pic" src="./img/ricky.JPG"
+        <img id="chat_pic" src="./img/user.png"
                   class="rounded-circle">
       </div>
       <div class="row no-gutters">
@@ -158,7 +163,7 @@
       <!--user message sample-->
       <div class="d-flex justify-content-between">
         <span class="timestamp text-muted">01/21/2020 9:56AM</span>
-        <img id="chat_pic" src="./img/ricky.JPG"
+        <img id="chat_pic" src="./img/user.png"
                   class="rounded-circle">
       </div>
       <div class="row no-gutters">
@@ -185,6 +190,17 @@
   <!-- MDB core JavaScript -->
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.13.0/js/mdb.min.js"></script>
 
+  <!-- Firebase core Javascript-->
+  <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-storage.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-firestore.js"> </script>
+  <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-messaging.js"> </script>
+  <script src="js/firestore.js"> </script>
+
+  <!-- Custom JS -->
+  <script src="js/editprofile.js"></script>
+  <script src="js/file.js"></script>
+
   <script>
 function showChat(){
 		  $('.toast').toast('show');
@@ -208,7 +224,7 @@ function showChat(){
         //if user, check if received or sending
         //if admin, check if receeived or sending and who is
         //the user/chatbox owner
-        var sender = "./img/ricky.JPG";
+        var sender = "./img/user.png";
 
         //get current timestamp
         var timestamp = "01/23/2020 10:56AM"

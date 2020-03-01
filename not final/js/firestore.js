@@ -188,6 +188,7 @@ async function logIn(e) {
             sessionStorage.setItem("group", docs[0].group);
             sessionStorage.setItem("userType", docs[0].userType);
             sessionStorage.setItem("userId", docs[0].id);
+            sessionStorage.setItem("enableAnonymous", docs[0].enableAnonymousSending);
             if (anon)
                 sessionStorage.setItem("isAnonymous", true);
             location.href = "home.html";
@@ -227,6 +228,7 @@ async function logInJp(e) {
             sessionStorage.setItem("group", docs[0].group);
             sessionStorage.setItem("userType", docs[0].userType);
             sessionStorage.setItem("userId", docs[0].id);
+            sessionStorage.setItem("enableAnonymous", docs[0].enableAnonymousSending);
             if (anon)
                 sessionStorage.setItem("isAnonymous", true);
             location.href = "/JP/home.html";
