@@ -377,17 +377,17 @@ function drawVisualizationTrend(displayBy){
 
     switch(displayBy){
         case 0: 
-            dateLabels = getDates(date.subtractDays(6), date);
+            dateLabels = getDates(date.subtractDays(5), date);
             titleText = 'Weekly Trend';
             xAxisText = 'Day';
             break;
         case 1: 
-            dateLabels = getMonths(date.subtractMonths(6), date);
+            dateLabels = getMonths(date.subtractMonths(5), date);
             titleText = 'Monthly Trend';
             xAxisText = 'Month';
             break;
         case 2: 
-            dateLabels = getYears(date.subtractYears(6), date);
+            dateLabels = getYears(date.subtractYears(5), date);
             titleText = 'Yearly Trend';
             xAxisText = 'Year';
             break;
