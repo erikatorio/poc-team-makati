@@ -339,6 +339,8 @@ function generateDataSet(sortBy){
             break;
     }
 
+    //set sortby category or group here
+
     for(let i = 0; i < reports.length; i++){
         for(let j = 0; j < groups.length; j++){
             for(let k = 0; k < dates.length; k++){
