@@ -113,19 +113,19 @@
             <div class="container graph-container">
                 <div class="row">
                     <div class="dropdown show">
-                        <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a class="btn dropdown-toggle" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                           Trend Range
                         </a>
                       
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                          <a class="dropdown-item" href="#">Weekly</a>
-                          <a class="dropdown-item" href="#">Monthly</a>
-                          <a class="dropdown-item" href="#">Yearly</a>
+                          <a class="dropdown-item" href="#" onclick="changeDropdownLabel(0)">Weekly</a>
+                          <a class="dropdown-item" href="#" onclick="changeDropdownLabel(1)">Monthly</a>
+                          <a class="dropdown-item" href="#" onclick="changeDropdownLabel(2)">Yearly</a>
                         </div>
                       </div>
                 </div>
                 <div class="row">
-                    <!-- insert trend graph here -->
+                    <canvas id="trendgraph"></canvas>
                 </div>
             </div>
         </div>
@@ -173,6 +173,16 @@
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
+    <!-- Popper JS
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"
+      integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
+      crossorigin="anonymous"></script>
+
+    Bootstrap JS 
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script> -->
+
     <!-- Vis Js core JavaScript-->
     <script type="text/javascript" src="https://unpkg.com/vis-graph3d@latest/dist/vis-graph3d.min.js"></script>
 
@@ -187,6 +197,7 @@
     <script src="js/graph2d.js"></script>
 
     <script>
+        var ctxTrend = document.getElementById('trendgraph').getContext('2d');
         var ctx2d = document.getElementById('bargraph').getContext('2d');
         var ctx = document.getElementById('piechart').getContext('2d');
     </script>

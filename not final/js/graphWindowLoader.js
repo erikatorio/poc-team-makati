@@ -20,6 +20,7 @@ window.addEventListener("load", async () => {
         drawVisualization(data);
         drawVisualization2d(search, 2);
         drawPie(2);
+        drawVisualizationTrend(0);
     });
     
     $('#category').change(function () {

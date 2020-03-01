@@ -12,6 +12,7 @@ async function drawPie(groupBy) {
     if (pieChart != null) {
         pieChart.destroy();
     }
+
     pieChart = new Chart(ctx, {
         type: "doughnut",
         options: {
@@ -208,5 +209,268 @@ function searchBoxField(){
     
     if((event.key === 'Enter' || event.type === 'click') && searchString != ''){
         findString(searchString.toLowerCase());
+    }
+}
+
+// -----Trend Graph-----
+Date.prototype.addDays = function(days) {
+    var date = new Date(this.valueOf());
+    date.setDate(date.getDate() + days);
+    return date;
+}
+
+Date.prototype.subtractDays = function(days) {
+    var date = new Date(this.valueOf());
+    date.setDate(date.getDate() - days);
+    return date;
+}
+
+Date.prototype.addMonths = function(months) {
+    var date = new Date(this.valueOf());
+    date.setMonth(date.getMonth() + months);
+    return date;
+}
+
+Date.prototype.subtractMonths = function(months) {
+    var date = new Date(this.valueOf());
+    date.setMonth(date.getMonth() - months);
+    return date;
+}
+
+Date.prototype.addYears = function(years) {
+    var date = new Date(this.valueOf());
+    date.setFullYear(date.getFullYear() + years);
+    return date;
+}
+
+Date.prototype.subtractYears = function(years) {
+    var date = new Date(this.valueOf());
+    date.setFullYear(date.getFullYear() - years);
+    return date;
+}
+
+function getDates(startDate, stopDate) {
+    
+    var dateArray = new Array();
+    var currentDate = startDate;
+    while (currentDate <= stopDate) {
+        dateArray.push((new Date (currentDate)).toLocaleString('en-US', { day: 'numeric', month: 'short', year: 'numeric' }));
+        currentDate = currentDate.addDays(1);
+    }
+    return dateArray;
+}
+
+function getMonths(startDate, stopDate) {
+    
+    var dateArray = new Array();
+    var currentDate = startDate;
+    while (currentDate <= stopDate) {
+        dateArray.push((new Date (currentDate)).toLocaleString('en-US', { month: 'short', year: 'numeric' }));
+        currentDate = currentDate.addMonths(1);
+    }
+    return dateArray;
+}
+
+function getYears(startDate, stopDate) {
+    
+    var dateArray = new Array();
+    var currentDate = startDate;
+    while (currentDate <= stopDate) {
+        dateArray.push((new Date (currentDate)).toLocaleString('en-US', { year: 'numeric' }));
+        currentDate = currentDate.addYears(1);
+    }
+    return dateArray;
+}
+
+function generateColor() {
+
+    let r = Math.floor(Math.random() * 255);
+    let g = Math.floor(Math.random() * 255);
+    let b = Math.floor(Math.random() * 255);
+    let color = "rgba(" + r + "," + g + "," + b + ", 2)";
+
+    return color;
+}
+
+let countReportsByGroup = [];
+let countReportsByCategories = [];
+
+function initTrendArray() {
+    
+    for (let i = 0; i < groups.length; i++) {
+        countReportsByGroup[i] = [];
+    }
+
+    for (let i = 0; i < categories.length; i++) {
+        countReportsByCategories[i] = [];
+    }
+
+    for (let i = 0; i < groups.length; i++) {
+        for (let j = 0; j < 6; j++) {
+            countReportsByGroup[i][j] = 0;
+        }
+    }
+
+    for (let i = 0; i < categories.length; i++) {
+        for (let j = 0; j < 6; j++) {
+            countReportsByCategories[i][j] = 0;
+        }
+    }
+}
+
+function generateDataSet(sortBy){
+    let date = new Date();
+    let options = {};
+    let dates = [];
+    let dataSet = [];
+
+    switch(sortBy){
+        case 0: 
+            dates = getDates(date.subtractDays(6), date);
+            options = { day: 'numeric', month: 'short', year: 'numeric' };
+            break;
+        case 1: 
+            dates = getMonths(date.subtractMonths(6), date);
+            options = { month: 'short', year: 'numeric' };
+            break;
+        case 2: 
+            dates = getYears(date.subtractYears(5), date);
+            options = { year: 'numeric' };
+            break;
+    }
+
+    for(let i = 0; i < reports.length; i++){
+        for(let j = 0; j < groups.length; j++){
+            for(let k = 0; k < dates.length; k++){
+                let reportDate = reports[i].created.toDate().toLocaleString("en-US", options);
+                if (reports[i].group === groups[j] && reportDate === dates[k]){
+                    countReportsByGroup[j][k] += 1;
+                }
+            }
+        }
+    }
+
+    for(let i = 0; i < groups.length; i++){
+        let color = generateColor();
+        dataSet.push({
+            label: groups[i] + " Department", // Name the series
+            data: countReportsByGroup[i], // Specify the data values array
+            fill: false,
+            borderColor: color, // Add custom color border (Line)
+            backgroundColor: color, // Add custom color background (Points and Fill)
+            borderWidth: 1.5 // Specify bar border width
+        });
+    }
+    
+    return dataSet;
+}
+
+function drawVisualizationTrend(displayBy){
+    let dateLabels = [];
+    let date = new Date();
+    let dataSet = [];
+    let titleText = "";
+    let xAxisText = "";
+    
+    initTrendArray();
+    dataSet = generateDataSet(displayBy);
+
+    switch(displayBy){
+        case 0: 
+            dateLabels = getDates(date.subtractDays(6), date);
+            titleText = 'Weekly Trend';
+            xAxisText = 'Day';
+            break;
+        case 1: 
+            dateLabels = getMonths(date.subtractMonths(6), date);
+            titleText = 'Monthly Trend';
+            xAxisText = 'Month';
+            break;
+        case 2: 
+            dateLabels = getYears(date.subtractYears(6), date);
+            titleText = 'Yearly Trend';
+            xAxisText = 'Year';
+            break;
+    }
+
+    var myChart = new Chart(ctxTrend, {
+        type: 'line',
+        data: {
+            labels: dateLabels,
+            datasets: dataSet,
+        },
+        options: {
+            responsive: true, // Instruct chart js to respond nicely.
+            maintainAspectRatio: true, // Add to prevent default behaviour of full-width/height
+            title: {
+                display: true,
+                text: titleText,
+                position: 'top',
+                fontSize: 16,
+                fontStyle: 'bold',
+                fontFamily: 'helvetica neue'
+            },
+            legend: {
+                position: 'top',
+                labels: {
+                    fontSize: 12,
+                    fontStyle: 'bold',
+                    fontFamily: 'arial',
+                    boxWidth: 15
+                }
+            },
+            scales: {
+                yAxes: [{
+                    display: true,
+                    ticks: {
+                        stepSize: 1,
+                        max: maxGroupCount + 5,
+                        beginAtZero: true,
+                    },
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Number of Reports',
+                        fontSize: 14
+                    }
+                }],
+                xAxes: [{
+                    scaleLabel: {
+                        fontSize: 14,
+                        display: true,
+                        labelString: xAxisText
+                    }
+                }]
+            }
+        }
+    });
+
+}
+
+// function downloadPNG(){
+//     html2canvas($("#weeklyReports"), {
+//         onrendered: function(canvas) {         
+//             var imgData = canvas.toDataURL('image/png').replace("image/png", "image/octet-stream");
+//             let link  = document.createElement('a');
+//             link.download = "Weekly Report.png";
+//             link.href = imgData;
+//             link.click();
+//         }
+//     });
+// }
+
+function changeDropdownLabel(value){
+    switch(value){
+        case 0:
+            document.getElementById('dropdownMenuLink').innerHTML = "Weekly";
+            drawVisualizationTrend(0);
+            break;
+        case 1:
+            document.getElementById('dropdownMenuLink').innerHTML = "Monthly";
+            drawVisualizationTrend(1);
+            break;
+        case 2:
+            document.getElementById('dropdownMenuLink').innerHTML = "Yearly";
+            drawVisualizationTrend(2);
+            break;
     }
 }
