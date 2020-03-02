@@ -84,8 +84,8 @@
     <!-- navbar end -->
   
   <!-- table -->
-  <div class="container">
-      <table id="dtBasicExample" class="table table-sm">
+  <div class="container" id="allReports">
+      <!-- <table id="dtBasicExample" class="table table-sm">
           <thead>
               <th scope="col" class="th-sm">#</th>
               <th scope="col" class="th-sm">カテゴリー</th>
@@ -121,7 +121,7 @@
                     <button class="btn btn-primary" data-toggle="modal" data-target="#basicExampleModal">Edit</button></td>
               </tr>
           </tbody>
-      </table>
+      </table> -->
   </div>
   <!-- table end -->
 
@@ -208,7 +208,7 @@
       <!--user message sample-->
       <div class="d-flex justify-content-between">
         <span class="timestamp text-muted">01/21/2020 9:56AM</span>
-        <img id="chat_pic" src="./img/ricky.JPG"
+        <img id="chat_pic" src="./img/user.png"
                   class="rounded-circle">
       </div>
       <div class="row no-gutters">
@@ -219,7 +219,7 @@
       <!--user message sample-->
       <div class="d-flex justify-content-between">
         <span class="timestamp text-muted">01/21/2020 9:56AM</span>
-        <img id="chat_pic" src="./img/ricky.JPG"
+        <img id="chat_pic" src="./img/user.png"
                   class="rounded-circle">
       </div>
       <div class="row no-gutters">
@@ -246,6 +246,17 @@
   <!-- MDB core JavaScript -->
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.13.0/js/mdb.min.js"></script>
   <script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+  
+  <!-- Firebase core Javascript-->
+  <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-storage.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-firestore.js"> </script>
+  <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-messaging.js"> </script>
+  <script src="js/firestore.js"></script>
+
+  <!-- Custom JS -->
+  <script src="js/reports.js"></script>
+
   <script>
     $(document).ready(function () {
 $('#dtBasicExample').DataTable();
@@ -273,7 +284,7 @@ function showChat(){
         //if user, check if received or sending
         //if admin, check if receeived or sending and who is
         //the user/chatbox owner
-        var sender = "./img/ricky.JPG";
+        var sender = "./img/user.png";
 
         //get current timestamp
         var timestamp = "01/23/2020 10:56AM"
