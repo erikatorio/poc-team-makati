@@ -105,7 +105,7 @@
     <!-- end of sidebar -->
 
       <div class="container" id="table-container">
-        <h2 id="header-title">
+        <!-- <h2 id="header-title">
           Reports Management
           <small class="text-muted">View and update report status</small>
         </h2>
@@ -150,8 +150,8 @@
                 <td><button class="btn btn-row" data-toggle="modal" data-target="#reportID3"><i class="fa fa-eye" aria-hidden="true"></i></button></td>
               </tr>
             </tbody>
-          </table>
-
+          </table> -->
+      </div>
     <!-- Modal -->
     <div class="modal fade" id="reportID1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
@@ -327,11 +327,22 @@
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
 
+    <!-- Firebase core Javascript-->
+    <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-storage.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-firestore.js"> </script>
+    <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-messaging.js"> </script>
+    <script src="js/firestore.js"> </script>
+
+    <!-- Custom JS -->
+    <script src="js/dataloader.js"></script>
+    <script src="js/reports-admin.js"></script>
+
     <!-- script -->
-    <script>
+    <!-- <script>
       $(document).ready(function() {
           $('#example').DataTable();
       });
-    </script>
+    </script> -->
 </body>
 </html>

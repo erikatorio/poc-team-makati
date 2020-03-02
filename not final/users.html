@@ -113,37 +113,11 @@
             <button id="add-user-btn" type="button" class="btn btn-main" data-toggle="modal" data-target="#addNewUserModal">
               <i class="fas fa-user-plus"></i> Add New User
             </button>
-          </div>
-        <table id="example" class="table">
-            <thead>
-              <tr id="flat-row">
-                <th scope="col" class="table-header th-sm">#</th>
-                <th scope="col" class="table-header th-sm">Username</th>
-                <th scope="col" class="table-header th-sm">Department</th>
-                <th class="table-header th-sm">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr class="report-row" id="flat-row">
-                <th scope="row" class="table-id">1</th>
-                <td class="table-content">rickybowen</td>
-                <td class="table-content">Dev B</td>
-                <td><button class="btn btn-row"><i class="fas fa-trash-alt"></i></button></td>
-              </tr>
-              <tr class="report-row" id="flat-row">
-                <th scope="row" class="table-id">2</th>
-                <td class="table-content">ninisr</td>
-                <td class="table-content">Dev A</td>
-                <td><button class="btn btn-row"><i class="fas fa-trash-alt"></i></button></td>
-              </tr>
-              <tr class="report-row" id="flat-row">
-                <th scope="row" class="table-id">3</th>
-                <td class="table-content">supergirl</td>
-                <td class="table-content">Dev B</td>
-                <td><button class="btn btn-row"><i class="fas fa-trash-alt"></i></button></td>
-              </tr>
-            </tbody>
-          </table>
+        </div>
+
+        <!-- USER TABLE -->
+        <div id="userTable">
+        </div>
 
     <!-- Add user Modal -->
     <div class="modal fade" id="addNewUserModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -189,11 +163,22 @@
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
 
+    <!-- Firebase core Javascript-->
+    <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-storage.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-firestore.js"> </script>
+    <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-messaging.js"> </script>
+    <script src="js/firestore.js"> </script>
+
+    <!-- Custom JS -->
+    <script src="js/dataloader.js"></script>
+    <script src="js/users.js"></script>
+
     <!-- script -->
-    <script>
+    <!-- <script>
       $(document).ready(function() {
           $('#example').DataTable();
       });
-    </script>
+    </script> -->
 </body>
 </html>
