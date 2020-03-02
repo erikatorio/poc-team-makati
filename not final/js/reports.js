@@ -9,7 +9,7 @@ window.addEventListener("load", async () => {
     await getReports();
     await showTables();
     await reportDetails();
-    $('#username').html(sessionStorage.getItem('username'));
+    $('#userName').html(sessionStorage.getItem('username'));
     reportsTable = $('#reportsTable').DataTable({
         dom: 'Bfrtip',
         scrollY: '60vh',
@@ -123,14 +123,6 @@ async function saveChanges(reportID) {
                 $('#reportDetails').modal('hide');
                 setTimeout(location.reload.bind(location), 500);
             }
-
-            // NOTIFY USER
-
-            // loadReportDetails(report).then(() => {
-            //     $('#reportDetails').modal('show');
-            // }).then(()=>{
-            //     showNotif()
-            // })
         }
     })
 }
@@ -149,14 +141,6 @@ async function removeFile(reportID) {
                     });
                 });
             });
-
-            // NOTIFY USER
-
-            // loadReportDetails(report).then(() => {
-            //     $('#reportDetails').modal('show');
-            // }).then(()=>{
-            //     showNotif()
-            // })
         }
     })
 }
@@ -289,8 +273,9 @@ async function showTables() {
     //Add body
     let body = '<tbody>';
     reports.forEach(function (report) {
-
-        if(report.status != "hidden"){
+        console.log(report);
+        console.log(sessionStorage.getItem('username'));
+        if(report.status != "hidden" && report.username == sessionStorage.getItem('username') ){
             if (typeof cCtr[report.category] === "undefined") {
                 cCtr[report.category] = 0;
             } else {
