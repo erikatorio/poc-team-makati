@@ -88,247 +88,119 @@
           <!-- /END Separator -->	 
           <a href="#language" data-toggle="collapse" aria-expanded="false" class="bg-light list-group-item list-group-item-action flex-column align-items-start" title="Language">
               <div class="d-flex w-100 justify-content-start align-items-center">
-                  <span class="fa fa-language fa-fw mr-3" style="color: #8A6E59"></span>
+                  <span class="fa fa-cube fa-fw mr-3" style="color: #8A6E59"></span> 
                   <span class="submenu-icon d-none ml-auto"></span>
               </div>
-          </a>
-          <!-- Submenu content -->
-          <div id='language' class="collapse sidebar-submenu" style="border-radius: none;">
-              <a href="#" class="list-group-item list-group-item-action bg-light justify-content-start align-items-center" style="padding: 0;">
-                  <p style="color: #8A6E59; padding-left:20px; padding-top: 10px;">EN</p>
-              </a>
-              <a href="JP/reportsummary.html" class="list-group-item list-group-item-action bg-light justify-content-start align-items-center" style="padding: 0;">
-                  <p style="color: #8A6E59; padding-left:20px; padding-top: 10px;">JP</p>
-              </a>
-          </div>           
-          <a href="#" class="bg-light list-group-item list-group-item-action" title="Logout" data-toggle="modal" data-target="#logoutModal">
-              <div class="d-flex w-100 justify-content-start align-items-center">
-                  <span class="fa fa-sign-out fa-fw mr-3" style="color: #8A6E59"></span>
-              </div>
-          </a>
-      </ul><!-- List Group END-->
-    </div>
-    <!-- end of sidebar -->
+            </a>
+            <a href="category.html" class="bg-light list-group-item list-group-item-action" title="Category">
+                    <div class="d-flex w-100 justify-content-start align-items-center">
+                        <span class="fa fa-list fa-fw mr-3" style="color: #8A6E59"></span>
+                        <span class="menu-collapsed">Category</span>    
+                    </div>
+          </a>          
+            <a href="users.html" class="bg-light list-group-item list-group-item-action" title="Users">
+                <div class="d-flex w-100 justify-content-start align-items-center">
+                    <span class="fa fa-user fa-fw mr-3" style="color: #8A6E59"></span>
+                </div>
+            </a>
+            <a href="reports-admin.html" class="bg-light list-group-item list-group-item-action" title="Table">
+                <div class="d-flex w-100 justify-content-start align-items-center">
+                    <span class="fa fa-table fa-fw mr-3" style="color: #8A6E59"></span>
+                </div>
+            </a>   
+            <a href="print.html" class="bg-light list-group-item list-group-item-action" title="Table">
+                    <div class="d-flex w-100 justify-content-start align-items-center">
+                        <span class="fa fa-print fa-fw mr-3" style="color: #8A6E59"></span>
+                        <span class="menu-collapsed">Table</span>    
+                    </div>
+                </a>   
+            <!-- Separator -->
+            <li class="list-group-item sidebar-separator-title text-muted d-flex align-items-center menu-collapsed">
+                <small></small>
+            </li>
+            <!-- /END Separator -->	 
+            <a href="#language" data-toggle="collapse" aria-expanded="false" class="bg-light list-group-item list-group-item-action flex-column align-items-start" title="Language">
+                <div class="d-flex w-100 justify-content-start align-items-center">
+                    <span class="fa fa-language fa-fw mr-3" style="color: #8A6E59"></span>
+                    <span class="submenu-icon d-none ml-auto"></span>
+                </div>
+            </a>
+            <!-- Submenu content -->
+            <div id='language' class="collapse sidebar-submenu" style="border-radius: none;">
+                <a href="#" class="list-group-item list-group-item-action bg-light justify-content-start align-items-center" style="padding: 0;">
+                    <p style="color: #8A6E59; padding-left:20px; padding-top: 10px;">EN</p>
+                </a>
+                <a href="JP/reportsummary.html" class="list-group-item list-group-item-action bg-light justify-content-start align-items-center" style="padding: 0;">
+                    <p style="color: #8A6E59; padding-left:20px; padding-top: 10px;">JP</p>
+                </a>
+            </div>           
+            <a href="#" class="bg-light list-group-item list-group-item-action" title="Logout" data-toggle="modal" data-target="#logoutModal">
+                <div class="d-flex w-100 justify-content-start align-items-center">
+                    <span class="fa fa-sign-out fa-fw mr-3" style="color: #8A6E59"></span>
+                </div>
+            </a>
+        </ul><!-- List Group END-->
+      </div>
+      <!-- end of sidebar -->
 
+      <!-- REPORT TABLE -->
       <div class="container" id="table-container">
-        <!-- <h2 id="header-title">
-          Reports Management
-          <small class="text-muted">View and update report status</small>
-        </h2>
-        <table id="example" class="table">
-            <thead>
-              <tr id="flat-row">
-                <th scope="col" class="table-header th-sm">#</th>
-                <th scope="col" class="table-header th-sm">カテゴリー</th>
-                <th scope="col" class="table-header th-sm">デパートメント</th>
-                <th scope="col" class="table-header th-sm">日付</th>
-                <th scope="col" class="table-header th-sm">提出した人</th>
-                <th scope="col" class="table-header th-sm">ステータス</th>
-                <th class="table-header th-sm">Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr id="flat-row">
-                <th scope="row" class="table-id">1</th>
-                <td class="table-content">Physical Harassment</td>
-                <td class="table-content">Dev B</td>
-                <td class="table-content">February 22, 2019</td>
-                <td class="table-content">rickybowen</td>
-                <td class="table-content text-success">Completed</td>
-                <td><button class="btn btn-row" data-toggle="modal" data-target="#reportID1"><i class="fa fa-eye" aria-hidden="true"></i></button></td>
-              </tr>
-              <tr id="flat-row">
-                <th scope="row" class="table-id">2</th>
-                <td class="table-content">Cyberbullying</td>
-                <td class="table-content">Dev A</td>
-                <td class="table-content">February 28, 2019</td>
-                <td class="table-content">ninisr</td>
-                <td class="table-content text-warning">Pending</td>
-                <td><button class="btn btn-row" data-toggle="modal" data-target="#reportID2"><i class="fa fa-eye" aria-hidden="true"></i></button></td>
-              </tr>
-              <tr id="flat-row">
-                <th scope="row" class="table-id">3</th>
-                <td class="table-content">Discriminatory Harassment</td>
-                <td class="table-content">Dev B</td>
-                <td class="table-content">February 23, 2019</td>
-                <td class="table-content">supergirl</td>
-                <td class="table-content text-primary">Verified</td>
-                <td><button class="btn btn-row" data-toggle="modal" data-target="#reportID3"><i class="fa fa-eye" aria-hidden="true"></i></button></td>
-              </tr>
-            </tbody>
-          </table> -->
       </div>
-    <!-- Modal -->
-    <div class="modal fade" id="reportID1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Physical Harassment</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <h5>
-              Submitted by: 
-              <small class="text-muted">rickybowen</small>
-            </h5>
-            <h5>
-              Who: 
-              <small class="text-muted">John Smith</small>
-            </h5>
-            <h5>
-              When: 
-              <small class="text-muted">January 24, 2020</small>
-            </h5>
-            <h5>
-              Where: 
-              <small class="text-muted">Area 54</small>
-            </h5>
-            <h5>
-              How: 
-              <small class="text-muted">Punched in the face</small>
-            </h5>
-            <h5>
-              Evidence: 
-              <small class="text-muted">N/A</small>
-            </h5>
-            <h5>
-              Status: 
-              <small class="text-success">Verified</small>
-            </h5>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-main">Save changes</button>
-          </div>
-        </div>
-      </div>
-    </div>
 
-    <div class="modal fade" id="reportID2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Cyberbullying</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <h5>
-              Submitted by: 
-              <small class="text-muted">ninisr</small>
-            </h5>
-            <h5>
-              Who: 
-              <small class="text-muted">John Smith</small>
-            </h5>
-            <h5>
-              When: 
-              <small class="text-muted">February 3, 2020</small>
-            </h5>
-            <h5>
-              Where: 
-              <small class="text-muted">Area 54</small>
-            </h5>
-            <h5>
-              How: 
-              <small class="text-muted">Insults</small>
-            </h5>
-            <h5>
-              Evidence: 
-              <small class="text-muted">N/A</small>
-            </h5>
-            <h5>
-              Status: 
-              <small>
-                <div class="btn-group">
-                  <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Pending
-                  </button>
-                  <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#">Verified</a>
-                    <a class="dropdown-item" href="#">Completed</a>
-                    <a class="dropdown-item" href="#">Rejected</a>
-                  </div>
-                </div>
-              </small>
-            </h5>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-main">Save changes</button>
+      <!-- Modal -->
+      <div class="modal fade" id="reportInfo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel"></h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <h5>
+                Submitted by: 
+                <small class="text-muted" id="submittor"></small>
+              </h5>
+              <h5>
+                Who: 
+                <small class="text-muted" id="who"></small>
+              </h5>
+              <h5>
+                When: 
+                <small class="text-muted" id="when"></small>
+              </h5>
+              <h5>
+                Where: 
+                <small class="text-muted" id="where"></small>
+              </h5>
+              <h5>
+                How: 
+                <small class="text-muted" id="how"></small>
+              </h5>
+              <h5>
+                Evidence: 
+                <small class="text-muted" id="evidence"></small>
+              </h5>
+              <h5>
+                Status: 
+                <small class="text-success" id="status"></small>
+              </h5>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-main">Save changes</button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-
-    <div class="modal fade" id="reportID3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Discriminatory Harassment</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <h5>
-              Submitted by: 
-              <small class="text-muted">supergirl</small>
-            </h5>
-            <h5>
-              Who: 
-              <small class="text-muted">John Smith</small>
-            </h5>
-            <h5>
-              When: 
-              <small class="text-muted">February 4, 2020</small>
-            </h5>
-            <h5>
-              Where: 
-              <small class="text-muted">Area 54</small>
-            </h5>
-            <h5>
-              How: 
-              <small class="text-muted">Insults</small>
-            </h5>
-            <h5>
-              Evidence: 
-              <small class="text-muted">N/A</small>
-            </h5>
-            <h5>
-              Status: 
-              <small>
-                <div class="btn-group">
-                  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Pending
-                  </button>
-                  <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#">Pending</a>
-                    <a class="dropdown-item" href="#">Completed</a>
-                    <a class="dropdown-item" href="#">Rejected</a>
-                  </div>
-                </div>
-              </small>
-            </h5>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-main">Save changes</button>
-          </div>
-        </div>
-      </div>
-    </div>
-    </div>
     </div>
 
     <!-- scripts -->
     <!-- bootstrap jquery -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <!-- datatables sorting -->
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
