@@ -1,0 +1,212 @@
+html {
+  scroll-behavior: smooth;
+}
+
+#page-top {
+  background: #e6f0ff;
+}
+
+.bg-custom {
+  background: #ccccff;
+}
+
+.text-custom {
+  color: #4e73df;
+}
+
+#addUser:hover {
+  color: #4e73df;
+}
+
+#brand {
+  cursor: pointer;
+}
+
+#brand:hover {
+  color: #4e73df !important;
+}
+#notifDropdown:hover,
+#notifDropdown:focus,
+#notifDropdown:hover i,
+#notifDropdown:focus i,
+#userDropdown:hover,
+#userDropdown:focus,
+#userDropdown:hover h3,
+#userDropdown:focus h3 {
+  color: #4e73df !important;
+}
+
+#notifDropdown:hover span,
+#notifDropdown:focus span {
+  background-color: #4e73df !important;
+}
+
+#notifItem {
+  max-height: 20vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  max-width: 60%;
+}
+
+#container {
+  margin-left: 0.2rem;
+  margin-right: 0.2rem;
+  display: grid;
+  row-gap: 1rem;
+  justify-content: center;
+  grid-template-areas:
+    "stat"
+    "charts";
+}
+#charts-container {
+  grid-area: charts;
+  height: 60vh;
+  width: 95vw;
+}
+#bar-container {
+  grid-area: bar;
+  height: 100%;
+}
+
+#pie-container {
+  grid-area: pie;
+  height: 100%;
+}
+.main-card {
+  height: 98%;
+}
+#stats-container {
+  display: grid;
+  grid-area: stat;
+  height: 20vh;
+  width: 95vw;
+  row-gap: 0.5rem;
+  grid-template-areas:
+    "card4 card4 card4"
+    "card1 card2 card3";
+}
+
+#stats-container > .stats-card > .card > .card-header {
+  height: 60%;
+}
+
+#stats-container > .stats-card > .card > .card-body {
+  height: 40%;
+}
+
+#card1 {
+  grid-area: card1;
+}
+#card2 {
+  grid-area: card2;
+}
+#card3 {
+  grid-area: card3;
+}
+#card4 {
+  grid-area: card4;
+}
+
+#reportsTab {
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+td {
+  word-break: break-all;
+}
+
+#myPieChart {
+  height: 100%;
+}
+
+#bargraph {
+  height: 80%;
+}
+
+.barContainer {
+  position: relative;
+  margin: auto;
+  width: 70%;
+  height: 90%;
+}
+
+.chart-container {
+  position: relative;
+  margin: auto;
+  width: 70%;
+  height: 40vh;
+}
+
+#allReports {
+  height: 95%;
+}
+
+.stats-card {
+  margin-left: 1rem;
+}
+
+.tab-content {
+  height: 90%;
+}
+#reportsTable {
+  overflow: hidden;
+  height: 100%;
+}
+
+#reportsTable tbody {
+  display: block;
+  overflow: auto;
+  width: 100%;
+  height: 85%;
+}
+
+#reportsTable thead {
+  display: block;
+}
+
+#reportsTable thead tr {
+  display: block;
+}
+
+.scroll-secondary {
+  scrollbar-color: #4e73df #ccccff;
+  scrollbar-width: thin;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+@media only screen and (min-width: 768px) {
+  #notifItem {
+    max-width: 30%;
+  }
+  #container {
+    display: grid;
+    row-gap: 1rem;
+    grid-template-areas:
+      "stat"
+      "charts";
+  }
+
+  #pie-container {
+    grid-area: pie;
+  }
+
+  #stats-container {
+    display: grid;
+    grid-area: stat;
+    height: 10vh;
+    grid-template-areas: "card1 card2 card3 card4";
+  }
+
+  #charts-container {
+    height: 70vh;
+  }
+
+  .chart-container {
+    width: 70%;
+    height: 100%;
+  }
+}
