@@ -40,7 +40,7 @@ function showLatest() {
         "<table id='latestReportsTable' class='display'>" +
         "<thead>" +
         "<tr>" +
-        "<th style='width:20%;'>User</th>" +
+        "<th style='width:20%;'>ユーザー名</th>" +
         "<th style='width:10%;'>Group</th>" +
         "<th style='width:30%;'>Category</th>" +
         "<th style='width:40%;'>Date" +
