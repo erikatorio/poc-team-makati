@@ -355,7 +355,7 @@ function generateDataSet(sortBy){
     for(let i = 0; i < groups.length; i++){
         let color = generateColor();
         dataSet.push({
-            label: groups[i] + " Department", // Name the series
+            label: groups[i] + " デパートメント", // Name the series
             data: countReportsByGroup[i], // Specify the data values array
             fill: false,
             borderColor: color, // Add custom color border (Line)
