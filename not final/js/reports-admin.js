@@ -67,15 +67,15 @@ async function populateReportTable(){
             "<td class='table-content'>" + date + "</td>" +
             "<td class='table-content'>" + report.username + "</td>";
         
-        if(report.status == "pending"){
+        if(report.status == "pending" || report.status == "Pending"){
             body += "<td class='table-content text-warning'>Pending</td>";
-        } else if(report.status == "verified"){
+        } else if(report.status == "verified" || report.status == "Verified"){
             body += "<td class='table-content text-primary'>Verified</td>";
-        } else if(report.status == "completed"){
+        } else if(report.status == "completed" || report.status == "Completed"){
             body += "<td class='table-content text-success'>Completed</td>";
-        } else if(report.status == "rejected"){
+        } else if(report.status == "rejected" || report.status == "Rejected"){
             body += "<td class='table-content text-danger'>Rejected</td>";
-        } else if(report.status == "hidden"){
+        } else if(report.status == "hidden" || report.status == "Hidden"){
             body += "<td class='table-content'>Hidden</td>";
         }
 
@@ -135,15 +135,53 @@ async function showReport(details){
         $("#where").html(details.where);
         $("#how").html(details.how);
         $("#evidence").html("<a href=" + details.attachFile + ">Link</a>");
-        if(details.status == "pending"){
-            $("#status").html("<select><option selected>Pending</option><option>Rejected</option><option>Verified</option><option>Completed</option></select>");
-        } else if(details.status == "rejected"){
-            $("#status").html("<select><option>Pending</option><option selected>Rejected</option><option>Verified</option><option>Completed</option></select>");
-        } else if(details.status == "verified"){
-            $("#status").html("<select><option>Pending</option><option>Rejected</option><option selected>Verified</option><option>Completed</option></select>");
-        } else if(details.status == "completed"){
-            $("#status").html("<select><option>Pending</option><option>Rejected</option><option>Verified</option><option selected>Completed</option></select>");
-        } else if(details.status == "hidden"){
-            $("#status").html("Hidden");
+        switch(details.status){
+            case "pending":
+            case "Pending":
+                $("#status").html("<select id='statusDD'><option selected>Pending</option><option>Rejected</option><option>Verified</option><option>Completed</option></select>");
+                $("#action").html("<button type='button' class='btn btn-secondary' data-dismiss='modal'>Close</button><button type='button' class='btn btn-main' onclick='updateStatus(" + details.id + ")'>Save changes</button>")
+                break;
+            case "rejected":
+            case "Rejected":
+                $("#status").html("<select id='statusDD'><option>Pending</option><option selected>Rejected</option><option>Verified</option><option>Completed</option></select>");
+                $("#action").html("<button type='button' class='btn btn-secondary' data-dismiss='modal'>Close</button><button type='button' class='btn btn-main' onclick='updateStatus(" + details.id + ")'>Save changes</button>")
+                break;
+            case "verified":
+            case "Verified":
+                $("#status").html("<select id='statusDD'><option>Pending</option><option>Rejected</option><option selected>Verified</option><option>Completed</option></select>");
+                $("#action").html("<button type='button' class='btn btn-secondary' data-dismiss='modal'>Close</button><button type='button' class='btn btn-main' onclick='updateStatus(" + details.id + ")'>Save changes</button>")
+                break;
+            case "completed":
+            case "Completed":
+                $("#status").html("<select id='statusDD'><option>Pending</option><option>Rejected</option><option>Verified</option><option selected>Completed</option></select>");
+                $("#action").html("<button type='button' class='btn btn-secondary' data-dismiss='modal'>Close</button><button type='button' class='btn btn-main' onclick='updateStatus(" + details.id + ")'>Save changes</button>")
+                break;
+            case "hidden":
+            case "Hidden":
+                $("#status").html("Hidden");
+                $("#action").html("<button type='button' class='btn btn-secondary' data-dismiss='modal'>Close</button>")
+                break;
         }
+}
+
+async function updateStatus(reportID){
+    console.log($("#statusDD").val());
+    tempReports.forEach(async function (report) {
+        if (report.id === reportID) {
+            await db.collection("reports").where('id', '==', report.id)
+            .get()
+            .then(function (querySnapshot) {
+                querySnapshot.forEach(function (doc) {
+                    db.collection("reports").doc(doc.id).update({
+                        status: $("#statusDD").val()
+                    });
+                });
+            });
+
+            if(!alert('Success!')){
+                $('#reportInfo').modal('hide');
+                setTimeout(location.reload.bind(location), 500);
+            }
+        }
+    });
 }
