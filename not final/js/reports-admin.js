@@ -12,7 +12,7 @@ async function populateReportTable(){
     $('#table-container').html("");
 
     let head =
-        "<h2 id='header-title'> Reports Management <small class='text-muted'>View and update report status</small></h2>" +
+        "<h2 id='header-title'> レポートマネジメント <small class='text-muted'>レポートステータスを表示または更新する</small></h2>" +
         "<table id='example' class='table'>" +
         "<thead>" +
         "<tr id='flat-row'>" +
