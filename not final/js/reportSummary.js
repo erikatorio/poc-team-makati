@@ -130,7 +130,7 @@ async function reportSummary() {
     });
 
 
-    $("#categoryCount").text(cat["key"]);
+    $("#categoryCount").text(categories[cat["key"]]);
     $("#groupCount").text(group["key"]);
     $("#reportCount").text(reports.length);
     showLatest()
