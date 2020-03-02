@@ -148,9 +148,16 @@ function newUser() {
 
 function addUserElement(bol) {
     return '<div class="text-center pt-2" id="newUserDetails">' +
-        '<input type="text" placeholder="username" id="userName" required></input>' +
-        '<input type="text" placeholder="group" id="userGroup" required></input>' +
-        '<button class="material-icons rounded-circle text-success border-0 align-middle ml-2" data-toggle="tooltip" data-placement="top" title="new user" id="addNewUser" onclick=newUser()>add</button></div > '
+                '<input type="text" placeholder="Username" id="userName" style="padding-left: 3px; margin-right: 2%;background: none;border: 1px solid #3D3028; border-radius: 5px; width: 40%;" required></input>' +
+                '<button id="userGroup" type="button" class="dropdown-toggle" data-toggle="dropdown" placeholder="Group" style="background: none;border: 1px solid #3D3028; color: gray; border-radius: 5px; width: 40%; text-align: left;">Group<i style="float: right;" class="fa fa-caret-down"></i></button>'+
+                '<div class="dropdown-menu" style="width: 40%; border: 1px solid #3D3028; color: #3D3028; border-radius: 5px;">'+
+                    '<a class="dropdown-item" href="#">Group 1</a>'+
+                    '<a class="dropdown-item" href="#">Group 1</a>'+
+                    '<a class="dropdown-item" href="#">Group 2</a>'+
+                '</div>'+
+                // '<input type="text" placeholder="Group" id="userGroup" required></input>' +
+                '<button class="material-icons rounded-circle border-0 align-middle ml-2" style="cursor: pointer;" data-toggle="tooltip" data-placement="top" title="Ad New User" id="addNewUser" onclick=newUser()>add</button>'+
+            '</div > '
 }
 
 async function showUsers() {

@@ -34,7 +34,7 @@
 
 </head>
 
-<body onload="load_content()" style="overflow: auto;">
+<body onload="load_content()" style="overflow: hidden;">
 
   <div class="row" id="body-row">    
     <!-- Sidebar  -->
@@ -44,17 +44,23 @@
           <!-- Menu with submenu -->
            <a style="padding: 0;" href="#" data-toggle="sidebar-colapse" class="bg-light list-group-item list-group-item-action d-flex align-items-center" title="Sakura">
               <div class="d-flex w-100 justify-content-start align-items-center">
-                  <span><img src="Images/flower.png" alt="logo" style="width:40px; margin-left: 10px;"></span>
+                  <span><img src="img/flower.png" alt="logo" style="width:40px; margin-left: 10px;"></span>
                   <!-- <span id="collapse-text" class="menu-collapsed">Collapse</span> -->
               </div>
           </a>
-          <a href="#submenu1" data-toggle="collapse" aria-expanded="false" class="bg-light list-group-item list-group-item-action flex-column align-items-start" title="Notification">
+          <a href="reportsummary.html" data-toggle="collapse" aria-expanded="false" class="bg-light list-group-item list-group-item-action flex-column align-items-start" title="Notification">
               <div class="d-flex w-100 justify-content-start align-items-center">
                   <span class="fa fa-bell fa-fw mr-3" style="color: #8A6E59"></span> 
                   <span class="submenu-icon d-none ml-auto"></span>
               </div>
           </a>	
-          <a href="3dpiegraph.html" data-toggle="collapse" aria-expanded="false" class="bg-light list-group-item list-group-item-action flex-column align-items-start" title="Charts">
+          <a data-toggle="collapse" aria-expanded="false" class="bg-light list-group-item list-group-item-action flex-column align-items-start" title="Chat" style="cursor: pointer;">
+            <div class="d-flex w-100 justify-content-start align-items-center">
+                <span class="fa fa-comment fa-fw mr-3" style="color: #8A6E59"></span> 
+                <span class="submenu-icon d-none ml-auto"></span>
+            </div>
+          </a>	
+          <a href="graphs.html" data-toggle="collapse" aria-expanded="false" class="bg-light list-group-item list-group-item-action flex-column align-items-start" title="Charts">
               <div class="d-flex w-100 justify-content-start align-items-center">
                   <span class="fa fa-cube fa-fw mr-3" style="color: #8A6E59"></span> 
                   <span class="submenu-icon d-none ml-auto"></span>
@@ -66,17 +72,17 @@
 	                    <span class="menu-collapsed"></span>    
 	                </div>
 				</a>          
-          <a href="usermanagement.html" class="bg-light list-group-item list-group-item-action" title="Users">
+          <a href="users.html" class="bg-light list-group-item list-group-item-action" title="Users">
               <div class="d-flex w-100 justify-content-start align-items-center">
                   <span class="fa fa-user fa-fw mr-3" style="color: #8A6E59"></span>
               </div>
           </a>
-          <a href="table.html" class="bg-light list-group-item list-group-item-action" title="Table">
+          <a href="reports-admin.html" class="bg-light list-group-item list-group-item-action" title="Table">
               <div class="d-flex w-100 justify-content-start align-items-center">
                   <span class="fa fa-table fa-fw mr-3" style="color: #8A6E59"></span>
               </div>
           </a>   
-          <a href="print.html" class="bg-light list-group-item list-group-item-action" title="Table">
+          <a href="print.html" class="bg-light list-group-item list-group-item-action" title="Print Data">
 	                <div class="d-flex w-100 justify-content-start align-items-center">
 	                    <span class="fa fa-print fa-fw mr-3" style="color: #8A6E59"></span>
 	                    <span class="menu-collapsed"></span>    
@@ -104,7 +110,7 @@
           </div>           
           <a href="#" class="bg-light list-group-item list-group-item-action" title="Logout" data-toggle="modal" data-target="#logoutModal">
               <div class="d-flex w-100 justify-content-start align-items-center">
-                  <span class="fa fa-sign-out fa-fw mr-3" style="color: #8A6E59"></span>
+                  <span class="fa fa-sign-out-alt fa-fw mr-3" style="color: #8A6E59"></span>
               </div>
           </a>
       </ul><!-- List Group END-->
@@ -137,7 +143,7 @@
               <div id="card2" class="card summary_reports col-lg-3">
                 <div class="card-body">
                   <p class="card-text">一番レポートの数が高いデパートメント</p>
-                  <i class="fa fa-adjust card_icon"></i>
+                  <i class="fa fa-flag card_icon"></i>
                   <p id="groupCount" class="card-num"></p>
                 </div>
               </div>
@@ -157,7 +163,7 @@
               <div id="card4" class="card summary_reports col-lg-3">
                 <div class="card-body">
                   <p class="card-text">今日のレポートの数</p>
-                  <i class="fa fa-align-left card_icon"></i>
+                  <i class="fa fa-chart-line card_icon"></i>
                   <p id="reportToday" class="card-num"></p>
                 </div>
               </div>
@@ -173,17 +179,15 @@
               <!-- Card for Graph -->
               <div class="col-sm-4">
                 <div class="card-deck">
-                  <div class="card other_displays" style="height: 200px;">
+                  <div class="card other_displays" style="height: 225px;">
                     <div class="card-header" style="padding: 2px 0 0 4px; background-color: transparent; border: none;">
                       <strong>グラフ</strong>
                     </div>
-                    <div class="card-body p-0 w-100">
                       <div class="card-body h-75 w-80 py-0">
                         <!-- Container for graph to be displayed -->
                         <div id="graph3d" class="container px-0 h-100">
                         </div>
                       </div>
-                    </div>
                   </div>
                 </div>
               </div>
@@ -192,11 +196,11 @@
               <!-- Card for Reports Table -->
               <div class="col-sm-8">
                 <div class="card-deck">
-                  <div class="card other_displays" style="height: 200px;">
+                  <div class="card other_displays" style="height: 225px;">
                     <div class="card-header" style="padding: 2px 0 0 4px; background-color: transparent; border: none;">
                       <strong>レポート表</strong>
                     </div>
-                    <div class="card-body" style="overflow: auto;">
+                    <div class="card-body" style="overflow: auto; padding: 5px;">
                       <div class="col p-0 d-flex justify-content-center h-100 w-100">
                         <div id="allReports" class='w-100'></div>
                       </div>
@@ -219,6 +223,9 @@
                   <div class="card other_displays" style="height: 235px;">
                     <div class="card-header" style="padding: 2px 0 0 4px; background-color: transparent; border: none;">
                       <strong>ユーザーマネジメント</strong>
+                      <button data-toggle="modal" data-target="#userModal" style="margin-left: 49%; cursor: pointer; background: none; border: none;">
+                        <i class="fa fa-user-plus"></i>
+                      </button>
                     </div>
                     <div class="card-body" style="overflow: auto; padding: 0;">
                       <!-- Container for Table to be Displayed -->
@@ -232,7 +239,7 @@
               <!-- Card for Activity Log -->
               <div class="col-sm-4">
                 <div class="card-deck">
-                  <div class="card other_displays" style="height: 225px;">
+                  <div class="card other_displays" style="height: 235px;">
                     <div class="card-header" style="padding: 2px 0 0 4px; background-color: transparent; border: none;">
                       <strong>アクティビティログ</strong>
                     </div>
@@ -250,7 +257,7 @@
               <!-- Card for Weekly Report Trend -->
               <div class="col-sm-4">
                 <div class="card-deck">
-                  <div class="card other_displays" style="height: 225px;">
+                  <div class="card other_displays" style="height: 235px;">
                     <div class="card-header" style="padding: 2px 0 0 4px; background-color: transparent; border: none;">
                         <strong>毎週のレポートトレンド</strong>
                       </div>
@@ -297,10 +304,10 @@
                         </table>
                     </div>
                     <div class=" modal-footer">
-                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                        <button id="adduserModalButton" type="submit" class="btn btn-primary disabled" role="button"
-                            aria-disabled="true">Add Users</button>
-                    </div>
+                      <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                      <button id="userModalButton" style="cursor: pointer; border: none; background-color: #3D3028;" type="submit" class="btn btn-primary disabled" role="button"
+                          aria-disabled="true">Add Users</button>
+                  </div>
                 </form>
             </div>
         </div>
@@ -375,7 +382,7 @@
       </div>
     </div>
 
-    <!-- Chat  -->
+    <!-- Chat 
     <div id="open-button" class="btn btn-raised" onclick="openForm(1)">
       <div id="chat-overlay"></div>
       <i class="material-icons" style="font-size: 30px;">message</i>
@@ -435,7 +442,7 @@
                     </div>
                 </div>
             </li> -->
-      </div>
+      <!-- </div>
       <div class="message-box ">
         <form id="message-form" action="#" autocomplete="off" class="row justify-content-between mx-2">
           <input id="messageInput" type="text" class="pl-1 pr-0" placeholder="Type a message..." />
@@ -446,7 +453,7 @@
           </div>
         </form>
       </div>
-    </div>
+    </div> -->
 
     <!-- Firebase core Javascript-->
     <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-app.js"></script>
@@ -528,6 +535,11 @@
 
     <script src="js/dataloader.js"></script>
     <script src="js/graph3d.js"></script>
+    <script src="js/graph2d.js"></script>
+
+    <script>
+      var ctxTrend = document.getElementById('weeklyReports').getContext('2d');
+  </script>
     
 
    
