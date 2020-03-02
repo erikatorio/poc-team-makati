@@ -9,7 +9,7 @@ window.addEventListener("load", async () => {
     await getReports();
     await showTables();
     await reportDetails();
-
+    $('#username').html(sessionStorage.getItem('username'));
     reportsTable = $('#reportsTable').DataTable({
         dom: 'Bfrtip',
         scrollY: '60vh',

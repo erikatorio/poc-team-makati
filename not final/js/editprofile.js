@@ -75,7 +75,7 @@ function saveProfile(e) {
 
                 if(!alert('Success!')){
                     sessionStorage.setItem("username", newName);
-                    setTimeout(location.reload.bind(location), 3000);
+                    setTimeout(location.reload.bind(location), 1000);
                 }
             })
             .catch(function (error) {
@@ -96,9 +96,9 @@ function saveProfile(e) {
 
                 if(!alert('Success!')){
                     sessionStorage.setItem("username", newName);
-                    setTimeout(location.reload.bind(location), 3000);
+                    setTimeout(location.reload.bind(location), 1000);
                 }
-                
+
             })
             .catch(function (error) {
                 console.error("Error user update: ", error);
@@ -117,7 +117,7 @@ function saveProfile(e) {
                 });
 
                 if(!alert('Success!')){
-                    setTimeout(location.reload.bind(location), 3000);
+                    setTimeout(location.reload.bind(location), 1000);
                 }
             })
             .catch(function (error) {
@@ -135,7 +135,7 @@ function saveProfile(e) {
                 });
 
                 if(!alert('Success!')){
-                    setTimeout(location.reload.bind(location), 3000);
+                    setTimeout(location.reload.bind(location), 1000);
                 }
             })
             .catch(function (error) {

@@ -56,7 +56,6 @@
             <a href="category.html" class="bg-light list-group-item list-group-item-action" title="Category">
                     <div class="d-flex w-100 justify-content-start align-items-center">
                         <span class="fa fa-list fa-fw mr-3" style="color: #8A6E59"></span>
-                        <span class="menu-collapsed">Category</span>    
                     </div>
           </a>          
             <a href="users.html" class="bg-light list-group-item list-group-item-action" title="Users">
@@ -106,25 +105,59 @@
 
       <div class="container" id="table-container">
         <h2 id="header-title">
-          Category Management
-          <small class="text-muted">Add and remove categories</small>
+          カテゴリーマネジメント
+          <small class="text-muted">カテゴリーを追加または削除する</small>
         </h2>
         <div class="row">
             <button id="add-user-btn" type="button" class="btn btn-main" data-toggle="modal" data-target="#addNewUserModal">
-              <i class="fas fa-user-plus"></i> Add New Category
+              <i class="fas fa-user-plus"></i> 新しいカテゴリーを追加
             </button>
+<<<<<<< HEAD
         </div>
 
         <!-- CATEGORY TABLE -->
         <div id="categoryTable">
         </div>
+=======
+          </div>
+        <table id="example" class="table">
+            <thead>
+              <tr id="flat-row">
+                <th scope="col" class="table-header th-sm">#</th>
+                <th scope="col" class="table-header th-sm">カテゴリー名</th>
+                <th scope="col" class="table-header th-sm">カテゴリーの説明</th>
+                <th class="table-header th-sm">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="report-row" id="flat-row">
+                <th scope="row" class="table-id">1</th>
+                <td class="table-content">Physical Harassment</td>
+                <td class="table-content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur quasi, voluptate necessitatibus.</td>
+                <td><button class="btn btn-row"><i class="fas fa-trash-alt"></i></button></td>
+              </tr>
+              <tr class="report-row" id="flat-row">
+                <th scope="row" class="table-id">2</th>
+                <td class="table-content">Psychological Harassment</td>
+                <td class="table-content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur quasi, voluptate necessitatibus.</td>
+                <td><button class="btn btn-row"><i class="fas fa-trash-alt"></i></button></td>
+              </tr>
+              <tr class="report-row" id="flat-row">
+                <th scope="row" class="table-id">3</th>
+                <td class="table-content">Discriminatory Harassment</td>
+                <td class="table-content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur quasi, voluptate necessitatibus.</td>
+                <td><button class="btn btn-row"><i class="fas fa-trash-alt"></i></button></td>
+              </tr>
+            </tbody>
+          </table>
+>>>>>>> 132e279d31a72659d39303937a0e15942b7dba34
 
-    <!-- Add user Modal -->
+    <!-- Add category Modal -->
     <div class="modal fade" id="addNewUserModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Add New Category</h5>
+              <h5 class="modal-title" id="exampleModalLabel">新しいカテゴリーを追加</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -132,17 +165,17 @@
             <div class="modal-body">
                 <form>
                     <div class="form-group">
-                    <label for="exampleFormControlInput1">Category Name:</label>
+                    <label for="exampleFormControlInput1">カテゴリー名:</label>
                     <input type="text" class="form-control" name="category_name" placeholder="">
                 </div>
                 <div class="form-group">
-                    <label for="exampleFormControlInput1">Description:</label>
+                    <label for="exampleFormControlInput1">カテゴリーの説明:</label>
                     <input type="text" class="form-control" name="description" placeholder="">
                 </div>			  	
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-main">Save changes</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
+              <button type="button" class="btn btn-main">完了</button>
             </div>
           </div>
         </div>

@@ -56,7 +56,7 @@
             <a href="category.html" class="bg-light list-group-item list-group-item-action" title="Category">
                     <div class="d-flex w-100 justify-content-start align-items-center">
                         <span class="fa fa-list fa-fw mr-3" style="color: #8A6E59"></span>
-                        <span class="menu-collapsed">Category</span>    
+                        <span class="menu-collapsed"></span>    
                     </div>
           </a>          
             <a href="users.html" class="bg-light list-group-item list-group-item-action" title="Users">
@@ -72,7 +72,7 @@
             <a href="print.html" class="bg-light list-group-item list-group-item-action" title="Table">
                     <div class="d-flex w-100 justify-content-start align-items-center">
                         <span class="fa fa-print fa-fw mr-3" style="color: #8A6E59"></span>
-                        <span class="menu-collapsed">Table</span>    
+                        <span class="menu-collapsed"></span>    
                     </div>
                 </a>   
             <!-- Separator -->
@@ -106,25 +106,59 @@
 
       <div class="container" id="table-container">
         <h2 id="header-title">
-          User Management
-          <small class="text-muted">Add and remove users</small>
+          ユーザーマネジメント
+          <small class="text-muted">ユーザーを追加または削除する</small>
         </h2>
         <div class="row">
             <button id="add-user-btn" type="button" class="btn btn-main" data-toggle="modal" data-target="#addNewUserModal">
-              <i class="fas fa-user-plus"></i> Add New User
+              <i class="fas fa-user-plus"></i> 新しいユーザーを追加
             </button>
+<<<<<<< HEAD
         </div>
 
         <!-- USER TABLE -->
         <div id="userTable">
         </div>
+=======
+          </div>
+        <table id="example" class="table">
+            <thead>
+              <tr id="flat-row">
+                <th scope="col" class="table-header th-sm">#</th>
+                <th scope="col" class="table-header th-sm">ユーザー名</th>
+                <th scope="col" class="table-header th-sm">デパートメント</th>
+                <th class="table-header th-sm">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="report-row" id="flat-row">
+                <th scope="row" class="table-id">1</th>
+                <td class="table-content">rickybowen</td>
+                <td class="table-content">Dev B</td>
+                <td><button class="btn btn-row"><i class="fas fa-trash-alt"></i></button></td>
+              </tr>
+              <tr class="report-row" id="flat-row">
+                <th scope="row" class="table-id">2</th>
+                <td class="table-content">ninisr</td>
+                <td class="table-content">Dev A</td>
+                <td><button class="btn btn-row"><i class="fas fa-trash-alt"></i></button></td>
+              </tr>
+              <tr class="report-row" id="flat-row">
+                <th scope="row" class="table-id">3</th>
+                <td class="table-content">supergirl</td>
+                <td class="table-content">Dev B</td>
+                <td><button class="btn btn-row"><i class="fas fa-trash-alt"></i></button></td>
+              </tr>
+            </tbody>
+          </table>
+>>>>>>> 132e279d31a72659d39303937a0e15942b7dba34
 
     <!-- Add user Modal -->
     <div class="modal fade" id="addNewUserModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Add New User</h5>
+              <h5 class="modal-title" id="exampleModalLabel">新しいユーザーを追加</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -132,21 +166,21 @@
             <div class="modal-body">
                 <form>
                     <div class="form-group">
-                    <label for="exampleFormControlInput1">Username:</label>
+                    <label for="exampleFormControlInput1">ユーザー名:</label>
                     <input type="text" class="form-control" name="username" placeholder="">
                 </div>
                 <div class="form-group">
-                    <label for="exampleFormControlInput1">Password:</label>
+                    <label for="exampleFormControlInput1">パスワード:</label>
                     <input type="text" class="form-control" name="password" placeholder="">
                 </div>
                     <div class="form-group">
-                    <label for="exampleFormControlInput1">Department:</label>
+                    <label for="exampleFormControlInput1">デパートメント:</label>
                     <input type="text" class="form-control" name="department" placeholder="">
                 </div>				  	
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-main">Save changes</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
+              <button type="button" class="btn btn-main" onclick="addUser()">完了</button>
             </div>
           </div>
         </div>
@@ -157,8 +191,9 @@
     <!-- scripts -->
     <!-- bootstrap jquery -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    
     <!-- datatables sorting -->
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
@@ -171,9 +206,14 @@
     <script src="js/firestore.js"> </script>
 
     <!-- Custom JS -->
+<<<<<<< HEAD
     <script src="js/dataloader.js"></script>
     <script src="js/users.js"></script>
 
+=======
+    <script src="js/users.js"></script>
+    
+>>>>>>> 132e279d31a72659d39303937a0e15942b7dba34
     <!-- script -->
     <!-- <script>
       $(document).ready(function() {
