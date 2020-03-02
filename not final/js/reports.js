@@ -122,6 +122,10 @@ async function saveChanges(reportID) {
                 });
             });
 
+            if(!alert('Success!')){
+                setTimeout(location.reload.bind(location), 3000);
+            }
+
             // NOTIFY USER
 
             // loadReportDetails(report).then(() => {
