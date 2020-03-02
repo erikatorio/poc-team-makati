@@ -336,7 +336,7 @@ async function showTables() {
 
             let date = new Date(report.created["seconds"] * 1000);
             body +=
-                "<tr>" +
+                "<tr id=\"reports-ds\">" +
                 "<th scope='row'>" +
                 report.id +
                 "</th>" +
