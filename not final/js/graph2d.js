@@ -254,7 +254,7 @@ function getDates(startDate, stopDate) {
     var dateArray = new Array();
     var currentDate = startDate;
     while (currentDate <= stopDate) {
-        dateArray.push((new Date (currentDate)).toLocaleString('ja-JP', { day: 'numeric', month: 'short', year: 'numeric' }));
+        dateArray.push((new Date (currentDate)).toLocaleString('ja-JP', {year: 'numeric', month: 'long', day: 'numeric'}));
         currentDate = currentDate.addDays(1);
     }
     return dateArray;
@@ -265,7 +265,7 @@ function getMonths(startDate, stopDate) {
     var dateArray = new Array();
     var currentDate = startDate;
     while (currentDate <= stopDate) {
-        dateArray.push((new Date (currentDate)).toLocaleString('ja-JP', { month: 'short', year: 'numeric' }));
+        dateArray.push((new Date (currentDate)).toLocaleString('ja-JP', {year: 'numeric', month: 'long'}));
         currentDate = currentDate.addMonths(1);
     }
     return dateArray;
@@ -326,11 +326,11 @@ function generateDataSet(sortBy){
 
     switch(sortBy){
         case 0: 
-            dates = getDates(date.subtractDays(6), date);
+            dates = getDates(date.subtractDays(5), date);
             options = {year: 'numeric', month: 'long', day: 'numeric'};
             break;
         case 1: 
-            dates = getMonths(date.subtractMonths(6), date);
+            dates = getMonths(date.subtractMonths(5), date);
             options = {year: 'numeric', month: 'long'};
             break;
         case 2: 
@@ -368,7 +368,7 @@ function generateDataSet(sortBy){
 }
 
 function drawVisualizationTrend(displayBy){
-    console.log(maxGroupCount);
+
     let dateLabels = [];
     let date = new Date();
     let dataSet = [];
@@ -396,7 +396,11 @@ function drawVisualizationTrend(displayBy){
             break;
     }
 
-    var myChart = new Chart(ctxTrend, {
+    if(myChart != null){
+        myChart.destroy();
+    }
+
+    myChart = new Chart(ctxTrend, {
         type: 'line',
         data: {
             labels: dateLabels,
@@ -427,7 +431,7 @@ function drawVisualizationTrend(displayBy){
                     display: true,
                     ticks: {
                         stepSize: 1,
-                        max: maxGroupCount + 5,
+                        max: dataSet.length + 5,
                         beginAtZero: true,
                     },
                     scaleLabel: {

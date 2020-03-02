@@ -2,6 +2,7 @@
 var graph = null; //3D
 var barGraph = null; //2D Barchart
 var pieChart = null; //Pie Chart
+var myChart = null; //Trend Chart
 
 var data = null;
 var reports = [];
