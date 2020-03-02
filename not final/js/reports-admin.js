@@ -17,11 +17,11 @@ async function populateReportTable(){
         "<thead>" +
         "<tr id='flat-row'>" +
         "<th scope='col' class='table-header th-sm'>#</th>" +
-        "<th scope='col' class='table-header th-sm'>Category</th>" +
-        "<th scope='col' class='table-header th-sm'>Department</th>" +
-        "<th scope='col' class='table-header th-sm'>Date</th>" +
-        "<th scope='col' class='table-header th-sm'>Submitted By</th>" +
-        "<th scope='col' class='table-header th-sm'>Status</th>" +
+        "<th scope='col' class='table-header th-sm'>カテゴリー</th>" +
+        "<th scope='col' class='table-header th-sm'>デパートメント</th>" +
+        "<th scope='col' class='table-header th-sm'>日付</th>" +
+        "<th scope='col' class='table-header th-sm'>提出した人</th>" +
+        "<th scope='col' class='table-header th-sm'>ステータス</th>" +
         "<th class='table-header th-sm'>Action</th>" +
         "</tr>" +
         "</thead>";

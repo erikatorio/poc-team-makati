@@ -16,8 +16,8 @@ async function populateUserTable(){
         "<thead>" +
         "<tr id='flat-row'>" +
         "<th scope='col' class='table-header th-sm'>#</th>" +
-        "<th scope='col' class='table-header th-sm'>Username</th>" +
-        "<th scope='col' class='table-header th-sm'>Department</th>" +
+        "<th scope='col' class='table-header th-sm'>ユーザー名</th>" +
+        "<th scope='col' class='table-header th-sm'>デパートメント</th>" +
         "<th class='table-header th-sm'>Actions</th>" +
         "</tr>" +
         "</thead>";
