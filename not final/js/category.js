@@ -15,8 +15,8 @@ async function populateCategoryTable(){
         "<thead>" +
         "<tr id='flat-row'>" +
         "<th scope='col' class='table-header th-sm'>#</th>" +
-        "<th scope='col' class='table-header th-sm'>Category Name</th>" +
-        "<th scope='col' class='table-header th-sm'>Description</th>" +
+        "<th scope='col' class='table-header th-sm'>カテゴリー名</th>" +
+        "<th scope='col' class='table-header th-sm'>カテゴリーの説明</th>" +
         "<th class='table-header th-sm'>Actions</th>" +
         "</tr>" +
         "</thead>";
