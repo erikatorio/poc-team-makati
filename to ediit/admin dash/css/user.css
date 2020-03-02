@@ -1,0 +1,81 @@
+:root {
+    --gutter: 20px;
+  }
+
+body {
+    color: #013F2A;
+    background-color: whitesmoke;
+    padding-top: 70px;
+}
+
+nav{
+    background-color: skyblue;
+}
+
+.navbar{
+    position: fixed;
+    top: 0;
+    z-index: 1;
+}
+
+#maincontainer {
+    background: white;
+  color: #051853;
+    min-width: 50px;
+}
+
+.title_text{
+	font-family: Avenir,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing: antialiased;
+    color: white;
+	font-size: 3vh;
+	font-weight: 900;
+	letter-spacing: 2.2px;
+}
+
+.whitetext{
+	color: white;
+}
+
+#categorydiv {
+    background: white;
+    box-shadow: 10px 10px 5px grey;
+    min-width: 275px;
+}
+
+#pagetitle{
+    font-size: 40px;
+    color: #013F2A;
+}
+
+#maincontainer> * {
+    grid-column: 2 / -2;
+  }
+
+#picture{
+    height: 175px;
+}
+
+#categoryContainer{
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: repeat(10000, 140px);
+    grid-template-rows: minmax(150px);
+    
+    overflow-x: scroll;
+    scroll-snap-type: x proximity;
+    padding-bottom: calc(.75 * var(--gutter));
+    margin-bottom: calc(-.25 * var(--gutter));
+}
+
+#dropdownMenuButton{
+    color: white;
+    background-color:#BD9BFF;
+}
+
+#L9{
+  width: 50px;
+  height: 50px;
+  margin: 20px;
+  display:none;
+}

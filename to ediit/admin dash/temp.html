@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <script>
+    if (!sessionStorage.getItem("username"))
+      location.href = "/login.html";
+  </script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link href="css/sb-admin-2.min.css" rel="stylesheet">
+  <link href="css/user.css" rel="stylesheet">
+  <link href="css/chat.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+
+  <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-firestore.js"> </script>
+  <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-messaging.js"> </script>
+  <script src="js/firestore.js"></script>
+
+  <script src="js/userGlobals.js"></script>
+  <script src="js/user.js"></script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+</head>
+
+<body style="overflow: hidden;">
+  <nav class="navbar navbar-expand shadow-sm navbar-light topbar mb-2 static-top pb-0">
+    <!-- Nav Heading -->
+    <div class="navbar-brand">
+      <h1 class="h3 mb-0 whitetext">Report Creation</h1>
+    </div>
+
+    <!-- Nav Item - User Information -->
+    <div class="ml-auto">
+      <a class="nav-link dropdown-toggle whitetext" href="#" id="userDropdown" role="button" data-toggle="dropdown"
+        aria-haspopup="true" aria-expanded="false">
+        <h3 id="userName" class="mr-2 d-none d-inline whitetext">User</h3>
+      </a>
+      <!-- Dropdown - User Information -->
+      <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+          <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2"></i>
+          Logout
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="row py-1">
+      <div id="maincontainer" class="col-md rounded shadow-sm pt-2 pb-4">
+        <div class="row">
+          <div class="col-md h-25">
+            <h2 id="pagetitle" class="text-center my-0">Select a Report:</h2>
+            <p class="lead text-center">
+              Create a new report by pressing one of the report categories and pressing the report button below.
+            </p>
+            <div class="d-flex flex-column mx-auto min-vh-50 w-100 pb-2" style="max-width: 500px;">
+              <div class="d-flex row text-center align-middle justify-content-center">
+                <div class="d-flex text-center">
+                  <label id="searchBoxLabel" for="searchBox"></label>
+                  <input id="searchBox" type="text" size="15" style="text-align: left;" placeholder="Search" value=""
+                    onkeypress="searchBoxField()" onfocus="this.value=''">
+                  <input id="searchButton" class="material-icons" type="button" value="search"
+                    onclick="searchBoxField()">
+                </div>
+                <div class="dropdown pl-4">
+                  <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    Sort Categories
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="#" onclick="changeDropdownLabel(0)">Sort Alphabetically (A-Z)</a>
+                    <a class="dropdown-item" href="#" onclick="changeDropdownLabel(1)">Sort Alphabetically (Z-A)</a>
+                    <a class="dropdown-item" href="#" onclick="changeDropdownLabel(2)">Sort by Most Reported</a>
+                  </div>
+                </div>
+              </div>
+              <div class="col text-center align-middle justify-content-center">
+              </div>
+
+            </div>
+            <div id="categoryContainer" class="row mx-auto min-vh-50 w-80 border" style="max-width: 500px;">
+            </div>
+          </div>
+
+        </div>
+        <!-- Category Selection -->
+        <div class="row mx-auto">
+          <div class="container">
+          </div>
+        </div>
+        <div class="row" style="height: 30px;">
+          <h6 class="text-center mx-auto py-4">Press the chosen category again to cancel selection.</h6>
+        </div>
+        <div class="row py-4"></div>
+        <!-- Report Button -->
+        <div class="row pt-2">
+          <img id="picture" type="image" src="Images/buttonD.jpg"
+            class="rounded mx-auto d-block px-4 bg-white text-dark" data-target="#detailsModal" alt="Submit" disabled>
+        </div>
+      </div>
+
+      <!-- Modal -->
+      <div class="modal fade" id="detailsModal" tabindex="-1" role="dialog" aria-labelledby="detailsModalTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">Report Details</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <small class="text-muted">Would you like to add details to your report?</small>
+            </div>
+            <div class="modal-footer">
+              <button id="closemodal" type="button" class="btn btn-primary" onclick="toDetails()" alt="Submit">Add
+                Details</button>
+              <button id="sendButton" type="button" class="btn btn-secondary" data-dismiss="modal"
+                onclick="storeData(event, true)">Skip</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Logout Modal-->
+      <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+              <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+              </button>
+            </div>
+            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+            <div class="modal-footer">
+              <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+              <a class="btn btn-primary" href="Login.html" onclick="logOut()">Logout</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="open-button" onclick="openForm(2)"><i class="material-icons">
+        message
+      </i></div>
+
+    <div class="chat-popup" id="messageBox">
+      <div class="card-header">
+        <div id="minimize" onclick="closeForm(2);">
+          <i class="material-icons">minimize</i>
+        </div>
+        <div class="input-group">
+          <div>
+            <img src="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-ios7-contact-512.png"
+              class="rounded-circle user_img">
+          </div>
+          <div class="user_info">
+            <span id="user_name"> Admin </span>
+          </div>
+        </div>
+      </div>
+      <div id="messagesList">
+        <!-- <li class="pl-2 pr-2 bg-primary rounded text-white text-center send-msg mb-1">
+          hiii
+        </li>
+        <li class="p-1 rounded mb-1">
+            <div class="receive-msg">
+                <img src="http://nicesnippets.com/demo/image1.jpg">
+                <div class="receive-msg-desc  text-center mt-1 ml-1 pl-2 pr-2">
+                    <p class="pl-2 pr-2 rounded">hello</p>
+                </div>
+            </div>
+        </li> -->
+      </div>
+      <div class="message-box ">
+        <form id="message-form" action="#" autocomplete="off" class="row justify-content-between mx-2">
+          <input id="messageInput" type="text" class="pl-1 pr-0" placeholder="Type a message..." />
+          <button id="submitMessage" type="submit" disabled><i class="material-icons">send</i></button>
+        </form>
+      </div>
+    </div>
+
+
+
+</body>
+<script src="js/chat.js"></script>
+<script>
+  $(function () {
+    $('[data-toggle="popover"]').popover()
+  })
+</script>
+<!-- PNotify Javascript-->
+<script type="text/javascript" src="node_modules/pnotify/dist/iife/PNotify.js"></script>
+<link href="node_modules/pnotify/dist/PNotifyBrightTheme.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="node_modules/pnotify/dist/iife/PNotifyButtons.js"></script>
+<script type="text/javascript" src="node_modules/pnotify/dist/iife/PNotifyCallbacks.js"></script>
+<script type="text/javascript" src="node_modules/pnotify/dist/iife/PNotifyMobile.js"></script>
+<script type="text/javascript" src="node_modules/pnotify/dist/iife/PNotifyHistory.js"></script>
+<script type="text/javascript" src="node_modules/pnotify/dist/iife/PNotifyDesktop.js"></script>
+<script type="text/javascript" src="node_modules/pnotify/dist/iife/PNotifyConfirm.js"></script>
+<script type="text/javascript" src="node_modules/pnotify/dist/iife/PNotifyReference.js"></script>
+<script type="text/javascript">
+  window.centerModalStack = {
+    'dir1': 'down',
+    'firstpos1': 25,
+    'modal': true,
+    'overlayClose': true
+  };
+  PNotify.modules.History.defaults.maxInStack = 3;
+</script>
+
+</html>

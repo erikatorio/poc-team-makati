@@ -1,0 +1,106 @@
+/* Final CSS after initial login animation */
+#backgroundimage3:before {
+	content: "";
+	position: fixed;
+	left: 0;
+	right: 0;
+	z-index: -1;
+	
+	display: block;
+	background-image: url("../Images/BG3.jpg");
+	height: 100%;
+	
+	-webkit-filter: blur(8px);
+	-moz-filter: blur(8px);
+	-o-filter: blur(8px);
+	-ms-filter: blur(8px);
+	filter: blur(8px);
+	background-repeat: no-repeat;
+	background-size: cover;
+	animation: fadein .5s ease 0s forwards;
+  }
+
+#maincontent{
+	animation: fadein .5s ease 0s forwards;
+}
+
+.title_text{
+	font-family: Avenir,Helvetica,Arial,sans-serif;
+	-webkit-font-smoothing: antialiased;
+	font-size: 8vh;
+	font-weight: 900;
+	letter-spacing: 2.2px;
+}
+
+#title{
+	background-color: rgba(0, 0, 0, 0.2);
+	color: white;
+}
+
+#logindiv1 {
+	box-shadow: 5px 5px 5px grey;
+}
+
+#logindiv2 {
+	box-shadow: 5px 5px 5px grey;
+	min-width: 275px;
+    overflow: hidden;
+}
+
+
+#anonlabel {
+	background-image: url("../Images/shield.png");
+	background-position: left top;
+	background-size: 50px 50px;
+	background-repeat: no-repeat;
+}
+
+#logindiv3 {
+	box-shadow: 5px 5px 5px grey;
+	min-width: 275px;
+    height: 0;
+    overflow: hidden;
+   -moz-animation: slide 1s ease 3.5s forwards;
+   -webkit-animation: slide 0.5s ease 0s forwards;
+   -o-animation: slide 1s ease 3.5s forwards;
+   -ms-animation: slide 1s ease 3.5s forwards;
+    animation: slide 1s ease 0s forwards;
+}
+
+
+@-moz-keyframes slide /* Firefox */
+{
+from {height: 0;}
+to {height: 100;}
+}
+
+@-webkit-keyframes slide /* Safari and Chrome */
+{
+from {height: 0;}
+to {height: 420px;}
+}
+
+
+@-ms-keyframes slide /* IE10 */
+{
+from {height: 0;}
+to {height: 420px;}
+}
+
+@keyframes slide
+{
+from {height: 0;}
+to {height: 420px;}
+}
+
+@keyframes fadeout{
+	0% {opacity: 1;}
+	100% {opacity: 0;
+		display: none;}
+}
+
+@keyframes fadein{
+	0% {opacity: 0;}
+	100% {opacity: 1;
+		display: none;}
+}
