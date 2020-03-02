@@ -87,12 +87,14 @@ async function addUser(){
                 subscribeKey : 'sub-c-b20376b2-5215-11ea-80a4-42690e175160',
              });
              console.log(size + user_name);
-            pubnub.createUser({id: size.toString(), name: user_name.toString()}, function(status, response) {console.log(response)});
-            if(!alert('Successfully added!')){
-                $('#addNewUserModal').modal('hide');
-                populateUserTable();
-                setTimeout(location.reload(), 1500);
-            }
+            pubnub.createUser({id: size.toString(), name: user_name.toString()}, function(status, response) {
+                console.log(response);
+                if(!alert('Successfully added!')){
+                    $('#addNewUserModal').modal('hide');
+                    populateUserTable();
+                    location.reload();
+                }
+            });
         })
         .catch(function (error) {
             console.error("Error adding user: ", error);
@@ -113,12 +115,13 @@ async function deleteUser(user_id){
                 querySnapshot.forEach(function (doc) {
                     doc.ref.delete();
                 });
-                if(!alert('User Deletion Successful!')){
-                    populateUserTable();
-                    setTimeout(location.reload(), 1500);
-                }
-                
-                pubnub.deleteUser(user_id.toString(), function(status, response) {console.log(response)});
+                pubnub.deleteUser(user_id.toString(), function(status, response) {
+                    console.log(response);
+                    if(!alert('User Deletion Successful!')){
+                        populateUserTable();
+                        location.reload();
+                    }
+                });
             })
             .catch(function (error) {
                 console.error("Error category deletion: ", error);

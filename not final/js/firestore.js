@@ -72,7 +72,7 @@ async function storeData(e) {
     var when = $("input[name='when']").val();
     var where = $("input[name='where']").val();
     var how = $("input[name='how']").val();
-
+    
     var reportData = { 
         category, 
         username, 
