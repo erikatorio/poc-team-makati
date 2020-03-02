@@ -89,10 +89,10 @@ async function addUser(){
              });
              console.log(size + user_name);
             pubnub.createUser({id: size.toString(), name: user_name.toString()}, function(status, response) {console.log(response)});
-            // if(!alert('Successfully added!')){
-            //     $('#addNewUserModal').modal('hide');
-            //     populateUserTable();
-            // }
+            if(!alert('Successfully added!')){
+                $('#addNewUserModal').modal('hide');
+                populateUserTable();
+            }
         })
         .catch(function (error) {
             console.error("Error adding user: ", error);
