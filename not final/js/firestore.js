@@ -45,7 +45,7 @@ async function fileUpload(file_data, reportData) {
     }, function (error) {
         console.log(error.message);
     }, function () {
-        task.snapshot.ref.getDownloadURL().then(function (downloadURL) {
+        task.snapshot.ref.getDownloadURL().then(async function (downloadURL) {
             reportData.attachFile = downloadURL;
             sendReport(reportData);
             $('#submit_btn2').attr('disabled', false);
@@ -117,7 +117,7 @@ async function sendReport(reportData) {
     });
    
     db.collection("reports").doc().set(reportData)
-        .then(function () {
+        .then(async function () {
             console.log("Document successfully written!");
             $('#submit_modal').modal('toggle');
             sessionStorage.removeItem("category");

@@ -32,5 +32,22 @@ async function addUser(){
         .catch(function (error) {
             console.error("Error adding user: ", error);
         });
-    
+}
+
+async function deleteUser(user_id){
+    if(confirm('Delete user?')){
+        db.collection("users")
+        .where("id", "==", user_id)
+        .get()
+        .then(async function (querySnapshot) {
+            querySnapshot.forEach(function (doc) {
+                doc.ref.delete();
+            });
+
+            alert('User Deletion Successful!');
+        })
+        .catch(function (error) {
+            console.error("Error category deletion: ", error);
+        });
+    }
 }
