@@ -2,6 +2,7 @@
 var graph = null; //3D
 var barGraph = null; //2D Barchart
 var pieChart = null; //Pie Chart
+var myChart = null; //Trend Chart
 
 var data = null;
 var reports = [];
@@ -13,6 +14,7 @@ var groups = [];
 var colors = [];
 var pieColors = [];
 var csvData = [];
+var users = [];
 var reportSelected = {};
 var maxZvalue = 0;
 var loaded = false;
@@ -189,4 +191,28 @@ function getData(x, y) {
         count += 1;
     }
     return count;
+}
+
+async function getCategoriesData() {
+    await db
+        .collection("categories")
+        .orderBy("id")
+        .get()
+        .then(function (querySnapshot) {
+            querySnapshot.forEach(function (doc) {
+                categories.push(doc.data());
+            });
+        });
+}
+
+async function getUsersData() {
+    await db
+        .collection("users")
+        .orderBy("id")
+        .get()
+        .then(function (querySnapshot) {
+            querySnapshot.forEach(function (doc) {
+                users.push(doc.data());
+            });
+        });
 }

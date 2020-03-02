@@ -7,12 +7,15 @@ window.addEventListener("load", async () => {
     await getReports();
     await reportSummary();
     generateColors(1);
+    initArray();
+    byGroup();
+    findMax();
 
     loadData(1).then(function () {
         drawVisualization(data);
+        drawVisualizationTrend(0);
     });
 
-    getWeeklyReport();
     $('#latestReportsTable').DataTable({
         paging: false,
         info: false,
@@ -40,7 +43,7 @@ function showLatest() {
         "<table id='latestReportsTable' class='display'>" +
         "<thead>" +
         "<tr>" +
-        "<th style='width:20%;'>User</th>" +
+        "<th style='width:20%;'>ユーザー名</th>" +
         "<th style='width:10%;'>Group</th>" +
         "<th style='width:30%;'>Category</th>" +
         "<th style='width:40%;'>Date" +
@@ -133,173 +136,5 @@ async function reportSummary() {
     $("#categoryCount").text(categories[cat["key"]]);
     $("#groupCount").text(group["key"]);
     $("#reportCount").text(reports.length);
-    showLatest()
-}
-
-Date.prototype.addDays = function(days) {
-    var date = new Date(this.valueOf());
-    date.setDate(date.getDate() + days);
-    return date;
-}
-
-Date.prototype.subtractDays = function(days) {
-    var date = new Date(this.valueOf());
-    date.setDate(date.getDate() - days);
-    return date;
-}
-
-function getDates(startDate, stopDate) {
-    
-    let options = { month: '2-digit', day: '2-digit', year: 'numeric'};
-    var dateArray = new Array();
-    var currentDate = startDate;
-    while (currentDate <= stopDate) {
-        dateArray.push((new Date (currentDate)).toLocaleString("en-US", options));
-        currentDate = currentDate.addDays(1);
-    }
-    return dateArray;
-}
-
-function generateColor() {
-
-    let r = Math.floor(Math.random() * 255);
-    let g = Math.floor(Math.random() * 255);
-    let b = Math.floor(Math.random() * 255);
-    let color = "rgba(" + r + "," + g + "," + b + ", 1)";
-
-    return color;
-}
-
-let countReportsByGroup = [];
-let countReportsByCategories = [];
-
-function initArray() {
-    
-    for (let i = 0; i < groups.length; i++) {
-        countReportsByGroup[i] = [];
-    }
-
-    for (let i = 0; i < categories.length; i++) {
-        countReportsByCategories[i] = [];
-    }
-
-    for (let i = 0; i < groups.length; i++) {
-        for (let j = 0; j < 6; j++) {
-            countReportsByGroup[i][j] = 0;
-        }
-    }
-
-    for (let i = 0; i < categories.length; i++) {
-        for (let j = 0; j < 6; j++) {
-            countReportsByCategories[i][j] = 0;
-        }
-    }
-}
-
-function generateDataSet(){
-    let date = new Date();
-    let options = { month: '2-digit', day: '2-digit', year: 'numeric'};
-    let dates = getDates(date.subtractDays(6), date);
-    let dataSet = [];
-
-    for(let i = 0; i < reports.length; i++){
-        for(let j = 0; j < groups.length; j++){
-            for(let k = 0; k < dates.length; k++){
-                let reportDate = reports[i].created.toDate().toLocaleString("en-US", options);
-                if (reports[i].group === groups[j] && reportDate === dates[k]){
-                    countReportsByGroup[j][k] += 1;
-                }
-            }
-        }
-    }
-
-    for(let i = 0; i < groups.length; i++){
-        let color = generateColor();
-        dataSet.push({
-            label: groups[i] + " Group", // Name the series
-            data: countReportsByGroup[i], // Specify the data values array
-            fill: false,
-            borderColor: color, // Add custom color border (Line)
-            backgroundColor: color, // Add custom color background (Points and Fill)
-            borderWidth: 1.5 // Specify bar border width
-        });
-    }
-    
-    return dataSet;
-}
-
-function getWeeklyReport(){
-    let ctx = document.getElementById("weeklyReports").getContext('2d');
-    let dateLabels = [];
-    let date = new Date();
-    let dataSet = [];
-    
-    initArray();
-    dataSet = generateDataSet();
-
-    dateLabels = getDates(date.subtractDays(6), date);
-    var myChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: dateLabels,
-            datasets: dataSet,
-        },
-        options: {
-            responsive: true, // Instruct chart js to respond nicely.
-            maintainAspectRatio: false, // Add to prevent default behaviour of full-width/height
-            title: {
-                display: false,
-                text: 'Number of Reports per Day',
-                position: 'top',
-                fontSize: 16,
-                fontStyle: 'bold',
-                fontFamily: 'helvetica neue'
-            },
-            legend: {
-                position: 'top',
-                labels: {
-                    fontSize: 12,
-                    fontStyle: 'bold',
-                    fontFamily: 'arial',
-                    boxWidth: 15
-                }
-            },
-            scales: {
-                yAxes: [{
-                    display: true,
-                    ticks: {
-                        beginAtZero: true,
-                    },
-                    scaleLabel: {
-                        display: true,
-                        labelString: 'Number of Reports',
-                        fontSize: 14,
-                        ticks: {
-                            beginAtZero: true,
-                        },
-                    }
-                }],
-                xAxes: [{
-                    scaleLabel: {
-                        fontSize: 14,
-                        display: true,
-                        labelString: 'Day'
-                    }
-                }]
-            }
-        }
-    });
-
-}
-
-function downloadPNG(){
-    html2canvas($("#weeklyReports"), {
-        onrendered: function(canvas) {         
-            var imgData = canvas.toDataURL('image/png').replace("image/png", "image/octet-stream");
-            let link  = document.createElement('a');
-            link.download = "Weekly Report.png";
-            link.href = imgData;
-            link.click();
-        }
-    });
+    showLatest();
 }

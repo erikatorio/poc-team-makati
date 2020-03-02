@@ -19,7 +19,7 @@ window.addEventListener("load", async () => {
 });
 
 async function showTables() {
-    let options = { month: '2-digit', day: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' };
+    let options = {year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
     $('#showCategoriesTable div').html("");
 
     let cat = {};
@@ -33,11 +33,11 @@ async function showTables() {
         "<table id='reportsTable' class='display'>" +
         "<thead class='thead-inverse bg-custom text-custom'>" +
         "<tr>" +
-        "<th style='width:20%;'>User</th>" +
-        "<th style='width:20%;'>Group</th>" +
-        "<th style='width:20%;'>Category</th>" +
-        "<th style='width:40%;'>Date" +
-        "<th style='width:40%;'>Status" + 
+        "<th style='width:20%;'>ユーザー名</th>" +
+        "<th style='width:20%;'>グループ</th>" +
+        "<th style='width:20%;'>カテゴリー</th>" +
+        "<th style='width:20%;'>日付" +
+        "<th style='width:40%;'>ステータス" + 
         "</th></tr></thead>";
 
     //Add body
@@ -56,7 +56,7 @@ async function showTables() {
 
         let date = new Date(report.created["seconds"] * 1000);
         body +=
-            "<tr ondblclick= selectReport(" + report.id + ")>" +
+            "<tr id=\"reports-ds\" ondblclick= selectReport(" + report.id + ")>" +
             "<td>" +
             report.username +
             "</td>" +
@@ -67,7 +67,7 @@ async function showTables() {
             report.category +
             "</td>" +
             "<td>" +
-            report.created.toDate().toLocaleString("en-US", options) +
+            report.created.toDate().toLocaleString('ja-JP', options) +
             "</td>" +
             "<td>" +
             report.status +
