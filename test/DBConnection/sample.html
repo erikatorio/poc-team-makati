@@ -1,0 +1,139 @@
+<html>
+    <body>
+        <div class="readReceiptDemo">
+            <input id="readMessages" type="submit" value="I've read all the messages" />
+            <br />
+            <input id="msgText" type="text" />
+            <input id="sendMsg" type="submit" />
+            <div id="messagePanel"></div>
+        </div>
+    </body>
+
+    <style>
+        .readReceiptDemo {
+            font-size: 16px;
+            line-height: 2em;
+        }
+    </style>
+
+    <script src="https://cdn.pubnub.com/sdk/javascript/pubnub.4.0.11.js"></script>
+    <script>
+        var pubnub, myLastMessage, theirLastMessage;
+        var userId = PubNub.generateUUID();
+
+        bindUiEvents();
+        initPubNub();
+
+        function initPubNub() {
+            pubnub = new PubNub({
+                "publishKey": "pub-c-8f9d96c7-4012-4eee-a5e3-e393ba60e88f",
+                "subscribeKey": "sub-c-a4a11fb0-89af-11e6-b8cb-02ee2ddab7fe",
+                "uuid": userId,
+                "heartbeatInterval": 10 //this can be bad for battery usage on mobile devices when it's low
+            });
+
+            //unsubscribe as user leaves the page
+            window.onbeforeunload = function () {
+                pubnub.unsubscribe({ "channels": ["message", "message-receipts"] });
+            }; 
+
+            pubnub.hereNow({
+                "channels": ["message"]
+            }, function (status, response)
+            {
+                //only pub/sub if there are 2 users present.
+                if (response.totalOccupancy > 1) return;
+
+                pubnub.subscribe({
+                    "channels": ["message", "message-receipts"],
+                    "withPresence": true
+                });
+
+                var pnMessageHandlers = {
+                    "message": writeMessageHtml,
+                    "message-receipts": readMessageHtml
+                };
+
+                pubnub.addListener({
+                    "message": function (m) {
+                        pnMessageHandlers[m.subscribedChannel](m.message);
+                    }
+                });
+
+                //write messages from the last 5 minutes to the screen
+                pubnub.history({
+                  "channel": "message",
+                  "end": new Date().getTime()*10000 - 3000000000
+                },
+                function (status, response) {
+                    if (!response.messages) return;
+                    response.messages.forEach(function(messageObject) {
+                      writeMessageHtml(messageObject.entry);
+                    });
+                });
+            });
+        }
+
+        function bindUiEvents () {
+            var textbox = document.getElementById("msgText");
+            var sendButton = document.getElementById("sendMsg");
+            var readButton = document.getElementById("readMessages");
+
+            sendButton.addEventListener("click", function () {
+                publishMessage(textbox.value);
+                textbox.value = "";
+            });
+
+            readButton.addEventListener("click", function () {
+                onMessageRead(theirLastMessage, userId);
+            });
+        }
+
+        function writeMessageHtml (message) {
+            //create message element and add it to the page
+            var panel = document.getElementById("messagePanel");
+            var newMsg = document.createElement("div");
+            var who = message.user === userId ? "Me" : "Them";
+            who === "Them" ? theirLastMessage = message.id : null;
+            newMsg.textContent = who + ": " + message.content;
+            newMsg.id = message.id;
+            panel.appendChild(newMsg);
+        }
+
+        function readMessageHtml (message) {
+            //remove existing read UI
+            var read = document.getElementById("readNotification");
+            read && read.id !== message.lastSeen && message.userId !== userId ? read.remove() : null;
+
+            //update read UI
+            read = document.createElement("span");
+            read.id = "readNotification";
+            read.innerHTML = " ** Last Read **";
+
+            var messageElement = document.getElementById(myLastMessage);
+            messageElement && message.userId !== userId ? messageElement.appendChild(read) : null;
+        }
+
+        function publishMessage (message) {
+            myLastMessage = PubNub.generateUUID();
+            pubnub.publish({
+                "channel": "message",
+                "message": {
+                    "content": message,
+                    "id": myLastMessage,
+                    "user": userId
+                }
+            }); 
+        }
+
+        function onMessageRead (messageId, userId) {
+            pubnub.publish({
+                "channel" : "message-receipts",
+                "message" : {
+                    "lastSeen": messageId,
+                    "userId": userId
+                }
+            });
+        }
+    </script>
+</html>
