@@ -56,7 +56,7 @@
             <a href="category.html" class="bg-light list-group-item list-group-item-action" title="Category">
                     <div class="d-flex w-100 justify-content-start align-items-center">
                         <span class="fa fa-list fa-fw mr-3" style="color: #8A6E59"></span>
-                        <span class="menu-collapsed">Category</span>    
+                        <span class="menu-collapsed"></span>    
                     </div>
           </a>          
             <a href="users.html" class="bg-light list-group-item list-group-item-action" title="Users">
@@ -72,7 +72,7 @@
             <a href="print.html" class="bg-light list-group-item list-group-item-action" title="Table">
                     <div class="d-flex w-100 justify-content-start align-items-center">
                         <span class="fa fa-print fa-fw mr-3" style="color: #8A6E59"></span>
-                        <span class="menu-collapsed">Table</span>    
+                        <span class="menu-collapsed"></span>    
                     </div>
                 </a>   
             <!-- Separator -->
@@ -106,20 +106,20 @@
 
       <div class="container" id="table-container">
         <h2 id="header-title">
-          User Management
-          <small class="text-muted">Add and remove users</small>
+          ユーザーマネジメント
+          <small class="text-muted">ユーザーを追加または削除する</small>
         </h2>
         <div class="row">
             <button id="add-user-btn" type="button" class="btn btn-main" data-toggle="modal" data-target="#addNewUserModal">
-              <i class="fas fa-user-plus"></i> Add New User
+              <i class="fas fa-user-plus"></i> 新しいユーザーを追加
             </button>
           </div>
         <table id="example" class="table">
             <thead>
               <tr id="flat-row">
                 <th scope="col" class="table-header th-sm">#</th>
-                <th scope="col" class="table-header th-sm">Username</th>
-                <th scope="col" class="table-header th-sm">Department</th>
+                <th scope="col" class="table-header th-sm">ユーザー名</th>
+                <th scope="col" class="table-header th-sm">デパートメント</th>
                 <th class="table-header th-sm">Actions</th>
               </tr>
             </thead>
@@ -150,7 +150,7 @@
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Add New User</h5>
+              <h5 class="modal-title" id="exampleModalLabel">新しいユーザーを追加</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -158,21 +158,21 @@
             <div class="modal-body">
                 <form>
                     <div class="form-group">
-                    <label for="exampleFormControlInput1">Username:</label>
+                    <label for="exampleFormControlInput1">ユーザー名:</label>
                     <input type="text" class="form-control" name="username" placeholder="">
                 </div>
                 <div class="form-group">
-                    <label for="exampleFormControlInput1">Password:</label>
+                    <label for="exampleFormControlInput1">パスワード:</label>
                     <input type="text" class="form-control" name="password" placeholder="">
                 </div>
                     <div class="form-group">
-                    <label for="exampleFormControlInput1">Department:</label>
+                    <label for="exampleFormControlInput1">デパートメント:</label>
                     <input type="text" class="form-control" name="department" placeholder="">
                 </div>				  	
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-main">Save changes</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
+              <button type="button" class="btn btn-main">完了</button>
             </div>
           </div>
         </div>
