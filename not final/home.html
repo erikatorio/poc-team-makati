@@ -65,8 +65,18 @@
           <div class="dropdown-menu dropdown-menu-lg-right dropdown-secondary"
             aria-labelledby="navbarDropdownMenuLink-55">
             <div class="logo-wrapper sn-ad-avatar-wrapper">
-              <a href="#"><img id="profpicx" src="./img/user.png"
-                  class="rounded-circle"><span id="userName">User</span>さん</a>
+              <div class="row">
+                <div class="col d-flex justify-content-center">
+                  <a href="#"><img id="profpicx" src="./img/user.png"
+                    class="rounded-circle">
+                  </a>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col text-center">
+                  <span id="userName">User</span>さん
+                </div>
+              </div>    
             </div>
             <a class="dropdown-item t-nav" href="editprofile.html"><i class="fas fa-edit"></i>プロファイル編集</a>
             <a class="dropdown-item t-nav" href="index.html" onclick="logOut()"><i class="fas fa-sign-out-alt"></i>ログアウト</a>
@@ -219,37 +229,37 @@
         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
             <div class="modal-content">
             <div class="modal-header">
-                Add additional information about your report.
+              レポートについて詳細を追加する。
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
                 <div class="modal-body">			      	
                     <div id="adtl_info">
                         <form>
                             <div class="form-group">
-                            <label for="exampleFormControlInput1">Who?</label>
+                            <label for="exampleFormControlInput1">どちらが関与しましたか？</label>
                             <input type="text" class="form-control" name="who" placeholder="">
                         </div>
                         <div class="form-group">
-                            <label for="exampleFormControlInput1">When did it happen?</label>
+                            <label for="exampleFormControlInput1">それはいつ起きましたか?</label>
                             <input type="text" class="form-control" name="when" placeholder="">
                         </div>
                             <div class="form-group">
-                            <label for="exampleFormControlInput1">Where did it happen?</label>
+                            <label for="exampleFormControlInput1">それはどちらに起きましたか？</label>
                             <input type="text" class="form-control" name="where" placeholder="">
                         </div>				  	
                             <div class="form-group">
-                            <label for="exampleFormControlTextarea1">How did it happen?</label>
+                            <label for="exampleFormControlTextarea1">それはどうやって起きましたか？</label>
                             <input type="text" class="form-control" name="how" placeholder="">
                             </div>
                           <div class="form-group">
                             <div class="input-group">
                               <div class="input-group-prepend">
-                                <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+                                <span class="input-group-text" id="inputGroupFileAddon01">アップロードする</span>
                               </div>
                               <div class="custom-file">
                                 <input type="file" class="custom-file-input" id="inputGroupFile01"
                                   aria-describedby="inputGroupFileAddon01" accept="audio/*,video/*,image/*" value="">
-                                <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                                <label class="custom-file-label" for="inputGroupFile01">ファイルを選択</label>
                               </div>
                             </div>
                           </div>
@@ -257,8 +267,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
-                <button id="submit_btn2" type="submit" class="btn" data-toggle="modal" onclick="storeData(event)">Submit Report</button>
+                <button type="button" class="btn btn-light" data-dismiss="modal">閉じる</button>
+                <button id="submit_btn2" type="submit" class="btn" data-toggle="modal" onclick="storeData(event)">送信する</button>
                 </div>
         </div>
         </div>

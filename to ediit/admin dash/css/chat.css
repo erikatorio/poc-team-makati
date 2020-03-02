@@ -1,0 +1,371 @@
+@import url(
+  https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic&subset=latin,cyrillic
+);
+
+/* Button used to open the chat form - fixed at the bottom of the page */
+#open-button {
+  background-color: #614263;
+  border-radius: 50%;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  opacity: 0.8;
+  position: fixed;
+  bottom: 23px;
+  right: 28px;
+  cursor: pointer;
+  box-shadow: 0px 3px 16px 0px rgba(0, 0, 0, 0.6),
+    0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+}
+
+#chat-overlay {
+  background: rgba(255, 255, 255, 0.1);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  display: none;
+}
+
+#messagesList li {
+  list-style: none;
+  clear: both;
+  font-size: 13px;
+}
+
+#messagesList {
+  height: 200px;
+  border-bottom: 1px darkgray solid;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.chat_msg_item {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  max-width: 60%;
+  display: block;
+  word-wrap: break-word;
+  border-radius: 3px;
+  -webkit-animation: zoomIn 0.5s cubic-bezier(0.42, 0, 0.58, 1);
+  animation: zoomIn 0.5s cubic-bezier(0.42, 0, 0.58, 1);
+  clear: both;
+  z-index: 999;
+}
+
+.chat_msg_item .chat_avatar {
+  position: absolute;
+  top: 0;
+  left: -52px;
+  background: transparent;
+}
+
+.chat_msg_item_admin p.messageDisplay {
+  font-size: 14px;
+  font-family: 'Roboto';
+  font-weight: 500;
+  background: rgba(0, 0, 0, 0.03);
+  color: #666;
+  padding: 3px;
+}
+
+.chat_avatar img {
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  border-radius: 50%;
+}
+
+.time {
+  font-size: 8px;
+  font-family: 'Roboto';
+  color: rgb(141, 139, 139);
+}
+
+.chat_msg_item.chat_msg_item_admin {
+  margin-left: 60px;
+  float: left;
+  background: transparent;
+  color: #666;
+}
+
+.chat_msg_item.chat_msg_item_user {
+  margin-right: 20px;
+  float: right;
+}
+
+.chat_msg_item_user p.messageDisplay {
+  font-size: 14px;
+  font-family: 'Roboto';
+  font-weight: 500;
+  background: #42a5f5;
+  color: #eceff1;
+  padding: 3px;
+}
+
+.message-box input {
+  border: none;
+  display: flex;
+  flex-direction: row;
+  width: 80%;
+  font-size: 13px;
+  opacity: 0.7;
+  float: left;
+}
+.message-box input:focus {
+  outline: none;
+}
+.message-box .buttons{
+  display: flex;
+  flex-direction: row;
+  width: 20%;
+  float: right;
+}
+.message-box .buttons button {
+  color: #428bca;
+  cursor: pointer;
+  font-size: 20px;
+  padding-right: 0px;
+  /* position: absolute; */
+  border: none;
+  outline: none;
+  background-color: Transparent;
+  background-repeat: no-repeat;
+}
+
+.message-box button:disabled i {
+  color: #a1a1a1;
+}
+
+.message-box button:not([disabled]) {
+  color: #428bca;
+}
+/* The popup chat - hidden by default */
+.chat-popup {
+  border-radius: 5%;
+  border: 1px solid teal;
+  display: none;
+  position: fixed;
+  bottom: 0;
+  bottom: 23px;
+  right: 28px;
+  z-index: 9;
+  width: 294px;
+  background-color: white;
+  height: 350px;
+  -webkit-transition: all 0.1s ease-out;
+  transition: all 0.1s ease-out;
+}
+
+/* Add styles to the form container */
+.form-container {
+  max-width: 300px;
+  padding: 10px;
+  background-color: white;
+}
+
+/* Full-width textarea */
+.form-container textarea {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  border: none;
+  background: #f1f1f1;
+  resize: none;
+  min-height: 200px;
+}
+
+.minimize {
+  float: right;
+  border: none;
+  outline: none;
+  background-color: Transparent;
+  background-repeat: no-repeat;
+}
+.back-button {
+  float: left;
+  border: none;
+  outline: none;
+  background-color: Transparent;
+  background-repeat: no-repeat;
+}
+
+/* Set a style for the submit/send button */
+.form-container .btn {
+  background-color: #4caf50;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom: 10px;
+  opacity: 0.8;
+}
+
+/* Add a red background color to the cancel button */
+.form-container .cancel {
+  background-color: red;
+}
+
+/* Add some hover effects to buttons */
+.form-container .btn:hover,
+.open-button:hover {
+  opacity: 1;
+}
+
+.search {
+  border-radius: 15px 0 0 15px !important;
+  background-color: rgba(0, 0, 0, 0.3) !important;
+  border: 0 !important;
+  width: 50%;
+  color: rgb(10, 5, 5) !important;
+}
+.search:focus {
+  box-shadow: none !important;
+  outline: 0px !important;
+}
+
+.search_btn {
+  border-radius: 0 15px 15px 0 !important;
+  background-color: rgba(0, 0, 0, 0.3) !important;
+  border: 0 !important;
+  color: white !important;
+  cursor: pointer;
+}
+.contacts_body {
+  padding: 0.75rem 0 !important;
+  overflow-y: auto;
+  height: 240px;
+  overflow-x: hidden;
+  white-space: nowrap;
+}
+
+.card-header {
+  padding-top: 0 !important;
+}
+.contacts {
+  list-style: none;
+  padding: 0;
+}
+.contacts li {
+  width: 100% !important;
+  padding: 5px 10px;
+  margin-bottom: 5px !important;
+}
+
+#peopleIcon i {
+  padding-top: 10px;
+}
+
+.user_img {
+  height: 40px;
+  width: 40px;
+  border: 1.5px solid #f5f6fa;
+}
+
+.user_img_msg {
+  height: 20px;
+  width: 20px;
+  border: 1.5px solid #f5f6fa;
+}
+
+.img_cont {
+  position: relative;
+  height: 40px;
+  width: 40px;
+}
+
+.img_cont_msg {
+  height: 40px;
+  width: 40px;
+}
+
+#users li:hover {
+  background-color: rgb(179, 179, 231);
+}
+
+#messageBox {
+  display: none;
+}
+/* .online_icon{
+position: absolute;
+height: 15px;
+width:15px;
+background-color: #4cd137;
+border-radius: 50%;
+bottom: 0.2em;
+right: 0.4em;
+border:1.5px solid white;
+}
+.offline{
+    background-color: #c23616 !important;
+} */
+.user_info {
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: 15px;
+}
+
+.user_info span {
+  font-size: 20px;
+  color: rgb(24, 23, 23);
+}
+.user_info p {
+  font-size: 10px;
+  color: rgba(22, 21, 21, 0.6);
+}
+
+@media (max-width: 576px) {
+  .contacts_card {
+    margin-bottom: 15px !important;
+  }
+}
+
+/* @media (max-width: 768px) {
+        .chat-popup {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            z-index: 9;
+            height: 100vh;
+            width: 100vw;
+            background-color: white;
+        }
+    } */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 0;
+}
+
+::-webkit-scrollbar-thumb {
+  margin: 2px;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.2);
+}
+#mediaCapture {
+  display: none;
+}
+
+.chat_msg_item.chat_msg_item_admin img.imageMessage {
+  max-width: 160px;
+  max-height: 200px;
+  float: left;
+  border:1px solid rgb(219, 216, 216);
+  border-radius: 15%;
+}
+
+.chat_msg_item.chat_msg_item_user img.imageMessage {
+  max-width: 160px;
+  max-height: 200px;
+  float: right;
+  border:1px solid rgb(219, 216, 216);
+  border-radius: 15%;
+}

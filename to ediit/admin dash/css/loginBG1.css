@@ -1,0 +1,28 @@
+/* CSS for first keyframe of login page animation */
+#backgroundimage:before {
+	content: "";
+	position: fixed;
+	left: 0;
+	right: 0;
+	z-index: -1;
+	
+	display: block;
+	background-image: url("../Images/BG1.jpg");
+	height: 100%;
+	
+	-webkit-filter: blur(8px);
+	-moz-filter: blur(8px);
+	-o-filter: blur(8px);
+	-ms-filter: blur(8px);
+	filter: blur(8px);
+	background-repeat: no-repeat;
+    background-size: cover;
+    animation: fadein .25s ease 0s forwards;
+  }
+
+/* Fade in animation */
+@keyframes fadein{
+	0% {opacity: 0;}
+	100% {opacity: 1;
+		display: none;}
+}
