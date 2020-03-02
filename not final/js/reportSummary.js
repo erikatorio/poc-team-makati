@@ -6,6 +6,12 @@ window.addEventListener("load", async () => {
     isloaded = true;
     await getReports();
     await reportSummary();
+    generateColors(1);
+
+    loadData(1).then(function () {
+        drawVisualization(data);
+    });
+
     getWeeklyReport();
     $('#latestReportsTable').DataTable({
         paging: false,

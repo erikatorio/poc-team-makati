@@ -163,17 +163,10 @@
                   <div class="card-body p-0 w-100">
                     <div class="card-body h-75 w-80 py-0">
                     <div id="graph3d" class="container px-0 h-100">
-                      <div id="mygraph" class="h-100" style="height: 160px !important;"></div>
+                      
                     </div>
                   </div>
                   </div>
-                  <!-- <div class="card-body p-0 w-100"> -->
-                    <!-- <div class="card-body h-75 w-80 py-0">
-                      <div id="graph3d" class="container px-0 h-100">
-                        <div id="mygraph" class="h-100" style="height: 160px !important;"></div>
-                      </div>
-                    </div> -->
-                  <!-- </div> -->
               </div>
             </div>
               </div>
@@ -450,7 +443,7 @@
         integrity="sha256-c3RzsUWg+y2XljunEQS0LqWdQ04X1D3j22fd/8JCAKw=" crossorigin="anonymous"></script>
 
     <!-- PNotify Javascript-->
-    <script type="text/javascript" src="node_modules/pnotify/dist/iife/PNotify.js"></script>
+    <!-- <script type="text/javascript" src="node_modules/pnotify/dist/iife/PNotify.js"></script>
     <link href="node_modules/pnotify/dist/PNotifyBrightTheme.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="node_modules/pnotify/dist/iife/PNotifyButtons.js"></script>
     <script type="text/javascript" src="node_modules/pnotify/dist/iife/PNotifyCallbacks.js"></script>
@@ -468,7 +461,10 @@
       };
       PNotify.modules.History.defaults.maxInStack = 3;
 
-    </script>
+    </script> -->
+
+    <!-- Vis Js core JavaScript-->
+    <script type="text/javascript" src="https://unpkg.com/vis-graph3d@latest/dist/vis-graph3d.min.js"></script>
 
     <!-- DataTable JS -->
     <!-- Password Generator -->
@@ -492,13 +488,11 @@
 	  <script src="js/table.js"></script>
   
 	  <script src="js/firestore.js"></script>
-	  <script src="js/sb-admin-2.js"></script>
-	  <script src="js/3dpiegraph.js"></script>
-	  <script type="text/javascript" src="js/main.js"></script>
-  
-	  <script>
-		var ctx = document.getElementById('myPieChart').getContext('2d');
-	  </script>
+    <script type="text/javascript" src="js/main.js"></script>
+
+    <script src="js/dataloader.js"></script>
+    <script src="js/graph3d.js"></script>
+    
 
    
 </body>
