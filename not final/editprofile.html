@@ -40,19 +40,19 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent-555">
         <ul class="navbar-nav ml-auto nav-flex-icons">
           <li class="nav-item">
-            <a class="nav-link t-nav" onclick="showChat()" href="#"><i class="fas fa-comments"></i>Chat</a>
+            <a class="nav-link t-nav" onclick="showChat()" href="#"><i class="fas fa-comments"></i>チャット</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link t-nav" href="reports.html"><i class="fas fa-list"></i>Reports</a>
+            <a class="nav-link t-nav" href="reports.html"><i class="fas fa-list"></i>レポート</a>
           </li>
           <li class="nav-item active">
             <a class="nav-link t-nav dropdown-toggle" href="home.html" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false"><i class="fas fa-globe-asia"></i>Language
+            aria-haspopup="true" aria-expanded="false"><i class="fas fa-globe-asia"></i>言語
             </a>
             <div class="dropdown-menu dropdown-menu-lg-right dropdown-secondary"
               aria-labelledby="navbarDropdownMenuLink-55">
-              <a class="dropdown-item t-nav" href="#">English</a>
-              <a class="dropdown-item t-nav" href="#">Japanese</a>
+              <a class="dropdown-item t-nav" href="#">英語</a>
+              <a class="dropdown-item t-nav" href="#">日本語</a>
             </div>
           </li>
           <li class="nav-item avatar dropdown">
@@ -64,11 +64,21 @@
             <div class="dropdown-menu dropdown-menu-lg-right dropdown-secondary"
               aria-labelledby="navbarDropdownMenuLink-55">
               <div class="logo-wrapper sn-ad-avatar-wrapper">
-                <a href="#"><img id="profpicx" src="./img/user.png"
-                    class="rounded-circle"><span>rickybowen</span></a>
-              </div>
-              <a class="dropdown-item t-nav" href="editprofile.html"><i class="fas fa-edit"></i>Edit Profile</a>
-              <a class="dropdown-item t-nav" href="index.html"><i class="fas fa-sign-out-alt"></i>Logout</a>
+                <div class="row">
+                  <div class="col d-flex justify-content-center">
+                    <a href="#"><img id="profpicx" src="./img/user.png"
+                      class="rounded-circle">
+                    </a>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col text-center">
+                    <span id="userName">User</span>さん
+                  </div>
+                </div>
+              </div>             
+              <a class="dropdown-item t-nav" href="editprofile.html"><i class="fas fa-edit"></i>プロファイル編集</a>
+              <a class="dropdown-item t-nav" href="index.html"><i class="fas fa-sign-out-alt"></i>ログアウト</a>
             </div>
           </li>
         </ul>
@@ -79,7 +89,7 @@
 
   <!-- edit profile -->
   <div id="edit-profile" class="container">
-    <h1 class="t-header">Edit Profile</h1>
+    <h1 class="t-header">プロファイル編集</h1>
     <div class="row w-100">
         <div class="col-3 edit">
             <div class="edit-image row justify-content-center">
@@ -97,24 +107,24 @@
             <form action="" class="edit-profile">
                 <!-- username -->
                 <div class="md-form">
-                    <input type="email" id="materialFormCardEmailEx" class="form-control" placeholder="New Username">
-                    <label for="materialFormCardEmailEx" class="font-weight-light">Username</label>
+                    <input type="email" id="materialFormCardEmailEx" class="form-control" placeholder="新しいユーザー名">
+                    <label for="materialFormCardEmailEx" class="font-weight-light">ユーザー名</label>
                 </div>
 
                 <!-- enable username encryption -->
                 <div class="custom-control custom-switch">
                     <input type="checkbox" class="custom-control-input" id="customSwitches">
-                    <label class="custom-control-label" for="customSwitches">Enable anonymous submission of reports</label>
+                    <label class="custom-control-label" for="customSwitches">レポートの匿名送信を許可する</label>
                 </div>
 
                 <!-- Password -->
                 <div class="md-form">
                     <input type="password" id="materialFormCardPasswordEx" class="form-control" placeholder="••••••••••">
-                    <label for="materialFormCardPasswordEx" class="font-weight-light">Password</label>
+                    <label for="materialFormCardPasswordEx" class="font-weight-light">パスワード</label>
                 </div>
 
                 <div class="save-profile">
-                    <button class="btn btn-secondary btn-block my-4" type="submit" onclick="saveProfile(event)">Save</button>
+                    <button class="btn btn-secondary btn-block my-4" type="submit" onclick="saveProfile(event)">完了</button>
                 </div>
             </form>
         </div>
