@@ -29,10 +29,29 @@ async function populateCategoryTable(){
             "<th scope='row' class='table-id'>" + category.id + "</th>" +
             "<td class='table-content'>" + category.name + "</td>" +
             "<td class='table-content'>" + category.description + "</td>" +
-            "<td><button class='btn btn-row'><i class='fas fa-trash-alt'></i></button></td>" +
+            "<td><button class='btn btn-row' onclick='deleteCategory(" + category.id + ")'><i class='fas fa-trash-alt'></i></button></td>" +
             "</tr>";
     });
 
     $("#categoryTable").append(head + body + "</tbody></table>");
     $('#example').DataTable();
+}
+
+async function deleteCategory(category_id){
+    if(confirm('Delete category?')){
+        db.collection("categories")
+            .where("id", "==", category_id)
+            .get()
+            .then(async function (querySnapshot) {
+                querySnapshot.forEach(function (doc) {
+                    doc.ref.delete();
+                });
+                if(!alert('Category Deletion Successful!')){
+                    populateCategoryTable();
+                }
+            })
+            .catch(function (error) {
+                console.error("Error category deletion: ", error);
+            });
+    }
 }

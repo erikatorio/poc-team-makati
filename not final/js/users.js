@@ -47,7 +47,7 @@ async function populateUserTable(){
             "<th scope='row' class='table-id'>" + user.id + "</th>" +
             "<td class='table-content'>" + user.username + "</td>" +
             "<td class='table-content'>" + user.group + "</td>" +
-            "<td><button class='btn btn-row'><i class='fas fa-trash-alt'></i></button></td>" +
+            "<td><button class='btn btn-row' onclick='deleteUser(" + user.id + ")'><i class='fas fa-trash-alt'></i></button></td>" +
             "</tr>";
     });
 
