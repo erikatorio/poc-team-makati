@@ -248,3 +248,14 @@ function logOutJp() {
     location.href = "/JP/index.html";
     sessionStorage.clear();
 }
+
+
+async function storeFile(reportID){
+    console.log("HERE");
+    if ($("#inputGroupFileAddon01").val() != "") {
+        console.log("FOUND FILE");
+        file_data = $("#inputGroupFileAddon01").prop("files")[0];
+        fileUpload(file_data, reportID);
+    }
+    console.log("NO FILE");
+}

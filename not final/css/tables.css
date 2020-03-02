@@ -1,12 +1,20 @@
-.table-header, .table-count, .modal-title {
+.table-header, .table-count, .modal-title, #header-title {
     font-family: 'Lato';
 }
 
-.table-content, .modal-body {
-    font-family: 'Roboto Condensed';
+.table-content, .modal-body, #example_info, #header-title small, small, .dropdown-toggle {
+    font-family: 'Roboto Condensed' !important;
 }
 
-.btn-main, .paginate_button {
+#header-title small {
+    font-size: 17px;
+}
+
+#header-title {
+    margin-bottom: 70px;
+}
+
+.btn-main, #example_previous {
     background-color: #FF9999;
     font-family: 'Roboto Condensed'
 }
@@ -32,4 +40,16 @@ td .btn-row {
 
 #add-user-btn {
     margin: 10px;
+}
+
+#flat-row {
+    background-color: #FFFAFA !important;
+}
+
+label {
+    font-family: 'Roboto Condensed';
+}
+
+#table-container {
+    margin-top: 50px;
 }
