@@ -211,8 +211,9 @@
             </div>
             <!-- End of First Row of Cards -->
 
-
+            <!-- Second Row of Cards -->
             <div class="row" style="padding-top: 10px; max-height: 80px;">
+              <!-- Card for User Management -->
               <div class="col-sm-4">
                 <div class="card-deck">
                   <div class="card other_displays" style="height: 235px;">
@@ -220,41 +221,52 @@
                       <strong>ユーザーマネジメント</strong>
                     </div>
                     <div class="card-body" style="overflow: auto; padding: 0;">
+                      <!-- Container for Table to be Displayed -->
                       <div id="showUsersTable" class="pt-2" style="padding: 3px;"></div>
                     </div>
                   </div>
                 </div>
               </div>
+              <!-- End of Card for User Management -->
+
+              <!-- Card for Activity Log -->
               <div class="col-sm-4">
-                    <div class="card-deck">
-                    <div class="card other_displays" style="height: 225px;">
+                <div class="card-deck">
+                  <div class="card other_displays" style="height: 225px;">
                     <div class="card-header" style="padding: 2px 0 0 4px; background-color: transparent; border: none;">
-                        <strong>アクティビティログ</strong>
+                      <strong>アクティビティログ</strong>
+                    </div>
+                    <div class="card-body">
+                      <div class="col p-0 d-flex justify-content-center h-100 w-100">
+                        <!-- Container for Activity Log to be presented -->
+                        <div id="allReport" class='w-100'></div>
                       </div>
-                      <div class="card-body">
-                        <div class="col p-0 d-flex justify-content-center h-100 w-100">
-                          <div id="allReport" class='w-100'></div>
-                        </div>
-                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
+              <!-- End of Card for Activity Log -->
+
+              <!-- Card for Weekly Report Trend -->
               <div class="col-sm-4">
-                    <div class="card-deck">
+                <div class="card-deck">
                   <div class="card other_displays" style="height: 225px;">
                     <div class="card-header" style="padding: 2px 0 0 4px; background-color: transparent; border: none;">
                         <strong>毎週のレポートトレンド</strong>
                       </div>
                       <div class="card-body p-0 w-100">
+                        <!-- Container for Weekly report trend chart -->
                         <div class="chartContainer" style="position: relative; height:27vh; width:30vw">
                           <canvas id="weeklyReports"></canvas>
                         </div>
-                      </div>
-                      
+                      </div>  
                   </div>
                 </div>
               </div>
+              <!-- End of Card for Weekly Report Trend -->
             </div>
+            <!-- End of Second Row of Cards -->
+
           </div>
         </div>
       </div>
@@ -286,7 +298,7 @@
                     </div>
                     <div class=" modal-footer">
                         <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                        <button id="userModalButton" type="submit" class="btn btn-primary disabled" role="button"
+                        <button id="adduserModalButton" type="submit" class="btn btn-primary disabled" role="button"
                             aria-disabled="true">Add Users</button>
                     </div>
                 </form>
