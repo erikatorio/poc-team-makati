@@ -60,6 +60,7 @@ async function addCategory(){
             if(!alert('Successfully added!')){
                 $('#addNewUserModal').modal('hide');
                 populateCategoryTable();
+                setTimeout(location.reload(), 1500);
             }
         })
         .catch(function (error) {
@@ -78,6 +79,7 @@ async function deleteCategory(category_id){
                 });
                 if(!alert('Category Deletion Successful!')){
                     populateCategoryTable();
+                    setTimeout(location.reload(), 1500);
                 }
             })
             .catch(function (error) {
