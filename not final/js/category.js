@@ -37,6 +37,36 @@ async function populateCategoryTable(){
     $('#example').DataTable();
 }
 
+async function addCategory(){
+    let category_name = $("input[name='category_name']").val();
+    let category_desc = $("input[name='description']").val();
+
+    let size = 0;
+
+    await db.collection("categories")
+        .get()
+        .then(function (querySnapshot){
+            size = querySnapshot.docs.length;
+        });
+    
+    db.collection("categories")
+        .doc()
+        .set({
+            id: size,
+            name: category_name,
+            description: category_desc
+        })
+        .then(async function(){
+            if(!alert('Successfully added!')){
+                $('#addNewUserModal').modal('hide');
+                populateCategoryTable();
+            }
+        })
+        .catch(function (error) {
+            console.error("Error adding category: ", error);
+        });
+}
+
 async function deleteCategory(category_id){
     if(confirm('Delete category?')){
         db.collection("categories")
