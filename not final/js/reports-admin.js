@@ -29,6 +29,7 @@ async function populateReportTable(){
     let body = "<tbody>";
 
     tempReports.forEach(function(report){
+        let options = { month: '2-digit', day: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' };
         var category = "";
         switch(report.category){
             case "0":
@@ -57,7 +58,7 @@ async function populateReportTable(){
                 break;
         }
 
-        let date = new Date(report.created["seconds"] * 1000);
+        let date = report.created.toDate().toLocaleString("en-US", options);
         body += 
             "<tr id='flat-row'>" + 
             "<th scope='row' class='table-id'>" + report.id + "</th>" +
