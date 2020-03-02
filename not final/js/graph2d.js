@@ -368,6 +368,7 @@ function generateDataSet(sortBy){
 }
 
 function drawVisualizationTrend(displayBy){
+    console.log(maxGroupCount);
     let dateLabels = [];
     let date = new Date();
     let dataSet = [];
