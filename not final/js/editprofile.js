@@ -6,11 +6,10 @@
 //     }
 // });
 
-console.log(sessionStorage);
-
 window.addEventListener("load", async () => {
     $('#username').html(sessionStorage.getItem('username'));
     $('#department').html('Department ' + sessionStorage.getItem('group'));
+    $('#customSwitches').prop('checked', sessionStorage.getItem('enableAnonymous'));
 });
 
 async function uploadPicture(file_data) {
@@ -39,8 +38,6 @@ async function uploadPicture(file_data) {
     }, function () {
         task.snapshot.ref.getDownloadURL().then(function (downloadURL) {
             reportData.attachFile = downloadURL;
-            sendReport(reportData);
-            $('#submit_btn2').attr('disabled', false);
         });
     });
 
@@ -61,6 +58,7 @@ function saveProfile(e) {
     // path = $("#fileid").val()
     // $('#user_picture').attr('src', 'img/flower.png');
     // console.log($("#fileid").val());
+    //console.log(sessionUserID);
 
     if(newName != "" && newPass != ""){
         db.collection("users")
@@ -75,11 +73,15 @@ function saveProfile(e) {
                     });
                 });
 
-                alert("Success!");
+                if(!alert('Success!')){
+                    sessionStorage.setItem("username", newName);
+                    setTimeout(location.reload.bind(location), 3000);
+                }
             })
             .catch(function (error) {
                 console.error("Error user update: ", error);
             });
+    
     } else if (newName != ""){
         db.collection("users")
             .where("id", "==", parseInt(sessionUserID))
@@ -92,11 +94,16 @@ function saveProfile(e) {
                     });
                 });
 
-                alert("Success!");
+                if(!alert('Success!')){
+                    sessionStorage.setItem("username", newName);
+                    setTimeout(location.reload.bind(location), 3000);
+                }
+                
             })
             .catch(function (error) {
                 console.error("Error user update: ", error);
             });
+
     } else if(newPass != ""){
         db.collection("users")
             .where("id", "==", parseInt(sessionUserID))
@@ -109,7 +116,9 @@ function saveProfile(e) {
                     });
                 });
 
-                alert("Success!");
+                if(!alert('Success!')){
+                    setTimeout(location.reload.bind(location), 3000);
+                }
             })
             .catch(function (error) {
                 console.error("Error user update: ", error);
@@ -125,13 +134,12 @@ function saveProfile(e) {
                     });
                 });
 
-                alert("Success!");
+                if(!alert('Success!')){
+                    setTimeout(location.reload.bind(location), 3000);
+                }
             })
             .catch(function (error) {
                 console.error("Error user update: ", error);
             });
     }
-
-    sessionStorage.setItem("username", newName);
-    location.reload();
 }

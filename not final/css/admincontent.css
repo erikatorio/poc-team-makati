@@ -1,0 +1,543 @@
+html {
+  height: 100vh;
+}
+@import "https://fonts.googleapis.com/css?family=Roboto&display=swap";
+body {
+  font-family: "Poppins", sans-serif;
+  background: #fafafa;
+  height: 100vh;
+}
+
+p {
+  font-family: "Poppins", sans-serif;
+  font-size: 1.1em;
+  font-weight: 300;
+  line-height: 1.7em;
+  color: #999;
+}
+
+a,
+a:hover,
+a:focus {
+  color: inherit;
+  text-decoration: none;
+  transition: all 0.3s;
+}
+
+.navbar {
+  padding: 0;
+  background: #fff;
+  border: none;
+  border-radius: 0;
+  margin-bottom: 20px;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-btn {
+  box-shadow: none;
+  outline: none !important;
+  border: none;
+}
+
+.line {
+  width: 100%;
+  height: 1px;
+  /* border-bottom: 1px dashed #ddd; */
+  margin: 40px 0;
+}
+
+i,
+span {
+  display: inline-block;
+}
+
+/* ---------------------------------------------------
+      SIDEBAR STYLE
+  ----------------------------------------------------- */
+  *{
+    font-family: Roboto;
+  }
+  
+  #body-row {
+      margin-left:0;
+      margin-right:0;
+  }
+  #sidebar-container {
+      min-height: 100vh;   
+      background-color: #333;
+      padding: 0;
+  }
+  
+  #body-col{
+    padding:0;
+  }
+  
+  .list-group-item{
+    border-radius: 0;
+    border: none;
+  }
+  
+  /* Sidebar sizes when expanded and expanded */
+  .sidebar-expanded {
+      width: 230px;
+  }
+  .sidebar-collapsed {
+      width: 60px;
+  }
+  
+  /* Menu item*/
+  #sidebar-container .list-group a {
+      height: 50px;
+      color: white;
+  }
+  
+  /* Submenu item*/
+  #sidebar-container .list-group .sidebar-submenu a {
+      height: 45px;
+      padding-left: 30px;
+  }
+  .sidebar-submenu {
+      font-size: 0.9rem;
+  }
+  
+  /* Separators */
+  .sidebar-separator-title {
+      background-color: #333;
+      height: 5px;
+  }
+  .sidebar-separator {
+      background-color: #333;
+      height: 25px;
+  }
+
+  /* Closed submenu icon */
+  #sidebar-container .list-group .list-group-item[aria-expanded="false"] .submenu-icon::after {
+    content: " \f0d7";
+    font-family: FontAwesome;
+    display: inline;
+    text-align: right;
+    padding-left: 10px;
+  }
+  /* Opened submenu icon */
+  #sidebar-container .list-group .list-group-item[aria-expanded="true"] .submenu-icon::after {
+    content: " \f0da";
+    font-family: FontAwesome;
+    display: inline;
+    text-align: right;
+    padding-left: 10px;
+  }
+
+  .card.summary_reports, .card.other_displays{
+    /*width: 160px;*/
+    height: 120px;
+  
+    background: #FFFFFF;
+    /*border: 1px solid #8A6E59;*/
+    box-sizing: border-box;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.10);
+    border-radius: 5px;
+  }
+  
+  .card-body{
+    position: relative;
+    /*margin: none;*/
+  }
+  
+  .card-text{
+    position: absolute;
+    top: 8px;
+    right: 16px;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 15px;
+    line-height: 28px;
+    width: 60%;
+    color: #FF9999;
+  }
+  
+  .card_icon{
+    position: absolute;
+    top: 20px;
+    left: 16px;
+    font-size: 55px;
+  }
+  
+  .card-num{
+    position: absolute;
+    bottom: 8px;
+    right: 16px;
+    /*padding: 10px;*/
+    font-style: normal;
+    font-weight: bold;
+    font-size: 30px;
+    line-height: 59px;
+    margin: 0;
+    color: #3D3028;
+  }
+  
+  table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  th, td {
+    padding: 4px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+
+  tr{
+    background-color: #8A6E59;
+  }
+  
+  [type=search]{
+    border: 1px solid #8A6E59;
+    border-radius: 5px;
+  }
+
+  .dt-button.buttons-csv.buttons-html5,.dt-button.buttons-excel.buttons-html5,.dt-button.buttons-pdf.buttons-html5{
+    border: 1px solid #8A6E59;
+    padding: 2px;
+    border-radius: 5px;
+    background-color: #FFFAFA;
+    color: #3D3028;
+  }
+/* .wrapper {
+  display: flex;
+  align-items: stretch;
+}
+
+#sidebar {
+  min-width: 250px;
+  max-width: 250px;
+  background: white;
+  background-size: cover;
+  color: black;
+  transition: all 0.3s;
+  border-right: 1px solid #d0ded4 !important;
+}
+
+#sidebar.active {
+  min-width: 100px;
+  max-width: 100px;
+  text-align: center;
+}
+
+#sidebar.active .sidebar-header h3,
+#sidebar.active .CTAs {
+  display: none;
+}
+
+#sidebar.active .sidebartext{
+  display:none
+}
+
+#sidebar.active .sidebaricon{
+  font-size: 23px;
+}
+
+#sidebar.active .sidebar-header strong {
+  display: block;
+}
+
+#sidebar ul li a {
+  text-align: left;
+}
+
+#sidebar.active ul li a {
+  padding: 20px 10px;
+  text-align: center;
+  font-size: 0.85em;
+}
+
+#sidebar.active ul li a i {
+  margin-right: 0;
+  display: block;
+  font-size: 1.8em;
+  margin-bottom: 5px;
+}
+
+#sidebar.active ul ul a {
+  padding: 10px !important;
+}
+
+#sidebar.active .dropdown-toggle::after {
+  top: auto;
+  bottom: 10px;
+  right: 50%;
+  -webkit-transform: translateX(50%);
+  -ms-transform: translateX(50%);
+  transform: translateX(50%);
+} */
+
+/* ------------------------------------------------------
+    LOGO/HEADER OF SIDEBAR
+---------------------------------------------------------*/
+#sidebar .sidebar-header {
+  color: #fff;
+  padding-top: 15px;
+  padding-left: 20px;
+  background: lightskyblue;
+  min-height: 90px;
+}
+
+#sidebar .sidebar-header strong {
+  display: none;
+  font-size: 1.5em;
+}
+
+#sidebar ul.components {
+  padding: 10px 0;
+  margin-bottom: 0;
+  /* border-bottom: 1px solid #d0ded4; */
+}
+
+#sidebar ul li a {
+  padding: 10px;
+  font-size: 1.1em;
+  display: block;
+}
+
+
+/* ------------------------------------------------------
+    HOVER ON ITEM ON SIDEBAR
+---------------------------------------------------------*/
+  #sidebar ul li a:hover {
+    color: white;
+    /* Use background: color; if no gradient is to be applied */
+    background: lightskyblue;
+    /* background: white url('../Images/hover-item.png'); */
+  }
+
+  #sidebar ul li a i {
+    margin-right: 10px;
+  }
+  
+/* ------------------------------------------------------
+    ACTIVE BUTTON ON SIDEBAR
+---------------------------------------------------------*/
+#sidebar ul li.active > a,
+a[aria-expanded="true"] {
+  color: #fff;
+  background: skyblue;
+  /* background-image: linear-gradient(to right, #222F51, #28647E, #CCDFCC, #FCF6DC); */
+}
+
+a[data-toggle="collapse"] {
+  position: relative;
+}
+
+.dropdown-toggle::after {
+  display: block;
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
+}
+/* ------------------------------------------------------
+    DROPDOWN ON SIDEBAR
+---------------------------------------------------------*/
+ul ul a {
+  font-size: 0.9em !important;
+  padding-left: 30px !important;
+  background: lightskyblue;
+  /* background-image: linear-gradient(to right, #222F51, #28647E, #CCDFCC, #FCF6DC); */
+}
+
+ul.CTAs {
+  padding: 20px;
+}
+
+ul.CTAs a {
+  text-align: center;
+  font-size: 0.9em !important;
+  display: block;
+  border-radius: 5px;
+  margin-bottom: 5px;
+}
+
+/* ------------------------------------------------------
+        NAME OF LOGGED IN ADMIN
+---------------------------------------------------------*/
+#adminname {
+  font-size: 20px;
+}
+
+/* ------------------------------------------------------
+        HEADER OF CONTENT
+---------------------------------------------------------*/
+#menubutton {
+  box-shadow: 5px 10px 8px #8888881f;
+  border-radius: 5px;
+  background-color: lightskyblue;
+  /* background-image: linear-gradient(180deg, #ebbeab, #e1decb); */
+}
+
+#header_text{
+  /* font-family: Catamaran;
+  font-weight: bold; */
+  /* color: #050122; */
+  color: white;
+  font-family: Avenir,Helvetica,Arial,sans-serif;
+  -webkit-font-smoothing: antialiased;
+  font-weight: 900;
+  letter-spacing: 2.2px;
+}
+
+/* ------------------------------------------------------
+        COLLAPSE ADMIN MENU BUTTON
+---------------------------------------------------------*/
+#sidebarCollapse {
+  color:white;
+  background-color: blue;
+}
+
+/* ------------------------------------------------------
+        GO TO TOP BUTTON
+---------------------------------------------------------*/
+.scroll-to-top {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  display: none;
+  width: 2.75rem;
+  height: 2.75rem;
+  text-align: center;
+  color: #fff;
+  background: rgba(90, 92, 105, 0.5);
+  line-height: 3.25rem;
+}
+
+/* ------------------------------------------------------
+        CONTENT BACKGROUND COLORS
+  ---------------------------------------------------------*/
+#content {
+  width: 100%;
+  padding: 20px;
+  height: 100vh;
+  transition: all 0.3s;
+}
+
+#content:after {
+  content: "";
+  position: fixed;
+  z-index: -1;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  /* background-image: linear-gradient(180deg, #eedfb4, #8bb6ad, #25538e, #212b4e); */
+  background-color: whitesmoke;
+  background-size: cover;
+}
+
+#container {
+  height: 80vh;
+}
+
+#pie-container {
+  height: 100%;
+}
+
+/* ---------------------------------------------------
+      SPECIAL CSS FOR MOBILE
+  ----------------------------------------------------- */
+
+@media (max-width: 768px) {
+  #sidebar {
+    min-width: 80px;
+    max-width: 95px;
+    text-align: center;
+    margin-left: -95px !important;
+    /* border-bottom: 1px solid #47748b !important; */
+  }
+  .dropdown-toggle::after {
+    top: auto;
+    bottom: 10px;
+    right: 50%;
+    -webkit-transform: translateX(50%);
+    -ms-transform: translateX(50%);
+    transform: translateX(50%);
+  }
+  #sidebar.active {
+    margin-left: 0 !important;
+  }
+  #sidebar .sidebar-header h3,
+  #sidebar .CTAs {
+    display: none;
+  }
+  #sidebar .sidebar-header strong {
+    display: block;
+  }
+  #sidebar ul li a {
+    padding: 20px 10px;
+  }
+  #sidebar ul li a span {
+    font-size: 0.85em;
+  }
+  #sidebar ul li a i {
+    margin-right: 0;
+    display: block;
+  }
+  #sidebar ul ul a {
+    padding: 10px !important;
+  }
+  #sidebar ul li a i {
+    font-size: 1.3em;
+  }
+  #sidebar {
+    margin-left: 0;
+  }
+  #sidebarCollapse span {
+    display: none;
+  }
+}
+
+/* ------------------------------------------------------
+    CSS FOR CONTENT CONTAINER
+---------------------------------------------------------*/
+#maincontainer {
+  background-color: white;
+  color: #0D1C3D;;
+  min-width: 50px;
+}
+#stats-container {
+  color: #0D1C3D;;
+  min-width: 50px;
+}
+
+/* ------------------------------------------------------
+    CSS FOR CONTENT CARD HEADERS
+---------------------------------------------------------*/
+.bg-custom{
+  font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+  font-weight: bold;
+  color:white;
+  background-color: skyblue;
+}
+
+/* ------------------------------------------------------
+    CSS FOR ALL REPORTS BUTTON
+---------------------------------------------------------*/
+#all_reports_btn{
+  margin-top: 5px;
+  margin-bottom: 5px;
+  border-radius: 5px;
+  color: #3b2e42;
+  background-color: #e5ccf4;
+}
+/* ------------------------------------------------------  
+    CSS FOR userGroup Search
+---------------------------------------------------------*/
+.ui-front {
+  z-index: 9999999 !important;
+}
+
+/* ------------------------------------------------------  
+    CSS For Fade in Animation
+---------------------------------------------------------*/
+@keyframes fadein{
+	0% {opacity: 0;}
+	100% {opacity: 1;
+		display: none;}
+}
