@@ -50,8 +50,8 @@ async function drawVisualization(data) {
     let yL = "";
     let strlen = findLongestString();
     if (strlen < 7) {
-      xL = "Category";
-      yL = "Group";
+      xL = "カテゴリー";
+      yL = "グループ";
     }
     var options = {
       height: "100%",

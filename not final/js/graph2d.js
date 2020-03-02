@@ -39,7 +39,7 @@ async function drawVisualization2d(search, sortBy) {
     let displayMax = 0;
     let index = search - 1;
 
-    let labelStr = sortBy == 1 ? 'Department' : 'Incident';
+    let labelStr = sortBy == 1 ? 'デパートメント' : 'カテゴリー';
 
     arrayLabel = sortBy == 1 ? categories : groups;
     displayLabel = sortBy == 1 ? groups : categories;
@@ -83,7 +83,7 @@ async function drawVisualization2d(search, sortBy) {
                     },
                     scaleLabel: {
                         display: true,
-                        labelString: 'Number',
+                        labelString: '数',
                         fontSize: 14,
                         ticks: {
                             beginAtZero: true,
@@ -254,7 +254,7 @@ function getDates(startDate, stopDate) {
     var dateArray = new Array();
     var currentDate = startDate;
     while (currentDate <= stopDate) {
-        dateArray.push((new Date (currentDate)).toLocaleString('en-US', { day: 'numeric', month: 'short', year: 'numeric' }));
+        dateArray.push((new Date (currentDate)).toLocaleString('ja-JP', { day: 'numeric', month: 'short', year: 'numeric' }));
         currentDate = currentDate.addDays(1);
     }
     return dateArray;
@@ -265,7 +265,7 @@ function getMonths(startDate, stopDate) {
     var dateArray = new Array();
     var currentDate = startDate;
     while (currentDate <= stopDate) {
-        dateArray.push((new Date (currentDate)).toLocaleString('en-US', { month: 'short', year: 'numeric' }));
+        dateArray.push((new Date (currentDate)).toLocaleString('ja-JP', { month: 'short', year: 'numeric' }));
         currentDate = currentDate.addMonths(1);
     }
     return dateArray;
@@ -276,7 +276,7 @@ function getYears(startDate, stopDate) {
     var dateArray = new Array();
     var currentDate = startDate;
     while (currentDate <= stopDate) {
-        dateArray.push((new Date (currentDate)).toLocaleString('en-US', { year: 'numeric' }));
+        dateArray.push((new Date (currentDate)).toLocaleString('ja-JP', { year: 'numeric' }));
         currentDate = currentDate.addYears(1);
     }
     return dateArray;
@@ -327,11 +327,11 @@ function generateDataSet(sortBy){
     switch(sortBy){
         case 0: 
             dates = getDates(date.subtractDays(6), date);
-            options = { day: 'numeric', month: 'short', year: 'numeric' };
+            options = {year: 'numeric', month: 'long', day: 'numeric'};
             break;
         case 1: 
             dates = getMonths(date.subtractMonths(6), date);
-            options = { month: 'short', year: 'numeric' };
+            options = {year: 'numeric', month: 'long'};
             break;
         case 2: 
             dates = getYears(date.subtractYears(5), date);
@@ -344,7 +344,7 @@ function generateDataSet(sortBy){
     for(let i = 0; i < reports.length; i++){
         for(let j = 0; j < groups.length; j++){
             for(let k = 0; k < dates.length; k++){
-                let reportDate = reports[i].created.toDate().toLocaleString("en-US", options);
+                let reportDate = reports[i].created.toDate().toLocaleString('ja-JP', options);
                 if (reports[i].group === groups[j] && reportDate === dates[k]){
                     countReportsByGroup[j][k] += 1;
                 }
@@ -380,18 +380,18 @@ function drawVisualizationTrend(displayBy){
     switch(displayBy){
         case 0: 
             dateLabels = getDates(date.subtractDays(5), date);
-            titleText = 'Weekly Trend';
-            xAxisText = 'Day';
+            titleText = '週間トレンド';
+            xAxisText = '日';
             break;
         case 1: 
             dateLabels = getMonths(date.subtractMonths(5), date);
-            titleText = 'Monthly Trend';
-            xAxisText = 'Month';
+            titleText = '月間トレンド';
+            xAxisText = '月';
             break;
         case 2: 
             dateLabels = getYears(date.subtractYears(5), date);
-            titleText = 'Yearly Trend';
-            xAxisText = 'Year';
+            titleText = '年間トレンド';
+            xAxisText = '年';
             break;
     }
 
@@ -431,7 +431,7 @@ function drawVisualizationTrend(displayBy){
                     },
                     scaleLabel: {
                         display: true,
-                        labelString: 'Number of Reports',
+                        labelString: 'レポートの数',
                         fontSize: 14
                     }
                 }],
@@ -463,15 +463,15 @@ function drawVisualizationTrend(displayBy){
 function changeDropdownLabel(value){
     switch(value){
         case 0:
-            document.getElementById('dropdownMenuLink').innerHTML = "Weekly";
+            document.getElementById('dropdownMenuLink').innerHTML = "週間";
             drawVisualizationTrend(0);
             break;
         case 1:
-            document.getElementById('dropdownMenuLink').innerHTML = "Monthly";
+            document.getElementById('dropdownMenuLink').innerHTML = "月間";
             drawVisualizationTrend(1);
             break;
         case 2:
-            document.getElementById('dropdownMenuLink').innerHTML = "Yearly";
+            document.getElementById('dropdownMenuLink').innerHTML = "年間";
             drawVisualizationTrend(2);
             break;
     }
