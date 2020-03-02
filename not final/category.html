@@ -112,37 +112,11 @@
             <button id="add-user-btn" type="button" class="btn btn-main" data-toggle="modal" data-target="#addNewUserModal">
               <i class="fas fa-user-plus"></i> 新しいカテゴリーを追加
             </button>
-          </div>
-        <table id="example" class="table">
-            <thead>
-              <tr id="flat-row">
-                <th scope="col" class="table-header th-sm">#</th>
-                <th scope="col" class="table-header th-sm">カテゴリー名</th>
-                <th scope="col" class="table-header th-sm">カテゴリーの説明</th>
-                <th class="table-header th-sm">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr class="report-row" id="flat-row">
-                <th scope="row" class="table-id">1</th>
-                <td class="table-content">Physical Harassment</td>
-                <td class="table-content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur quasi, voluptate necessitatibus.</td>
-                <td><button class="btn btn-row"><i class="fas fa-trash-alt"></i></button></td>
-              </tr>
-              <tr class="report-row" id="flat-row">
-                <th scope="row" class="table-id">2</th>
-                <td class="table-content">Psychological Harassment</td>
-                <td class="table-content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur quasi, voluptate necessitatibus.</td>
-                <td><button class="btn btn-row"><i class="fas fa-trash-alt"></i></button></td>
-              </tr>
-              <tr class="report-row" id="flat-row">
-                <th scope="row" class="table-id">3</th>
-                <td class="table-content">Discriminatory Harassment</td>
-                <td class="table-content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur quasi, voluptate necessitatibus.</td>
-                <td><button class="btn btn-row"><i class="fas fa-trash-alt"></i></button></td>
-              </tr>
-            </tbody>
-          </table>
+        </div>
+
+        <!-- CATEGORY TABLE -->
+        <div id="categoryTable">
+        </div>
 
     <!-- Add category Modal -->
     <div class="modal fade" id="addNewUserModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -178,17 +152,28 @@
     <!-- scripts -->
     <!-- bootstrap jquery -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <!-- datatables sorting -->
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
 
+    <!-- Firebase core Javascript-->
+    <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-storage.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-firestore.js"> </script>
+    <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-messaging.js"> </script>
+    <script src="js/firestore.js"> </script>
+
+    <!-- Custom JS -->
+    <script src="js/dataloader.js"></script>
+    <script src="js/category.js"></script>
+
     <!-- script -->
-    <script>
+    <!-- <script>
       $(document).ready(function() {
           $('#example').DataTable();
       });
-    </script>
+    </script> -->
 </body>
 </html>
