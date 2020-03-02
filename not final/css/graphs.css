@@ -30,3 +30,7 @@
 .nav-item .active {
     color: #949D6A !important;
 }
+
+#graph-whole {
+    margin-top: 60px;
+}
