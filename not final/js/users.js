@@ -57,7 +57,6 @@ async function populateUserTable(){
 
 async function addUser(){
     
-    
     let user_name = $("input[name='username']").val();
     let user_password = $("input[name='password']").val();
     let user_department = $("input[name='department']").val();
@@ -89,10 +88,11 @@ async function addUser(){
              });
              console.log(size + user_name);
             pubnub.createUser({id: size.toString(), name: user_name.toString()}, function(status, response) {console.log(response)});
-            // if(!alert('Successfully added!')){
-            //     $('#addNewUserModal').modal('hide');
-            //     populateUserTable();
-            // }
+            if(!alert('Successfully added!')){
+                $('#addNewUserModal').modal('hide');
+                populateUserTable();
+                setTimeout(location.reload(), 1500);
+            }
         })
         .catch(function (error) {
             console.error("Error adding user: ", error);
@@ -115,12 +115,14 @@ async function deleteUser(user_id){
                 });
                 if(!alert('User Deletion Successful!')){
                     populateUserTable();
+                    setTimeout(location.reload(), 1500);
                 }
                 
-                pubnub.deleteUser(user_id, function(status, response) {});
+                pubnub.deleteUser(user_id.toString(), function(status, response) {console.log(response)});
             })
             .catch(function (error) {
                 console.error("Error category deletion: ", error);
             });
+            
     }
 }

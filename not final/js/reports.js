@@ -78,27 +78,24 @@ async function getReports() {
 // MARK A REPORT AS HIDDEN
 
 async function deleteReport(reportID) {
-    reports.forEach(async function (report) {
-        if (report.id === reportID) {
-            await db.collection("reports").where('id', '==', report.id)
-            .get()
-            .then(function (querySnapshot) {
-                querySnapshot.forEach(function (doc) {
-                    db.collection("reports").doc(doc.id).update({
-                        status: 'hidden'
+    if(confirm('Delete report?')){
+        reports.forEach(async function (report) {
+            if (report.id === reportID) {
+                await db.collection("reports").where('id', '==', report.id)
+                .get()
+                .then(function (querySnapshot) {
+                    querySnapshot.forEach(function (doc) {
+                        db.collection("reports").doc(doc.id).update({
+                            status: 'hidden'
+                        });
                     });
+                    if(!alert('Successfully deleted!')){
+                        setTimeout(location.reload(), 1500);
+                    }
                 });
-            });
-
-            // NOTIFY USER
-
-            // loadReportDetails(report).then(() => {
-            //     $('#reportDetails').modal('show');
-            // }).then(()=>{
-            //     showNotif()
-            // })
-        }
-    })
+            }
+        });
+    }
 }
 
 // SAVE EDITS AND UPDATES
@@ -123,7 +120,8 @@ async function saveChanges(reportID) {
             });
 
             if(!alert('Success!')){
-                setTimeout(location.reload.bind(location), 3000);
+                $('#reportDetails').modal('hide');
+                setTimeout(location.reload.bind(location), 500);
             }
 
             // NOTIFY USER
@@ -267,6 +265,7 @@ async function reportDetails() {
 // SHOW REPORTS TABLE
 
 async function showTables() {
+    $("#allReports").html("");
     let options = { month: '2-digit', day: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' };
     $('#showCategoriesTable div').html("");
 
