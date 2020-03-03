@@ -203,7 +203,7 @@ async function showUsers() {
             user.group +
             "</td>" +
             "<td class='d-flex'>" +
-            "<div class='p-1 m-1 cursor-pointer'><a href='#' data-toggle='modal' data-target='#updateUserModal' class='cursor-pointer' title='Edit' id='editUser'" + user.id + " onclick='$(\"#userID\").text(`User ID: " + user.id + "`); $(\"#userName\").text(`Username: " + user.username + "`); $(\"#userGroup\").val(`" + user.group + "`); $(\"#userModalButton\").attr(\"onclick\", \"updateUser(" + user.id + ")\");'><i class='fas fa-edit'></i></a></div>" +
+            "<div class='p-1 m-1 cursor-pointer'><a href='#' data-toggle='modal' data-target='#updateUserModal' class='cursor-pointer' title='Edit' id='editUser'" + user.id + " onclick='$(\"#userID\").text(`User ID: " + user.id + "`); $(\"#userName\").text(`Username SIZT: " + "SAMPLE" + user.username + "`); $(\"#userGroup\").val(`" + user.group + "`); $(\"#userModalButton\").attr(\"onclick\", \"updateUser(" + user.id + ")\");'><i class='fas fa-edit'></i></a></div>" +
             "<div class='p-1 m-1 cursor-pointer'><a href='#' class='cursor-pointer' title='Delete' id='deleteUser'" + user.id + " onClick='removeUser(" + user.id + ")'><i class='fas fa-trash-alt'></i></a></div>" +
             "<div class='p-1 m-1 cursor-pointer'><a href='#' tabindex='0' class='cursor-pointer' data-toggle='tooltip' data-placement='top' title='Default Password' id='viewPassword" + user.id + "' onClick='viewPassword(" + user.id + ")'><i class='fas fa-eye'></i></a></div>" +
             "</td>" +

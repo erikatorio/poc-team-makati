@@ -58,7 +58,7 @@ async function storeData(e) {
     e.preventDefault();
 
     category = sessionStorage.getItem("category");
-    if(sessionStorage.getItem("enableAnonymous")){
+    if(JSON.parse(sessionStorage.getItem("enableAnonymous"))){
         username = "Anonymous";
     } else {
         username = sessionStorage.getItem("username");
