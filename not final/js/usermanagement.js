@@ -205,36 +205,36 @@ async function showUsers() {
             "<td class='d-flex'>" +
             "<div class='p-1 m-1 cursor-pointer'><a href='#' data-toggle='modal' data-target='#updateUserModal' class='cursor-pointer' title='Edit' id='editUser'" + user.id + " onclick='$(\"#userID\").text(`User ID: " + user.id + "`); $(\"#userName\").text(`Username SIZT: " + "SAMPLE" + user.username + "`); $(\"#userGroup\").val(`" + user.group + "`); $(\"#userModalButton\").attr(\"onclick\", \"updateUser(" + user.id + ")\");'><i class='fas fa-edit'></i></a></div>" +
             "<div class='p-1 m-1 cursor-pointer'><a href='#' class='cursor-pointer' title='Delete' id='deleteUser'" + user.id + " onClick='removeUser(" + user.id + ")'><i class='fas fa-trash-alt'></i></a></div>" +
-            "<div class='p-1 m-1 cursor-pointer'><a href='#' tabindex='0' class='cursor-pointer' data-toggle='tooltip' data-placement='top' title='Default Password' id='viewPassword" + user.id + "' onClick='viewPassword(" + user.id + ")'><i class='fas fa-eye'></i></a></div>" +
+            // "<div class='p-1 m-1 cursor-pointer'><a href='#' tabindex='0' class='cursor-pointer' data-toggle='tooltip' data-placement='top' title='Default Password' id='viewPassword" + user.id + "' onClick='viewPassword(" + user.id + ")'><i class='fas fa-eye'></i></a></div>" +
             "</td>" +
             "</tr>";
     });
 
     $("#showUsersTable").append(head + body + "</tbody></table>");
 }
-async function viewPassword(userId) {
-    if (clipboard) {
-        clipboard.destroy();
-    }
-    await db
-        .collection("users")
-        .where("id", "==", userId)
-        .get()
-        .then(function (qs) {
-            qs.forEach(function (doc) {
-                $('#viewPassword' + userId).popover({ html: true, title: "", trigger: 'focus', content: '<button class="btn password" id="pass' + userId + '" data-clipboard-target="#pass' + userId + '" data-clipboard-text=' + doc.data().defaultPassword + '>' + doc.data().defaultPassword + '</button>', placement: 'top' })
-            });
-        }).then(() => {
-            $('#viewPassword' + userId).popover('show')
-        })
-    clipboard = new ClipboardJS('#pass' + userId);
-    clipboard.on('success', function (e) {
-        PNotify.success({
-            text: "Copied!",
-            delay: 1000
-        });
-    });
-}
+// async function viewPassword(userId) {
+//     if (clipboard) {
+//         clipboard.destroy();
+//     }
+//     await db
+//         .collection("users")
+//         .where("id", "==", userId)
+//         .get()
+//         .then(function (qs) {
+//             qs.forEach(function (doc) {
+//                 $('#viewPassword' + userId).popover({ html: true, title: "", trigger: 'focus', content: '<button class="btn password" id="pass' + userId + '" data-clipboard-target="#pass' + userId + '" data-clipboard-text=' + doc.data().defaultPassword + '>' + doc.data().defaultPassword + '</button>', placement: 'top' })
+//             });
+//         }).then(() => {
+//             $('#viewPassword' + userId).popover('show')
+//         })
+//     clipboard = new ClipboardJS('#pass' + userId);
+//     clipboard.on('success', function (e) {
+//         PNotify.success({
+//             text: "Copied!",
+//             delay: 1000
+//         });
+//     });
+// }
 
 async function updateUser(value) {
 
