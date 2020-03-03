@@ -321,7 +321,7 @@ function postMsg(msg, lastRead) {
   console.log(msg.entry.sender);
   console.log(user);
   console.log(msg.entry.sender == user );
-  sender = msg.entry.sender == user ? sender : name;
+  sender = msg.entry.sender == sessionStorage.getItem('username') ? sender : msg.entry.sender;
   var timestamp1 = div.querySelector('.timestamp');
   var senderDiv = div.querySelector('.sender');
   var messageElement = div.querySelector('.messageDisplay');
