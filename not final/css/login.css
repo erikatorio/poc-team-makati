@@ -38,6 +38,10 @@ form button {
     color: #FF9999;
 }
 
+.form-control:focus {
+    color: #FF9999;
+}
+
 .md-form {
     margin-bottom: 30px;
 }
