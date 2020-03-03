@@ -184,7 +184,7 @@ async function showUsers() {
         "<th style='width:20%;'>ＩＤ</th>" +
         "<th style='width:40%;'>ユーザー名</th>" +
         "<th style='width:30%;'>グループ</th>" +
-        "<th style='width:10%;'>Actions</th>" +
+        "<th style='width:10%;'>設定</th>" +
         "</tr>" +
         "</thead>";
 
