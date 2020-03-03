@@ -21,7 +21,7 @@ var details = false
 //     return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
 // }
 
-async function fileUpload(file_data, reportData) {
+async function fileUpload(file_data, reportID) {
 
     var timestamp = Number(new Date());
     if (isImage(file_data.name)) {
@@ -46,8 +46,20 @@ async function fileUpload(file_data, reportData) {
         console.log(error.message);
     }, function () {
         task.snapshot.ref.getDownloadURL().then(async function (downloadURL) {
-            reportData.attachFile = downloadURL;
-            sendReport(reportData);
+
+            reports.forEach(async function (report) {
+                if (report.id === reportID) {
+                    await db.collection("reports").where('id', '==', report.id)
+                    .get()
+                    .then(function (querySnapshot) {
+                        querySnapshot.forEach(function (doc) {
+                            db.collection("reports").doc(doc.id).update({
+                                attachFile = downloadURL
+                            });
+                        });
+                    });
+                }
+            });
             $('#submit_btn2').attr('disabled', false);
         });
     });
