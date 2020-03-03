@@ -632,8 +632,9 @@ function appendMessage(message, timetoken, sender) {
   //   sender = msg.entry.sender;
   //   $('#message-container').append('<div class="d-flex justify-content-between"><span class="badge badge-pill" id="user-name">'+sender+'<br></span><span class="timestamp text-muted">'+timestamp+'</span></div><div class="card mb-3"><div class="row no-gutters"><div class="col"><div id="message_display" class="text-wrap"><p>'+message.replace( /[<>]/g, '' )+'</p></div></div></div></div>');
   // }
-  autoScrollToBottom();
+  
   $('#message-container').append(div);
+  autoScrollToBottom();
   
 }
 
