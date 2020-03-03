@@ -35,7 +35,7 @@ async function populateUserTable(){
         "<th scope='col' class='table-header th-sm'>#</th>" +
         "<th scope='col' class='table-header th-sm'>ユーザー名</th>" +
         "<th scope='col' class='table-header th-sm'>デパートメント</th>" +
-        "<th class='table-header th-sm'>Actions</th>" +
+        "<th class='table-header th-sm'>設定</th>" +
         "</tr>" +
         "</thead>";
 
@@ -89,7 +89,7 @@ async function addUser(){
              console.log(size + user_name);
             pubnub.createUser({id: size.toString(), name: user_name.toString()}, function(status, response) {
                 console.log(response);
-                if(!alert('Successfully added!')){
+                if(!alert('追加成功!')){
                     $('#addNewUserModal').modal('hide');
                     populateUserTable();
                     location.reload();
@@ -102,7 +102,7 @@ async function addUser(){
 }
 
 async function deleteUser(user_id){
-    if(confirm('Delete user?')){
+    if(confirm('このユーザーを削除しますか?')){
         db.collection("users")
             .where("id", "==", user_id)
             .get()
@@ -117,7 +117,7 @@ async function deleteUser(user_id){
                 });
                 pubnub.deleteUser(user_id.toString(), function(status, response) {
                     console.log(response);
-                    if(!alert('User Deletion Successful!')){
+                    if(!alert('ユーザー削除成功!')){
                         populateUserTable();
                         location.reload();
                     }

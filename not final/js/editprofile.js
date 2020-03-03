@@ -8,6 +8,7 @@
 
 window.addEventListener("load", async () => {
     $('#username').html(sessionStorage.getItem('username'));
+    $('#userName').html(sessionStorage.getItem('username'));
     $('#department').html('Department ' + sessionStorage.getItem('group'));
     $('#customSwitches').prop('checked', sessionStorage.getItem('enableAnonymous'));
 });

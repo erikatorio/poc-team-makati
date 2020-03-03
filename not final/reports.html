@@ -4,7 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
+    
+    <!-- Session -->
+    <script>
+      if (!sessionStorage.getItem("username"))
+        location.href = "index.html";
+    </script>
+
     <title>ITR</title>
+    
     <!-- MDB icon -->
     <link rel="icon" href="./img/flower.png" type="image/x-icon">
     <!-- Font Awesome -->
