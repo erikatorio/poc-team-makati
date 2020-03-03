@@ -181,7 +181,7 @@ async function showUsers() {
         "<table id='usersTable' class='display'>" +
         "<thead class='thead-inverse bg-custom text-custom'>" +
         "<tr>" +
-        "<th style='width:20%;'>ユーザーＩＤ</th>" +
+        "<th style='width:20%;'>ＩＤ</th>" +
         "<th style='width:40%;'>ユーザー名</th>" +
         "<th style='width:30%;'>グループ</th>" +
         "<th style='width:10%;'>Actions</th>" +
@@ -192,7 +192,7 @@ async function showUsers() {
 
     tempUsers.forEach(function (user) {
         body +=
-            "<tr>" +
+            "<tr id=\"reports-ds\">" +
             "<td>" +
             user.id +
             "</td>" +

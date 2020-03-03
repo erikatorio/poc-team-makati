@@ -46,6 +46,12 @@
                     <span class="fa fa-bell fa-fw mr-3" style="color: #8A6E59"></span> 
                     <span class="submenu-icon d-none ml-auto"></span>
                 </div>
+            </a>
+            <a data-toggle="collapse" aria-expanded="false" class="bg-light list-group-item list-group-item-action flex-column align-items-start" title="Chat" style="cursor: pointer;">
+                <div class="d-flex w-100 justify-content-start align-items-center">
+                    <span class="fa fa-comment fa-fw mr-3" style="color: #8A6E59"></span> 
+                    <span class="submenu-icon d-none ml-auto"></span>
+                </div>
             </a>	
             <a href="graphs.html" class="bg-light list-group-item list-group-item-action" title="Charts">
               <div class="d-flex w-100 justify-content-start align-items-center">
@@ -59,9 +65,9 @@
                         <span class="menu-collapsed"></span>    
                     </div>
           </a>          
-            <a href="users.html" class="bg-light list-group-item list-group-item-action" title="Users">
+            <a class="act" href="users.html" class="bg-light list-group-item list-group-item-action" title="Users">
                 <div class="d-flex w-100 justify-content-start align-items-center">
-                    <span class="fa fa-user fa-fw mr-3" style="color: #8A6E59"></span>
+                    <span class="fa fa-user fa-fw mr-3" style="color: #8A6E59;  margin-left: 35%; margin-top: 25%;"></span>
                 </div>
             </a>
             <a href="reports-admin.html" class="bg-light list-group-item list-group-item-action" title="Table">
@@ -97,7 +103,7 @@
             </div>           
             <a href="#" class="bg-light list-group-item list-group-item-action" title="Logout" data-toggle="modal" data-target="#logoutModal">
                 <div class="d-flex w-100 justify-content-start align-items-center">
-                    <span class="fa fa-sign-out fa-fw mr-3" style="color: #8A6E59"></span>
+                    <span class="fa fa-sign-out-alt fa-fw mr-3" style="color: #8A6E59"></span>
                 </div>
             </a>
         </ul><!-- List Group END-->
@@ -155,6 +161,25 @@
     </div>
     </div>
 
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+          <div class="modal-footer">
+            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+            <button class="btn btn-primary" onclick="logOut()">Logout</button>
+          </div>
+        </div>
+      </div>
+    </div>
     <!-- scripts -->
     <!-- bootstrap jquery -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

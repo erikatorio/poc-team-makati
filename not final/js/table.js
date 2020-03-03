@@ -36,7 +36,7 @@ async function showTables() {
         "<th style='width:20%;'>ユーザー名</th>" +
         "<th style='width:20%;'>グループ</th>" +
         "<th style='width:20%;'>カテゴリー</th>" +
-        "<th style='width:40%;'>日付" +
+        "<th style='width:20%;'>日付" +
         "<th style='width:40%;'>ステータス" + 
         "</th></tr></thead>";
 
@@ -56,7 +56,7 @@ async function showTables() {
 
         let date = new Date(report.created["seconds"] * 1000);
         body +=
-            "<tr ondblclick= selectReport(" + report.id + ")>" +
+            "<tr id=\"reports-ds\" ondblclick= selectReport(" + report.id + ")>" +
             "<td>" +
             report.username +
             "</td>" +

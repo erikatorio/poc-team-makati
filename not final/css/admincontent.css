@@ -54,9 +54,9 @@ span {
 /* ---------------------------------------------------
       SIDEBAR STYLE
   ----------------------------------------------------- */
-  *{
+  /* *{
     font-family: Roboto;
-  }
+  } */
   
   #body-row {
       margin-left:0;
@@ -551,4 +551,12 @@ ul.CTAs a {
 ---------------------------------------------------------*/
 .card_icon{
   color: #3D3028
+}
+
+#reports-ds {
+  font-family: 'Roboto Condensed' !important;
+}
+
+.act{
+  background-color: #FF9999 !important;
 }

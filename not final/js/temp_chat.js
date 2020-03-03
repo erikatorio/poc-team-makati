@@ -50,13 +50,7 @@ var myLatestMessage,theirLatestMessage;
       subscribeKey : 'sub-c-b20376b2-5215-11ea-80a4-42690e175160',
       uuid: name
     });
-    pubnub.history({
-      channel: 'generalrardo',
-      count: 100// how many items to fetch
-    },
-    function (status, response) {
-      console.log(response)
-      } );
+
 
     if(global_user_list.length == 0){
       //fetch the users
@@ -654,10 +648,11 @@ var myLatestMessage,theirLatestMessage;
         if(msg.message.user != user){
           //if new receipt is not from current user,
           //update read
-          console.log(msg.message.lastSeen);
-          var div  = document.getElementById(msg.message.lastSeen)
-          read = div.querySelector('.read');
-          read.textContent = 'read ';
+          if(msg.message.lastSeen){
+            var div  = document.getElementById(msg.message.lastSeen)
+            read = div.querySelector('.read');
+            read.textContent = 'read ';
+          }
         }
       },
       presence: function(p) {
@@ -849,7 +844,9 @@ var myLatestMessage,theirLatestMessage;
         //   sender = msg.entry.sender;
         //   $('#message-container').append('<div class="d-flex justify-content-between"><span class="badge badge-pill" id="user-name">'+sender+'<br></span><span class="timestamp text-muted">'+timestamp+'</span></div><div class="card mb-3"><div class="row no-gutters"><div class="col"><div id="message_display" class="text-wrap"><p>'+message.replace( /[<>]/g, '' )+'</p></div></div></div></div>');
         // }
+       
         $('#message-container').append(div);
+        autoScrollToBottom();
     }
   function messageCounter(){
     var pubnub = new PubNub({

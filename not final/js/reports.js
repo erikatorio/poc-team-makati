@@ -9,7 +9,7 @@ window.addEventListener("load", async () => {
     await getReports();
     await showTables();
     await reportDetails();
-    $('#username').html(sessionStorage.getItem('username'));
+    $('#userName').html(sessionStorage.getItem('username'));
     reportsTable = $('#reportsTable').DataTable({
         dom: 'Bfrtip',
         scrollY: '60vh',
@@ -78,27 +78,24 @@ async function getReports() {
 // MARK A REPORT AS HIDDEN
 
 async function deleteReport(reportID) {
-    reports.forEach(async function (report) {
-        if (report.id === reportID) {
-            await db.collection("reports").where('id', '==', report.id)
-            .get()
-            .then(function (querySnapshot) {
-                querySnapshot.forEach(function (doc) {
-                    db.collection("reports").doc(doc.id).update({
-                        status: 'hidden'
+    if(confirm('Delete report?')){
+        reports.forEach(async function (report) {
+            if (report.id === reportID) {
+                await db.collection("reports").where('id', '==', report.id)
+                .get()
+                .then(function (querySnapshot) {
+                    querySnapshot.forEach(function (doc) {
+                        db.collection("reports").doc(doc.id).update({
+                            status: 'hidden'
+                        });
                     });
+                    if(!alert('Successfully deleted!')){
+                        setTimeout(location.reload(), 1500);
+                    }
                 });
-            });
-
-            // NOTIFY USER
-
-            // loadReportDetails(report).then(() => {
-            //     $('#reportDetails').modal('show');
-            // }).then(()=>{
-            //     showNotif()
-            // })
-        }
-    })
+            }
+        });
+    }
 }
 
 // SAVE EDITS AND UPDATES
@@ -123,16 +120,9 @@ async function saveChanges(reportID) {
             });
 
             if(!alert('Success!')){
-                setTimeout(location.reload.bind(location), 3000);
+                $('#reportDetails').modal('hide');
+                setTimeout(location.reload.bind(location), 500);
             }
-
-            // NOTIFY USER
-
-            // loadReportDetails(report).then(() => {
-            //     $('#reportDetails').modal('show');
-            // }).then(()=>{
-            //     showNotif()
-            // })
         }
     })
 }
@@ -151,14 +141,6 @@ async function removeFile(reportID) {
                     });
                 });
             });
-
-            // NOTIFY USER
-
-            // loadReportDetails(report).then(() => {
-            //     $('#reportDetails').modal('show');
-            // }).then(()=>{
-            //     showNotif()
-            // })
         }
     })
 }
@@ -267,6 +249,7 @@ async function reportDetails() {
 // SHOW REPORTS TABLE
 
 async function showTables() {
+    $("#allReports").html("");
     let options = { month: '2-digit', day: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' };
     $('#showCategoriesTable div').html("");
 
@@ -290,8 +273,9 @@ async function showTables() {
     //Add body
     let body = '<tbody>';
     reports.forEach(function (report) {
-
-        if(report.status != "hidden"){
+        console.log(report);
+        console.log(sessionStorage.getItem('username'));
+        if(report.status != "hidden" && report.username == sessionStorage.getItem('username') ){
             if (typeof cCtr[report.category] === "undefined") {
                 cCtr[report.category] = 0;
             } else {
@@ -336,7 +320,7 @@ async function showTables() {
 
             let date = new Date(report.created["seconds"] * 1000);
             body +=
-                "<tr>" +
+                "<tr id=\"reports-ds\">" +
                 "<th scope='row'>" +
                 report.id +
                 "</th>" +
