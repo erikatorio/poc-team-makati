@@ -673,12 +673,12 @@ function messageCounter() {
 }
 
 function autoScrollToBottom() {
-//   $("#message-container").animate({
-//     scrollTop: $('#message-container').get(0).scrollHeight
-//   }, 1000);
-  var  messageListElement = document.getElementById('message-container');
-  messageListElement.scrollTop = messageListElement.scrollHeight;
-  console.log(messageListElement.scrollTop);
+  $("#message-container").animate({
+    scrollTop: $('#message-container').get(0).scrollHeight
+  }, 1000);
+  // var  messageListElement = document.getElementById('message-container');
+  // messageListElement.scrollTop = messageListElement.scrollHeight;
+  // console.log(messageListElement.scrollTop);
 }
 
 function checkRead(div) {
