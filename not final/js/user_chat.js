@@ -321,7 +321,7 @@ function postMsg(msg, lastRead) {
   console.log(msg.entry.sender);
   console.log(user);
   console.log(msg.entry.sender == user );
-  sender = msg.entry.sender == user ? sender : name;
+  sender = msg.entry.sender == sessionStorage.getItem('username') ? sender : msg.entry.sender;
   var timestamp1 = div.querySelector('.timestamp');
   var senderDiv = div.querySelector('.sender');
   var messageElement = div.querySelector('.messageDisplay');
@@ -426,10 +426,11 @@ function enter() {
       if (msg.message.user != user) {
         //if new receipt is not from current user,
         //update read
-        console.log(msg.message.lastSeen);
-        var div = document.getElementById(msg.message.lastSeen)
-        read = div.querySelector('.read');
-        read.textContent = 'read ';
+        if(msg.message.lastSeen){
+          var div = document.getElementById(msg.message.lastSeen)
+          read = div.querySelector('.read');
+          read.textContent = 'read ';
+        }
       }
     },
     presence: function (p) {
@@ -631,8 +632,9 @@ function appendMessage(message, timetoken, sender) {
   //   sender = msg.entry.sender;
   //   $('#message-container').append('<div class="d-flex justify-content-between"><span class="badge badge-pill" id="user-name">'+sender+'<br></span><span class="timestamp text-muted">'+timestamp+'</span></div><div class="card mb-3"><div class="row no-gutters"><div class="col"><div id="message_display" class="text-wrap"><p>'+message.replace( /[<>]/g, '' )+'</p></div></div></div></div>');
   // }
-  autoScrollToBottom();
+  
   $('#message-container').append(div);
+  autoScrollToBottom();
   
 }
 

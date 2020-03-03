@@ -295,7 +295,7 @@
             <div class="modal-content">
                 <form action="" autocomplete="off" onsubmit="event.preventDefault();" class="w-100">
                     <div class="modal-header">
-                        <h5 id="categoryModalTitle" class="modal-title">Add Users</h5>
+                        <h5 id="categoryModalTitle" class="modal-title">新しいユーザーを追加</h5>
                         <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">×</span>
                         </button>
@@ -304,8 +304,8 @@
                         <table id='addUsersTable' class='display'>
                             <thead class='thead-inverse bg-custom text-custom'>
                                 <tr>
-                                    <th style='width:50%;'>Username</th>
-                                    <th style='width:50%;'>Group</th>
+                                    <th style='width:50%;'>ユーザー名</th>
+                                    <th style='width:50%;'>デパートメント</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -313,9 +313,9 @@
                         </table>
                     </div>
                     <div class=" modal-footer">
-                      <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                      <button class="btn btn-secondary" type="button" data-dismiss="modal">キャンセル</button>
                       <button id="userModalButton" style="cursor: pointer; border: none; background-color: #3D3028;" type="submit" class="btn btn-primary disabled" role="button"
-                          aria-disabled="true">Add Users</button>
+                          aria-disabled="true">ユーザーを追加</button>
                   </div>
                 </form>
             </div>
@@ -330,29 +330,29 @@
             <div class="modal-content">
                 <form action="" autocomplete="on" onsubmit="event.preventDefault();" class="w-100">
                     <div class="modal-header">
-                        <h5 id="userModalTitle" class="modal-title">Update User</h5>
+                        <h5 id="userModalTitle" class="modal-title">ユーザを更新</h5>
                         <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">×</span>
                         </button>
                     </div>
                     <div class="modal-body">
 
-                        <div class="row pl-4 pb-4 w-100">
+                        <!-- <div class="row pl-4 pb-4 w-100">
                             <div class="col">
                                 <div class="row">
-                                    <h3 id="userModalh3">Update User</h3>
+                                    <h3 id="userModalh3">ユーザーを更新</h3>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
 
                         <div class="row pl-4 w-100">
                             <div class="row w-100">
                                 <ul class="list-unstyled pl-2">
-                                    <li id="userID">User ID: </li>
-                                    <li id="userName">Username: </li>
+                                    <li id="userID">ウーザーＩＤ: </li>
+                                    <li id="userName">ユーザー名: </li>
                                 </ul>
                                 <div class="row pl-4 w-100">
-                                    <label for="userGroup" class="h6">Group:</label>
+                                    <label for="userGroup" class="h6">デパートメント:</label>
                                 </div>
                                 <div class="row pl-4 pb-2">
                                     <input type="text" id="userGroup" onfocus="userGroupSearch()" placeholder="Group"
@@ -364,8 +364,8 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                        <button id="userModalButton" type="submit" class="btn btn-primary">Update</button>
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">キャンセル</button>
+                        <button id="userModalButton" type="submit" class="btn btn-primary">更新</button>
                     </div>
                 </form>
             </div>
@@ -377,15 +377,15 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+            <h5 class="modal-title" id="exampleModalLabel">ログアウトしますか？</h5>
             <button class="close" type="button" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">×</span>
             </button>
           </div>
-          <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+          <div class="modal-body">このアカウントからログアウトしますか？</div>
           <div class="modal-footer">
-            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-            <button class="btn btn-primary" onclick="logOut()">Logout</button>
+            <button class="btn btn-secondary" type="button" data-dismiss="modal">キャンセル</button>
+            <button class="btn btn-primary" onclick="logOut()">ログアウト</button>
           </div>
         </div>
       </div>
@@ -440,7 +440,7 @@
       </div>
 
       <div id="messagesList">
-        <!-- <li class="pl-2 pr-2 bg-primary rounded text-white text-center send-msg mb-1">
+    <li class="pl-2 pr-2 bg-primary rounded text-white text-center send-msg mb-1">
               hiii
             </li>
             <li class="p-1 rounded mb-1">

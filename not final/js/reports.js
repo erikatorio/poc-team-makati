@@ -266,8 +266,8 @@ async function showTables() {
         "<th scope='col' class='th-sm'>#</th>" +
         "<th scope='col' class='th-sm'>カテゴリー</th>" +
         "<th scope='col' class='th-sm'>日付</th>" +
-        "<th scope='col' class='th-sm'>ステータス</th>" + 
-        "<th scope='col' class='th-sm'>Action</th>" + 
+        "<th scope='col' class='th-sm'>状態</th>" + 
+        "<th scope='col' class='th-sm'>設定</th>" + 
         "</thead>";
 
     //Add body
