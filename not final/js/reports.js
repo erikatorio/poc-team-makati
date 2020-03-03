@@ -199,7 +199,7 @@ async function loadReportDetails(reportSelected) {
         $("#show").val(reportSelected.how);
     }
     if (reportSelected.attachFile === "") {
-        $("#sattachment").html('<label for="exampleFormControlTextarea1">ファイルを選択</label><div class="input-group"><div class="input-group-prepend"><span class="input-group-text" id="inputGroupFileAddon01">アップロードする</span></div><div class="custom-file"><input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01"><label class="custom-file-label" for="inputGroupFile01">ファイルを選択</label></div></div>');
+        $("#sattachment").html('<div class="input-group"><div class="input-group-prepend"><span class="input-group-text" id="inputGroupFileAddon01">アップロードする</span></div><div class="custom-file"><input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01"><label class="custom-file-label" for="inputGroupFile01">ファイルを選択</label></div></div>');
     } else {
         $("#sattachment").html('<label for="exampleFormControlTextarea1">ファイルを選択</label><span class="form-control" id="sattachment"><a target=_blank href= ' + reportSelected.attachFile + '>Link</a><button type="button" class="close" data-dismiss="alert" aria-label="Close" onclick="removeFile(' + reportSelected.id + ')"><span aria-hidden="true">&times;</span></button></span>');
     }

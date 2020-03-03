@@ -169,25 +169,29 @@ async function changed(){
 
 async function updateStatus(reportID){
     if ($("#statusDD").val() == "拒否された"){
-        tempReports.forEach(async function (report) {
-            if (report.id === reportID) {
-                await db.collection("reports").where('id', '==', report.id)
-                .get()
-                .then(function (querySnapshot) {
-                    querySnapshot.forEach(function (doc) {
-                        db.collection("reports").doc(doc.id).update({
-                            status: $("#statusDD").val(),
-                            reason: $("#reasonVal").val()
+        if($("#reasonVal").val() != ""){
+            tempReports.forEach(async function (report) {
+                if (report.id === reportID) {
+                    await db.collection("reports").where('id', '==', report.id)
+                    .get()
+                    .then(function (querySnapshot) {
+                        querySnapshot.forEach(function (doc) {
+                            db.collection("reports").doc(doc.id).update({
+                                status: $("#statusDD").val(),
+                                reason: $("#reasonVal").val()
+                            });
                         });
                     });
-                });
 
-                if(!alert('Success!')){
-                    $('#reportInfo').modal('hide');
-                    setTimeout(location.reload.bind(location), 500);
+                    if(!alert('Success!')){
+                        $('#reportInfo').modal('hide');
+                        setTimeout(location.reload.bind(location), 500);
+                    }
                 }
-            }
-        });
+            });
+        } else {
+            alert("Please provide a reason for rejection.");
+        }
     }
     else {
         tempReports.forEach(async function (report) {
