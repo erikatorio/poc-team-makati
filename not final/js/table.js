@@ -9,12 +9,9 @@ window.addEventListener("load", async () => {
         info: false,
         dom: 'Bfrtip',
         scrollY: '40vh',
-        buttons: ['csv', 'excel', 'pdf'],
+        buttons: ['csv', 'excel', 'pdf', 'print'],
         responsive: true
     });
-
-
-
 
 });
 
