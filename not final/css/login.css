@@ -10,6 +10,9 @@ html:before {
     background-size: cover;
     background-repeat: no-repeat;
     height: 100%;
+}
+
+body {
     overflow: hidden;
 }
 
@@ -36,6 +39,10 @@ form button {
 .form-item #username, .form-item #password, .md-form #login-username, .md-form #login-password {
     font-family: 'Roboto Condensed' !important;
     color: #FF9999;
+}
+
+.form-control {
+    color: #FFFAFA;
 }
 
 .form-control:focus {
