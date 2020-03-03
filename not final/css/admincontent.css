@@ -177,7 +177,8 @@ span {
   }
 
   #categoryCount{
-    font-size: 25px;
+    /* font-size: 25px; */
+    font-size: inherit;
   }
   
   table {
