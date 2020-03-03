@@ -239,8 +239,8 @@ async function logInJp(e) {
 }
 
 function logOut() {
-    location.href = "index.html";
-    sessionStorage.clear();    
+    sessionStorage.clear(); 
+    location.href = "index.html";   
 }
 
 // JP version of log out function
