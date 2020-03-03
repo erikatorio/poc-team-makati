@@ -45,24 +45,24 @@ bottom: .5em;
     margin-right: 5px;
 }
 
-.card {
+.card-home {
     height: 230px;
     width: 230px;
     margin: 20px;
     border-radius: 20px;
 }
 
-.card-title {
+.card-home-title {
     font-size: 15px !important;
     color: #3D3028;
     font-family: 'Lato';
 }
 
-.card-text {
+.card-home-text {
     font-size: 11px !important;
 }
 
-.card-body {
+.card-home-body {
     padding-top: 10px;
     height: 130px;
 }
@@ -87,7 +87,7 @@ bottom: .5em;
     margin-top: 30px;
 }
 
-.gradient-card-header {
+.gradient-card-home-header {
     height: 170px;
 }
 
@@ -97,7 +97,7 @@ bottom: .5em;
     font-family: 'Roboto Condensed', sans-serif !important;
 }
 
-.btn {
+.btn-home {
     padding: 10px;
     border-radius: 40px;
 }
