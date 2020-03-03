@@ -4,7 +4,6 @@ window.addEventListener("load", async () => {
     let isloaded = false;
     await getGroupsAndCategories();
     tempReports = reports;
-    console.log(reports);
     populateReportTable();
 });
 
@@ -21,8 +20,8 @@ async function populateReportTable(){
         "<th scope='col' class='table-header th-sm'>デパートメント</th>" +
         "<th scope='col' class='table-header th-sm'>日付</th>" +
         "<th scope='col' class='table-header th-sm'>提出した人</th>" +
-        "<th scope='col' class='table-header th-sm'>ステータス</th>" +
-        "<th class='table-header th-sm'>Action</th>" +
+        "<th scope='col' class='table-header th-sm'>状態</th>" +
+        "<th class='table-header th-sm'>設定</th>" +
         "</tr>" +
         "</thead>";
 
@@ -33,28 +32,28 @@ async function populateReportTable(){
         var category = "";
         switch(report.category){
             case "0":
-                category = "Physical Harassment";
+                category = "会社内での暴力";
                 break;
             case "1":
-                category = "Personal Harassment";
+                category = "パーソナルハラスメント";
                 break;
             case "2":
-                category = "Discriminatory Harassment";
+                category = "差別";
                 break;
             case "3":
-                category = "Psychological Harassment";
+                category = "モラルハラスメント";
                 break;
             case "4":
-                category = "Cyberbullying";
+                category = "パワーハラスメント";
                 break;
             case "5":
-                category = "Sexual Harassment";
+                category = "セクシャルハラスメント";
                 break;
             case "6":
-                category = "3rd Party Harassment";
+                category = "第三者ハラスメント";
                 break;
             case "7":
-                category = "Others";
+                category = "その他";
                 break;
         }
 
@@ -99,32 +98,31 @@ async function viewReport(reportID){
 }
 
 async function showReport(details){
-        console.log(details);
         var category = "";
         switch(details.category){
             case "0":
-                category = "Physical Harassment";
+                category = "会社内での暴力";
                 break;
             case "1":
-                category = "Personal Harassment";
+                category = "パーソナルハラスメント";
                 break;
             case "2":
-                category = "Discriminatory Harassment";
+                category = "差別";
                 break;
             case "3":
-                category = "Psychological Harassment";
+                category = "モラルハラスメント";
                 break;
             case "4":
-                category = "Cyberbullying";
+                category = "パワーハラスメント";
                 break;
             case "5":
-                category = "Sexual Harassment";
+                category = "セクシャルハラスメント";
                 break;
             case "6":
-                category = "3rd Party Harassment";
+                category = "第三者ハラスメント";
                 break;
             case "7":
-                category = "Others";
+                category = "その他";
                 break;
         }
 
@@ -138,22 +136,22 @@ async function showReport(details){
         switch(details.status){
             case "pending":
             case "Pending":
-                $("#status").html("<select id='statusDD'><option selected>Pending</option><option>Rejected</option><option>Verified</option><option>Completed</option></select>");
+                $("#status").html("<select id='statusDD' onchange='changed()'><option selected>Pending</option><option>Rejected</option><option>Verified</option><option>Completed</option></select>");
                 $("#action").html("<button type='button' class='btn btn-secondary' data-dismiss='modal'>Close</button><button type='button' class='btn btn-main' onclick='updateStatus(" + details.id + ")'>Save changes</button>")
                 break;
             case "rejected":
             case "Rejected":
-                $("#status").html("<select id='statusDD'><option>Pending</option><option selected>Rejected</option><option>Verified</option><option>Completed</option></select>");
+                $("#status").html("<select id='statusDD' onchange='changed()'><option>Pending</option><option selected>Rejected</option><option>Verified</option><option>Completed</option></select>");
                 $("#action").html("<button type='button' class='btn btn-secondary' data-dismiss='modal'>Close</button><button type='button' class='btn btn-main' onclick='updateStatus(" + details.id + ")'>Save changes</button>")
                 break;
             case "verified":
             case "Verified":
-                $("#status").html("<select id='statusDD'><option>Pending</option><option>Rejected</option><option selected>Verified</option><option>Completed</option></select>");
+                $("#status").html("<select id='statusDD' onchange='changed()'><option>Pending</option><option>Rejected</option><option selected>Verified</option><option>Completed</option></select>");
                 $("#action").html("<button type='button' class='btn btn-secondary' data-dismiss='modal'>Close</button><button type='button' class='btn btn-main' onclick='updateStatus(" + details.id + ")'>Save changes</button>")
                 break;
             case "completed":
             case "Completed":
-                $("#status").html("<select id='statusDD'><option>Pending</option><option>Rejected</option><option>Verified</option><option selected>Completed</option></select>");
+                $("#status").html("<select id='statusDD' onchange='changed()'><option>Pending</option><option>Rejected</option><option>Verified</option><option selected>Completed</option></select>");
                 $("#action").html("<button type='button' class='btn btn-secondary' data-dismiss='modal'>Close</button><button type='button' class='btn btn-main' onclick='updateStatus(" + details.id + ")'>Save changes</button>")
                 break;
             case "hidden":
@@ -162,26 +160,62 @@ async function showReport(details){
                 $("#action").html("<button type='button' class='btn btn-secondary' data-dismiss='modal'>Close</button>")
                 break;
         }
+        $("#evidence").html("<a href=" + details.attachFile + ">Link</a>");
+}
+
+async function changed(){
+    console.log("Value changed");
+    if ($("#statusDD").val() == "Rejected"){
+        $("#reason").removeAttr("hidden");
+    } else {
+        $("#reason").attr("hidden", "hidden");
+    }
 }
 
 async function updateStatus(reportID){
-    console.log($("#statusDD").val());
-    tempReports.forEach(async function (report) {
-        if (report.id === reportID) {
-            await db.collection("reports").where('id', '==', report.id)
-            .get()
-            .then(function (querySnapshot) {
-                querySnapshot.forEach(function (doc) {
-                    db.collection("reports").doc(doc.id).update({
-                        status: $("#statusDD").val()
+    if ($("#statusDD").val() == "Rejected"){
+        if($("#reasonVal").val() != ""){
+            tempReports.forEach(async function (report) {
+                if (report.id === reportID) {
+                    await db.collection("reports").where('id', '==', report.id)
+                    .get()
+                    .then(function (querySnapshot) {
+                        querySnapshot.forEach(function (doc) {
+                            db.collection("reports").doc(doc.id).update({
+                                status: $("#statusDD").val(),
+                                reason: $("#reasonVal").val()
+                            });
+                        });
+                    });
+
+                    if(!alert('Success!')){
+                        $('#reportInfo').modal('hide');
+                        setTimeout(location.reload.bind(location), 500);
+                    }
+                }
+            });
+        } else {
+            alert("Please provide a reason for rejection.");
+        }
+    }
+    else {
+        tempReports.forEach(async function (report) {
+            if (report.id === reportID) {
+                await db.collection("reports").where('id', '==', report.id)
+                .get()
+                .then(function (querySnapshot) {
+                    querySnapshot.forEach(function (doc) {
+                        db.collection("reports").doc(doc.id).update({
+                            status: $("#statusDD").val()
+                        });
                     });
                 });
-            });
 
-            if(!alert('Success!')){
-                $('#reportInfo').modal('hide');
-                setTimeout(location.reload.bind(location), 500);
+                if(!alert('Success!')){
+                    $('#reportInfo').modal('hide');
+                    setTimeout(location.reload.bind(location), 500);
+                }
             }
-        }
-    });
+        });
+    }
 }

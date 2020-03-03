@@ -9,7 +9,7 @@ window.addEventListener("load", async () => {
     await getReports();
     await showTables();
     await reportDetails();
-    $('#username').html(sessionStorage.getItem('username'));
+    $('#userName').html(sessionStorage.getItem('username'));
     reportsTable = $('#reportsTable').DataTable({
         dom: 'Bfrtip',
         scrollY: '60vh',
@@ -123,14 +123,6 @@ async function saveChanges(reportID) {
                 $('#reportDetails').modal('hide');
                 setTimeout(location.reload.bind(location), 500);
             }
-
-            // NOTIFY USER
-
-            // loadReportDetails(report).then(() => {
-            //     $('#reportDetails').modal('show');
-            // }).then(()=>{
-            //     showNotif()
-            // })
         }
     })
 }
@@ -149,14 +141,6 @@ async function removeFile(reportID) {
                     });
                 });
             });
-
-            // NOTIFY USER
-
-            // loadReportDetails(report).then(() => {
-            //     $('#reportDetails').modal('show');
-            // }).then(()=>{
-            //     showNotif()
-            // })
         }
     })
 }
@@ -215,7 +199,7 @@ async function loadReportDetails(reportSelected) {
         $("#show").val(reportSelected.how);
     }
     if (reportSelected.attachFile === "") {
-        $("#sattachment").html('<label for="exampleFormControlTextarea1">ファイルを選択</label><div class="input-group"><div class="input-group-prepend"><span class="input-group-text" id="inputGroupFileAddon01">アップロードする</span></div><div class="custom-file"><input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01"><label class="custom-file-label" for="inputGroupFile01">ファイルを選択</label></div></div>');
+        $("#sattachment").html('<div class="input-group"><div class="input-group-prepend"><span class="input-group-text" id="inputGroupFileAddon01">アップロードする</span></div><div class="custom-file"><input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01"><label class="custom-file-label" for="inputGroupFile01">ファイルを選択</label></div></div>');
     } else {
         $("#sattachment").html('<label for="exampleFormControlTextarea1">ファイルを選択</label><span class="form-control" id="sattachment"><a target=_blank href= ' + reportSelected.attachFile + '>Link</a><button type="button" class="close" data-dismiss="alert" aria-label="Close" onclick="removeFile(' + reportSelected.id + ')"><span aria-hidden="true">&times;</span></button></span>');
     }
@@ -282,15 +266,16 @@ async function showTables() {
         "<th scope='col' class='th-sm'>#</th>" +
         "<th scope='col' class='th-sm'>カテゴリー</th>" +
         "<th scope='col' class='th-sm'>日付</th>" +
-        "<th scope='col' class='th-sm'>ステータス</th>" + 
-        "<th scope='col' class='th-sm'>Action</th>" + 
+        "<th scope='col' class='th-sm'>状態</th>" + 
+        "<th scope='col' class='th-sm'>設定</th>" + 
         "</thead>";
 
     //Add body
     let body = '<tbody>';
     reports.forEach(function (report) {
-
-        if(report.status != "hidden"){
+        console.log(report);
+        console.log(sessionStorage.getItem('username'));
+        if(report.status != "hidden" && report.username == sessionStorage.getItem('username') ){
             if (typeof cCtr[report.category] === "undefined") {
                 cCtr[report.category] = 0;
             } else {
