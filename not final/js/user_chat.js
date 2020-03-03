@@ -426,10 +426,11 @@ function enter() {
       if (msg.message.user != user) {
         //if new receipt is not from current user,
         //update read
-        console.log(msg.message.lastSeen);
-        var div = document.getElementById(msg.message.lastSeen)
-        read = div.querySelector('.read');
-        read.textContent = 'read ';
+        if(msg.message.lastSeen){
+          var div = document.getElementById(msg.message.lastSeen)
+          read = div.querySelector('.read');
+          read.textContent = 'read ';
+        }
       }
     },
     presence: function (p) {
