@@ -78,7 +78,7 @@ async function getReports() {
 // MARK A REPORT AS HIDDEN
 
 async function deleteReport(reportID) {
-    if(confirm('Delete report?')){
+    if(confirm('レポートを削除しますか?')){
         reports.forEach(async function (report) {
             if (report.id === reportID) {
                 await db.collection("reports").where('id', '==', report.id)
@@ -86,10 +86,10 @@ async function deleteReport(reportID) {
                 .then(function (querySnapshot) {
                     querySnapshot.forEach(function (doc) {
                         db.collection("reports").doc(doc.id).update({
-                            status: 'hidden'
+                            status: '隠された'
                         });
                     });
-                    if(!alert('Successfully deleted!')){
+                    if(!alert('削除成功!')){
                         setTimeout(location.reload(), 1500);
                     }
                 });
@@ -199,7 +199,7 @@ async function loadReportDetails(reportSelected) {
         $("#show").val(reportSelected.how);
     }
     if (reportSelected.attachFile === "") {
-        $("#sattachment").html('<label for="exampleFormControlTextarea1">ファイルを選択</label><div class="input-group"><div class="input-group-prepend"><span class="input-group-text" id="inputGroupFileAddon01">アップロードする</span></div><div class="custom-file"><input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01"><label class="custom-file-label" for="inputGroupFile01">ファイルを選択</label></div></div>');
+        $("#sattachment").html('<div class="input-group"><div class="input-group-prepend"><span class="input-group-text" id="inputGroupFileAddon01">アップロードする</span></div><div class="custom-file"><input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01"><label class="custom-file-label" for="inputGroupFile01">ファイルを選択</label></div></div>');
     } else {
         $("#sattachment").html('<label for="exampleFormControlTextarea1">ファイルを選択</label><span class="form-control" id="sattachment"><a target=_blank href= ' + reportSelected.attachFile + '>Link</a><button type="button" class="close" data-dismiss="alert" aria-label="Close" onclick="removeFile(' + reportSelected.id + ')"><span aria-hidden="true">&times;</span></button></span>');
     }
@@ -266,8 +266,8 @@ async function showTables() {
         "<th scope='col' class='th-sm'>#</th>" +
         "<th scope='col' class='th-sm'>カテゴリー</th>" +
         "<th scope='col' class='th-sm'>日付</th>" +
-        "<th scope='col' class='th-sm'>ステータス</th>" + 
-        "<th scope='col' class='th-sm'>Action</th>" + 
+        "<th scope='col' class='th-sm'>状態</th>" + 
+        "<th scope='col' class='th-sm'>設定</th>" + 
         "</thead>";
 
     //Add body
@@ -290,28 +290,28 @@ async function showTables() {
             var category = "";
             switch(report.category){
                 case "0":
-                    category = "Physical Harassment";
+                    category = "会社内での暴力";
                     break;
                 case "1":
-                    category = "Personal Harassment";
+                    category = "パーソナルハラスメント";
                     break;
                 case "2":
-                    category = "Discriminatory Harassment";
+                    category = "差別";
                     break;
                 case "3":
-                    category = "Psychological Harassment";
+                    category = "モラルハラスメント";
                     break;
                 case "4":
-                    category = "Cyberbullying";
+                    category = "パワーハラスメント";
                     break;
                 case "5":
-                    category = "Sexual Harassment";
+                    category = "セクシャルハラスメント";
                     break;
                 case "6":
-                    category = "3rd Party Harassment";
+                    category = "第三者ハラスメント";
                     break;
                 case "7":
-                    category = "Others";
+                    category = "その他";
                     break;
                 default:
                     category = "Info Not Given";
@@ -333,7 +333,7 @@ async function showTables() {
                 "<td>" +
                 report.status +
                 "</td>" +
-                "<td><button class='btn btn-danger' onclick='deleteReport(" + report.id + ")'>Delete</button><button class='btn btn-primary' onclick='selectReport(" + report.id + ")'>Edit</button>" +
+                "<td><button class='btn btn-danger' onclick='deleteReport(" + report.id + ")'>削除</button><button class='btn btn-primary' onclick='selectReport(" + report.id + ")'>変更</button>" +
                 "</tr>";
         }
     });
