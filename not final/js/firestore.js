@@ -58,7 +58,12 @@ async function storeData(e) {
     e.preventDefault();
 
     category = sessionStorage.getItem("category");
-    username = sessionStorage.getItem("username");
+    if(sessionStorage.getItem("enableAnonymous")){
+        username = "Anonymous";
+    } else {
+        username = sessionStorage.getItem("username");
+    }
+    
     group = sessionStorage.getItem("group");
     
     var dateInfo = "NA";
