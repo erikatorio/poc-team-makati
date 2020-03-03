@@ -553,6 +553,13 @@ ul.CTAs a {
   color: #3D3028
 }
 
+/* ------------------------------------------------------  
+    CSS For Side Navbar Icon Color
+---------------------------------------------------------*/
+.nav_icon{
+  color: #8A6E59;
+}
+
 #reports-ds {
   font-family: 'Roboto Condensed' !important;
 }

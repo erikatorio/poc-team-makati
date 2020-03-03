@@ -20,7 +20,6 @@ window.addEventListener("load", async () => {
           }
         },
         function(status, response) {
-        console.log(response);
         });
       populateUserTable();
 });
@@ -59,7 +58,7 @@ async function addUser(){
     
     let user_name = $("input[name='username']").val();
     let user_password = $("input[name='password']").val();
-    let user_department = $("input[name='department']").val();
+    let user_department = $("#department option:selected").val();
 
     let size = 0;
 
