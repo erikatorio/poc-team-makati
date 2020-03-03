@@ -64,7 +64,7 @@ async function showTables() {
             report.group +
             "</td>" +
             "<td>" +
-            report.category +
+            categories[report.category] +
             "</td>" +
             "<td>" +
             report.created.toDate().toLocaleString('ja-JP', options) +
