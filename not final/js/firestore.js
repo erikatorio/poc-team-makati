@@ -72,7 +72,7 @@ async function storeData(e) {
     var attachFile = "";
     var created = "";
     var read = false;
-    var status = "pending"
+    var status = "検討中"
     var who = $("input[name='who']").val();
     var when = $("input[name='when']").val();
     var where = $("input[name='where']").val();
