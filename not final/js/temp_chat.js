@@ -13,6 +13,17 @@ var user_list_cache;
 var global_user_list = [];
 var glpubnub;
 var myLatestMessage,theirLatestMessage;
+
+window.addEventListener('load', 
+  function() { 
+    showChat();
+  }, false);
+
+
+function hideChat(){
+  $('#chat-toast').toast('hide');
+}
+
  function back(){
         $('#user-list').html('');
         $('#message-container').html('<div class="announcement"><span>Start messaging.</span></div><br>');
@@ -256,13 +267,13 @@ var myLatestMessage,theirLatestMessage;
               var recent_timestamp = gmtDate.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
               if(count == 0){
                 count = "";
-                $('#user_list').append('<div onclick="viewMessage(\''+c+'\')" class="col-message chat-preview"><div class="row no-gutters"><div class="col-auto pad-5 d-flex align-items-center justify-content-center"><center><img src="../assets/user.png"></center></div><div class="col-8 pad-10"><br><div class="w-100"></div><div class="d-flex justify-content-between" ><strong><span style="font-size:medium;">'+c+'</span></strong></div><div class="w-100"></div><small class="text-muted text-truncate">['+recent_timestamp+'] '+recent_message+'</small><div class="w-100"></div></div><div class="col-auto" ><br><div class="w-100"></div><div class="d-flex justify-content-end"><small class="text-muted">'+recent_datestamp+'</small></div><div class="w-100"></div><div class="d-flex justify-content-right"><span id="'+c+'" class="badge badge-pill badge-info"></span></div></div></div></div>'); 
+                $('#user_list').append('<div onclick="viewMessage(\''+c+'\')" class="col-message chat-preview"><div class="row no-gutters"><div class="col-auto pad-5 d-flex align-items-center justify-content-center"><center><img src="css/user.png"></center></div><div class="col-8 pad-10"><br><div class="w-100"></div><div class="d-flex justify-content-between" ><strong><span style="font-size:medium;">'+c+'</span></strong></div><div class="w-100"></div><small class="text-muted text-truncate">['+recent_timestamp+'] '+recent_message+'</small><div class="w-100"></div></div><div class="col-auto" ><br><div class="w-100"></div><div class="d-flex justify-content-end"><small class="text-muted">'+recent_datestamp+'</small></div><div class="w-100"></div><div class="d-flex justify-content-right"><span id="'+c+'" class="badge badge-pill badge-info"></span></div></div></div></div>'); 
               }else{
                 if(count > 99){
                   count = "99+";
                 }
               }
-              $('#user_list').append('<div onclick="viewMessage(\''+c+'\')" class="col-message chat-preview"><div class="row no-gutters"><div class="col-auto pad-5 d-flex align-items-center justify-content-center"><center><img src="../assets/user.png"></center></div><div class="col-8 pad-10"><br><div class="w-100"></div><div class="d-flex justify-content-between" ><strong><span style="font-size:medium;">'+c+'</span></strong></div><div class="w-100"></div><small class="text-muted text-truncate">['+recent_timestamp+'] '+recent_message+'</small><div class="w-100"></div></div><div class="col-auto" ><br><div class="w-100"></div><div class="d-flex justify-content-end"><small class="text-muted">'+recent_datestamp+'</small></div><div class="w-100"></div><div class="d-flex justify-content-right"><span id="'+c+'" class="badge badge-pill badge-info">'+count+'</span></div></div></div></div>'); 
+              $('#user_list').append('<div onclick="viewMessage(\''+c+'\')" class="col-message chat-preview"><div class="row no-gutters"><div class="col-auto pad-5 d-flex align-items-center justify-content-center"><center><img src="css/user.png"></center></div><div class="col-8 pad-10"><br><div class="w-100"></div><div class="d-flex justify-content-between" ><strong><span style="font-size:medium;">'+c+'</span></strong></div><div class="w-100"></div><small class="text-muted text-truncate">['+recent_timestamp+'] '+recent_message+'</small><div class="w-100"></div></div><div class="col-auto" ><br><div class="w-100"></div><div class="d-flex justify-content-end"><small class="text-muted">'+recent_datestamp+'</small></div><div class="w-100"></div><div class="d-flex justify-content-right"><span id="'+c+'" class="badge badge-pill badge-info">'+count+'</span></div></div></div></div>'); 
             }
             user_list_cache = $('#user_list').html();
           });

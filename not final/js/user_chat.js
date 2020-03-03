@@ -1,6 +1,12 @@
 var user = sessionStorage.getItem("username");
 var name = sessionStorage.getItem("username");
-
+window.addEventListener('load', 
+  function() { 
+    showChat();
+  }, false)
+function hideChat(){
+  $('#chat-toast').toast('hide');
+}
 function getUserType() {
   var type = document.cookie.split(';');
   try {
