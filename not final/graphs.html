@@ -91,9 +91,9 @@
                 <!-- <a href="print.html" class="bg-light list-group-item list-group-item-action" title="Table">
                         <div class="d-flex w-100 justify-content-start align-items-center">
                             <span class="fa fa-print fa-fw mr-3" style="color: #8A6E59"></span>
-                           
+                            
                         </div>
-                </a>    -->
+                    </a>    -->
                 <!-- Separator -->
                 <li class="list-group-item sidebar-separator-title text-muted d-flex align-items-center menu-collapsed">
                     <small></small>
@@ -127,7 +127,7 @@
         <div class="container" id="graph-whole">
         <ul class="nav nav-tabs">
             <li class="nav-item">
-            <a class="nav-link active" data-toggle="tab" href="#firstgraph">３Ｄグラフ</a>
+            <a id="3dgraphtab" class="nav-link active" data-toggle="tab" href="#firstgraph">３Ｄグラフ</a>
             </li>
             <li class="nav-item">
             <a class="nav-link" data-toggle="tab" href="#secondgraph">棒グラフ</a>
@@ -136,7 +136,7 @@
             <a class="nav-link" data-toggle="tab" href="#piegraph">円グラフ</a>
             </li>
             <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#trend">トレンド</a>
+            <a id="trendgraphtab" class="nav-link" data-toggle="tab" href="#trend">トレンド</a>
             </li>
         </ul>
         
@@ -154,7 +154,7 @@
                         <!-- Container for search bar and search button -->
                         <div class="d-flex">
                             <input id="searchBox" type="text" size="15"
-                                style="text-align: left;" placeholder="Search" value=""
+                                style="text-align: left;" placeholder="サーチ" value=""
                                 onkeypress="searchBoxField()" onfocus="this.value=''">
                             <input id="searchButton" class="material-icons" type="button"
                                 value="search" onclick="searchBoxField()">
@@ -166,7 +166,7 @@
                             <input id="prev" class="material-icons" type="button"
                                 value="chevron_left" onclick="prevButton()" disabled="true">
                             <input id="search" type="text" size="1" disabled
-                                style="text-align: center;" placeholder="Search" value="1"
+                                style="text-align: center;" placeholder="サーチ" value="1"
                                 hidden>
                             <input id="next" class="material-icons" type="button"
                                 value="chevron_right" onclick="nextButton()">

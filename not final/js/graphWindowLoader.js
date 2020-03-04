@@ -46,4 +46,18 @@ window.addEventListener("load", async () => {
     $('#dept').change(function () {
         drawPie(2);
     });
+
+    if(window.location.hash === '#trend'){
+        console.log("test");
+        var tab3d = document.getElementById("3dgraphtab");
+        var tab3ddiv = document.getElementById("firstgraph");
+        var tabtrend = document.getElementById("trendgraphtab");
+        var tabtrenddiv = document.getElementById("trend");
+        tab3d.classList.remove("active");
+        tab3ddiv.classList.remove("active");
+        tabtrend.className += " active";
+        tabtrenddiv.className += " active";
+        drawVisualizationTrend(0);
+    }
 });
+
