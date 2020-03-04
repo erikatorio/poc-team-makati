@@ -94,13 +94,13 @@ span {
   width: 20px;
 }
 
-.indiv_notifs_cont{
+.toast-body{
   max-height: 350px;
   overflow-y: auto;
   overflow-x: hidden;
 }
 
-.notif-sub-line {
+.toast-body {
   background-color: #FFFAFA;
   height: 100px;
   width: 300px;
