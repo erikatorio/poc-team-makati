@@ -40,8 +40,7 @@
     <!-- Sidebar  -->
     <div id="sidebar-container" class="sidebar-collapsed d-none d-md-block">
       <!-- Bootstrap List Group -->
-      <ul class="list-group">
-        <<<<<<< HEAD <!-- Menu with submenu -->
+      <ul class="list-group"> <!-- Menu with submenu -->
           <a style="padding: 0;" href="reportsummary.html" data-toggle="sidebar-colapse"
             class="bg-light list-group-item list-group-item-action d-flex align-items-center" title="Sakura">
             <div class="d-flex w-100 justify-content-start align-items-center">
@@ -49,98 +48,79 @@
               <!-- <span id="collapse-text" class="menu-collapsed">Collapse</span> -->
             </div>
           </a>
-          <a href="#" id="notifDropdown"
-            class="bg-light list-group-item list-group-item-action d-flex align-items-center" role="button"
-            aria-haspopup="true" aria-expanded="false" onclick="showNotifs()">
-            <div class="d-flex w-100 justify-content-start align-items-center">
-              <!-- <span class="fa fa-bell fa-fw mr-3 nav_icon"></span> 
-=======
-        <!-- Menu with submenu -->
-              <a style="padding: 0;" href="reportsummary.html" data-toggle="sidebar-colapse"
-                class="bg-light list-group-item list-group-item-action d-flex align-items-center" title="Sakura">
-                <div class="d-flex w-100 justify-content-start align-items-center">
-                  <span><img src="img/flower.png" alt="logo" style="width:40px; margin-left: 10px;"></span>
-                  <!-- <span id="collapse-text" class="menu-collapsed">Collapse</span> -->
-                </div>
-              </a>
-              <a href="#" id="notifDropdown"
-                class="bg-light list-group-item list-group-item-action d-flex align-items-center" role="button"
-                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="showNotifs()">
-                <div class="d-flex w-100 justify-content-start align-items-center">
-                  <!-- <span class="fa fa-bell fa-fw mr-3 nav_icon"></span> 
->>>>>>> user chat attachment
-                  <span class="submenu-icon d-none ml-auto"></span> -->
-                </div>
-              </a>
-              <a data-toggle="collapse" aria-expanded="false"
-                class="bg-light list-group-item list-group-item-action flex-column align-items-start" title="Chat"
-                style="cursor: pointer;" onclick="showChat()">
-                <div class="d-flex w-100 justify-content-start align-items-center">
-                  <span class="fa fa-comment fa-fw mr-3 nav_icon"></span>
-                  <span id="totalCount" class="badge badge-pill badge-danger p-1"></span>
-                  <span class="submenu-icon d-none ml-auto"></span>
-                </div>
-              </a>
-              <a href="graphs.html" aria-expanded="false"
-                class="bg-light list-group-item list-group-item-action flex-column align-items-start" title="Charts">
-                <div class="d-flex w-100 justify-content-start align-items-center">
-                  <span class="fa fa-cube fa-fw mr-3 nav_icon"></span>
-                  <span class="submenu-icon d-none ml-auto"></span>
-                </div>
-              </a>
-              <a href="category.html" class="bg-light list-group-item list-group-item-action" title="Category">
-                <div class="d-flex w-100 justify-content-start align-items-center">
-                  <span class="fa fa-list fa-fw mr-3 nav_icon"></span>
-                  <!-- <span class="menu-collapsed"></span>     -->
-                </div>
-              </a>
-              <a href="users.html" class="bg-light list-group-item list-group-item-action" title="Users">
-                <div class="d-flex w-100 justify-content-start align-items-center">
-                  <span class="fa fa-user fa-fw mr-3 nav_icon"></span>
-                </div>
-              </a>
-              <a href="reports-admin.html" class="bg-light list-group-item list-group-item-action" title="Table">
-                <div class="d-flex w-100 justify-content-start align-items-center">
-                  <span class="fa fa-table fa-fw mr-3 nav_icon"></span>
-                </div>
-              </a>
-              <!-- <a href="print.html" class="bg-light list-group-item list-group-item-action" title="Print Data">
-	                <div class="d-flex w-100 justify-content-start align-items-center">
-	                    <span class="fa fa-print fa-fw mr-3 nav_icon"></span>
-	                    <span class="menu-collapsed"></span>    
-	                </div>
-	        </a>    -->
-              <!-- Separator -->
-              <li class="list-group-item sidebar-separator-title text-muted d-flex align-items-center menu-collapsed">
-                <small></small>
-              </li>
-              <!-- /END Separator -->
-              <a href="#language" data-toggle="collapse" aria-expanded="false"
-                class="bg-light list-group-item list-group-item-action flex-column align-items-start" title="Language">
-                <div class="d-flex w-100 justify-content-start align-items-center">
-                  <span class="fa fa-language fa-fw mr-3 nav_icon"></span>
-                  <span class="submenu-icon d-none ml-auto"></span>
-                </div>
-              </a>
-              <!-- Submenu content -->
-              <div id='language' class="collapse sidebar-submenu" style="border-radius: none;">
-                <a href="#"
-                  class="list-group-item list-group-item-action bg-light justify-content-start align-items-center"
-                  style="padding: 0;">
-                  <p style="color: #8A6E59; padding-left:20px; padding-top: 10px;">EN</p>
-                </a>
-                <a href="JP/reportsummary.html"
-                  class="list-group-item list-group-item-action bg-light justify-content-start align-items-center"
-                  style="padding: 0;">
-                  <p style="color: #8A6E59; padding-left:20px; padding-top: 10px;">JP</p>
-                </a>
+          <a href="#" id="notifDropdown" class="bg-light list-group-item list-group-item-action d-flex align-items-center" role="button" aria-haspopup="true" aria-expanded="false" onclick="showNotifs()">
+          <div class="d-flex w-100 justify-content-start align-items-center">
+            <!-- <span class="fa fa-bell fa-fw mr-3 nav_icon"></span> 
+                <span class="submenu-icon d-none ml-auto"></span> -->
               </div>
-              <a href="#" class="bg-light list-group-item list-group-item-action" title="Logout" data-toggle="modal"
-                data-target="#logoutModal">
-                <div class="d-flex w-100 justify-content-start align-items-center">
-                  <span class="fa fa-sign-out-alt fa-fw mr-3 nav_icon"></span>
-                </div>
-              </a>
+          </a>
+          <a data-toggle="collapse" aria-expanded="false" class="bg-light list-group-item list-group-item-action flex-column align-items-start" title="Chat" style="cursor: pointer;" onclick="showChat()">
+            <div class="d-flex w-100 justify-content-start align-items-center">
+              <span class="fa fa-comment fa-fw mr-3 nav_icon"></span>
+              <span id="totalCount" class="badge badge-pill badge-danger p-1"></span>
+              <span class="submenu-icon d-none ml-auto"></span>
+            </div>
+          </a>
+          <a href="graphs.html" aria-expanded="false"
+            class="bg-light list-group-item list-group-item-action flex-column align-items-start" title="Charts">
+            <div class="d-flex w-100 justify-content-start align-items-center">
+              <span class="fa fa-cube fa-fw mr-3 nav_icon"></span>
+              <span class="submenu-icon d-none ml-auto"></span>
+            </div>
+          </a>
+          <a href="category.html" class="bg-light list-group-item list-group-item-action" title="Category">
+            <div class="d-flex w-100 justify-content-start align-items-center">
+              <span class="fa fa-list fa-fw mr-3 nav_icon"></span>
+              <!-- <span class="menu-collapsed"></span>     -->
+            </div>
+          </a>
+          <a href="users.html" class="bg-light list-group-item list-group-item-action" title="Users">
+            <div class="d-flex w-100 justify-content-start align-items-center">
+              <span class="fa fa-user fa-fw mr-3 nav_icon"></span>
+            </div>
+          </a>
+          <a href="reports-admin.html" class="bg-light list-group-item list-group-item-action" title="Table">
+            <div class="d-flex w-100 justify-content-start align-items-center">
+              <span class="fa fa-table fa-fw mr-3 nav_icon"></span>
+            </div>
+          </a>
+          <!-- <a href="print.html" class="bg-light list-group-item list-group-item-action" title="Print Data">
+              <div class="d-flex w-100 justify-content-start align-items-center">
+                  <span class="fa fa-print fa-fw mr-3 nav_icon"></span>
+                  <span class="menu-collapsed"></span>    
+              </div>
+      </a>    -->
+          <!-- Separator -->
+          <li class="list-group-item sidebar-separator-title text-muted d-flex align-items-center menu-collapsed">
+            <small></small>
+          </li>
+          <!-- /END Separator -->
+          <a href="#language" data-toggle="collapse" aria-expanded="false"
+            class="bg-light list-group-item list-group-item-action flex-column align-items-start" title="Language">
+            <div class="d-flex w-100 justify-content-start align-items-center">
+              <span class="fa fa-language fa-fw mr-3 nav_icon"></span>
+              <span class="submenu-icon d-none ml-auto"></span>
+            </div>
+          </a>
+          <!-- Submenu content -->
+          <div id='language' class="collapse sidebar-submenu" style="border-radius: none;">
+            <a href="#"
+              class="list-group-item list-group-item-action bg-light justify-content-start align-items-center"
+              style="padding: 0;">
+              <p style="color: #8A6E59; padding-left:20px; padding-top: 10px;">EN</p>
+            </a>
+            <a href="JP/reportsummary.html"
+              class="list-group-item list-group-item-action bg-light justify-content-start align-items-center"
+              style="padding: 0;">
+              <p style="color: #8A6E59; padding-left:20px; padding-top: 10px;">JP</p>
+            </a>
+          </div>
+          <a href="#" class="bg-light list-group-item list-group-item-action" title="Logout" data-toggle="modal"
+            data-target="#logoutModal">
+            <div class="d-flex w-100 justify-content-start align-items-center">
+              <span class="fa fa-sign-out-alt fa-fw mr-3 nav_icon"></span>
+            </div>
+          </a>
       </ul><!-- List Group END-->
     </div>
 
