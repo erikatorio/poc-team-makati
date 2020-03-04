@@ -89,7 +89,7 @@ span {
   font-family: 'Roboto Condensed';
 }
 
-.notif-head-line img {
+#notif-header img {
   height: 20px;
   width: 20px;
 }
@@ -111,7 +111,16 @@ span {
 
 #notif-header {
   width: 300px;
+  height: 30px;
   font-family: 'Lato';
+}
+
+.toast-body {
+  border-bottom: 0.2px solid #C2C5CC;
+}
+
+.toast-body, .toast-body p {
+  font-family: 'Roboto Condensed';
 }
 
 ::-webkit-scrollbar {
