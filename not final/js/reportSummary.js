@@ -170,9 +170,9 @@ async function showNotif() {
             ctr += 1;
 
             if (ctr > 99){
-                $('#notifDropdown').html('<i class="material-icons text-danger">notifications_active</i><span class="badge badge-pill badge-danger p-1">99+</span>');
+                $('#notifDropdown').html('<i class="material-icons text-danger">notifications_active</i><span id="notif_badge" class="badge badge-pill badge-danger p-1">99+</span>');
             } else {
-                $('#notifDropdown').html('<i class="material-icons text-danger">notifications_active</i><span class="badge badge-pill badge-danger p-1">' + ctr + '</span>');
+                $('#notifDropdown').html('<i class="material-icons text-danger">notifications_active</i><span id="notif_badge" class="badge badge-pill badge-danger p-1">' + ctr + '</span>');
             }
 
             // $('#notifItem').append('<div class="dropdown-item py-0"><div><p class="p-0 text-danger m-0">New category "' + report.category + '" incident was reported.</p><p class="row text-danger p-0 m-0 justify-content-between"> (' + report.created.toDate().toLocaleString("en-US", options) + ')<a class="ml-auto py-0" href="#" onClick= selectReport(' + report.id + ')>more details...</a></p></div><hr class="mt-1"></div>')
