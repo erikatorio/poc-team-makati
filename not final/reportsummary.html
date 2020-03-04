@@ -16,13 +16,13 @@
   <title>Report Summary</title>
 
   <!-- Bootstrap CSS CDN -->
-  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">  </script>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   
   <!-- Our Custom CSS -->
   <link rel="stylesheet" href="css/admincontent.css">
   <link rel="stylesheet" href="css/temp_chat.css">
   <link rel="stylesheet" href="css/reportsummary.css">
+  
   <!-- Google fonts -->
   <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
@@ -67,7 +67,7 @@
           <a data-toggle="collapse" aria-expanded="false" class="bg-light list-group-item list-group-item-action flex-column align-items-start" title="Chat" style="cursor: pointer;" onclick="showChat()">
             <div class="d-flex w-100 justify-content-start align-items-center">
                 <span class="fa fa-comment fa-fw mr-3 nav_icon"></span>
-                <span class="badge badge-pill badge-danger p-1">99</span>
+                <span id="totalCount" class="badge badge-pill badge-danger p-1"></span>
                 <span class="submenu-icon d-none ml-auto"></span>
             </div>
           </a>	
@@ -193,7 +193,9 @@
                 <div class="card-deck">
                   <div class="card other_displays" style="height: 225px;">
                     <div class="card-header" style="padding: 2px 0 0 4px; background-color: transparent; border: none;">
-                      <strong>グラフ</strong>
+                      <a href="graphs.html">
+                        <strong>グラフ</strong>
+                      </a>
                     </div>
                       <div class="card-body h-75 w-80 py-0">
                         <!-- Container for graph to be displayed -->
@@ -210,7 +212,9 @@
                 <div class="card-deck">
                   <div class="card other_displays" style="height: 225px;">
                     <div class="card-header" style="padding: 2px 0 0 4px; background-color: transparent; border: none;">
-                      <strong>レポート表</strong>
+                      <a href="reports-admin.html">
+                        <strong>レポート表</strong>
+                      </a>
                     </div>
                     <div class="card-body" style="overflow: auto; padding: 5px;">
                       <div class="col p-0 d-flex justify-content-center h-100 w-100">
@@ -234,7 +238,9 @@
                 <div class="card-deck">
                   <div class="card other_displays" style="height: 255px;">
                     <div class="card-header" style="padding: 2px 0 0 4px; background-color: transparent; border: none;">
-                      <strong>ユーザーマネジメント</strong>
+                      <a href="users.html">
+                        <strong>ユーザーマネジメント</strong>
+                      </a>
                       <button data-toggle="modal" data-target="#userModal" style="margin-left: 49%; cursor: pointer; background: none; border: none;">
                         <i class="fa fa-user-plus"></i>
                       </button>
@@ -253,7 +259,9 @@
                 <div class="card-deck">
                   <div class="card other_displays" style="height: 255px;">
                     <div class="card-header" style="padding: 2px 0 0 4px; background-color: transparent; border: none;">
-                      <strong>アクティビティログ</strong>
+                      <a href="">
+                        <strong>アクティビティログ</strong>
+                      </a>
                     </div>
                     <div class="card-body">
                       <div class="col p-0 d-flex justify-content-center h-100 w-100">
@@ -271,7 +279,9 @@
                 <div class="card-deck">
                   <div class="card other_displays" style="height: 255px;">
                     <div class="card-header" style="padding: 2px 0 0 4px; background-color: transparent; border: none;">
-                        <strong>毎週のレポートトレンド</strong>
+                        <a href="graphs.html#trend">
+                          <strong>毎週のレポートトレンド</strong>
+                        </a>
                         <button style="background-color: #8A6E59; height: 25px !important; border-color: #8A6E59; float: right;" 
                           class="btn btn-primary " type="button" id="download_icon" value="vertical_align_bottom" 
                           aria-haspopup="true" aria-expanded="false" onclick="downloadPNG()">
@@ -480,7 +490,7 @@
           </svg>
           <strong id="chat-title" class="mr-auto">&nbsp;Chat</strong>
           <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
+            <span onclick="hideChat()" aria-hidden="true">&times;</span>
           </button>
         </div>
 
@@ -527,17 +537,15 @@
       <!-- </div> -->
     </div>
     
+    <!-- jQuery  -->
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">  </script>
+
     <!-- Firebase core Javascript-->
     <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-firestore.js"> </script>
     <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-messaging.js"> </script>
     <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-storage.js"></script>
     <script src="js/firestore.js"> </script>
-
-    <!-- jQuery CDN - Slim version (=without AJAX) -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-      crossorigin="anonymous"></script>
 
     <!-- Popper.JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"
@@ -579,9 +587,9 @@
     </script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    
     <!-- Vis Js core JavaScript-->
     <script type="text/javascript" src="https://unpkg.com/vis-graph3d@latest/dist/vis-graph3d.min.js"></script>
    
@@ -593,7 +601,6 @@
 	  <script src="https://cdn.rawgit.com/zenorocha/clipboard.js/v2.0.4/dist/clipboard.min.js"></script>
   
 	  <!-- DataTable JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
     <script src=" https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/1.6.1/js/dataTables.buttons.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.flash.min.js"></script>
@@ -607,7 +614,7 @@
     <script src="js/dataloader.js"></script>
 	  <script src="js/sidebar.js"></script>
 	  <script src="js/reportSummary.js"></script>
-	  <script src="js/temp_chat.js"></script>
+	  <!-- <script src="js/temp_chat.js"></script> -->
 	  <script src="js/usermanagement.js"></script>
 	  <script src="js/table.js"></script>
 

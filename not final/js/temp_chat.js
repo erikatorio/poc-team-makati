@@ -1,5 +1,10 @@
 var user = getUserType();
 var name;
+var isChatOpen = false;
+var countListener = null;
+
+var totalCount = 0;
+
 function getUserType(){
   var type = document.cookie.split(';');
   try{
@@ -13,15 +18,38 @@ var user_list_cache;
 var global_user_list = [];
 var glpubnub;
 var myLatestMessage,theirLatestMessage;
-
+var inboxState = false;
 window.addEventListener('load', 
   function() { 
+    countUpdate();
     showChat();
   }, false);
 
+var messageCountingListener = {
+    message: function(m) {
+        // handle message
+        var channelName = m.channel; // The channel for which the message belongs
+        var channelGroup = m.subscription; // The channel group or wildcard subscription match (if exists)
+        var pubTT = m.timetoken; // Publish timetoken
+        var msg = m.message; // The Payload
+        var publisher = m.publisher; //The Publisher
+        console.log(channelName)
+        console.log(channelGroup)
+        console.log(msg)
+        console.log(publisher)
+    }
+}
+
 
 function hideChat(){
+  console.log(isChatOpen)
+  isChatOpen = false;
   $('#chat-toast').toast('hide');
+  exit();
+  back();
+  inboxState == false;
+  glpubnub.addListener(messageCountingListener);
+  console.log("added")
 }
 
  function back(){
@@ -35,6 +63,8 @@ function hideChat(){
         $('#chat-footer').css('display','inline');
         $('#user-chat').css('display','inline');
         $('#chat-title').html('&nbsp;Chat');
+        inboxState = true;
+        console.log("backed")
         exit();
         displayMessagePreviews();
       }
@@ -166,6 +196,7 @@ function hideChat(){
                       console.log(results)
                       for(c in results.channels){
                         count = results.channels[c]
+
                         var restring = c.replace(/ /gi, "%20");
                         console.log(restring)
                         console.log(len);
@@ -177,14 +208,17 @@ function hideChat(){
                         const gmtDate = new Date(recent_datestamp * 1000);
                         recent_datestamp = gmtDate.toLocaleString("default", { month: "short" , day: 'numeric'});
                         var recent_timestamp = gmtDate.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
+                        console.log(totalCount + " + " + count)
+                        totalCount += count;
+                        $('#totalCount').html(totalCount);
                         if(count == 0){
                           count = "";
-                          $('#user_list').append('<div onclick="viewMessage(\''+c+'\')" class="col-message chat-preview"><div class="row no-gutters"><div class="col-auto pad-5 d-flex align-items-center justify-content-center"><center><img src="css/user.png"></center></div><div class="col-8 pad-10"><br><div class="w-100"></div><div class="d-flex justify-content-between" ><strong><span style="font-size:medium;">'+c+'</span></strong></div><div class="w-100"></div><small class="text-muted text-truncate">['+recent_timestamp+'] '+recent_message+'</small><div class="w-100"></div></div><div class="col-auto" ><br><div class="w-100"></div><div class="d-flex justify-content-end"><small class="text-muted">'+recent_datestamp+'</small></div><div class="w-100"></div><div class="d-flex justify-content-right"><span id="'+c+'" class="badge badge-pill badge-info"></span></div></div></div></div>'); 
+                          $('#user_list').append('<div onclick="viewMessage(\''+c+'\')" class="col-message chat-preview"><div class="row no-gutters"><div class="col-auto pad-5 d-flex align-items-center justify-content-center"><center><img src="css/user.png"></center></div><div class="col-8 pad-10"><br><div class="w-100"></div><div class="d-flex justify-content-between" ><strong><span style="font-size:medium;">'+c+'</span></strong></div><div class="w-100"></div><small id="'+c+'_recentMsg" class="text-muted text-truncate">['+recent_timestamp+'] '+recent_message+'</small><div class="w-100"></div></div><div class="col-auto" ><br><div class="w-100"></div><div class="d-flex justify-content-end"><small id="'+c+'_datestamp" class="text-muted">'+recent_datestamp+'</small></div><div class="w-100"></div><div class="d-flex justify-content-right"><span id="'+c+'" class="badge badge-pill badge-info"></span></div></div></div></div>'); 
                         }else{
                           if(count > 99){
                             count = "99+";
                           }
-                        $('#user_list').append('<div onclick="viewMessage(\''+c+'\')" class="col-message chat-preview"><div class="row no-gutters"><div class="col-auto pad-5 d-flex align-items-center justify-content-center"><center><img src="css/user.png"></center></div><div class="col-8 pad-10"><br><div class="w-100"></div><div class="d-flex justify-content-between" ><strong><span style="font-size:medium;">'+c+'</span></strong></div><div class="w-100"></div><small class="text-muted text-truncate">['+recent_timestamp+'] '+recent_message+'</small><div class="w-100"></div></div><div class="col-auto" ><br><div class="w-100"></div><div class="d-flex justify-content-end"><small class="text-muted">'+recent_datestamp+'</small></div><div class="w-100"></div><div class="d-flex justify-content-right"><span id="'+c+'" class="badge badge-pill badge-info">'+count+'</span></div></div></div></div>'); 
+                        $('#user_list').append('<div onclick="viewMessage(\''+c+'\')" class="col-message chat-preview"><div class="row no-gutters"><div class="col-auto pad-5 d-flex align-items-center justify-content-center"><center><img src="css/user.png"></center></div><div class="col-8 pad-10"><br><div class="w-100"></div><div class="d-flex justify-content-between" ><strong><span style="font-size:medium;">'+c+'</span></strong></div><div class="w-100"></div><small id="'+c+'_recentMsg" class="text-muted text-truncate">['+recent_timestamp+'] '+recent_message+'</small><div class="w-100"></div></div><div class="col-auto" ><br><div class="w-100"></div><div class="d-flex justify-content-end"><small id="'+c+'_datestamp" class="text-muted">'+recent_datestamp+'</small></div><div class="w-100"></div><div class="d-flex justify-content-right"><span id="'+c+'" class="badge badge-pill badge-info">'+count+'</span></div></div></div></div>'); 
                         }
                       }
                       user_list_cache = $('#user_list').html();
@@ -195,6 +229,7 @@ function hideChat(){
         });
       });
     }else{
+      totalCount = 0;
       //this is to make sure that loading time is not long
       //if a new user is made, append them to the list
       var users = global_user_list;
@@ -255,8 +290,12 @@ function hideChat(){
           },(status, preview) => {
             // handle response
             console.log(preview)
+            console.log(results.channels)
             for(c in results.channels){
               count = results.channels[c]
+              if(count == 0){
+                break;
+              }
               var restring = c.replace(/ /gi, "%20");
               recent_message = preview.channels[restring][len].message.content;
               recent_message = recent_message.substr(0,15)+(recent_message.length>15?'&hellip;':'');
@@ -265,6 +304,9 @@ function hideChat(){
               const gmtDate = new Date(recent_datestamp * 1000);
               recent_datestamp = gmtDate.toLocaleString("default", { month: "short" , day: 'numeric'});
               var recent_timestamp = gmtDate.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
+               console.log(totalCount + " + " + count)
+                        totalCount += count;
+                        $('#totalCount').html(totalCount);
               if(count == 0){
                 count = "";
                 $('#user_list').append('<div onclick="viewMessage(\''+c+'\')" class="col-message chat-preview"><div class="row no-gutters"><div class="col-auto pad-5 d-flex align-items-center justify-content-center"><center><img src="css/user.png"></center></div><div class="col-8 pad-10"><br><div class="w-100"></div><div class="d-flex justify-content-between" ><strong><span style="font-size:medium;">'+c+'</span></strong></div><div class="w-100"></div><small class="text-muted text-truncate">['+recent_timestamp+'] '+recent_message+'</small><div class="w-100"></div></div><div class="col-auto" ><br><div class="w-100"></div><div class="d-flex justify-content-end"><small class="text-muted">'+recent_datestamp+'</small></div><div class="w-100"></div><div class="d-flex justify-content-right"><span id="'+c+'" class="badge badge-pill badge-info"></span></div></div></div></div>'); 
@@ -290,44 +332,7 @@ function hideChat(){
           msgCount =  log.timetoken;
         }
       }
-      function getMsgCount(userIds){
-        var pubnub = new PubNub({
-          publishKey : 'pub-c-8266b3af-df4a-4508-91de-0a06b9634a69',
-          subscribeKey : 'sub-c-b20376b2-5215-11ea-80a4-42690e175160',
-          uuid: user
-        });
-        userId = 'test_area4';
-        var c = userId+ "_log";
-         pubnub.fetchMessages({
-            channels: [c],
-            count: 100
-          },
-          (status, response) => {
-            // handle response
-            console.log(response)
-            response.channels[c].forEach(getLatestExit);
-            console.log(msgCount)
-             pubnub.messageCounts({
-              channels: [userId],
-              channelTimetokens: [msgCount],
-            }, (status, results) => {
-              // handle status, response
-              console.log(results.channels);
-              console.log(results.channels[userId])
-              unread = results.channels[userId];
-              console.log(unread)
-              if(unread > 0){
-                $("#"+userIds).html(unread);
-              }else if(unread > 99 ){
-                $("#"+userIds).html("99+");
-              }else{
-                $("#"+userIds).html("");
-              }
-              console.log(userIds)
-              
-            });
-          });
-      }
+   
       function isRead(msgtoken){
           var pubnub = new PubNub({
           publishKey : 'pub-c-8266b3af-df4a-4508-91de-0a06b9634a69',
@@ -583,6 +588,14 @@ function hideChat(){
           $('#message-container').append(div)
         }
         console.log(sender)
+
+       
+        message = message.substr(0,15)+(message.length>15?'&hellip;':'');
+        var date = gmtDate.toLocaleString("default", { month: "short" , day: 'numeric'});
+        var recent_timestamp = gmtDate.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
+        $('#'+name+'_recentMsg').html("["+recent_timestamp+ "] " +message);
+        $('#'+name+'_datestamp').html(date)
+        $('#'+name).html("");
       }
   function otherMsg(sender, timestamp,msg) {
         console.log(msg);
@@ -610,6 +623,16 @@ function hideChat(){
         senderDiv.textContent = sender;
         senderDiv.setAttribute('id', "user-name");
         $('#message-container').append(div);
+        
+        message = message.substr(0,15)+(message.length>15?'&hellip;':'');
+        var date = gmtDate.toLocaleString("default", { month: "short" , day: 'numeric'});
+        var recent_timestamp = gmtDate.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
+        $('#'+sender+'_recentMsg').html("["+recent_timestamp+ "] " +message);
+        $('#'+sender+'_datestamp').html(date)
+        console.log(totalCount + " - " + parseInt($('#'+sender).html()))
+        totalCount -= parseInt($('#'+sender).html());
+        $('#totalCount').html(totalCount);
+        $('#'+sender).html("");
         autoScrollToBottom();
       }
       function onMessageRead(messageId){
@@ -649,8 +672,13 @@ function hideChat(){
       console.log(response)
     });
     //enter chat
-   
 
+    //remove msg count 
+    console.log(totalCount + " - "+ parseInt($('#'+name).html()))
+    totalCount -= parseInt($('#'+name).html());
+    $('#totalCount').html(totalCount);
+    $('#'+name).html("")
+    
     //listen to receipts channel
     pubnub.addListener({
       status: function(statusEvent) {},
@@ -665,7 +693,18 @@ function hideChat(){
             read.textContent = 'read ';
           }
         }
-      },
+        if(msg.message.sender != "admin"){
+          //if new receipt is not from current user,
+          //update read
+          if(msg.message.lastSeen){
+            var div  = document.getElementById(msg.message.lastSeen)
+            read = div.querySelector('.read');
+            read.textContent = 'read ';
+          }
+
+    
+      }
+    },
       presence: function(p) {
         var action = p.action; // Can be join, leave, state-change or timeout
        // var channelName = p.channel; // The channel for which the message belongs
@@ -701,16 +740,6 @@ function hideChat(){
     //   uuid: user
     // });
     var user = user
-    var publishConfig = {
-            channel :name+"_log",
-            message: { 
-                user: user
-            }
-
-          }
-          glpubnub.publish(publishConfig, function(status, response) {
-            console.log(response)
-          }); 
     glpubnub.setState({
       state: {
         mood: 'out',
@@ -893,11 +922,21 @@ function hideChat(){
     });*/
   }
   function showChat(){
-
-        $('#chat-toast').toast('show');
-      //  messageCounter();
-        displayMessagePreviews();
+    alert(totalCount)
+    if(countListener == null){
+      console.log("is null")
+    }
+    if(isChatOpen == false){
+      $('#chat-toast').toast('show');
+      displayMessagePreviews();
+      inboxState = true;
+      if(glpubnub == null){
+        console.log("removed")
+        glpubnub.removeListener(messageCountingListener);
       }
+      isChatOpen = true;
+    }
+  }
   
   function showNotifs() {
     $('#notif-toast').toast('show');
@@ -952,4 +991,103 @@ function searchUser(){
     }
     //$('#user_list').append('<div class="col-message chat-preview"><div class="row no-gutters"><div class="col-auto pad-5 d-flex align-items-center justify-content-center"><center></center></div><div class="col-8 pad-10"><br><div class="w-100"></div><div class="d-flex justify-content-between" ><strong><span style="font-size:medium;"></span></strong></div><div class="w-100"></div><small class="text-muted text-truncate"></small><div class="w-100"></div></div><div class="col-auto" ><br><div class="w-100"></div><div class="d-flex justify-content-end"><small class="text-muted"></small></div><div class="w-100"></div><br><div class="d-flex justify-content-center"><span class="badge badge-pill badge-info"></span></div></div></div></div>'); 
   }
+}
+
+
+function countUpdate(){
+  var pubnub = new PubNub({
+      publishKey : 'pub-c-8266b3af-df4a-4508-91de-0a06b9634a69',
+      subscribeKey : 'sub-c-b20376b2-5215-11ea-80a4-42690e175160',
+      uuid: name
+    });
+
+  //listen to receipts channel
+    countListener = {
+      status: function(statusEvent) {},
+      message: function(msg) {
+        console.log(msg)
+        if(msg.publisher == "admin"){
+          var target_user = msg.channel;
+          pubnub.fetchMessages({
+                channels: [target_user],
+                count: 1
+          },function(status,response){
+                //get the latest msg
+                console.log(response);
+                var date = response.channels[target_user][0].message.timestamp;
+                var recent_message = response.channels[target_user][0].message.content;
+                recent_message = recent_message.substr(0,15)+(recent_message.length>15?'&hellip;':'');
+
+                const gmtDate = new Date(date * 1000);
+                date = gmtDate.toLocaleString("default", { month: "short" , day: 'numeric'});
+                var recent_timestamp = gmtDate.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
+                $('#'+target_user+'_recentMsg').html("["+recent_timestamp+ "] " +recent_message);
+                $('#'+target_user+'_datestamp').html(date)
+                $('#'+target_user).html("");
+          });
+        }
+        if(msg.message.sender != "admin"){
+          //if new receipt is not from current user,
+          //update read
+          if(msg.message.lastSeen){
+            var div  = document.getElementById(msg.message.lastSeen)
+            read = div.querySelector('.read');
+            read.textContent = 'read ';
+          }
+
+          //update message count
+          //if inboxState == true;
+          console.log(msg.channel != (target_user+"_receipts"))
+          var target_user = msg.publisher;
+
+          if((inboxState == true) && (msg.channel != (target_user+"_receipts"))){
+            console.log(msg.publisher)
+            var existing_count = $('#'+target_user).html();
+            if(existing_count == ""){
+              $('#'+target_user).html("1");
+              console.log(totalCount + " + 1 ")
+              totalCount += 1;
+                $('#totalCount').html(totalCount);
+            }else{
+              existing_count = parseInt(existing_count) + 1
+              console.log(totalCount + " + " +existing_count)
+              totalCount += existing_count;
+                $('#totalCount').html(totalCount);
+              $('#'+target_user).html(existing_count);
+            }
+            pubnub.fetchMessages({
+                channels: [target_user],
+                count: 1
+              },function(status,response){
+                //get the latest msg
+                console.log(response);
+                var date = response.channels[target_user][0].message.timestamp;
+                var recent_message = response.channels[target_user][0].message.content;
+                recent_message = recent_message.substr(0,15)+(recent_message.length>15?'&hellip;':'');
+
+                const gmtDate = new Date(date * 1000);
+                date = gmtDate.toLocaleString("default", { month: "short" , day: 'numeric'});
+                var recent_timestamp = gmtDate.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
+                $('#'+target_user+'_recentMsg').html("["+recent_timestamp+ "] " +recent_message);
+                $('#'+target_user+'_datestamp').html(date)
+              });
+          }
+        }
+      },
+      presence: function(p) {}
+    };
+
+
+    pubnub.getUsers({
+        include: {
+          customFields: true
+        }
+      },
+      function(status, response) {
+        pubnub.addListener(countListener);
+        pubnub.subscribe({
+          channels: [name],
+        });
+    });
+    
 }
