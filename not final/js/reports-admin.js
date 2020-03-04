@@ -127,13 +127,33 @@ async function showReport(details){
         }
 
         $("#exampleModalLabel").html(category);
-        $("#submittor").html(details.username);
-        $("#who").html(details.who);
-        $("#when").html(details.when);
-        $("#where").html(details.where);
-        $("#how").html(details.how);
+        if(details.username == ""){
+            $("#submittor").html("詳細なし");
+        } else {
+            $("#submittor").html(details.username);
+        }
+        if(details.who == ""){
+            $("#who").html("詳細なし");
+        } else {
+            $("#who").html(details.who);
+        }
+        if(details.when == ""){
+            $("#when").html("詳細なし");
+        } else {
+            $("#when").html(details.when);
+        }
+        if(details.where == ""){
+            $("#where").html("詳細なし");
+        } else {
+            $("#where").html(details.where);
+        }
+        if(details.how == ""){
+            $("#how").html("詳細なし");
+        } else {
+            $("#how").html(details.how);
+        }
         if(details.attachFile == ""){
-            $("#evidence").html("No file attachments.");
+            $("#evidence").html("ファイルなし");
         } else {
             $("#evidence").html("<a target=_blank href= '" + details.attachFile + "'>Link</a>");
         }

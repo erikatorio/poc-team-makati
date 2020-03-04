@@ -112,11 +112,9 @@ async function saveChanges(reportID) {
     var updateData = { reportID2, whoVal, whereVal, whenVal, howVal, attachFile };
 
     if ($("#inputGroupFile01").val() != "") {
-        console.log("FOUND FILE");
         file_data = $("#inputGroupFile01").prop("files")[0];
         fileUpload(file_data, updateData, 1);
     } else {
-        console.log("NO FILE");
         doUpdate(updateData);
     }
 }
@@ -152,19 +150,21 @@ async function doUpdate(reportData) {
 // MARK A REPORT AS HIDDEN
 
 async function removeFile(reportID) {
-    reports.forEach(async function (report) {
-        if (report.id === reportID) {
-            await db.collection("reports").where('id', '==', report.id)
-            .get()
-            .then(function (querySnapshot) {
-                querySnapshot.forEach(function (doc) {
-                    db.collection("reports").doc(doc.id).update({
-                        attachFile: ''
+    if(confirm('ファイルを削除しますか?')){
+        reports.forEach(async function (report) {
+            if (report.id === reportID) {
+                await db.collection("reports").where('id', '==', report.id)
+                .get()
+                .then(function (querySnapshot) {
+                    querySnapshot.forEach(function (doc) {
+                        db.collection("reports").doc(doc.id).update({
+                            attachFile: ''
+                        });
                     });
                 });
-            });
-        }
-    })
+            }
+        })
+    }
 }
 
 //GET REPORT DETAILS AND VIEW IN A MODAL
@@ -195,27 +195,27 @@ async function loadReportDetails(reportSelected) {
     $("#reportDate").val(reportSelected.created.toDate().toLocaleString("en-PH"));
     // $("#sgroup").val(reportSelected.group);
     if (reportSelected.when === "" || reportSelected.when == undefined) {
-        $("#sdateInfo").val('Info not given.');
+        $("#sdateInfo").val('詳細なし');
     } else {
         $("#sdateInfo").val(reportSelected.when);
     }
     if (reportSelected.otherDetails === "") {
-        $("#sotherDetails").val('No other details given.');
+        $("#sotherDetails").val('詳細なし');
     } else {
         $("#sotherDetails").val(reportSelected.otherDetails);
     }
     if (reportSelected.who === "" || reportSelected.who == undefined) {
-        $("#spersoninfo").val('Info not given.');
+        $("#spersoninfo").val('詳細なし');
     } else {
         $("#spersoninfo").val(reportSelected.who);
     }
     if (reportSelected.where === "") {
-        $("#swhere").val('Info not given.');
+        $("#swhere").val('詳細なし');
     } else {
         $("#swhere").val(reportSelected.where);
     }
     if (reportSelected.how === "") {
-        $("#show").val('Info not given.');
+        $("#show").val('詳細なし');
     } else {
         $("#show").val(reportSelected.how);
     }
@@ -225,50 +225,10 @@ async function loadReportDetails(reportSelected) {
     } else {
         $("#sattachment").attr("hidden", "hidden");
         $("#foundFile").removeAttr("hidden");
-        $("#foundFile").html("<label for='exampleFormControlTextarea1'>ファイルを選択</label><span class='form-control' id='sattachment'><a target=_blank href= '" + reportSelected.attachFile + "'>Link</a><button type='button' class='close' data-dismiss='alert' aria-label='Close' onclick='removeFile(" + reportSelected.id + ")'><span aria-hidden='true'>&times;</span></button></span>");
+        $("#foundFile").html("<label for='exampleFormControlTextarea1'>ファイルを選択</label><span class='form-control' id='sattachment'><a target=_blank href= '" + reportSelected.attachFile + "'>Link</a><button type='button' class='close' data-dismiss='alert' aria-label='Close' onclick='removeFile(" + reportSelected.id + ")'><span aria-hidden='true'><a title='Remove File'>&times;</a></span></button></span>");
     }
     $("#sfooter").html('<button type="button" class="btn btn-light" data-dismiss="modal">閉じる</button><button type="button" class="btn btn-primary" id="submit_btn2" onclick="saveChanges(' + reportSelected.id + ')">送信する</button>');
 }
-
-// async function reportDetails() {
-//     $('body').append('<div class= "modal fade" id = "reportDetails" tabindex = "-1" role = "dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" > ' +
-//         '<div class= "modal-dialog" role = "document" > ' +
-//         '<div class= "modal-content" > ' +
-//         '<div class= "modal-header" > ' +
-//         '<h5 class="modal-title" id="exampleModalLabel"></h5>' +
-//         '<button type="button" class="close" data-dismiss="modal" aria-label="Close"> ' +
-//         '<span aria-hidden="true">&times;</span> ' +
-//         '</button> ' +
-//         '</div> ' +
-//         '<form action="">' +
-//         ' <div class="modal-body"> ' +
-//         '   <div class="form-group"> ' +
-//         '    <label for="exampleFormControlInput1">どちらが関与しましたか？</label> ' +
-//         '    <input type="text" class="form-control" name="who" placeholder="" id="spersoninfo">' +
-//         '   </div> ' +
-//         '   <div class="form-group"> ' +
-//         '    <label for="exampleFormControlInput1">それはいつ起きましたか?</label> ' +
-//         '    <input type="text" class="form-control" name="when" placeholder="" id="sdateInfo">' +
-//         '   </div> ' +
-//         '   <div class="form-group"> ' +
-//         '    <label for="exampleFormControlInput1">それはどちらに起きましたか？</label>' +
-//         '    <input type="text" class="form-control" name="where" placeholder="" id="swhere">' +
-//         '   </div> ' +
-//         '   <div class="form-group"> ' +
-//         '    <label for="exampleFormControlTextarea1">それはどうやって起きましたか？</label>' +
-//         '    <input type="text" class="form-control" name="how" placeholder="" id="show">' +
-//         '   </div> ' +
-//         '   <div class="form-group" id="sattachment"> ' +
-//         '   </div>' +
-//         ' </div> ' +
-//         ' <div class="modal-footer" id="sfooter">' +
-//         ' </div> ' +
-//         ' </form> ' +
-//         ' </div> ' +
-//         ' </div> ' +
-//         ' </div> '
-//     )
-// }
 
 // SHOW REPORTS TABLE
 
