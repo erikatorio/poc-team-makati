@@ -1,3 +1,4 @@
+var reader = new FileReader();
 var user = getUserType();
 var name;
 var isChatOpen = false;
@@ -539,116 +540,163 @@ function hideChat(){
     });
   }
 
-  function postMsg(msg,lastRead) {
-        var sender = "You";
-        console.log(msg)
-        var message = msg.entry.content;
-        var id = msg.entry.id;
-        //const unixTimestamp = msg.entry.timestamp / 10000000;
-        const gmtDate = new Date(msg.entry.timestamp * 1000);
-        const timestamp = gmtDate.toLocaleString();
-        //is read?
-        var read = "sent "
-        if(msg.entry.timestamp < lastRead){
-          read = "read ";
-        }
-        const container = document.createElement('div');
-        const MESSAGE_TEMPLATE = '<div class="msg" ><div class="d-flex justify-content-between"><span class="badge badge-pill sender" ><br></span><span class="text-muted"><span class="read"></span> <span class="timestamp"></span></span></div><div class="card mb-3"><div class="row no-gutters"><div class="col"><div id="message_display" class="text-wrap"><p class="messageDisplay"></p></div></div></div></div></div>';
-        container.innerHTML = MESSAGE_TEMPLATE;
-        const div = container.firstElementChild;
-        console.log(div);
-        div.setAttribute('id', id);
-        console.log(timestamp);
-        div.setAttribute('timestamp', timestamp);
-        sender = msg.entry.sender == user ? sender : name;
-        var timestamp1 = div.querySelector('.timestamp');
-        var senderDiv = div.querySelector('.sender');
-        var messageElement = div.querySelector('.messageDisplay');
-        var read = div.querySelector('.read');
-        timestamp1.textContent = timestamp;
-        messageElement.textContent = message;
-        senderDiv.textContent = sender;
-        var nameAttribute = msg.entry.sender == user ? "admin-name" : "user-name";
-        senderDiv.setAttribute('id', nameAttribute);
+  function postMsg(msg, lastRead) {
+  var sender = 'You';
+  console.log(msg);
+  var message = msg.entry.content;
+  var id = msg.entry.id;
+  //const unixTimestamp = msg.entry.timestamp / 10000000;
+  const gmtDate = new Date(msg.entry.timestamp * 1000);
+  const timestamp = gmtDate.toLocaleString();
+  //is read?
+  var read = 'sent ';
+  if (msg.entry.timestamp < lastRead) {
+    read = 'read ';
+  }
+  const container = document.createElement('div');
+  var MESSAGE_TEMPLATE =
+    '<div class="msg d-none" ><div class="d-flex justify-content-between"><span class="badge badge-pill sender" ><br></span><span class="text-muted"><span class="read"></span> <span class="timestamp"></span></span></div><div class="card mb-3"><div class="row no-gutters"><div class="col d-flex"><div id="message_display" class="p-2 text-wrap d-flex"><p class="messageDisplay pl-2 m-0"></p></div></div></div></div></div>';
+  if (message !== '' && msg.entry.imageURL === undefined) {
+    MESSAGE_TEMPLATE =
+      '<div class="msg" ><div class="d-flex justify-content-between"><span class="badge badge-pill sender" ><br></span><span class="text-muted"><span class="read"></span> <span class="timestamp"></span></span></div><div class="card mb-3"><div class="row no-gutters"><div class="col d-flex"><div id="message_display" class="p-2 text-wrap d-flex"><p class="messageDisplay pl-2 m-0"></p></div></div></div></div></div>';
+  } else if (msg.entry.imageURL !== undefined && message === '') {
+    MESSAGE_TEMPLATE =
+      '<div class="msg" ><div class="d-flex justify-content-between"><span class="badge badge-pill sender" ><br></span><span class="text-muted"><span class="read"></span> <span class="timestamp"></span></span></div><div class="card mb-3"><div class="row no-gutters"><div class="col d-flex"><div id="message_display" class="p-2 text-wrap d-flex"><a href="' +
+      msg.entry.imageURL +
+      '" target="_blank"><img class="attach" src="' +
+      msg.entry.imageURL +
+      '" height="100px" width="100px"></a><p class="messageDisplay pl-2 m-0 d-none"></p></div></div></div></div></div>';
+  } else if (msg.entry.imageURL !== undefined && message !== '') {
+    MESSAGE_TEMPLATE =
+      '<div class="msg" ><div class="d-flex justify-content-between"><span class="badge badge-pill sender" ><br></span><span class="text-muted"><span class="read"></span> <span class="timestamp"></span></span></div><div class="card mb-3"><div class="row no-gutters"><div class="col d-flex"><div id="message_display" class="p-2 text-wrap d-flex"><a href="' +
+      msg.entry.imageURL +
+      '" target="_blank"><img class="attach" src="' +
+      msg.entry.imageURL +
+      '" height="100px" width="100px"></a><p class="messageDisplay pl-2 m-0"></p></div></div></div></div></div>';
+  } else if (
+    (msg.entry.imageURL === '' && message === '') ||
+    (msg.entry.imageURL === undefined && message === '') ||
+    msg.entry.imageURL === Object
+  ) {
+    MESSAGE_TEMPLATE =
+      '<div class="msg d-none" ><div class="d-flex justify-content-between"><span class="badge badge-pill sender" ><br></span><span class="text-muted"><span class="read"></span> <span class="timestamp"></span></span></div><div class="card mb-3"><div class="row no-gutters"><div class="col d-flex"><div id="message_display" class="p-2 text-wrap d-flex"><p class="messageDisplay pl-2 m-0"></p></div></div></div></div></div>';
+  }
+  container.innerHTML = MESSAGE_TEMPLATE;
+  const div = container.firstElementChild;
+  console.log(div);
+  div.setAttribute('id', id);
+  console.log(timestamp);
+  div.setAttribute('timestamp', timestamp);
+  sender = msg.entry.sender == user ? sender : name;
+  var timestamp1 = div.querySelector('.timestamp');
+  var senderDiv = div.querySelector('.sender');
+  var messageElement = div.querySelector('.messageDisplay');
+  var read = div.querySelector('.read');
+  timestamp1.textContent = timestamp;
+  messageElement.textContent = message;
+  senderDiv.textContent = sender;
+  var nameAttribute = msg.entry.sender == user ? 'admin-name' : 'user-name';
+  senderDiv.setAttribute('id', nameAttribute);
 
-        //isRead()
-        if(msg.entry.sender == user){
-          myLatestMessage= msg.entry.id;
-          // $('#message-container').append('<div class="d-flex justify-content-between"><span class="badge badge-pill" id="admin-name">'+sender+'<br></span><span class="timestamp text-muted"><span id="'+myLatestMessage+'"></span>'+timestamp+'</span></div><div class="card mb-3"><div class="row no-gutters"><div class="col"><div id="message_display" class="text-wrap"><p>'+message.replace( /[<>]/g, '' )+'</p></div></div></div></div>');
-          $('#message-container').append(div);
-          console.log(myLatestMessage); 
-        }else{
-          theirLatestMessage = msg.entry.id;
-          console.log(theirLatestMessage)
-          sender = name;
-          // $('#message-container').append('<div class="d-flex justify-content-between"><span class="badge badge-pill" id="user-name">'+sender+'<br></span><span class="timestamp text-muted">'+timestamp+'</span></div><div class="card mb-3"><div class="row no-gutters"><div class="col"><div id="message_display" class="text-wrap"><p>'+message.replace( /[<>]/g, '' )+'</p></div></div></div></div>');
-          $('#message-container').append(div)
-        }
-        console.log(sender)
+  //isRead()
+  if (msg.entry.sender == user) {
+    myLatestMessage = msg.entry.id;
+    // $('#message-container').append('<div class="d-flex justify-content-between"><span class="badge badge-pill" id="admin-name">'+sender+'<br></span><span class="timestamp text-muted"><span id="'+myLatestMessage+'"></span>'+timestamp+'</span></div><div class="card mb-3"><div class="row no-gutters"><div class="col"><div id="message_display" class="text-wrap"><p>'+message.replace( /[<>]/g, '' )+'</p></div></div></div></div>');
+    $('#message-container').append(div);
+    console.log(myLatestMessage);
+  } else {
+    theirLatestMessage = msg.entry.id;
+    console.log(theirLatestMessage);
+    sender = name;
+    // $('#message-container').append('<div class="d-flex justify-content-between"><span class="badge badge-pill" id="user-name">'+sender+'<br></span><span class="timestamp text-muted">'+timestamp+'</span></div><div class="card mb-3"><div class="row no-gutters"><div class="col"><div id="message_display" class="text-wrap"><p>'+message.replace( /[<>]/g, '' )+'</p></div></div></div></div>');
+    $('#message-container').append(div);
+  }
+  console.log(sender);
 
-       
-        message = message.substr(0,15)+(message.length>15?'&hellip;':'');
-        var date = gmtDate.toLocaleString("default", { month: "short" , day: 'numeric'});
-        var recent_timestamp = gmtDate.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
-        $('#'+name+'_recentMsg').html("["+recent_timestamp+ "] " +message);
-        $('#'+name+'_datestamp').html(date)
-        $('#'+name).html("");
-      }
-  function otherMsg(sender, timestamp,msg) {
-        console.log(msg);
-        if(document.getElementById(msg.id))
-          return;
-        var message = msg.content;
-        theirLatestMessage = msg.id;
-        //const unixTimestamp = msg.entry.timestamp / 10000000;
-        const gmtDate = new Date(timestamp * 1000);
-        timestamp = gmtDate.toLocaleString();
-        const container = document.createElement('div');
-        const MESSAGE_TEMPLATE = '<div class="msg" ><div class="d-flex justify-content-between"><span class="badge badge-pill sender" ><br></span><span class="text-muted"><span class="read"></span> <span class="timestamp"></span></span></div><div class="card mb-3"><div class="row no-gutters"><div class="col"><div id="message_display" class="text-wrap"><p class="messageDisplay"></p></div></div></div></div></div>';
-        container.innerHTML = MESSAGE_TEMPLATE;
-        const div = container.firstElementChild;
-        console.log(div);
-        div.setAttribute('id', msg.id);
-        console.log(timestamp);
-        div.setAttribute('timestamp', timestamp);
-        var timestamp1 = div.querySelector('.timestamp');
-        var senderDiv = div.querySelector('.sender');
-        var messageElement = div.querySelector('.messageDisplay');
-        var read = div.querySelector('.read');
-        timestamp1.textContent = timestamp;
-        messageElement.textContent = message;
-        senderDiv.textContent = sender;
-        senderDiv.setAttribute('id', "user-name");
-        $('#message-container').append(div);
-        
-        message = message.substr(0,15)+(message.length>15?'&hellip;':'');
-        var date = gmtDate.toLocaleString("default", { month: "short" , day: 'numeric'});
-        var recent_timestamp = gmtDate.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
-        $('#'+sender+'_recentMsg').html("["+recent_timestamp+ "] " +message);
-        $('#'+sender+'_datestamp').html(date)
-        console.log(totalCount + " - " + parseInt($('#'+sender).html()))
-        
-        adjustTotalCount(false,$('#'+sender).html())
-        $('#'+sender).html("");
-        autoScrollToBottom();
-      }
-      function onMessageRead(messageId){
-        var pubnub = new PubNub({
-          publishKey : 'pub-c-8266b3af-df4a-4508-91de-0a06b9634a69',
-          subscribeKey : 'sub-c-b20376b2-5215-11ea-80a4-42690e175160',
-          uuid: user
-        });
-        pubnub.publish({
-          channel: name+'_receipts',
-          message: {
-            lastSeen: messageId,
-            user: user
-          }
-        }, (status, response) => {
-          // handle state setting response
-          console.log(response)
-        });
-      }
+  message = message.substr(0, 15) + (message.length > 15 ? '&hellip;' : '');
+  var date = gmtDate.toLocaleString('default', {
+    month: 'short',
+    day: 'numeric'
+  });
+  var recent_timestamp = gmtDate.toLocaleString('en-US', {
+    hour: 'numeric',
+    minute: 'numeric',
+    hour12: true
+  });
+  $('#' + name + '_recentMsg').html('[' + recent_timestamp + '] ' + message);
+  $('#' + name + '_datestamp').html(date);
+  $('#' + name).html('');
+}
+  function otherMsg(sender, timestamp, msg) {
+  console.log(msg);
+  if (document.getElementById(msg.id)) return;
+  var message = msg.content;
+  theirLatestMessage = msg.id;
+  //const unixTimestamp = msg.entry.timestamp / 10000000;
+  const gmtDate = new Date(timestamp * 1000);
+  timestamp = gmtDate.toLocaleString();
+  const container = document.createElement('div');
+  var MESSAGE_TEMPLATE =
+    '<div class="msg d-none" ><div class="d-flex justify-content-between"><span class="badge badge-pill sender" ><br></span><span class="text-muted"><span class="read"></span> <span class="timestamp"></span></span></div><div class="card mb-3"><div class="row no-gutters"><div class="col d-flex"><div id="message_display" class="p-2 text-wrap d-flex"><p class="messageDisplay pl-2 m-0"></p></div></div></div></div></div>';
+  if (message !== '' && msg.entry.imageURL === undefined) {
+    MESSAGE_TEMPLATE =
+      '<div class="msg" ><div class="d-flex justify-content-between"><span class="badge badge-pill sender" ><br></span><span class="text-muted"><span class="read"></span> <span class="timestamp"></span></span></div><div class="card mb-3"><div class="row no-gutters"><div class="col d-flex"><div id="message_display" class="p-2 text-wrap d-flex"><p class="messageDisplay pl-2 m-0"></p></div></div></div></div></div>';
+  } else if (msg.entry.imageURL !== undefined && message === '') {
+    MESSAGE_TEMPLATE =
+      '<div class="msg" ><div class="d-flex justify-content-between"><span class="badge badge-pill sender" ><br></span><span class="text-muted"><span class="read"></span> <span class="timestamp"></span></span></div><div class="card mb-3"><div class="row no-gutters"><div class="col d-flex"><div id="message_display" class="p-2 text-wrap d-flex"><a href="' +
+      msg.entry.imageURL +
+      '" target="_blank"><img class="attach" src="' +
+      msg.entry.imageURL +
+      '" height="100px" width="100px"></a><p class="messageDisplay pl-2 m-0 d-none"></p></div></div></div></div></div>';
+  } else if (msg.entry.imageURL !== undefined && message !== '') {
+    MESSAGE_TEMPLATE =
+      '<div class="msg" ><div class="d-flex justify-content-between"><span class="badge badge-pill sender" ><br></span><span class="text-muted"><span class="read"></span> <span class="timestamp"></span></span></div><div class="card mb-3"><div class="row no-gutters"><div class="col d-flex"><div id="message_display" class="p-2 text-wrap d-flex"><a href="' +
+      msg.entry.imageURL +
+      '" target="_blank"><img class="attach" src="' +
+      msg.entry.imageURL +
+      '" height="100px" width="100px"></a><p class="messageDisplay pl-2 m-0"></p></div></div></div></div></div>';
+  } else if (
+    (msg.entry.imageURL === '' && message === '') ||
+    (msg.entry.imageURL === undefined && message === '') ||
+    msg.entry.imageURL === Object
+  ) {
+    MESSAGE_TEMPLATE =
+      '<div class="msg d-none" ><div class="d-flex justify-content-between"><span class="badge badge-pill sender" ><br></span><span class="text-muted"><span class="read"></span> <span class="timestamp"></span></span></div><div class="card mb-3"><div class="row no-gutters"><div class="col d-flex"><div id="message_display" class="p-2 text-wrap d-flex"><p class="messageDisplay pl-2 m-0"></p></div></div></div></div></div>';
+  }
+  container.innerHTML = MESSAGE_TEMPLATE;
+  const div = container.firstElementChild;
+  console.log(div);
+  div.setAttribute('id', msg.id);
+  console.log(timestamp);
+  div.setAttribute('timestamp', timestamp);
+  var timestamp1 = div.querySelector('.timestamp');
+  var senderDiv = div.querySelector('.sender');
+  var messageElement = div.querySelector('.messageDisplay');
+  var read = div.querySelector('.read');
+  timestamp1.textContent = timestamp;
+  messageElement.textContent = message;
+  senderDiv.textContent = sender;
+  senderDiv.setAttribute('id', 'user-name');
+  $('#message-container').append(div);
+
+  message = message.substr(0, 15) + (message.length > 15 ? '&hellip;' : '');
+  var date = gmtDate.toLocaleString('default', {
+    month: 'short',
+    day: 'numeric'
+  });
+  var recent_timestamp = gmtDate.toLocaleString('en-US', {
+    hour: 'numeric',
+    minute: 'numeric',
+    hour12: true
+  });
+  $('#' + sender + '_recentMsg').html('[' + recent_timestamp + '] ' + message);
+  $('#' + sender + '_datestamp').html(date);
+  console.log(totalCount + ' - ' + parseInt($('#' + sender).html()));
+  totalCount -= parseInt($('#' + sender).html());
+  $('#totalCount').html(totalCount);
+  $('#' + sender).html('');
+  autoScrollToBottom();
+}
 
   function enter(){
     var pubnub = new PubNub({
@@ -754,46 +802,126 @@ adjustTotalCount(false,parseInt($('#'+name).html()))
     glpubnub = null;
     
   }
-  function sendMessage(){
-    var pubnub = new PubNub({
-      publishKey : 'pub-c-8266b3af-df4a-4508-91de-0a06b9634a69',
-      subscribeKey : 'sub-c-b20376b2-5215-11ea-80a4-42690e175160',
-      uuid:user
-    });
-    var user =user
-    
+  function removeAttachment() {
+  $('#attach-prev').attr('src', '');
+  $('#textarea-message').show();
+  $('#textarea-message').val('');
+  $('#attach-group').removeClass();
+  $('#attachment').val('');
+  $('#textarea-message').show();
+  reader = new FileReader();
+  attachURL = undefined;
+}
+var att;
+function addAttachment(attach) {
+  if (attach.files && attach.files[0]) {
+    reader.onload = function(e) {
+      $('#attach-prev').attr('src', e.target.result);
+    };
+
+    reader.readAsDataURL(attach.files[0]);
+    att = attach.files[0].name;
+    $('#attach-group').addClass('d-flex');
+  }
+}
+
+function sendMessage() {
+  var pubnub = new PubNub({
+    publishKey: 'pub-c-8266b3af-df4a-4508-91de-0a06b9634a69',
+    subscribeKey: 'sub-c-b20376b2-5215-11ea-80a4-42690e175160',
+    uuid: user
+  });
+  var user = user;
+
   /*  pubnub.subscribe({
       channels: ["test_area4","test_area4_receipts"],
     });
     */
-    //start publishmsg
-    function publishMsg(){
-        var message =   $('textarea#textarea-message').val().trim();
-        if(message != ""){
-          $('#textarea-message').val('');
-          myLatestMessage = PubNub.generateUUID();
-          if(getUserType() == "admin"){
-            user = "admin";
-          }else{
-            user = user;
-          }
-          var publishConfig = {
-            channel :name,
-            message: { 
-                id: myLatestMessage,
-                content: message,
-                sender: user,
-                timestamp: Math.round(new Date().getTime()/1000)
-            }
-
-          }
-          pubnub.publish(publishConfig, function(status, response) {
-            console.log(response)
-            console.log(myLatestMessage)
-            appendMessage(message, response.timetoken,"You");
-          });          
+  //start publishmsg
+  function publishMsg() {
+    var message = $('textarea#textarea-message')
+      .val()
+      .trim();
+    if (message !== '' || $('#attachment').val() !== '') {
+      $('#textarea-message').val('');
+      myLatestMessage = PubNub.generateUUID();
+      if (getUserType() == 'admin') {
+        user = 'admin';
+      } else {
+        user = user;
+      }
+      var publishConfig = {
+        channel: name,
+        message: {
+          id: myLatestMessage,
+          content: message,
+          sender: user,
+          timestamp: Math.round(new Date().getTime() / 1000)
         }
+      };
+      if ($('#attachment').val() !== '') {
+        // Create a root reference
+        var storageRef = firebase.storage().ref('/chat/' + att);
+        var attachURL = storageRef
+          .putString(reader.result, 'data_url')
+          .then(function(snapshot) {
+            console.log('Uploaded a blob or file!');
+          })
+          .then(() => {
+            storage
+              .ref()
+              .child('chat/' + att)
+              .getDownloadURL()
+              .then(function(url) {
+                var publishConfig = {
+                  channel: name,
+                  message: {
+                    id: myLatestMessage,
+                    content: message,
+                    sender: user,
+                    imageURL: url,
+                    timestamp: Math.round(new Date().getTime() / 1000)
+                  }
+                };
+
+                pubnub.publish(publishConfig, function(status, response) {
+                  console.log(response);
+                  console.log(myLatestMessage);
+                  appendMessage(message, url, response.timetoken, 'You');
+                  pubnub.publish(
+                    {
+                      channel: name + '_receipts',
+                      message: {
+                        user: sessionStorage.getItem('username')
+                      }
+                    },
+                    (status, response) => {
+                      console.log(response);
+                    }
+                  );
+                });
+              });
+          });
+      } else {
+        pubnub.publish(publishConfig, function(status, response) {
+          console.log(response);
+          console.log(myLatestMessage);
+          appendMessage(message, attachURL, response.timetoken, 'You');
+          pubnub.publish(
+            {
+              channel: name + '_receipts',
+              message: {
+                user: sessionStorage.getItem('username')
+              }
+            },
+            (status, response) => {
+              console.log(response);
+            }
+          );
+        });
+      }
     }
+  }
     //end publish msg
 
 
@@ -854,37 +982,51 @@ adjustTotalCount(false,parseInt($('#'+name).html()))
 
   }
 
-  function appendMessage(message,timetoken,sender){
-        const unixTimestamp = timetoken / 10000000;
-        const gmtDate = new Date(unixTimestamp * 1000);
-        const timestamp = gmtDate.toLocaleString();
-        const container = document.createElement('div');
-        const MESSAGE_TEMPLATE = '<div class="msg" ><div class="d-flex justify-content-between"><span class="badge badge-pill sender" ><br></span><span class="text-muted"><span class="read"></span> <span class="timestamp"></span></span></div><div class="card mb-3"><div class="row no-gutters"><div class="col"><div id="message_display" class="text-wrap"><p class="messageDisplay"></p></div></div></div></div></div>';
-        container.innerHTML = MESSAGE_TEMPLATE;
-        const div = container.firstElementChild;
-        console.log(div);
-        div.setAttribute('id', myLatestMessage);
-        div.setAttribute('timestamp', timetoken);
-        sender = sender == "You" ? sender : msg.entry.sender;
-        var timestamp1 = div.querySelector('.timestamp');
-        var senderDiv = div.querySelector('.sender');
-        var messageElement = div.querySelector('.messageDisplay');
-        var read = div.querySelector('.read');
-        timestamp1.textContent = timestamp;
-        messageElement.textContent = message;
-        senderDiv.textContent = sender;
-        var nameAttribute = sender == "You" ? "admin-name" : "user-name";
-        senderDiv.setAttribute('id', nameAttribute);
-        // if(sender == "You"){
-        //   $('#message-container').append('<div class="d-flex justify-content-between"><span class="badge badge-pill" id="admin-name">'+sender+'<br></span><span class="timestamp text-muted"><span id="'+myLatestMessage+'"></span>'+timestamp+'</span></div><div class="card mb-3"><div class="row no-gutters"><div class="col"><div id="message_display" class="text-wrap"><p>'+message.replace( /[<>]/g, '' )+'</p></div></div></div></div>');
-        // }else{
-        //   sender = msg.entry.sender;
-        //   $('#message-container').append('<div class="d-flex justify-content-between"><span class="badge badge-pill" id="user-name">'+sender+'<br></span><span class="timestamp text-muted">'+timestamp+'</span></div><div class="card mb-3"><div class="row no-gutters"><div class="col"><div id="message_display" class="text-wrap"><p>'+message.replace( /[<>]/g, '' )+'</p></div></div></div></div>');
-        // }
-       
-        $('#message-container').append(div);
-        autoScrollToBottom();
-    }
+  function appendMessage(message, attachment, timetoken, sender) {
+  const unixTimestamp = timetoken / 10000000;
+  const gmtDate = new Date(unixTimestamp * 1000);
+  const timestamp = gmtDate.toLocaleString();
+  const container = document.createElement('div');
+  if (message !== '' && attachment === undefined) {
+    MESSAGE_TEMPLATE =
+      '<div class="msg" ><div class="d-flex justify-content-between"><span class="badge badge-pill sender" ><br></span><span class="text-muted"><span class="read"></span> <span class="timestamp"></span></span></div><div class="card mb-3"><div class="row no-gutters"><div class="col d-flex"><div id="message_display" class="p-2 text-wrap d-flex"><p class="messageDisplay pl-2 m-0"></p></div></div></div></div></div>';
+  } else if (attachment !== undefined && message === '') {
+    MESSAGE_TEMPLATE =
+      '<div class="msg" ><div class="d-flex justify-content-between"><span class="badge badge-pill sender" ><br></span><span class="text-muted"><span class="read"></span> <span class="timestamp"></span></span></div><div class="card mb-3"><div class="row no-gutters"><div class="col d-flex"><div id="message_display" class="p-2 text-wrap d-flex"><img class="attach" src="' +
+      attachment +
+      '" height="100px" width="100px"><p class="messageDisplay pl-2 m-0 d-none"></p></div></div></div></div></div>';
+  } else if (attachment !== undefined && message !== '') {
+    MESSAGE_TEMPLATE =
+      '<div class="msg" ><div class="d-flex justify-content-between"><span class="badge badge-pill sender" ><br></span><span class="text-muted"><span class="read"></span> <span class="timestamp"></span></span></div><div class="card mb-3"><div class="row no-gutters"><div class="col d-flex"><div id="message_display" class="p-2 text-wrap d-flex"><img class="attach" src="' +
+      attachment +
+      '" height="100px" width="100px"><p class="messageDisplay pl-2 m-0"></p></div></div></div></div></div>';
+  }
+  container.innerHTML = MESSAGE_TEMPLATE;
+  const div = container.firstElementChild;
+  console.log(div);
+  div.setAttribute('id', myLatestMessage);
+  div.setAttribute('timestamp', timetoken);
+  sender = sender == 'You' ? 'You' : sender;
+  var timestamp1 = div.querySelector('.timestamp');
+  var senderDiv = div.querySelector('.sender');
+  var messageElement = div.querySelector('.messageDisplay');
+  var read = div.querySelector('.read');
+  timestamp1.textContent = timestamp;
+  messageElement.textContent = message;
+  senderDiv.textContent = sender;
+  var nameAttribute = sender == 'You' ? 'admin-name' : 'user-name';
+  senderDiv.setAttribute('id', nameAttribute);
+  // if(sender == "You"){
+  //   $('#message-container').append('<div class="d-flex justify-content-between"><span class="badge badge-pill" id="admin-name">'+sender+'<br></span><span class="timestamp text-muted"><span id="'+myLatestMessage+'"></span>'+timestamp+'</span></div><div class="card mb-3"><div class="row no-gutters"><div class="col"><div id="message_display" class="text-wrap"><p>'+message.replace( /[<>]/g, '' )+'</p></div></div></div></div>');
+  // }else{
+  //   sender = msg.entry.sender;
+  //   $('#message-container').append('<div class="d-flex justify-content-between"><span class="badge badge-pill" id="user-name">'+sender+'<br></span><span class="timestamp text-muted">'+timestamp+'</span></div><div class="card mb-3"><div class="row no-gutters"><div class="col"><div id="message_display" class="text-wrap"><p>'+message.replace( /[<>]/g, '' )+'</p></div></div></div></div>');
+  // }
+
+  $('#message-container').append(div);
+  autoScrollToBottom();
+  removeAttachment();
+}
   function messageCounter(){
     var pubnub = new PubNub({
           publishKey : 'pub-c-8266b3af-df4a-4508-91de-0a06b9634a69',
@@ -943,82 +1085,6 @@ function autoScrollToBottom(){
   console.log(messageListElement.scrollTop);
 }
 
-function postMsg(msg, lastRead) {
-	var sender = "You";
-	console.log(msg)
-	var message = msg.entry.content;
-	var id = msg.entry.id;
-	//const unixTimestamp = msg.entry.timestamp / 10000000;
-	const gmtDate = new Date(msg.entry.timestamp * 1000);
-	const timestamp = gmtDate.toLocaleString();
-	//is read?
-	var read = "sent "
-	if (msg.entry.timestamp < lastRead) {
-		read = "read ";
-	}
-	const container = document.createElement('div');
-	const MESSAGE_TEMPLATE = '<div class="msg" ><div class="d-flex justify-content-between"><span class="badge badge-pill sender" ><br></span><span class="text-muted"><span class="read"></span> <span class="timestamp"></span></span></div><div class="card mb-3"><div class="row no-gutters"><div class="col"><div id="message_display" class="text-wrap"><p class="messageDisplay"></p></div></div></div></div></div>';
-	container.innerHTML = MESSAGE_TEMPLATE;
-	const div = container.firstElementChild;
-	console.log(div);
-	div.setAttribute('id', id);
-	console.log(timestamp);
-	div.setAttribute('timestamp', timestamp);
-	sender = msg.entry.sender == user ? sender : name;
-	var timestamp1 = div.querySelector('.timestamp');
-	var senderDiv = div.querySelector('.sender');
-	var messageElement = div.querySelector('.messageDisplay');
-	var read = div.querySelector('.read');
-	timestamp1.textContent = timestamp;
-	messageElement.textContent = message;
-	senderDiv.textContent = sender;
-	var nameAttribute = msg.entry.sender == user ? "admin-name" : "user-name";
-	senderDiv.setAttribute('id', nameAttribute);
-
-	//isRead()
-	if (msg.entry.sender == user) {
-		myLatestMessage = msg.entry.id;
-		// $('#message-container').append('<div class="d-flex justify-content-between"><span class="badge badge-pill" id="admin-name">'+sender+'<br></span><span class="timestamp text-muted"><span id="'+myLatestMessage+'"></span>'+timestamp+'</span></div><div class="card mb-3"><div class="row no-gutters"><div class="col"><div id="message_display" class="text-wrap"><p>'+message.replace( /[<>]/g, '' )+'</p></div></div></div></div>');
-		$('#message-container').append(div);
-		console.log(myLatestMessage);
-	} else {
-		theirLatestMessage = msg.entry.id;
-		console.log(theirLatestMessage)
-		sender = name;
-		// $('#message-container').append('<div class="d-flex justify-content-between"><span class="badge badge-pill" id="user-name">'+sender+'<br></span><span class="timestamp text-muted">'+timestamp+'</span></div><div class="card mb-3"><div class="row no-gutters"><div class="col"><div id="message_display" class="text-wrap"><p>'+message.replace( /[<>]/g, '' )+'</p></div></div></div></div>');
-		$('#message-container').append(div)
-	}
-	console.log(sender)
-}
-
-function otherMsg(sender, timestamp, msg) {
-	console.log(msg);
-	if (document.getElementById(msg.id))
-		return;
-	var message = msg.content;
-	theirLatestMessage = msg.id;
-	//const unixTimestamp = msg.entry.timestamp / 10000000;
-	const gmtDate = new Date(timestamp * 1000);
-	timestamp = gmtDate.toLocaleString();
-	const container = document.createElement('div');
-	const MESSAGE_TEMPLATE = '<div class="msg" ><div class="d-flex justify-content-between"><span class="badge badge-pill sender" ><br></span><span class="text-muted"><span class="read"></span> <span class="timestamp"></span></span></div><div class="card mb-3"><div class="row no-gutters"><div class="col"><div id="message_display" class="text-wrap"><p class="messageDisplay"></p></div></div></div></div></div>';
-	container.innerHTML = MESSAGE_TEMPLATE;
-	const div = container.firstElementChild;
-	console.log(div);
-	div.setAttribute('id', msg.id);
-	console.log(timestamp);
-	div.setAttribute('timestamp', timestamp);
-	var timestamp1 = div.querySelector('.timestamp');
-	var senderDiv = div.querySelector('.sender');
-	var messageElement = div.querySelector('.messageDisplay');
-	var read = div.querySelector('.read');
-	timestamp1.textContent = timestamp;
-	messageElement.textContent = message;
-	senderDiv.textContent = sender;
-	senderDiv.setAttribute('id', "user-name");
-	$('#message-container').append(div);
-	autoScrollToBottom();
-}
 
 function onMessageRead(messageId) {
 	var pubnub = new PubNub({
@@ -1036,290 +1102,6 @@ function onMessageRead(messageId) {
 		// handle state setting response
 		console.log(response)
 	});
-}
-
-function enter() {
-	var pubnub = new PubNub({
-		publishKey: 'pub-c-8266b3af-df4a-4508-91de-0a06b9634a69',
-		subscribeKey: 'sub-c-b20376b2-5215-11ea-80a4-42690e175160',
-		uuid: user
-	});
-	var user = user
-
-
-	pubnub.setState({
-		state: {
-			mood: 'in',
-		},
-		channels: [name],
-	}, (status, response) => {
-		// handle state setting response
-		console.log(response)
-	});
-	//enter chat
-
-
-	//listen to receipts channel
-	pubnub.addListener({
-		status: function (statusEvent) {},
-		message: function (msg) {
-      console.log(msg)
-      console.log(user);
-			if (msg.message.user != user) {
-				//if new receipt is not from current user,
-				//update read
-				if (msg.message.lastSeen) {
-					var div = document.getElementById(msg.message.lastSeen)
-					read = div.querySelector('.read');
-					read.textContent = 'read ';
-				}
-			}
-		},
-		presence: function (p) {
-			var action = p.action; // Can be join, leave, state-change or timeout
-			// var channelName = p.channel; // The channel for which the message belongs
-			//var occupancy = p.occupancy; // No. of users connected with the channel
-			var state = p.state; // User State
-			var uuid = p.uuid;
-			console.log(uuid + " is " + action + " and " + state)
-			if (uuid != user) {
-				//other user has performed smth
-				if (state.mood == "in") {
-					//user opened chat
-					//check if latest message action is messaged_delivered
-					//if delivered, update to read
-					console.log("this is where u set the delivered to read")
-					//$('#msg_status').html("read");
-					var timetoken = p.timetoken;
-					console.log(timetoken)
-
-				} else {
-					//user closed chat
-				}
-			}
-		}
-	});
-	pubnub.subscribe({
-		channels: [name + "_receipts"],
-	});
-}
-
-function exit() {
-	// var pubnub = new PubNub({
-	//   publishKey : 'pub-c-8266b3af-df4a-4508-91de-0a06b9634a69',
-	//   subscribeKey : 'sub-c-b20376b2-5215-11ea-80a4-42690e175160',
-	//   uuid: user
-	// });
-	var user = user
-	var publishConfig = {
-		channel: name + "_log",
-		message: {
-			user: user
-		}
-
-	}
-	glpubnub.publish(publishConfig, function (status, response) {
-		console.log(response)
-	});
-	glpubnub.setState({
-		state: {
-			mood: 'out',
-			time: Math.round(new Date().getTime() / 1000) * 10000000
-		},
-		channels: [name],
-	}, (status, response) => {
-		// handle state setting response
-		console.log(response)
-	});
-
-	glpubnub.unsubscribe({
-		channels: [name, name + '_receipts'],
-	});
-	glpubnub = null;
-
-}
-
-function sendMessage() {
-	var pubnub = new PubNub({
-		publishKey: 'pub-c-8266b3af-df4a-4508-91de-0a06b9634a69',
-		subscribeKey: 'sub-c-b20376b2-5215-11ea-80a4-42690e175160',
-		uuid: user
-	});
-	var user = user
-
-	/*  pubnub.subscribe({
-	    channels: ["test_area4","test_area4_receipts"],
-	  });
-	  */
-	//start publishmsg
-	function publishMsg() {
-		var message = $('textarea#textarea-message').val().trim();
-		if (message != "") {
-			$('#textarea-message').val('');
-			myLatestMessage = PubNub.generateUUID();
-			if (getUserType() == "admin") {
-				user = "admin";
-			} else {
-				user = user;
-			}
-			var publishConfig = {
-				channel: name,
-				message: {
-					id: myLatestMessage,
-					content: message,
-					sender: user,
-					timestamp: Math.round(new Date().getTime() / 1000)
-				}
-
-			}
-			pubnub.publish(publishConfig, function (status, response) {
-				console.log(response)
-				console.log(myLatestMessage)
-				appendMessage(message, response.timetoken, "You");
-			});
-		}
-	}
-	//end publish msg
-
-
-	//addaction start
-	function addaction(msgtoken, type) {
-		pubnub.addMessageAction({
-				channel: name,
-				messageTimetoken: msgtoken,
-				action: {
-					type: 'receipt',
-					value: type,
-				},
-				uuid: user
-			},
-			function (status, response) {
-				console.log(status);
-				console.log(response);
-			});
-		pubnub.getMessageActions({
-				channel: name
-			},
-			function (status, response) {
-				console.log(status)
-				console.log(response)
-			});
-	}
-	//end addaction
-
-	//listener
-	pubnub.addListener({
-		status: function (statusEvent) {
-			if (statusEvent.category === "PNConnectedCategory") {
-				console.log("connected");
-				console.log(statusEvent)
-				publishMsg();
-			}
-		},
-		message: function (msg) {
-
-
-		},
-		presence: function (p) {
-
-
-		}
-	});
-	//listener end
-
-	console.log("subbing");
-	pubnub.subscribe({
-		channels: [name, name + "_receipts"],
-		withPresence: true
-	});
-	// autoScrollToBottom();
-	//add to database
-};
-
-function addSeen() {
-
-}
-
-function appendMessage(message, timetoken, sender) {
-	const unixTimestamp = timetoken / 10000000;
-	const gmtDate = new Date(unixTimestamp * 1000);
-	const timestamp = gmtDate.toLocaleString();
-	const container = document.createElement('div');
-	const MESSAGE_TEMPLATE = '<div class="msg" ><div class="d-flex justify-content-between"><span class="badge badge-pill sender" ><br></span><span class="text-muted"><span class="read"></span> <span class="timestamp"></span></span></div><div class="card mb-3"><div class="row no-gutters"><div class="col"><div id="message_display" class="text-wrap"><p class="messageDisplay"></p></div></div></div></div></div>';
-	container.innerHTML = MESSAGE_TEMPLATE;
-	const div = container.firstElementChild;
-	console.log(div);
-	div.setAttribute('id', myLatestMessage);
-	div.setAttribute('timestamp', timetoken);
-	sender = sender == "You" ? sender : msg.entry.sender;
-	var timestamp1 = div.querySelector('.timestamp');
-	var senderDiv = div.querySelector('.sender');
-	var messageElement = div.querySelector('.messageDisplay');
-	var read = div.querySelector('.read');
-	timestamp1.textContent = timestamp;
-	messageElement.textContent = message;
-	senderDiv.textContent = sender;
-	var nameAttribute = sender == "You" ? "admin-name" : "user-name";
-	senderDiv.setAttribute('id', nameAttribute);
-	// if(sender == "You"){
-	//   $('#message-container').append('<div class="d-flex justify-content-between"><span class="badge badge-pill" id="admin-name">'+sender+'<br></span><span class="timestamp text-muted"><span id="'+myLatestMessage+'"></span>'+timestamp+'</span></div><div class="card mb-3"><div class="row no-gutters"><div class="col"><div id="message_display" class="text-wrap"><p>'+message.replace( /[<>]/g, '' )+'</p></div></div></div></div>');
-	// }else{
-	//   sender = msg.entry.sender;
-	//   $('#message-container').append('<div class="d-flex justify-content-between"><span class="badge badge-pill" id="user-name">'+sender+'<br></span><span class="timestamp text-muted">'+timestamp+'</span></div><div class="card mb-3"><div class="row no-gutters"><div class="col"><div id="message_display" class="text-wrap"><p>'+message.replace( /[<>]/g, '' )+'</p></div></div></div></div>');
-	// }
-
-	$('#message-container').append(div);
-	autoScrollToBottom();
-}
-
-function messageCounter() {
-	var pubnub = new PubNub({
-		publishKey: 'pub-c-8266b3af-df4a-4508-91de-0a06b9634a69',
-		subscribeKey: 'sub-c-b20376b2-5215-11ea-80a4-42690e175160',
-		uuid: name
-	});
-
-	pubnub.getUser({
-			userId: "user-1",
-			include: {
-				customFields: true
-			}
-		},
-		function (status, response) {
-			console.log(response)
-			console.log(status)
-		}
-	);
-	pubnub.getState({
-		channels: ['test_area4', 'test_area4_receipts'],
-	}, (status, response) => {
-		// handle state getting response
-		console.log(response)
-	});
-	/*    pubnub.messageCounts({
-	      channels: ['test_area4'],
-	      channelTimetokens: [msgtoken],
-	    }, (status, results) => {
-	      // handle status, response
-	      console.log(status);
-	      console.log(results);
-	    });*/
-}
-
-function showChat() {
-
-	$('#chat-toast').toast('show');
-	//  messageCounter();
-	displayMessagePreviews();
-}
-
-function autoScrollToBottom() {
-	$("#message-container").animate({
-		scrollTop: $('#message-container').get(0).scrollHeight
-	}, 1000);
-	// var  messageListElement = document.getElementById('message-container');
-	// messageListElement.scrollTop = messageListElement.scrollHeight;
-	// console.log(messageListElement.scrollTop);
 }
 
 function checkRead(div) {
