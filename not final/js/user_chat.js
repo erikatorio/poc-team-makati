@@ -513,7 +513,7 @@ function exit() {
 function sendMessage() {
   var pubnub = new PubNub({
     publishKey: 'pub-c-8266b3af-df4a-4508-91de-0a06b9634a69',
-    subscribeKey: 'sub-c-ff17de82-5cf3-11ea-b7ea-f2f107c29c38',
+    subscribeKey: 'sub-c-b20376b2-5215-11ea-80a4-42690e175160',
     uuid: user
   });
   var user = user
