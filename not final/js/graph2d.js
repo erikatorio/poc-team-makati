@@ -453,26 +453,30 @@ function drawVisualizationTrend(displayBy){
 
 }
 
+let docText = 'Weekly Reports';
 function changeDropdownLabel(value){
     switch(value){
         case 0:
             document.getElementById('dropdownMenuLink').innerHTML = "週間";
+            docText = 'Weekly Reports';
             drawVisualizationTrend(0);
             break;
         case 1:
             document.getElementById('dropdownMenuLink').innerHTML = "月間";
+            docText = 'Monthly Reports';
             drawVisualizationTrend(1);
             break;
         case 2:
             document.getElementById('dropdownMenuLink').innerHTML = "年間";
+            docText = 'Yearly Reports';
             drawVisualizationTrend(2);
             break;
     }
 }
 
 function printGraphs(value) {
-    let docText = 'Reports';
-    // if(document.getElementById('yearly').checked){
+    // let docText = '';
+    // if(document.getElementById('yearly')){
     //     docText = 'Yearly Reports';
     // } else if(document.getElementById('monthly').checked){
     //     docText = 'Monthly Reports';
@@ -498,7 +502,7 @@ function printGraphs(value) {
                 onrendered: function(canvas) {         
                     var imgData = canvas.toDataURL('image/jpg').replace("image/jpg", "image/octet-stream");
                     let link  = document.createElement('a');
-                    link.download = "Reports.jpg";
+                    link.download = docText + ".jpg";
                     link.href = imgData;
                     link.click();
                 }
@@ -509,7 +513,7 @@ function printGraphs(value) {
                 onrendered: function(canvas) {         
                     var imgData = canvas.toDataURL('image/png').replace("image/png", "image/octet-stream");
                     let link  = document.createElement('a');
-                    link.download = "Reports.png";
+                    link.download = docText + ".png";
                     link.href = imgData;
                     link.click();
                 }

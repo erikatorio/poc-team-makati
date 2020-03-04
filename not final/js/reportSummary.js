@@ -4,7 +4,8 @@
 
 window.addEventListener("load", async () => {
     isloaded = true;
-    await getReports();
+    //await getGroupsAndCategories();
+    await showNotif();
     await reportSummary();
     generateColors(1);
     initArray();
@@ -149,4 +150,34 @@ function downloadPNG(){
             link.click();
         }
     });
+}
+
+// ----- Notifications -----
+
+async function showNotif() {
+    await getGroupsAndCategories();
+    // let options = { month: '2-digit', day: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' };
+
+    let ctr = 0;
+
+    reports.forEach(function (report) {
+        if (report.read === false) {
+            notif = true;
+            if (ctr === 0) {
+                $('#notifItem').html('<div class="px-4 py-0"><hr class="m-2 mb-3"></div>');
+            }
+            ctr += 1;
+            $('#notifDropdown').html('<i class="material-icons text-danger">notifications_active</i><span class="badge badge-pill badge-danger p-1">' + ctr + '</span>')
+            // $('#notifItem').append('<div class="dropdown-item py-0"><div><p class="p-0 text-danger m-0">New category "' + report.category + '" incident was reported.</p><p class="row text-danger p-0 m-0 justify-content-between"> (' + report.created.toDate().toLocaleString("en-US", options) + ')<a class="ml-auto py-0" href="#" onClick= selectReport(' + report.id + ')>more details...</a></p></div><hr class="mt-1"></div>')
+        }
+    });
+    if (ctr === 0) {
+      $('#notifDropdown').html('<i class="fas fa-bell"></i>');
+      $('#notifItem').html(
+        '<div class="dropdown-item py-0"><hr><div class="row"><p class="col-12 m-0 text-success p-0">All reports are read.</p></div><hr></div>'
+      );
+    }
+
+    console.log(ctr);
+
 }

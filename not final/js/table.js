@@ -2,7 +2,7 @@ var reportsTable
 
 window.addEventListener("load", async () => {
     isloaded = true;
-    await getReports();
+    await getGroupsAndCategories();
     await showTables();
     reportsTable = $('#reportsTable').DataTable({
         paging: false,
