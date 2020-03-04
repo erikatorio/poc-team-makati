@@ -119,6 +119,10 @@ span {
   border-bottom: 0.2px solid #C2C5CC;
 }
 
+.toast-body .text-info {
+  color: #FF9999 !important;
+}
+
 .toast-body, .toast-body p {
   font-family: 'Roboto Condensed';
 }
