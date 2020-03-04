@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Page Not Found</title>
+    <link rel="icon" href="flower.png">
+    <link rel="stylesheet" href="error.css">
+    <!-- PWA icons for iOS -->
+	<link rel="apple-touch-icon" href="sakura1.png">
+	<link rel="apple-touch-icon" sizes="152x152" href="sakura1.png">
+	<link rel="apple-touch-icon" sizes="180x180" href="sakura1.png">
+	<link rel="apple-touch-icon" sizes="167x167" href="sakura1.png">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  </head>
+  <body>
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900|Roboto:100,300,400,500,700,900" rel="stylesheet" />
+      <div class="container">
+          <div class="error-wrapper">
+              <div class="man-icon"><img src="404_temp.png" width="70%"></div>
+              <h3 class="title">404</h3>
+              <p class="info">Oops! The page you're looking for does not exist!</p>
+              <button type="button" onclick="showChat()" class="btn btn-info">HOME</button>
+          </div>
+        <!-- Chat Container-->
+        <div id="chat-container" >
+          <div class="toast" role="alert" data-autohide="false" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+              <svg class="rounded mr-2" width="20" height="20" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img">
+                <rect fill="#007aff" width="100%" height="100%" />
+              </svg>
+              <strong class="mr-auto">Chat</strong>
+              <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div id="message-container" class="toast-body scrollbar scrollbar-rare-wind" style="background-color: #F5F5F5">
+              <div class="strike">
+                  <!-- <span>Previous messages have been deleted.</span> -->
+                  <span>Start messaging.</span>
+              </div>
+              <br>
+              <!--admin message sample-->
+              <div class="d-flex justify-content-between">
+                <span class="badge badge-pill" id="admin-name">Admin<br></span>
+                <span class="timestamp text-muted">01/21/2020 9:56AM</span>
+              </div>
+              <div class="card col-message report-card mb-3">
+                <div class="row no-gutters">
+                  <div class="col">
+                    <div id="message" class="text-wrap"><p>
+                    This is a message.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!--user message sample-->
+              <div class="d-flex justify-content-between">
+                <span class="timestamp text-muted">01/21/2020 9:56AM</span>
+                <span class="badge badge-pill" id="user-name">You<br></span>
+              </div>
+              <div class="card report-card mb-3">
+                <div class="row no-gutters">
+                  <div class="col-message col">
+                    <div id="message" class="text-wrap"><p>This is a message containing multiple rows of text hmMMMMM.This is a message containing multiple rows of text hmMMMMM.This is a message containing multiple rows of text hmMMMMM.This is a message containing multiple rows of text hmMMMMM.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!--user message sample-->
+              <div class="d-flex justify-content-between">
+                <span class="timestamp text-muted">01/21/2020 9:56AM</span>
+                <span class="badge badge-pill" id="user-name">You<br></span>
+              </div>
+              <div class="card report-card mb-3">
+                <div class="row no-gutters">
+                  <div class="col">
+                    <div id="message" class="text-wrap"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam laoreet at metus at cursus. Etiam metus augue, luctus non mi ac, molestie sodales quam. Mauris nec turpis varius, facilisis urna ut, convallis neque. Curabitur blandit libero eu est pretium, eget pulvinar augue rutrum. Ut in est tincidunt, lobortis mi ut, dictum lorem. Pellentesque in leo semper, pretium diam non, ultrices elit. :(</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+                 <div  class="form-group row no-gutters">
+                  <textarea class="form-control col-10 scrollbar scrollbar-rare-wind" id="textarea-message" rows="1" cols="3" placeholder="Type a message" ></textarea>
+                  <button type="button" id="chat-btn" class="col-2 btn btn-info"></button>
+                </div>
+          </div>
+
+        </div>
+      </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script>
+      function showChat(){
+        $('.toast').toast('show');
+      }
+
+
+    </script>
+  </body>
+</html>
