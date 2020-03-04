@@ -16,7 +16,7 @@ window.addEventListener("load", async () => {
     byCategory();
     findMax();
     
-    loadData(2).then(function () {
+    loadData(2).then(async function () {
         drawVisualization(data);
         drawVisualization2d(search, 2);
         drawPie(2);
@@ -46,4 +46,9 @@ window.addEventListener("load", async () => {
     $('#dept').change(function () {
         drawPie(2);
     });
+
+    if(window.location.hash === '#trend'){
+        var tabtrend = document.getElementById("trendgraphtab").click();
+    }
 });
+

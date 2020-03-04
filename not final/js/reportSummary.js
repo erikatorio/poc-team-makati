@@ -232,3 +232,4 @@ async function loadReportDetails(reportSelected) {
         $("#sattachment").html('Link to attachment: <a target=_blank href= ' + reportSelected.attachFile + '>Link</a>');
     }
 }
+
