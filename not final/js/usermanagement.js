@@ -182,8 +182,8 @@ async function showUsers() {
         "<thead class='thead-inverse bg-custom text-custom'>" +
         "<tr>" +
         "<th style='width:20%;'>ＩＤ</th>" +
-        "<th style='width:40%;'>ユーザー名</th>" +
-        "<th style='width:30%;'>グループ</th>" +
+        "<th style='width:40%;'>名前</th>" +
+        "<th style='width:30%;'>デパートメント</th>" +
         "<th style='width:10%;'>設定</th>" +
         "</tr>" +
         "</thead>";
