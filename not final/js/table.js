@@ -13,9 +13,6 @@ window.addEventListener("load", async () => {
         responsive: true
     });
 
-
-
-
 });
 
 async function showTables() {
