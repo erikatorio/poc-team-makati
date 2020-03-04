@@ -53,7 +53,7 @@ span {
 }
 
 /* Notif badge */
-.badge {
+#notif_badge, #totalCount {
   position: absolute;
   top: 0;
   right: 0;
@@ -71,6 +71,21 @@ span {
   border-radius:10px;
 }
 
+/* Notifications */
+.notifications-container {
+  height: 400px;
+  width: 250px;
+  position: absolute;
+  margin-left: 60px;
+  margin-top: 50px;
+}
+
+.notif-line {
+  background-color: red;
+  height: 100px;
+  border-bottom: 0.5px solid gray;
+}
+
 /* ---------------------------------------------------
       SIDEBAR STYLE
   ----------------------------------------------------- */
@@ -84,7 +99,7 @@ span {
   }
   #sidebar-container {
       min-height: 100vh;   
-      background-color: #FFFAFA;
+      background-color: #282421;
       padding: 0;
   }
   
