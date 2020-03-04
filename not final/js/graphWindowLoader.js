@@ -16,7 +16,7 @@ window.addEventListener("load", async () => {
     byCategory();
     findMax();
     
-    loadData(2).then(function () {
+    loadData(2).then(async function () {
         drawVisualization(data);
         drawVisualization2d(search, 2);
         drawPie(2);
@@ -48,16 +48,7 @@ window.addEventListener("load", async () => {
     });
 
     if(window.location.hash === '#trend'){
-        console.log("test");
-        var tab3d = document.getElementById("3dgraphtab");
-        var tab3ddiv = document.getElementById("firstgraph");
-        var tabtrend = document.getElementById("trendgraphtab");
-        var tabtrenddiv = document.getElementById("trend");
-        tab3d.classList.remove("active");
-        tab3ddiv.classList.remove("active");
-        tabtrend.className += " active";
-        tabtrenddiv.className += " active";
-        drawVisualizationTrend(0);
+        var tabtrend = document.getElementById("trendgraphtab").click();
     }
 });
 

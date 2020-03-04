@@ -367,7 +367,7 @@ function generateDataSet(sortBy){
     return dataSet;
 }
 
-function drawVisualizationTrend(displayBy){
+async function drawVisualizationTrend(displayBy){
 
     let dateLabels = [];
     let date = new Date();
