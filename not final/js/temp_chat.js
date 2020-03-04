@@ -1478,8 +1478,11 @@ function adjustTotalCount(operation,number){
     totalCount -= parseInt(number)
   }
   console.log(totalCount)
+
+    $('#totalCount').css('display','');
   if(totalCount == 0){
     $('#totalCount').html("");
+    $('#totalCount').css('display','hidden');
   }else if(totalCount > 99){
     $('#totalCount').html("99+");
   }else{
