@@ -54,7 +54,7 @@ async function fileUpload(file_data, reportID) {
                     .then(function (querySnapshot) {
                         querySnapshot.forEach(function (doc) {
                             db.collection("reports").doc(doc.id).update({
-                                attachFile = downloadURL
+                                attachFile: downloadURL
                             });
                         });
                     });
