@@ -1335,7 +1335,7 @@ function checkRead(div) {
 
 function readAll() {
   var msgs = $(".msg");
-  for (let i = msgs.length - 1 ; i >= 0; i--) {
+  for (let i = 0 ; i < msgs.length; i++) {
     let div = msgs[i];
     // console.log(msgs[i]);
     if (div.querySelector('.sender').textContent != "You") {
