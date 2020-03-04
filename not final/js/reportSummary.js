@@ -187,6 +187,17 @@ async function showNotif() {
     }
 }
 
+var isPaneOpen = false;
+function showNotifs() {
+    if (!isPaneOpen) {
+        $('#notif-toast').toast('show');
+        isPaneOpen = true;
+    } else {
+        $('#notif-toast').toast('hide');
+        isPaneOpen = false;
+    }
+}
+
 async function selectReport(reportID) {
     reports.forEach(async function (report) {
         if (report.id === reportID) {
