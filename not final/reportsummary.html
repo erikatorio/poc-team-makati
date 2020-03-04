@@ -132,7 +132,8 @@
 
               <!-- Card for Most Reported Category -->
               <div id="card1" class="card summary_reports col-lg-3">
-                <div class="card-body">					    
+                <div class="card-body">		
+                  <span id="tooltip_span"><i class="material-icons" data-toggle="tooltip"  data-placement="bottom" title="Shows the most reported Category." style="font-size: 16px; color: #3D3028;">info</i></span>			    		    
                   <p class="card-text">一番レポートの数が高いカテゴリー</p>
                   <i class="fa fa-exclamation card_icon"></i>
                   <p id="categoryCount" class="card-num"></p>
@@ -143,6 +144,7 @@
               <!-- Card for Department w/ Most Reports -->
               <div id="card2" class="card summary_reports col-lg-3">
                 <div class="card-body">
+                  <span id="tooltip_span"><i class="material-icons" data-toggle="tooltip"  data-placement="bottom" title="Shows the department with most reports." style="font-size: 16px; color: #3D3028;">info</i></span>			    
                   <p class="card-text">一番レポートの数が高いデパートメント</p>
                   <i class="fa fa-flag card_icon"></i>
                   <p id="groupCount" class="card-num"></p>
@@ -153,6 +155,7 @@
               <!-- Card for Total Reports -->
               <div id="card3" class="card summary_reports col-lg-3">
                 <div class="card-body">
+                  <span id="tooltip_span"><i class="material-icons" data-toggle="tooltip"  data-placement="bottom" title="Total number of reports reported." style="font-size: 16px; color: #3D3028;">info</i></span>			    		    
                   <p class="card-text">レポートの数</p>
                   <i class="fa fa-plus card_icon"></i>
                   <p id="reportCount" class="card-num"></p>
@@ -163,6 +166,7 @@
               <!-- Card for Today's Reports -->
               <div id="card4" class="card summary_reports col-lg-3">
                 <div class="card-body">
+                  <span id="tooltip_span"><i class="material-icons" data-toggle="tooltip"  data-placement="bottom" title="Number of reports sent today." style="font-size: 16px; color: #3D3028;">info</i></span>			    		    
                   <p class="card-text">今日のレポートの数</p>
                   <i class="fa fa-chart-line card_icon"></i>
                   <p id="reportToday" class="card-num">0</p>
@@ -514,8 +518,15 @@
     <!-- notifications pane -->
     <div class="notifications-container">
       <div id="notif-toast" class="toast" role="alert" data-autohide="false" aria-live="assertive" aria-atomic="true">
-        <!-- <div class="row notif-line">
-
+        <div class="row notif-line">
+          <div id="notif-header" class="toast-header">
+            <img src="./img/flower.png" class="rounded mr-2" alt="...">
+            <strong class="mr-auto">Bootstrap</strong>
+            <small>11 mins ago</small>
+          </div>
+          <div class="toast-body">
+            Hello, world! This is a toast message.
+          </div>
         </div>
         <div class="row notif-line">
           
@@ -622,6 +633,12 @@
 
     <script>
       var ctxTrend = document.getElementById('weeklyReports').getContext('2d');
+    </script>
+
+    <script>
+      $(document).ready(function(){
+        $('[data-toggle="tooltip"]').tooltip();   
+      });
     </script>
     
     <script src="https://cdn.pubnub.com/sdk/javascript/pubnub.4.27.1.js"></script>
