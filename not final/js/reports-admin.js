@@ -132,7 +132,11 @@ async function showReport(details){
         $("#when").html(details.when);
         $("#where").html(details.where);
         $("#how").html(details.how);
-        $("#evidence").html("<a href=" + details.attachFile + ">Link</a>");
+        if(details.attachFile == ""){
+            $("#evidence").html("No file attachments.");
+        } else {
+            $("#evidence").html("<a target=_blank href= '" + details.attachFile + "'>Link</a>");
+        }
         switch(details.status){
             case "検討中":
                 $("#status").html("<select id='statusDD' onchange='changed()'><option selected>検討中</option><option>拒否された</option><option>検証済み</option><option>解決した</option></select>");
@@ -155,7 +159,6 @@ async function showReport(details){
                 $("#action").html("<button type='button' class='btn btn-secondary' data-dismiss='modal'>Close</button>")
                 break;
         }
-        $("#evidence").html("<a href=" + details.attachFile + ">Link</a>");
 }
 
 async function changed(){
