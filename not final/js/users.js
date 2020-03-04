@@ -8,6 +8,15 @@ window.addEventListener("load", async () => {
     let isloaded = false;
     await getUsersData();
     tempUsers = users;
+    userDepartments = [];
+    await db.collection("groups")
+        .get()
+        .then(function (querySnapshot) {
+        querySnapshot.forEach(function (doc) {
+            userDepartments.push(doc.data().name); 
+        });
+    });
+    userDepartments.sort().forEach((dep)=> $("#department").append('<option value="'+ dep +'">'+ dep +'</option>'));
     var pubnub = new PubNub({
         publishKey : 'pub-c-8266b3af-df4a-4508-91de-0a06b9634a69',
         subscribeKey : 'sub-c-b20376b2-5215-11ea-80a4-42690e175160',
@@ -22,6 +31,7 @@ window.addEventListener("load", async () => {
         function(status, response) {
         });
       populateUserTable();
+      
 });
 
 async function populateUserTable(){
