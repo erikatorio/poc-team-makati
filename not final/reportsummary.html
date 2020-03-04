@@ -47,7 +47,7 @@
                   <!-- <span id="collapse-text" class="menu-collapsed">Collapse</span> -->
               </div>
           </a>
-          <a href="#" id="notifDropdown" class="bg-light list-group-item list-group-item-action d-flex align-items-center" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <a href="#" id="notifDropdown" class="bg-light list-group-item list-group-item-action d-flex align-items-center" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="showNotifs()">
               <div class="d-flex w-100 justify-content-start align-items-center">
                 <!-- <span class="fa fa-bell fa-fw mr-3 nav_icon"></span> 
                   <span class="submenu-icon d-none ml-auto"></span> -->
@@ -115,7 +115,8 @@
           </a>
       </ul><!-- List Group END-->
     </div>
-    
+
+    <!-- end of notifications pane -->
     <!-- Page Content  -->
     <div class="col" id="body-col">
       <!-- Dashboard Header -->
@@ -509,6 +510,21 @@
       </div>
 
     </div>
+
+    <!-- notifications pane -->
+    <div class="notifications-container">
+      <div id="notif-toast" class="toast" role="alert" data-autohide="false" aria-live="assertive" aria-atomic="true">
+        <div class="row notif-line">
+
+        </div>
+        <div class="row notif-line">
+          
+        </div>
+        <div class="row notif-line">
+          
+        </div>
+      </div>
+    </div>
     
     <!-- jQuery  -->
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -597,7 +613,7 @@
     <script src="js/dataloader.js"></script>
 	  <script src="js/sidebar.js"></script>
 	  <script src="js/reportSummary.js"></script>
-	  <!-- <script src="js/temp_chat.js"></script> -->
+	  <script src="js/temp_chat.js"></script>
 	  <script src="js/usermanagement.js"></script>
 	  <script src="js/table.js"></script>
 
