@@ -60,7 +60,9 @@
           </a>
           <a href="reportsummary.html" data-toggle="collapse" aria-expanded="false" class="bg-light list-group-item list-group-item-action flex-column align-items-start" title="Notification">
               <div class="d-flex w-100 justify-content-start align-items-center">
-                  <span class="fa fa-bell fa-fw mr-3 nav_icon"></span> 
+                <!-- <a href="#" id="notifDropdown" role="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false"><i class="fas fa-bell"></i></a>   -->
+                <span class="fa fa-bell fa-fw mr-3 nav_icon"></span> 
                   <span class="submenu-icon d-none ml-auto"></span>
               </div>
           </a>	
@@ -270,7 +272,7 @@
                   <div class="card other_displays" style="height: 235px;">
                     <div class="card-header" style="padding: 2px 0 0 4px; background-color: transparent; border: none;">
                         <strong>毎週のレポートトレンド</strong>
-                        <button style="background-color: #8A6E59; height: 25px !important; float: right;" 
+                        <button style="background-color: #8A6E59; height: 25px !important; border-color: #8A6E59; float: right;" 
                           class="btn btn-primary " type="button" id="download_icon" value="vertical_align_bottom" 
                           aria-haspopup="true" aria-expanded="false" onclick="downloadPNG()">
 												<i class="material-icons" style="margin-top: -20px;">cloud_download</i>
@@ -371,7 +373,7 @@
 
                     <div class="modal-footer">
                         <button class="btn btn-secondary" type="button" data-dismiss="modal">キャンセル</button>
-                        <button id="userModalButton" type="submit" class="btn btn-primary" style="cursor: pointer; border: none; background-color: #8A6E59;">更新</button>
+                        <button id="userModalButton1" type="submit" class="btn btn-primary" style="cursor: pointer; border: none; background-color: #8A6E59;">更新</button>
                     </div>
                 </form>
             </div>
@@ -585,18 +587,15 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
     <script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.html5.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.print.min.js"></script>
-	  
+    
+    <!-- Custom JS -->
+    <script src="js/dataloader.js"></script>
 	  <script src="js/sidebar.js"></script>
-	  <script src="js/notif.js"></script>
 	  <script src="js/reportSummary.js"></script>
 	  <script src="js/temp_chat.js"></script>
 	  <script src="js/usermanagement.js"></script>
 	  <script src="js/table.js"></script>
-  
-	  <script src="js/firestore.js"></script>
-    <script type="text/javascript" src="js/main.js"></script>
 
-    <script src="js/dataloader.js"></script>
     <script src="js/graph3d.js"></script>
     <script src="js/graph2d.js"></script>
 

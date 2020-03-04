@@ -64,7 +64,7 @@ async function drawVisualization(data) {
       axisFontSize: 26,
       xLabel: xL, //Categories
       yLabel: yL, //Groups
-      zLabel: "Number", //Number
+      zLabel: "Count", //Number
       xBarWidth: 0.78,
       yBarWidth: 0.78,
       rotateAxisLabels: true,
