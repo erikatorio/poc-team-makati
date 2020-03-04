@@ -189,16 +189,26 @@ async function showNotif() {
 }
 
 var isPaneOpen = false;
-function showNotifs() {
+async function showNotifs() {
     if (!isPaneOpen) {
-        $('#chat-container').after('<div class="notifications-container"><div id="notif-toast" class="toast" role="alert" data-autohide="false" aria-live="assertive" aria-atomic="true"><div id="notif-header" class="toast-header"><img src="./img/flower.png" class="rounded mr-2" alt="..."><strong class="mr-auto">Notifications</strong></div><div id="indiv_notifs"></div></div></div>');
+        await appendNotifPane();
         $('#notif-toast').toast('show');
+        console.log("here");
+        await showNotif();
         isPaneOpen = true;
     } else {
         $('#notif-toast').toast('hide');
-        $('.notifications-container').remove()
+        await removeNotifPane();
         isPaneOpen = false;
     }
+}
+
+async function appendNotifPane() {
+    $('#chat-container').after('<div class="notifications-container"><div id="notif-toast" class="toast" role="alert" data-autohide="false" aria-live="assertive" aria-atomic="true"><div id="notif-header" class="toast-header"><img src="./img/flower.png" class="rounded mr-2" alt="..."><strong class="mr-auto">Notifications</strong></div><div id="indiv_notifs"></div></div></div>');
+}
+
+async function removeNotifPane() {
+    $('.notifications-container').remove()
 }
 
 async function selectReport(reportID) {
