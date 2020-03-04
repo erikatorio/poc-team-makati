@@ -67,7 +67,7 @@
           <a data-toggle="collapse" aria-expanded="false" class="bg-light list-group-item list-group-item-action flex-column align-items-start" title="Chat" style="cursor: pointer;" onclick="showChat()">
             <div class="d-flex w-100 justify-content-start align-items-center">
                 <span class="fa fa-comment fa-fw mr-3 nav_icon"></span>
-                <span class="badge badge-pill badge-danger p-1">99</span>
+                <span id="totalCount" class="badge badge-pill badge-danger p-1"></span>
                 <span class="submenu-icon d-none ml-auto"></span>
             </div>
           </a>	
@@ -489,7 +489,7 @@
           </svg>
           <strong id="chat-title" class="mr-auto">&nbsp;Chat</strong>
           <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
+            <span onclick="hideChat()" aria-hidden="true">&times;</span>
           </button>
         </div>
 
