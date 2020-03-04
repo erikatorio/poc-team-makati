@@ -181,3 +181,37 @@ async function showNotif() {
     console.log(ctr);
 
 }
+
+async function selectReport(reportID) {
+    reports.forEach(async function (report) {
+        if (report.id === reportID) {
+            await db.collection("reports").where('id', '==', report.id).get().then(function (querySnapshot) {
+                querySnapshot.forEach(function (doc) {
+                    db.collection("reports").doc(doc.id).update({
+                        read: true
+                    });
+                });
+            });
+            
+            // loadReportDetails(report).then(() => {
+            //     $('#reportDetails').modal('show');
+            // }).then(()=>{
+            //     showNotif()
+            // });
+        }
+    })
+}
+
+async function loadReportDetails(reportSelected) {
+    $("#reportTitle").html("<h1>" + reportSelected.username + "<h1><h3> " + reportSelected.created.toDate().toLocaleString("en-PH") + "</h3>");
+    $("#sgroup").text("Group: " + reportSelected.group);
+    $("#scategory").text("Category: " + reportSelected.category);
+    $("#sdateInfo").text("Occurence: " + reportSelected.datInfo);
+    $("#sotherDetails").text("Other Details: " + reportSelected.otherDetails);
+    $("#spersonInfo").text("Subject: " + reportSelected.personInfo);
+    if (reportSelected.attachFile === "") {
+        $("#sattachment").html('Link to attachment: No attachment');
+    } else {
+        $("#sattachment").html('Link to attachment: <a target=_blank href= ' + reportSelected.attachFile + '>Link</a>');
+    }
+}

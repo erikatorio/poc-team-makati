@@ -228,6 +228,22 @@ span {
     background-color: #FFFAFA;
     color: #3D3028;
   }
+
+  .tblModal tr{
+    background: white!important;
+    color: black!important;
+  }
+
+  .tblModal th {
+    /* text-align: right; */
+    width: 30% !important;
+    border-bottom: none!important;
+  }
+
+  .tblModal td{
+    width: 70% !important;
+    border-bottom: none!important;
+  }
 /* .wrapper {
   display: flex;
   align-items: stretch;

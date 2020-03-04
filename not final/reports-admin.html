@@ -84,12 +84,11 @@
                     <span class="fa fa-table fa-fw mr-3 nav_icon" style="margin-left: 35%; margin-top: 25%; "></span>
                 </div>
             </a>   
-            <a href="print.html" class="bg-light list-group-item list-group-item-action" title="Table">
+            <!-- <a href="print.html" class="bg-light list-group-item list-group-item-action" title="Table">
                     <div class="d-flex w-100 justify-content-start align-items-center">
                         <span class="fa fa-print fa-fw mr-3 nav_icon"></span>
-                        <!-- <span class="menu-collapsed">Table</span>     -->
                     </div>
-                </a>   
+            </a>    -->
             <!-- Separator -->
             <li class="list-group-item sidebar-separator-title text-muted d-flex align-items-center menu-collapsed">
                 <small></small>
@@ -134,38 +133,72 @@
               </button>
             </div>
             <div class="modal-body">
-              <h5>
-                提出した人: 
-                <small class="text-muted" id="submittor"></small>
-              </h5>
-              <h5>
-                誰: 
-                <small class="text-muted" id="who"></small>
-              </h5>
-              <h5>
-                いつ: 
-                <small class="text-muted" id="when"></small>
-              </h5>
-              <h5>
-                どこ: 
-                <small class="text-muted" id="where"></small>
-              </h5>
-              <h5>
-                どうやって: 
-                <small class="text-muted" id="how"></small>
-              </h5>
-              <h5>
-                証拠: 
-                <small class="text-muted" id="evidence"></small>
-              </h5>
-              <h5>
-                状態: 
-                <small class="text-success" id="status"></small>
-              </h5>
-              <h5 id="reason" hidden>
-                拒否の理由：
-                <small class="text-success" id="status"><input type="text" id="reasonVal" class="form-control"/></small>
-              </h5>
+              <table class="tblModal">
+                <tr>
+                  <th>
+                    <h5>提出した人:</h5>
+                  </th>
+                  <td> 
+                    <span class="text-muted" id="submittor"></span>
+                  </td>
+                </tr>
+                <tr>
+                  <th>
+                    <h5>誰:</h5>
+                  </th>
+                  <td> 
+                    <span class="text-muted" id="who"></span>
+                  </td>
+                </tr>
+                <tr>
+                  <th>
+                    <h5>いつ:</h5>
+                  </th>
+                  <td> 
+                    <span class="text-muted" id="when"></span>
+                  </td>
+                </tr>
+                <tr>
+                  <th>
+                    <h5>どこ:</h5>
+                  </th>
+                  <td> 
+                    <span class="text-muted" id="where"></span>
+                  </td>
+                </tr>
+                <tr>
+                  <th>
+                    <h5>どうやって:</h5>
+                  </th>
+                  <td> 
+                    <span class="text-muted" id="how"></span>
+                  </td>
+                </tr>
+                <tr>
+                  <th>
+                    <h5>証拠:</h5>
+                  </th>
+                  <td> 
+                    <span class="text-muted" id="evidence"></span>
+                  </td>
+                </tr>
+                <tr>
+                  <th>
+                    <h5>状態:</h5>
+                  </th>
+                  <td> 
+                    <span class="text-success" id="status"></span>
+                  </td>
+                </tr>
+                <tr id="reason" hidden>
+                  <th>
+                    <h5>拒否の理由:</h5>
+                  </th>
+                  <td> 
+                    <span class="text-success" id="status"><input type="text" id="reasonVal"/></span>
+                  </td>
+                </tr>
+              </table>
             </div>
             <div class="modal-footer" id="action"></div>
           </div>
