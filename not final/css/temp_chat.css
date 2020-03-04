@@ -240,3 +240,36 @@ background-image: linear-gradient(to top, #fed6e3 0%, #a8edea 100%); }
 /* .read{
     display: none;
 } */
+
+/* attachement */
+.attach {
+  width: 50px;
+  height: 50px;
+  margin-left: auto;
+}
+
+#attach-label {
+  background: url('attach.png') center no-repeat;
+  background-size: 40%;
+  height: 50px;
+  width: 64px;
+}
+
+#attach-group {
+  background-color: white;
+  display: none;
+}
+
+#attach-prev {
+  height: 50px;
+  width: 50px;
+}
+
+#attachment {
+  display: none;
+}
+
+#remove-attach {
+  position: relative;
+  cursor: pointer;
+}
