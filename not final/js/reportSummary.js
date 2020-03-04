@@ -183,8 +183,9 @@ async function showNotif() {
     });
     
     if (ctr === 0) {
+        console.log("no new repos");
         $('#notifDropdown').html('<i class="fa fa-bell fa-fw mr-3 nav_icon"></i>');
-        $('#notifItem').html('<div class="toast-body">No new reports.</div>');
+        $('#notif-toast').append('<div class="toast-body">No new reports.</div>');
     }
 }
 
