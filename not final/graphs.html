@@ -91,9 +91,9 @@
                 <!-- <a href="print.html" class="bg-light list-group-item list-group-item-action" title="Table">
                         <div class="d-flex w-100 justify-content-start align-items-center">
                             <span class="fa fa-print fa-fw mr-3" style="color: #8A6E59"></span>
-                            
+                           
                         </div>
-                    </a>    -->
+                </a>    -->
                 <!-- Separator -->
                 <li class="list-group-item sidebar-separator-title text-muted d-flex align-items-center menu-collapsed" style="background-color: #282421;">
                     <small></small>
@@ -125,19 +125,19 @@
         <!-- content -->
         <!-- Nav tabs -->
         <div class="container" id="graph-whole">
-        <ul class="nav nav-tabs">
-            <li class="nav-item">
-            <a id="3dgraphtab" class="nav-link active" data-toggle="tab" href="#firstgraph">３Ｄグラフ</a>
-            </li>
-            <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#secondgraph">棒グラフ</a>
-            </li>
-            <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#piegraph">円グラフ</a>
-            </li>
-            <li class="nav-item">
-            <a id="trendgraphtab" class="nav-link" data-toggle="tab" href="#trend">トレンド</a>
-            </li>
+            <ul class="nav nav-tabs" style="margin-top: -40px;">
+                <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#firstgraph">３Ｄグラフ</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#secondgraph">棒グラフ</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#piegraph">円グラフ</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#trend">トレンド</a>
+                </li>
         </ul>
         
         <!-- Tab panes -->
@@ -152,9 +152,9 @@
                 <div class="container graph-container">
                     <div class="row">
                         <!-- Container for search bar and search button -->
-                        <div class="d-flex">
+                        <div class="d-flex inline">
                             <input id="searchBox" type="text" size="15"
-                                style="text-align: left;" placeholder="サーチ" value=""
+                                style="text-align: left;" placeholder="Search" value=""
                                 onkeypress="searchBoxField()" onfocus="this.value=''">
                             <input id="searchButton" class="material-icons" type="button"
                                 value="search" onclick="searchBoxField()">
@@ -162,14 +162,16 @@
                         <!-- End of Search Bar and Search Button -->
 
                         <!-- Container for Change Bar Graph Page Buttons -->
-                        <div class="d-flex">
+                        <div class="d-flex inline">
                             <input id="prev" class="material-icons" type="button"
-                                value="chevron_left" onclick="prevButton()" disabled="true">
+                                value="chevron_left" onclick="prevButton()" disabled="true" 
+                                style="background-color: #ff9999; border-color: #ff9999;">
                             <input id="search" type="text" size="1" disabled
-                                style="text-align: center;" placeholder="サーチ" value="1"
+                                style="text-align: center;" placeholder="Search" value="1"
                                 hidden>
                             <input id="next" class="material-icons" type="button"
-                                value="chevron_right" onclick="nextButton()">
+                                value="chevron_right" onclick="nextButton()"
+                                style="background-color: #ff9999; border-color: #ff9999;">
                         </div>
                         <!-- End of Change Bar Graph Page Buttons -->
                         <div class="form-check form-check-inline">
@@ -181,6 +183,18 @@
                             <label class="form-check-label">
                                 <input type="radio" class="form-check-input" name="inlineRadioOptions" id="category" value="2">カテゴリー
                             </label>
+                        </div>
+
+                        <div class="form-check form-check-inline mr-0 btn-group"> 
+                            <button style="background-color: #ff9999; height: 38px; border-color: #ff9999;" 
+                                    class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="material-icons">cloud_download</i>
+                            </button>
+                            <div id="dropdownMenu" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="#" onclick="printBarGraphs(0)">PDF</a>
+                                <a class="dropdown-item" href="#" onclick="printBarGraphs(1)">JPG</a>
+                                <a class="dropdown-item" href="#" onclick="printBarGraphs(2)">PNG</a>
+                            </div>
                         </div>
 
                     </div>

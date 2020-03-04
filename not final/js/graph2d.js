@@ -79,6 +79,7 @@ function printPieGraphs(value) {
     }
 }
 
+let barTitle = '';
 async function drawVisualization2d(search, sortBy) {
     let displayLabel = [];
     let displayData = [];
@@ -173,6 +174,7 @@ async function drawVisualization2d(search, sortBy) {
             }
         }
     });
+    barTitle = arrayLabel[index];
 }
 
 var search = 0;
@@ -256,6 +258,49 @@ function searchBoxField(){
     
     if((event.key === 'Enter' || event.type === 'click') && searchString != ''){
         findString(searchString.toLowerCase());
+    }
+}
+
+//print 2dbar graph
+function printBarGraphs(value) {
+    let docName = '';
+    docName = barTitle + ' Report';
+
+    switch(value){
+        case 0:
+            html2canvas($("#bargraph"), {
+                onrendered: function(canvas) {         
+                    var imgData = canvas.toDataURL(
+                        'image/png');              
+                    var doc = new jsPDF('l', 'mm', 'letter');
+                    doc.text(docName, 140, 25, null, null, "center");
+                    doc.addImage(imgData, 'PNG', 10, 40);
+                    doc.save(docName);
+                }
+            });
+            break;
+        case 1:
+            html2canvas($("#bargraph"), {
+                onrendered: function(canvas) {         
+                    var imgData = canvas.toDataURL('image/jpg').replace("image/jpg", "image/octet-stream");
+                    let link  = document.createElement('a');
+                    link.download = docName + ".jpg";
+                    link.href = imgData;
+                    link.click();
+                }
+            });
+            break;
+        case 2:
+            html2canvas($("#bargraph"), {
+                onrendered: function(canvas) {         
+                    var imgData = canvas.toDataURL('image/png').replace("image/png", "image/octet-stream");
+                    let link  = document.createElement('a');
+                    link.download = docName + ".png";
+                    link.href = imgData;
+                    link.click();
+                }
+            });
+            break;
     }
 }
 
@@ -414,7 +459,7 @@ function generateDataSet(sortBy){
     return dataSet;
 }
 
-async function drawVisualizationTrend(displayBy){
+function drawVisualizationTrend(displayBy){
 
     let dateLabels = [];
     let date = new Date();
@@ -569,4 +614,3 @@ function printGraphs(value) {
             break;
     }
 }
-
