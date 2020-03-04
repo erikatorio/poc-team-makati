@@ -21,8 +21,7 @@ var details = false
 //     return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
 // }
 
-async function fileUpload(file_data, reportData) {
-
+async function fileUpload(file_data, reportData, action) {
     var timestamp = Number(new Date());
     if (isImage(file_data.name)) {
         var storageRef = firebase.storage().ref("images/" + timestamp.toString() + file_data.name);
@@ -42,13 +41,18 @@ async function fileUpload(file_data, reportData) {
         //document.getElementById('progress').innerHTML = Math.round(progress) + "\%";
         $('#submit_btn2').attr('disabled', true);
         console.log(progress);
-    }, function (error) {
+    }, 
+    function (error) {
         console.log(error.message);
-    }, function () {
+    }, 
+    function () {
         task.snapshot.ref.getDownloadURL().then(async function (downloadURL) {
             reportData.attachFile = downloadURL;
-            sendReport(reportData);
-            $('#submit_btn2').attr('disabled', false);
+            if(action == 0){
+                sendReport(reportData);
+            } else {
+                doUpdate(reportData);
+            }
         });
     });
 
@@ -102,7 +106,8 @@ async function storeData(e) {
     
     if ($("#inputGroupFile01").val() != "") {
         file_data = $("#inputGroupFile01").prop("files")[0];
-        fileUpload(file_data, reportData);
+        fileUpload(file_data, reportData, 0);
+
     }else{
         sendReport(reportData);
         $('#submit_btn2').attr('disabled', true);
@@ -253,15 +258,4 @@ function logOut() {
 function logOutJp() {
     location.href = "/JP/index.html";
     sessionStorage.clear();
-}
-
-
-async function storeFile(reportID){
-    console.log("HERE");
-    if ($("#inputGroupFileAddon01").val() != "") {
-        console.log("FOUND FILE");
-        file_data = $("#inputGroupFileAddon01").prop("files")[0];
-        fileUpload(file_data, reportID);
-    }
-    console.log("NO FILE");
 }

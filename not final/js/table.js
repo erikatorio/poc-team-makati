@@ -2,7 +2,7 @@ var reportsTable
 
 window.addEventListener("load", async () => {
     isloaded = true;
-    await getReports();
+    await getGroupsAndCategories();
     await showTables();
     reportsTable = $('#reportsTable').DataTable({
         paging: false,
@@ -12,9 +12,6 @@ window.addEventListener("load", async () => {
         buttons: ['csv', 'excel', 'pdf'],
         responsive: true
     });
-
-
-
 
 });
 

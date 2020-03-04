@@ -97,12 +97,12 @@
   <!-- table end -->
 
   <!-- modal -->
-<div class="modal fade" id="basicExampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<div class="modal fade" id="reportDetails" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
   aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Report ID</h5>
+        <h5 class="modal-title" id="exampleModalLabel"></h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -111,36 +111,40 @@
       <div class="modal-body">
           <div class="form-group">
           <label for="exampleFormControlInput1">どちらが関与しましたか？</label>
-          <input type="text" class="form-control" name="who" placeholder="">
+          <input type="text" class="form-control" name="who" placeholder="" id="spersoninfo">
       </div>
       <div class="form-group">
           <label for="exampleFormControlInput1">それはいつ起きましたか?</label>
-          <input type="text" class="form-control" name="when" placeholder="">
+          <input type="text" class="form-control" name="when" placeholder="" id="sdateInfo">
       </div>
           <div class="form-group">
           <label for="exampleFormControlInput1">それはどちらに起きましたか？</label>
-          <input type="text" class="form-control" name="where" placeholder="">
+          <input type="text" class="form-control" name="where" placeholder="" id="swhere">
       </div>				  	
           <div class="form-group">
           <label for="exampleFormControlTextarea1">それはどうやって起きましたか？</label>
-          <input type="text" class="form-control" name="how" placeholder="">
+          <input type="text" class="form-control" name="how" placeholder="" id="show">
           </div>
         <div class="form-group">
-          <div class="input-group">
+          <!-- No File Uploaded -->
+          <div class="input-group" id="sattachment" hidden>
             <div class="input-group-prepend">
               <span class="input-group-text" id="inputGroupFileAddon01">アップロードする</span>
             </div>
             <div class="custom-file">
               <input type="file" class="custom-file-input" id="inputGroupFile01"
-                aria-describedby="inputGroupFileAddon01">
+                aria-describedby="inputGroupFileAddon01" accept="audio/*,video/*,image/*" value="">
               <label class="custom-file-label" for="inputGroupFile01">ファイルを選択</label>
             </div>
           </div>
+
+          <!-- File Uploaded -->
+          <span id="foundFile" hidden></span>
         </div>      
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-light" data-dismiss="modal">閉じる</button>
-        <button type="button" class="btn btn-primary">送信する</button>
+      <div class="modal-footer" id="sfooter">
+        <!-- <button type="button" class="btn btn-light" data-dismiss="modal">閉じる</button>
+        <button type="button" class="btn btn-primary">送信する</button> -->
       </div>
     </form>
     </div>
@@ -227,6 +231,7 @@
 
   <!-- Custom JS -->
   <script src="js/reports.js"></script>
+  <script src="js/file.js"></script>
 
   <script>
     $(document).ready(function () {

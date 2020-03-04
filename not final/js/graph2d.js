@@ -453,31 +453,71 @@ function drawVisualizationTrend(displayBy){
 
 }
 
-// function downloadPNG(){
-//     html2canvas($("#weeklyReports"), {
-//         onrendered: function(canvas) {         
-//             var imgData = canvas.toDataURL('image/png').replace("image/png", "image/octet-stream");
-//             let link  = document.createElement('a');
-//             link.download = "Weekly Report.png";
-//             link.href = imgData;
-//             link.click();
-//         }
-//     });
-// }
-
+let docText = 'Weekly Reports';
 function changeDropdownLabel(value){
     switch(value){
         case 0:
             document.getElementById('dropdownMenuLink').innerHTML = "週間";
+            docText = 'Weekly Reports';
             drawVisualizationTrend(0);
             break;
         case 1:
             document.getElementById('dropdownMenuLink').innerHTML = "月間";
+            docText = 'Monthly Reports';
             drawVisualizationTrend(1);
             break;
         case 2:
             document.getElementById('dropdownMenuLink').innerHTML = "年間";
+            docText = 'Yearly Reports';
             drawVisualizationTrend(2);
+            break;
+    }
+}
+
+function printGraphs(value) {
+    // let docText = '';
+    // if(document.getElementById('yearly')){
+    //     docText = 'Yearly Reports';
+    // } else if(document.getElementById('monthly').checked){
+    //     docText = 'Monthly Reports';
+    // } else {
+    //     docText = 'Weekly Reports';
+    // }
+
+    switch(value){
+        case 0:
+            html2canvas($("#trendgraph"), {
+                onrendered: function(canvas) {         
+                    var imgData = canvas.toDataURL(
+                        'image/png');              
+                    var doc = new jsPDF('l', 'mm', 'letter');
+                    doc.text(docText, 140, 25, null, null, "center");
+                    doc.addImage(imgData, 'PNG', 10, 40);
+                    doc.save(docText);
+                }
+            });
+            break;
+        case 1:
+            html2canvas($("#trendgraph"), {
+                onrendered: function(canvas) {         
+                    var imgData = canvas.toDataURL('image/jpg').replace("image/jpg", "image/octet-stream");
+                    let link  = document.createElement('a');
+                    link.download = docText + ".jpg";
+                    link.href = imgData;
+                    link.click();
+                }
+            });
+            break;
+        case 2:
+            html2canvas($("#trendgraph"), {
+                onrendered: function(canvas) {         
+                    var imgData = canvas.toDataURL('image/png').replace("image/png", "image/octet-stream");
+                    let link  = document.createElement('a');
+                    link.download = docText + ".png";
+                    link.href = imgData;
+                    link.click();
+                }
+            });
             break;
     }
 }

@@ -2,6 +2,7 @@ html {
   height: 100vh;
 }
 @import "https://fonts.googleapis.com/css?family=Roboto&display=swap";
+@import url('https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300&display=swap');
 body {
   font-family: "Poppins", sans-serif;
   background: #fafafa;
@@ -64,7 +65,7 @@ span {
   }
   #sidebar-container {
       min-height: 100vh;   
-      background-color: #333;
+      background-color: #FFFAFA;
       padding: 0;
   }
   
@@ -102,7 +103,7 @@ span {
   
   /* Separators */
   .sidebar-separator-title {
-      background-color: #333;
+      background-color: #FFFAFA;
       height: 5px;
   }
   .sidebar-separator {
@@ -151,6 +152,7 @@ span {
     font-weight: bold;
     font-size: 15px;
     line-height: 28px;
+    text-align: right;
     width: 60%;
     color: #FF9999;
   }
@@ -176,7 +178,7 @@ span {
   }
 
   #categoryCount{
-    font-size: 25px;
+    font-size: inherit;
   }
   
   table {
@@ -566,4 +568,20 @@ ul.CTAs a {
 
 .act{
   background-color: #FF9999 !important;
+}
+/* ------------------------------------------------------  
+    Dashboard Tables
+---------------------------------------------------------*/
+#reportsTable, #usersTable_wrapper {
+  font-size: 14px;
+}
+
+label {
+  font-size: 14px;
+  font-family: 'Roboto Condensed' !important;
+}
+
+.dt-button.buttons-csv.buttons-html5, .dt-button.buttons-excel.buttons-html5, .dt-button.buttons-pdf.buttons-html5 {
+  font-size: 13px;
+  font-family: 'Roboto Condensed' !important;
 }
