@@ -139,10 +139,7 @@
           </div>
 
           <!-- File Uploaded -->
-          <span id="foundFile" hidden>
-            <label for="exampleFormControlTextarea1">ファイルを選択</label>
-            <span class="form-control" id="sattachment"><a target=_blank href= ' + reportSelected.attachFile + '>Link</a><button type="button" class="close" data-dismiss="alert" aria-label="Close" onclick="removeFile(' + reportSelected.id + ')"><span aria-hidden="true">&times;</span></button></span>
-          </span>
+          <span id="foundFile" hidden></span>
         </div>      
       </div>
       <div class="modal-footer" id="sfooter">
@@ -234,6 +231,7 @@
 
   <!-- Custom JS -->
   <script src="js/reports.js"></script>
+  <script src="js/file.js"></script>
 
   <script>
     $(document).ready(function () {
