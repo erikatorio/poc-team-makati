@@ -187,6 +187,10 @@ async function showNotif() {
     }
 }
 
+function showNotifs() {
+    $('#notif-toast').toast('show');
+}
+
 async function selectReport(reportID) {
     reports.forEach(async function (report) {
         if (report.id === reportID) {

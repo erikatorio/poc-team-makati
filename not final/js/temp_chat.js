@@ -938,10 +938,6 @@ function hideChat(){
     }
   }
   
-  function showNotifs() {
-    $('#notif-toast').toast('show');
-}
-  
 function autoScrollToBottom(){
   // $("#message-container").animate({ 
   //   scrollTop: $('#message-container').get(0).scrollHeight 
