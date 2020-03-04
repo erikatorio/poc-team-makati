@@ -52,6 +52,25 @@ span {
   display: inline-block;
 }
 
+/* Notif badge */
+.badge {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display:inline-block;
+  min-width:10px;
+  padding:3px 7px;
+  font-size:12px;
+  font-weight:700;
+  line-height:1;
+  color:#fff;
+  text-align:center;
+  white-space:nowrap;
+  vertical-align:baseline;
+  background-color:#777;
+  border-radius:10px;
+}
+
 /* ---------------------------------------------------
       SIDEBAR STYLE
   ----------------------------------------------------- */
@@ -76,6 +95,7 @@ span {
   .list-group-item{
     border-radius: 0;
     border: none;
+    padding-right: 3px;
   }
   
   /* Sidebar sizes when expanded and expanded */
