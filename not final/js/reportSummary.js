@@ -156,11 +156,16 @@ function downloadPNG(){
 
 async function showNotif() {
     await getGroupsAndCategories();
-    // let options = { month: '2-digit', day: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' };
+
+    // for(let i = 0 ; i < 3 ;i++){
+    //     $('#notif-toast').append('<div class="row notif-line">hello</div>');
+    // }
+
+    let options = { month: '2-digit', day: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' };
 
     let ctr = 0;
 
-    reports.forEach(function (report) {
+    reports.forEach(async function (report) {
         if (report.read === false) {
             notif = true;
             if (ctr === 0) {
@@ -175,7 +180,10 @@ async function showNotif() {
                 $('#notifDropdown').html('<i class="material-icons text-danger">notifications_active</i><span id="notif_badge" class="badge badge-pill badge-danger p-1">' + ctr + '</span>');
             }
 
-            // $('#notifItem').append('<div class="dropdown-item py-0"><div><p class="p-0 text-danger m-0">New category "' + report.category + '" incident was reported.</p><p class="row text-danger p-0 m-0 justify-content-between"> (' + report.created.toDate().toLocaleString("en-US", options) + ')<a class="ml-auto py-0" href="#" onClick= selectReport(' + report.id + ')>more details...</a></p></div><hr class="mt-1"></div>')
+            //$('#notif-toast').append('<div class="row notif-line">hello</div>');
+            $('#notif-toast').append('<div class="dropdown-item py-0"><div><p class="p-0 text-danger m-0">' + categories[report.category] + '" incident was reported.</p><p class="row text-danger p-0 m-0 justify-content-between"> (' + report.created.toDate().toLocaleString("en-US", options) + ')</p></div><hr class="mt-1"></div>')
+            //<a class="ml-auto py-0" href="#" onClick= selectReport(' + report.id + ')>more details...</a>
+            //await selectReport(report.id);
         }
     });
     
