@@ -13,8 +13,9 @@
 }
 
 .dropdown, .form-check-inline {
-    margin-top: 10px;
+    margin-top: 8px;
     margin-left: 10px;
+    margin-bottom: 6px;
 }
 
 .dropdown .btn {  

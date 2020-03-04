@@ -32,6 +32,53 @@ async function drawPie(groupBy) {
     });
 }
 
+//print pie graph
+function printPieGraphs(value) {
+    let docTitle = '';
+    if(document.getElementById('dept').checked){
+        docTitle = 'Department Report';
+    } else {
+        docTitle = 'Category Report';
+    }
+
+    switch(value){
+        case 0:
+            html2canvas($("#piechart"), {
+                onrendered: function(canvas) {         
+                    var imgData = canvas.toDataURL(
+                        'image/png');              
+                    var doc = new jsPDF('l', 'mm', 'letter');
+                    doc.text(docTitle, 140, 25, null, null, "center");
+                    doc.addImage(imgData, 'PNG', 10, 40);
+                    doc.save(docTitle);
+                }
+            });
+            break;
+        case 1:
+            html2canvas($("#piechart"), {
+                onrendered: function(canvas) {         
+                    var imgData = canvas.toDataURL('image/jpg').replace("image/jpg", "image/octet-stream");
+                    let link  = document.createElement('a');
+                    link.download = docTitle + ".jpg";
+                    link.href = imgData;
+                    link.click();
+                }
+            });
+            break;
+        case 2:
+            html2canvas($("#piechart"), {
+                onrendered: function(canvas) {         
+                    var imgData = canvas.toDataURL('image/png').replace("image/png", "image/octet-stream");
+                    let link  = document.createElement('a');
+                    link.download = docTitle + ".png";
+                    link.href = imgData;
+                    link.click();
+                }
+            });
+            break;
+    }
+}
+
 async function drawVisualization2d(search, sortBy) {
     let displayLabel = [];
     let displayData = [];
@@ -474,6 +521,7 @@ function changeDropdownLabel(value){
     }
 }
 
+//print Trend graph
 function printGraphs(value) {
     // let docText = '';
     // if(document.getElementById('yearly')){
@@ -521,3 +569,4 @@ function printGraphs(value) {
             break;
     }
 }
+

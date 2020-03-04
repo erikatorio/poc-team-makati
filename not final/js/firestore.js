@@ -4,7 +4,7 @@ let config = {
     authDomain: "chat21-91cc4.firebaseapp.com",
     databaseURL: "https://chat21-91cc4.firebaseio.com",
     projectId: "chat21-91cc4",
-    storageBucket: "chat21-91cc4.appspot.com",
+    storageBucket: "gs://chat21-91cc4.appspot.com",
     messagingSenderId: "347375929066",
     appId: "1:347375929066:web:2b6101a98bbd8bd926b993",
     measurementId: "G-Y0QTHM5PGN"
@@ -12,6 +12,7 @@ let config = {
 
 firebase.initializeApp(config);
 let db = firebase.firestore();
+let storage = firebase.storage();
 console.log("Cloud Firestores Loaded");
 
 var details = false

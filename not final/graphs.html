@@ -160,7 +160,7 @@
                                 value="search" onclick="searchBoxField()">
                         </div>
                         <!-- End of Search Bar and Search Button -->
-    
+
                         <!-- Container for Change Bar Graph Page Buttons -->
                         <div class="d-flex">
                             <input id="prev" class="material-icons" type="button"
@@ -173,15 +173,16 @@
                         </div>
                         <!-- End of Change Bar Graph Page Buttons -->
                         <div class="form-check form-check-inline">
-                        <label class="form-check-label">
-                            <input type="radio" class="form-check-input" name="inlineRadioOptions" id="group" value="1" checked="checked">デパートメント
-                        </label>
+                            <label class="form-check-label">
+                                <input type="radio" class="form-check-input" name="inlineRadioOptions" id="group" value="1" checked="checked">デパートメント
+                            </label>
                         </div>
                         <div class="form-check-inline">
-                        <label class="form-check-label">
-                            <input type="radio" class="form-check-input" name="inlineRadioOptions" id="category" value="2">カテゴリー
-                        </label>
+                            <label class="form-check-label">
+                                <input type="radio" class="form-check-input" name="inlineRadioOptions" id="category" value="2">カテゴリー
+                            </label>
                         </div>
+
                     </div>
                     <div class="row">
                         <canvas id="bargraph"></canvas>
@@ -192,14 +193,26 @@
                 <div class="container graph-container">
                     <div class="row">
                         <div class="form-check-inline">
-                        <label class="form-check-label">
-                            <input type="radio" class="form-check-input" name="inlineRadioOptionsPie" id="dept" value="1" checked="checked">デパートメント
-                        </label>
+                            <label class="form-check-label">
+                                <input type="radio" class="form-check-input" name="inlineRadioOptionsPie" id="dept" value="1" checked="checked">デパートメント
+                            </label>
                         </div>
                         <div class="form-check-inline">
-                        <label class="form-check-label">
-                            <input type="radio" class="form-check-input" name="inlineRadioOptionsPie" id="incident" value="2">カテゴリー
-                        </label>
+                            <label class="form-check-label">
+                                <input type="radio" class="form-check-input" name="inlineRadioOptionsPie" id="incident" value="2">カテゴリー
+                            </label>
+                        </div>
+
+                        <div class="form-check form-check-inline mr-0 btn-group"> 
+                            <button style="background-color: #ff9999; height: 38px; border-color: #ff9999;" 
+                                    class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="material-icons">cloud_download</i>
+                            </button>
+                            <div id="dropdownMenu" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="#" onclick="printPieGraphs(0)">PDF</a>
+                                <a class="dropdown-item" href="#" onclick="printPieGraphs(1)">JPG</a>
+                                <a class="dropdown-item" href="#" onclick="printPieGraphs(2)">PNG</a>
+                            </div>
                         </div>
                     </div>
                     <div class="row">
