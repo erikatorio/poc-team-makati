@@ -142,6 +142,7 @@ async function showReport(details){
                 $("#status").html("<select id='statusDD' onchange='changed()'><option selected>検討中</option><option>拒否された</option><option>検証済み</option><option>解決した</option></select>");
                 $("#action").html("<button type='button' class='btn btn-secondary' data-dismiss='modal'>Close</button><button type='button' class='btn btn-main' onclick='updateStatus(" + details.id + ")'>Save changes</button>")
                 $("#reason").attr("hidden", "hidden");
+                $("#reasonVal").val("");
                 break;
             case "拒否された":
                 $("#status").html("<select id='statusDD' onchange='changed()'><option>検討中</option><option selected>拒否された</option><option>検証済み</option><option>解決した</option></select>");
@@ -153,16 +154,19 @@ async function showReport(details){
                 $("#status").html("<select id='statusDD' onchange='changed()'><option>検討中</option><option>拒否された</option><option selected>検証済み</option><option>解決した</option></select>");
                 $("#action").html("<button type='button' class='btn btn-secondary' data-dismiss='modal'>Close</button><button type='button' class='btn btn-main' onclick='updateStatus(" + details.id + ")'>Save changes</button>")
                 $("#reason").attr("hidden", "hidden");
+                $("#reasonVal").val("");
                 break;
             case "解決した":
                 $("#status").html("<select id='statusDD' onchange='changed()'><option>検討中</option><option>拒否された</option><option>検証済み</option><option selected>解決した</option></select>");
                 $("#action").html("<button type='button' class='btn btn-secondary' data-dismiss='modal'>Close</button><button type='button' class='btn btn-main' onclick='updateStatus(" + details.id + ")'>Save changes</button>")
                 $("#reason").attr("hidden", "hidden");
+                $("#reasonVal").val("");
                 break;
             case "隠された":
                 $("#status").html("隠された");
                 $("#action").html("<button type='button' class='btn btn-secondary' data-dismiss='modal'>Close</button>")
                 $("#reason").attr("hidden", "hidden");
+                $("#reasonVal").val("");
                 break;
         }
 }
@@ -172,6 +176,7 @@ async function changed(){
         $("#reason").removeAttr("hidden");
     } else {
         $("#reason").attr("hidden", "hidden");
+        $("#reasonVal").val("");
     }
 }
 
