@@ -2,6 +2,7 @@ html {
   height: 100vh;
 }
 @import "https://fonts.googleapis.com/css?family=Roboto&display=swap";
+@import url('https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300&display=swap');
 body {
   font-family: "Poppins", sans-serif;
   background: #fafafa;
@@ -177,7 +178,6 @@ span {
   }
 
   #categoryCount{
-    /* font-size: 25px; */
     font-size: inherit;
   }
   

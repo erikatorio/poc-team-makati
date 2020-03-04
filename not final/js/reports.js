@@ -8,7 +8,7 @@ window.addEventListener("load", async () => {
     let isloaded = false;
     await getReports();
     await showTables();
-    await reportDetails();
+    // await reportDetails();
     $('#userName').html(sessionStorage.getItem('username'));
     reportsTable = $('#reportsTable').DataTable({
         dom: 'Bfrtip',
@@ -102,7 +102,6 @@ async function deleteReport(reportID) {
 
 async function saveChanges(reportID) {
     storeFile(reportID);
-
     // Update Basic Info
     reports.forEach(async function (report) {
         if (report.id === reportID) {
@@ -199,52 +198,54 @@ async function loadReportDetails(reportSelected) {
         $("#show").val(reportSelected.how);
     }
     if (reportSelected.attachFile === "") {
-        $("#sattachment").html('<div class="input-group"><div class="input-group-prepend"><span class="input-group-text" id="inputGroupFileAddon01">アップロードする</span></div><div class="custom-file"><input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01"><label class="custom-file-label" for="inputGroupFile01">ファイルを選択</label></div></div>');
+        $("#sattachment").removeAttr("hidden");
+        $("#foundFile").attr("hidden", "hidden");
     } else {
-        $("#sattachment").html('<label for="exampleFormControlTextarea1">ファイルを選択</label><span class="form-control" id="sattachment"><a target=_blank href= ' + reportSelected.attachFile + '>Link</a><button type="button" class="close" data-dismiss="alert" aria-label="Close" onclick="removeFile(' + reportSelected.id + ')"><span aria-hidden="true">&times;</span></button></span>');
+        $("#sattachment").attr("hidden", "hidden");
+        $("#foundFile").removeAttr("hidden");
     }
-    $("#sfooter").html('<button type="button" class="btn btn-light" data-dismiss="modal">閉じる</button><button type="button" class="btn btn-primary" onclick="saveChanges(' + reportSelected.id + ')">送信する</button>');
+    $("#sfooter").html('<button type="button" class="btn btn-light" data-dismiss="modal">閉じる</button><button type="button" class="btn btn-primary" id="submit_btn2" onclick="saveChanges(' + reportSelected.id + ')">送信する</button>');
 }
 
-async function reportDetails() {
-    $('body').append('<div class= "modal fade" id = "reportDetails" tabindex = "-1" role = "dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" > ' +
-        '<div class= "modal-dialog" role = "document" > ' +
-        '<div class= "modal-content" > ' +
-        '<div class= "modal-header" > ' +
-        '<h5 class="modal-title" id="exampleModalLabel"></h5>' +
-        '<button type="button" class="close" data-dismiss="modal" aria-label="Close"> ' +
-        '<span aria-hidden="true">&times;</span> ' +
-        '</button> ' +
-        '</div> ' +
-        '<form action="">' +
-        ' <div class="modal-body"> ' +
-        '   <div class="form-group"> ' +
-        '    <label for="exampleFormControlInput1">どちらが関与しましたか？</label> ' +
-        '    <input type="text" class="form-control" name="who" placeholder="" id="spersoninfo">' +
-        '   </div> ' +
-        '   <div class="form-group"> ' +
-        '    <label for="exampleFormControlInput1">それはいつ起きましたか?</label> ' +
-        '    <input type="text" class="form-control" name="when" placeholder="" id="sdateInfo">' +
-        '   </div> ' +
-        '   <div class="form-group"> ' +
-        '    <label for="exampleFormControlInput1">それはどちらに起きましたか？</label>' +
-        '    <input type="text" class="form-control" name="where" placeholder="" id="swhere">' +
-        '   </div> ' +
-        '   <div class="form-group"> ' +
-        '    <label for="exampleFormControlTextarea1">それはどうやって起きましたか？</label>' +
-        '    <input type="text" class="form-control" name="how" placeholder="" id="show">' +
-        '   </div> ' +
-        '   <div class="form-group" id="sattachment"> ' +
-        '   </div>' +
-        ' </div> ' +
-        ' <div class="modal-footer" id="sfooter">' +
-        ' </div> ' +
-        ' </form> ' +
-        ' </div> ' +
-        ' </div> ' +
-        ' </div> '
-    )
-}
+// async function reportDetails() {
+//     $('body').append('<div class= "modal fade" id = "reportDetails" tabindex = "-1" role = "dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" > ' +
+//         '<div class= "modal-dialog" role = "document" > ' +
+//         '<div class= "modal-content" > ' +
+//         '<div class= "modal-header" > ' +
+//         '<h5 class="modal-title" id="exampleModalLabel"></h5>' +
+//         '<button type="button" class="close" data-dismiss="modal" aria-label="Close"> ' +
+//         '<span aria-hidden="true">&times;</span> ' +
+//         '</button> ' +
+//         '</div> ' +
+//         '<form action="">' +
+//         ' <div class="modal-body"> ' +
+//         '   <div class="form-group"> ' +
+//         '    <label for="exampleFormControlInput1">どちらが関与しましたか？</label> ' +
+//         '    <input type="text" class="form-control" name="who" placeholder="" id="spersoninfo">' +
+//         '   </div> ' +
+//         '   <div class="form-group"> ' +
+//         '    <label for="exampleFormControlInput1">それはいつ起きましたか?</label> ' +
+//         '    <input type="text" class="form-control" name="when" placeholder="" id="sdateInfo">' +
+//         '   </div> ' +
+//         '   <div class="form-group"> ' +
+//         '    <label for="exampleFormControlInput1">それはどちらに起きましたか？</label>' +
+//         '    <input type="text" class="form-control" name="where" placeholder="" id="swhere">' +
+//         '   </div> ' +
+//         '   <div class="form-group"> ' +
+//         '    <label for="exampleFormControlTextarea1">それはどうやって起きましたか？</label>' +
+//         '    <input type="text" class="form-control" name="how" placeholder="" id="show">' +
+//         '   </div> ' +
+//         '   <div class="form-group" id="sattachment"> ' +
+//         '   </div>' +
+//         ' </div> ' +
+//         ' <div class="modal-footer" id="sfooter">' +
+//         ' </div> ' +
+//         ' </form> ' +
+//         ' </div> ' +
+//         ' </div> ' +
+//         ' </div> '
+//     )
+// }
 
 // SHOW REPORTS TABLE
 
@@ -273,8 +274,6 @@ async function showTables() {
     //Add body
     let body = '<tbody>';
     reports.forEach(function (report) {
-        console.log(report);
-        console.log(sessionStorage.getItem('username'));
         if(report.status != "hidden" && report.username == sessionStorage.getItem('username') ){
             if (typeof cCtr[report.category] === "undefined") {
                 cCtr[report.category] = 0;

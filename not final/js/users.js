@@ -85,7 +85,7 @@ async function addUser(){
                 publishKey : 'pub-c-8266b3af-df4a-4508-91de-0a06b9634a69',
                 subscribeKey : 'sub-c-b20376b2-5215-11ea-80a4-42690e175160',
              });
-             console.log(size + user_name);
+             
             pubnub.createUser({id: doc.id.toString(), name: user_name.toString()}, function(status, response) {
                 console.log(response);
                 if(!alert('追加成功!')){

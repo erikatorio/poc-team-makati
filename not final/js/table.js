@@ -9,7 +9,7 @@ window.addEventListener("load", async () => {
         info: false,
         dom: 'Bfrtip',
         scrollY: '40vh',
-        buttons: ['csv', 'excel', 'pdf', 'print'],
+        buttons: ['csv', 'excel', 'pdf'],
         responsive: true
     });
 
