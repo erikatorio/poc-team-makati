@@ -35,3 +35,11 @@
 #graph-whole {
     margin-top: 60px;
 }
+
+.inline{
+    margin-top: 5px;
+}
+    
+.material-icons{
+    border-radius: 5px;
+}  
