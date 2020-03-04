@@ -195,8 +195,15 @@ async function showNotif() {
     }
 }
 
+var isPaneOpen = false;
 function showNotifs() {
-    $('#notif-toast').toast('show');
+    if (!isPaneOpen) {
+        $('#notif-toast').toast('show');
+        isPaneOpen = true;
+    } else {
+        $('#notif-toast').toast('hide');
+        isPaneOpen = false;
+    }
 }
 
 async function selectReport(reportID) {

@@ -1,11 +1,17 @@
 var user = sessionStorage.getItem("username");
 var name = sessionStorage.getItem("username");
+var isChatOpen = false;
 window.addEventListener('load', 
   function() { 
-    showChat();
+      showChat();
+    
   }, false)
 function hideChat(){
-  $('#chat-toast').toast('hide');
+  if(isChatOpen){
+     $('#chat-toast').toast('hide');
+     exit();
+     isChatOpen = false;
+  }
 }
 function getUserType() {
   var type = document.cookie.split(';');
@@ -253,7 +259,6 @@ function displayMessages() {
       }
       addRead();
       autoScrollToBottom();
-      readAll();
     });
   // start, end, count are optional
   glpubnub.fetchMessages({
@@ -285,13 +290,14 @@ function addRead() {
     },
     function (status, response) {
       for (var i = 0; i < response.messages.length - 1; i++) {
-        console.log(response.messages[i]);
+        console.log(response.messages[i].entry.lastSeen);
         var div = document.getElementById(response.messages[i].entry.lastSeen)
         if (div) {
           read = div.querySelector('.read');
           read.textContent = 'read ';
         }
       }
+      readAll();
       console.log(tt)
       pubnub.messageCounts({
         channels: [name],
@@ -429,6 +435,7 @@ function enter() {
     status: function (statusEvent) {},
     message: function (msg) {
       console.log(msg);
+      console.log(user);
       if (msg.message.user != user) {
         //if new receipt is not from current user,
         //update read
@@ -696,15 +703,16 @@ function checkRead(div) {
 
 function readAll() {
   var msgs = $(".msg");
-  for (let i = 0; i < msgs.length; i++) {
+  for (let i = msgs.length - 1 ; i >= 0; i--) {
     let div = msgs[i];
     // console.log(msgs[i]);
     if (div.querySelector('.sender').textContent != "You") {
-      onMessageRead(div.id);
-      console.log(msgs[i]);
+      console.log(div.querySelector('.read').textContent  );
+      if(div.querySelector('.read').textContent == "")
+        onMessageRead(div.id);
     }
 
-    // div.querySelector('.col').onclick = function(){checkRead(div.querySelector('.read'))};;
+    // div.querySelector('  .col').onclick = function(){checkRead(div.querySelector('.read'))};;
 
   }
   // msgs[-1]
@@ -712,10 +720,22 @@ function readAll() {
 
 
 function showChat() {
-
-  $('#chat-toast').toast('show');
-  //  messageCounter();
-  console.log(user);
-  enter();
-  displayMessages();
+  if(!isChatOpen){
+    $('#message-container').html('');
+    $('#chat-toast').toast('show');
+    //  messageCounter();
+    console.log(user);
+    enter();
+    displayMessages();
+    isChatOpen=true;
+  }
 }
+
+$("#textarea-message").keydown(function(e){
+  if (event.keyCode == 13){
+    if (!event.shiftKey){ 
+      e.preventDefault();
+      sendMessage();
+    }
+  }
+});
