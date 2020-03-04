@@ -435,6 +435,7 @@ function enter() {
     status: function (statusEvent) {},
     message: function (msg) {
       console.log(msg);
+      console.log(user);
       if (msg.message.user != user) {
         //if new receipt is not from current user,
         //update read
@@ -702,7 +703,7 @@ function checkRead(div) {
 
 function readAll() {
   var msgs = $(".msg");
-  for (let i = 0; i < msgs.length; i++) {
+  for (let i = msgs.length - 1 ; i >= 0; i--) {
     let div = msgs[i];
     // console.log(msgs[i]);
     if (div.querySelector('.sender').textContent != "You") {
@@ -729,3 +730,12 @@ function showChat() {
     isChatOpen=true;
   }
 }
+
+$("#textarea-message").keydown(function(e){
+  if (event.keyCode == 13){
+    if (!event.shiftKey){ 
+      e.preventDefault();
+      sendMessage();
+    }
+  }
+});
