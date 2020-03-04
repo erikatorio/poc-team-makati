@@ -176,14 +176,13 @@ async function showNotif() {
                 $('#notifDropdown').html('<i class="material-icons text-danger">notifications_active</i><span id="notif_badge" class="badge badge-pill badge-danger p-1">' + ctr + '</span>');
             }
 
-            $('#indiv_notifs').append('<div class="toast-body"><p class="p-0 m-0">' + categories[report.category] + '" incident was reported.</p><p class="row text-info p-0 m-0 justify-content-between"> (' + report.created.toDate().toLocaleString("en-US", options) + ')</p></div>');
+            $('#indiv_notifs').append('<div class="toast-body-notif"><p class="p-0 m-0">' + categories[report.category] + '" incident was reported.</p><p class="row text-info p-0 m-0 justify-content-between"> (' + report.created.toDate().toLocaleString("en-US", options) + ')</p></div>');
             //<a class="ml-auto py-0" href="#" onClick= selectReport(' + report.id + ')>more details...</a>
-            //await selectReport(report.id);
+            await selectReport(report.id);
         }
     });
     
     if (ctr === 0) {
-        console.log("no new repos");
         $('#notifDropdown').html('<i class="fa fa-bell fa-fw mr-3 nav_icon"></i>');
         $('#notif-toast').append('<div class="toast-body">No new reports.</div>');
     }

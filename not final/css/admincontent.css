@@ -80,15 +80,6 @@ span {
   margin-top: 50px;
 }
 
-/* .notif-head-line {
-  background-color: #FFFAFA;
-  height: 80px;
-  width: 300px;
-  margin-left: 0.2px;
-  border-bottom: 0.3px solid #e5ccf4;
-  font-family: 'Roboto Condensed';
-} */
-
 #notif-header img {
   height: 20px;
   width: 20px;
@@ -100,9 +91,8 @@ span {
   overflow-x: hidden;
 }
 
-.toast-body {
+.toast-body-notif {
   background-color: #FFFAFA;
-  /* height: 100px; */
   width: 300px;
   margin-left: 0.2px;
   border-bottom: 0.5px solid gray;
@@ -116,15 +106,15 @@ span {
   font-family: 'Lato';
 }
 
-.toast-body {
+/* .toast-body {
   border-bottom: 0.2px solid #C2C5CC;
-}
+} */
 
-.toast-body .text-info {
+.toast-body-notif .text-info {
   color: #FF9999 !important;
 }
 
-.toast-body, .toast-body p {
+.toast-body-notif, .toast-body-notif p {
   font-family: 'Roboto Condensed';
 }
 
