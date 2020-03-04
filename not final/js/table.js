@@ -31,7 +31,7 @@ async function showTables() {
         "<thead class='thead-inverse bg-custom text-custom'>" +
         "<tr>" +
         "<th style='width:20%;'>ユーザー名</th>" +
-        "<th style='width:20%;'>グループ</th>" +
+        "<th style='width:20%;'>デパートメント</th>" +
         "<th style='width:20%;'>カテゴリー</th>" +
         "<th style='width:20%;'>日付" +
         "<th style='width:40%;'>状態" + 
