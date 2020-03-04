@@ -74,17 +74,77 @@ span {
 /* Notifications */
 .notifications-container {
   height: 400px;
-  width: 250px;
+  width: 300px;
   position: absolute;
   margin-left: 60px;
   margin-top: 50px;
 }
 
-.notif-line {
-  background-color: red;
-  height: 100px;
-  border-bottom: 0.5px solid gray;
+/* .notif-head-line {
+  background-color: #FFFAFA;
+  height: 80px;
+  width: 300px;
+  margin-left: 0.2px;
+  border-bottom: 0.3px solid #e5ccf4;
+  font-family: 'Roboto Condensed';
+} */
+
+#notif-header img {
+  height: 20px;
+  width: 20px;
 }
+
+#indiv_notifs{
+  max-height: 400px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.toast-body {
+  background-color: #FFFAFA;
+  /* height: 100px; */
+  width: 300px;
+  margin-left: 0.2px;
+  border-bottom: 0.5px solid gray;
+  font-family: 'Roboto Condensed';
+  padding: 10px;
+}
+
+#notif-header {
+  width: 300px;
+  height: 30px;
+  font-family: 'Lato';
+}
+
+.toast-body {
+  border-bottom: 0.2px solid #C2C5CC;
+}
+
+.toast-body .text-info {
+  color: #FF9999 !important;
+}
+
+.toast-body, .toast-body p {
+  font-family: 'Roboto Condensed';
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #C2C5CC;
+  border-radius: 10px;
+}
+
+
 
 /* ---------------------------------------------------
       SIDEBAR STYLE
@@ -172,11 +232,20 @@ span {
     box-sizing: border-box;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.10);
     border-radius: 5px;
+    padding: 0;
   }
   
   .card-body{
     position: relative;
+    margin: 2px;
     /*margin: none;*/
+  }
+
+  #tooltip_span{
+    position: absolute;
+    right: 0;
+    top: 0;
+    cursor: pointer;
   }
   
   .card-text{

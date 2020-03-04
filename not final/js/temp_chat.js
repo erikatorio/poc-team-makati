@@ -47,7 +47,7 @@ function hideChat(){
   $('#chat-toast').toast('hide');
   exit();
   back();
-  inboxState == false;
+  inboxState = false;
   glpubnub.addListener(messageCountingListener);
   console.log("added")
 }
@@ -209,8 +209,7 @@ function hideChat(){
                         recent_datestamp = gmtDate.toLocaleString("default", { month: "short" , day: 'numeric'});
                         var recent_timestamp = gmtDate.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
                         console.log(totalCount + " + " + count)
-                        totalCount += count;
-                        $('#totalCount').html(totalCount);
+                        adjustTotalCount(true,count)
                         if(count == 0){
                           count = "";
                           $('#user_list').append('<div onclick="viewMessage(\''+c+'\')" class="col-message chat-preview"><div class="row no-gutters"><div class="col-auto pad-5 d-flex align-items-center justify-content-center"><center><img src="css/user.png"></center></div><div class="col-8 pad-10"><br><div class="w-100"></div><div class="d-flex justify-content-between" ><strong><span style="font-size:medium;">'+c+'</span></strong></div><div class="w-100"></div><small id="'+c+'_recentMsg" class="text-muted text-truncate">['+recent_timestamp+'] '+recent_message+'</small><div class="w-100"></div></div><div class="col-auto" ><br><div class="w-100"></div><div class="d-flex justify-content-end"><small id="'+c+'_datestamp" class="text-muted">'+recent_datestamp+'</small></div><div class="w-100"></div><div class="d-flex justify-content-right"><span id="'+c+'" class="badge badge-pill badge-info"></span></div></div></div></div>'); 
@@ -304,9 +303,7 @@ function hideChat(){
               const gmtDate = new Date(recent_datestamp * 1000);
               recent_datestamp = gmtDate.toLocaleString("default", { month: "short" , day: 'numeric'});
               var recent_timestamp = gmtDate.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
-               console.log(totalCount + " + " + count)
-                        totalCount += count;
-                        $('#totalCount').html(totalCount);
+               adjustTotalCount(true,count)
               if(count == 0){
                 count = "";
                 $('#user_list').append('<div onclick="viewMessage(\''+c+'\')" class="col-message chat-preview"><div class="row no-gutters"><div class="col-auto pad-5 d-flex align-items-center justify-content-center"><center><img src="css/user.png"></center></div><div class="col-8 pad-10"><br><div class="w-100"></div><div class="d-flex justify-content-between" ><strong><span style="font-size:medium;">'+c+'</span></strong></div><div class="w-100"></div><small class="text-muted text-truncate">['+recent_timestamp+'] '+recent_message+'</small><div class="w-100"></div></div><div class="col-auto" ><br><div class="w-100"></div><div class="d-flex justify-content-end"><small class="text-muted">'+recent_datestamp+'</small></div><div class="w-100"></div><div class="d-flex justify-content-right"><span id="'+c+'" class="badge badge-pill badge-info"></span></div></div></div></div>'); 
@@ -630,8 +627,8 @@ function hideChat(){
         $('#'+sender+'_recentMsg').html("["+recent_timestamp+ "] " +message);
         $('#'+sender+'_datestamp').html(date)
         console.log(totalCount + " - " + parseInt($('#'+sender).html()))
-        totalCount -= parseInt($('#'+sender).html());
-        $('#totalCount').html(totalCount);
+        
+        adjustTotalCount(false,$('#'+sender).html())
         $('#'+sender).html("");
         autoScrollToBottom();
       }
@@ -675,8 +672,8 @@ function hideChat(){
 
     //remove msg count 
     console.log(totalCount + " - "+ parseInt($('#'+name).html()))
-    totalCount -= parseInt($('#'+name).html());
-    $('#totalCount').html(totalCount);
+    
+adjustTotalCount(false,parseInt($('#'+name).html()))
     $('#'+name).html("")
     
     //listen to receipts channel
@@ -922,7 +919,6 @@ function hideChat(){
     });*/
   }
   function showChat(){
-    alert(totalCount)
     if(countListener == null){
       console.log("is null")
     }
@@ -1426,14 +1422,11 @@ function countUpdate(){
             var existing_count = $('#'+target_user).html();
             if(existing_count == ""){
               $('#'+target_user).html("1");
-              console.log(totalCount + " + 1 ")
-              totalCount += 1;
-                $('#totalCount').html(totalCount);
+              adjustTotalCount(true,1)
             }else{
               existing_count = parseInt(existing_count) + 1
               console.log(totalCount + " + " +existing_count)
-              totalCount += existing_count;
-                $('#totalCount').html(totalCount);
+              adjustTotalCount(true,1)
               $('#'+target_user).html(existing_count);
             }
             pubnub.fetchMessages({
@@ -1471,4 +1464,25 @@ function countUpdate(){
         });
     });
     
+}
+
+function adjustTotalCount(operation,number){
+  if(number == ""){
+    number = 0;
+  }
+
+  //true is add
+  if(operation){
+    totalCount += parseInt(number)
+  }else{
+    totalCount -= parseInt(number)
+  }
+  console.log(totalCount)
+  if(totalCount == 0){
+    $('#totalCount').html("");
+  }else if(totalCount > 99){
+    $('#totalCount').html("99+");
+  }else{
+    $('#totalCount').html(""+totalCount);
+  }
 }
