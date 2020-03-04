@@ -58,7 +58,13 @@ async function storeData(e) {
     e.preventDefault();
 
     category = sessionStorage.getItem("category");
-    username = sessionStorage.getItem("username");
+    
+    if(JSON.parse(sessionStorage.getItem("enableAnonymous"))){
+        username = "Anonymous";
+    } else {
+        username = sessionStorage.getItem("username");
+    }
+    
     group = sessionStorage.getItem("group");
     
     var dateInfo = "NA";
@@ -67,7 +73,7 @@ async function storeData(e) {
     var attachFile = "";
     var created = "";
     var read = false;
-    var status = "pending"
+    var status = "検討中"
     var who = $("input[name='who']").val();
     var when = $("input[name='when']").val();
     var where = $("input[name='where']").val();
@@ -239,8 +245,8 @@ async function logInJp(e) {
 }
 
 function logOut() {
-    location.href = "index.html";
-    sessionStorage.clear();    
+    sessionStorage.clear(); 
+    location.href = "index.html";   
 }
 
 // JP version of log out function

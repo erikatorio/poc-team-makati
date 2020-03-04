@@ -8,8 +8,9 @@
 
 window.addEventListener("load", async () => {
     $('#username').html(sessionStorage.getItem('username'));
+    $('#userName').html(sessionStorage.getItem('username'));
     $('#department').html('Department ' + sessionStorage.getItem('group'));
-    $('#customSwitches').prop('checked', sessionStorage.getItem('enableAnonymous'));
+    $('#customSwitches').prop('checked', JSON.parse(sessionStorage.getItem('enableAnonymous')));
 });
 
 async function uploadPicture(file_data) {
@@ -60,6 +61,14 @@ function saveProfile(e) {
     // console.log($("#fileid").val());
     //console.log(sessionUserID);
 
+    // sessionStorage.setItem("enableAnonymous", enableAnonymous);
+
+    // if(JSON.parse(sessionStorage.getItem("enableAnonymous"))){
+    //     console.log(JSON.parse(sessionStorage.getItem("enableAnonymous")));
+    // } else {
+    //     console.log(typeof(JSON.parse(sessionStorage.getItem("enableAnonymous"))));
+    // }
+
     if(newName != "" && newPass != ""){
         db.collection("users")
             .where("id", "==", parseInt(sessionUserID))
@@ -75,6 +84,7 @@ function saveProfile(e) {
 
                 if(!alert('Success!')){
                     sessionStorage.setItem("username", newName);
+                    sessionStorage.setItem("enableAnonymous", enableAnonymous);
                     setTimeout(location.reload.bind(location), 1000);
                 }
             })
@@ -96,6 +106,7 @@ function saveProfile(e) {
 
                 if(!alert('Success!')){
                     sessionStorage.setItem("username", newName);
+                    sessionStorage.setItem("enableAnonymous", enableAnonymous);
                     setTimeout(location.reload.bind(location), 1000);
                 }
 
@@ -117,6 +128,7 @@ function saveProfile(e) {
                 });
 
                 if(!alert('Success!')){
+                    sessionStorage.setItem("enableAnonymous", enableAnonymous);
                     setTimeout(location.reload.bind(location), 1000);
                 }
             })
@@ -135,6 +147,7 @@ function saveProfile(e) {
                 });
 
                 if(!alert('Success!')){
+                    sessionStorage.setItem("enableAnonymous", enableAnonymous);
                     setTimeout(location.reload.bind(location), 1000);
                 }
             })

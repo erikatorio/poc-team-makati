@@ -37,7 +37,7 @@ async function showTables() {
         "<th style='width:20%;'>グループ</th>" +
         "<th style='width:20%;'>カテゴリー</th>" +
         "<th style='width:20%;'>日付" +
-        "<th style='width:40%;'>ステータス" + 
+        "<th style='width:40%;'>状態" + 
         "</th></tr></thead>";
 
     //Add body
@@ -64,7 +64,7 @@ async function showTables() {
             report.group +
             "</td>" +
             "<td>" +
-            report.category +
+            categories[report.category] +
             "</td>" +
             "<td>" +
             report.created.toDate().toLocaleString('ja-JP', options) +

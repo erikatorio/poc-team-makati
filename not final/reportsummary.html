@@ -5,6 +5,13 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="icon" href="./img/flower.png" type="image/x-icon">
+
+  <!-- Session -->
+  <script>
+    if (!sessionStorage.getItem("username"))
+      location.href = "index.html";
+  </script>
 
   <title>Report Summary</title>
 
@@ -53,41 +60,41 @@
           </a>
           <a href="reportsummary.html" data-toggle="collapse" aria-expanded="false" class="bg-light list-group-item list-group-item-action flex-column align-items-start" title="Notification">
               <div class="d-flex w-100 justify-content-start align-items-center">
-                  <span class="fa fa-bell fa-fw mr-3" style="color: #8A6E59"></span> 
+                  <span class="fa fa-bell fa-fw mr-3 nav_icon"></span> 
                   <span class="submenu-icon d-none ml-auto"></span>
               </div>
           </a>	
           <a data-toggle="collapse" aria-expanded="false" class="bg-light list-group-item list-group-item-action flex-column align-items-start" title="Chat" style="cursor: pointer;" onclick="showChat()">
             <div class="d-flex w-100 justify-content-start align-items-center">
-                <span class="fa fa-comment fa-fw mr-3" style="color: #8A6E59"></span> 
+                <span class="fa fa-comment fa-fw mr-3 nav_icon"></span> 
                 <span class="submenu-icon d-none ml-auto"></span>
             </div>
           </a>	
           <a href="graphs.html" aria-expanded="false" class="bg-light list-group-item list-group-item-action flex-column align-items-start" title="Charts">
               <div class="d-flex w-100 justify-content-start align-items-center">
-                  <span class="fa fa-cube fa-fw mr-3" style="color: #8A6E59"></span> 
+                  <span class="fa fa-cube fa-fw mr-3 nav_icon"></span> 
                   <span class="submenu-icon d-none ml-auto"></span>
               </div>
           </a>
           <a href="category.html" class="bg-light list-group-item list-group-item-action" title="Category">
 	                <div class="d-flex w-100 justify-content-start align-items-center">
-	                    <span class="fa fa-list fa-fw mr-3" style="color: #8A6E59"></span>
+	                    <span class="fa fa-list fa-fw mr-3 nav_icon"></span>
 	                    <!-- <span class="menu-collapsed"></span>     -->
 	                </div>
 				</a>          
           <a href="users.html" class="bg-light list-group-item list-group-item-action" title="Users">
               <div class="d-flex w-100 justify-content-start align-items-center">
-                  <span class="fa fa-user fa-fw mr-3" style="color: #8A6E59"></span>
+                  <span class="fa fa-user fa-fw mr-3 nav_icon"></span>
               </div>
           </a>
           <a href="reports-admin.html" class="bg-light list-group-item list-group-item-action" title="Table">
               <div class="d-flex w-100 justify-content-start align-items-center">
-                  <span class="fa fa-table fa-fw mr-3" style="color: #8A6E59"></span>
+                  <span class="fa fa-table fa-fw mr-3 nav_icon"></span>
               </div>
           </a>   
           <a href="print.html" class="bg-light list-group-item list-group-item-action" title="Print Data">
 	                <div class="d-flex w-100 justify-content-start align-items-center">
-	                    <span class="fa fa-print fa-fw mr-3" style="color: #8A6E59"></span>
+	                    <span class="fa fa-print fa-fw mr-3 nav_icon"></span>
 	                    <span class="menu-collapsed"></span>    
 	                </div>
 	            </a>   
@@ -98,7 +105,7 @@
           <!-- /END Separator -->	 
           <a href="#language" data-toggle="collapse" aria-expanded="false" class="bg-light list-group-item list-group-item-action flex-column align-items-start" title="Language">
               <div class="d-flex w-100 justify-content-start align-items-center">
-                  <span class="fa fa-language fa-fw mr-3" style="color: #8A6E59"></span>
+                  <span class="fa fa-language fa-fw mr-3 nav_icon"></span>
                   <span class="submenu-icon d-none ml-auto"></span>
               </div>
           </a>
@@ -113,7 +120,7 @@
           </div>           
           <a href="#" class="bg-light list-group-item list-group-item-action" title="Logout" data-toggle="modal" data-target="#logoutModal">
               <div class="d-flex w-100 justify-content-start align-items-center">
-                  <span class="fa fa-sign-out-alt fa-fw mr-3" style="color: #8A6E59"></span>
+                  <span class="fa fa-sign-out-alt fa-fw mr-3 nav_icon"></span>
               </div>
           </a>
       </ul><!-- List Group END-->
@@ -167,7 +174,7 @@
                 <div class="card-body">
                   <p class="card-text">今日のレポートの数</p>
                   <i class="fa fa-chart-line card_icon"></i>
-                  <p id="reportToday" class="card-num"></p>
+                  <p id="reportToday" class="card-num">0</p>
                 </div>
               </div>
               <!-- End of Card for Today's Reports -->
@@ -263,6 +270,11 @@
                   <div class="card other_displays" style="height: 235px;">
                     <div class="card-header" style="padding: 2px 0 0 4px; background-color: transparent; border: none;">
                         <strong>毎週のレポートトレンド</strong>
+                        <button style="background-color: #8A6E59; height: 25px !important; float: right;" 
+                          class="btn btn-primary " type="button" id="download_icon" value="vertical_align_bottom" 
+                          aria-haspopup="true" aria-expanded="false" onclick="downloadPNG()">
+												<i class="material-icons" style="margin-top: -20px;">cloud_download</i>
+											</button>
                       </div>
                       <div class="card-body p-0 w-100">
                         <!-- Container for Weekly report trend chart -->
@@ -289,7 +301,7 @@
             <div class="modal-content">
                 <form action="" autocomplete="off" onsubmit="event.preventDefault();" class="w-100">
                     <div class="modal-header">
-                        <h5 id="categoryModalTitle" class="modal-title">Add Users</h5>
+                        <h5 id="categoryModalTitle" class="modal-title">新しいユーザーを追加</h5>
                         <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">×</span>
                         </button>
@@ -298,8 +310,8 @@
                         <table id='addUsersTable' class='display'>
                             <thead class='thead-inverse bg-custom text-custom'>
                                 <tr>
-                                    <th style='width:50%;'>Username</th>
-                                    <th style='width:50%;'>Group</th>
+                                    <th style='width:50%;'>ユーザー名</th>
+                                    <th style='width:50%;'>デパートメント</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -307,9 +319,9 @@
                         </table>
                     </div>
                     <div class=" modal-footer">
-                      <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                      <button class="btn btn-secondary" type="button" data-dismiss="modal">キャンセル</button>
                       <button id="userModalButton" style="cursor: pointer; border: none; background-color: #3D3028;" type="submit" class="btn btn-primary disabled" role="button"
-                          aria-disabled="true">Add Users</button>
+                          aria-disabled="true">ユーザーを追加</button>
                   </div>
                 </form>
             </div>
@@ -324,29 +336,29 @@
             <div class="modal-content">
                 <form action="" autocomplete="on" onsubmit="event.preventDefault();" class="w-100">
                     <div class="modal-header">
-                        <h5 id="userModalTitle" class="modal-title">Update User</h5>
+                        <h5 id="userModalTitle" class="modal-title">ユーザを更新</h5>
                         <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">×</span>
                         </button>
                     </div>
                     <div class="modal-body">
 
-                        <div class="row pl-4 pb-4 w-100">
+                        <!-- <div class="row pl-4 pb-4 w-100">
                             <div class="col">
                                 <div class="row">
-                                    <h3 id="userModalh3">Update User</h3>
+                                    <h3 id="userModalh3">ユーザーを更新</h3>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
 
                         <div class="row pl-4 w-100">
                             <div class="row w-100">
                                 <ul class="list-unstyled pl-2">
-                                    <li id="userID">User ID: </li>
-                                    <li id="userName">Username: </li>
+                                    <li id="userID">ウーザーＩＤ: </li>
+                                    <li id="userName">ユーザー名: </li>
                                 </ul>
                                 <div class="row pl-4 w-100">
-                                    <label for="userGroup" class="h6">Group:</label>
+                                    <label for="userGroup" class="h6">デパートメント:</label>
                                 </div>
                                 <div class="row pl-4 pb-2">
                                     <input type="text" id="userGroup" onfocus="userGroupSearch()" placeholder="Group"
@@ -358,8 +370,8 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                        <button id="userModalButton" type="submit" class="btn btn-primary">Update</button>
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">キャンセル</button>
+                        <button id="userModalButton" type="submit" class="btn btn-primary" style="cursor: pointer; border: none; background-color: #8A6E59;">更新</button>
                     </div>
                 </form>
             </div>
@@ -371,15 +383,15 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+            <h5 class="modal-title" id="exampleModalLabel">ログアウトしますか？</h5>
             <button class="close" type="button" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">×</span>
             </button>
           </div>
-          <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+          <div class="modal-body">このアカウントからログアウトしますか？</div>
           <div class="modal-footer">
-            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-            <button class="btn btn-primary" onclick="logOut()">Logout</button>
+            <button class="btn btn-secondary" type="button" data-dismiss="modal">キャンセル</button>
+            <button class="btn btn-primary" onclick="logOut()" style="cursor: pointer; border: none; background-color: #8A6E59;">ログアウト</button>
           </div>
         </div>
       </div>
@@ -434,7 +446,7 @@
       </div>
 
       <div id="messagesList">
-        <!-- <li class="pl-2 pr-2 bg-primary rounded text-white text-center send-msg mb-1">
+    <li class="pl-2 pr-2 bg-primary rounded text-white text-center send-msg mb-1">
               hiii
             </li>
             <li class="p-1 rounded mb-1">
@@ -492,7 +504,7 @@
         </div>
              <div id="send-message" style="display:none;" class="form-group row no-gutters">
               <textarea class="form-control col-10 scrollbar textarea scrollbar-rare-wind" id="textarea-message" rows="1" cols="3" placeholder="Type a message" ></textarea>
-              <button type="button" id="chat-btn" onclick="sendMessage()" style="" class="col-2 no-border-btn btn btn-info"></button>
+              <button type="button" id="chat-btn" onclick="sendMessage()" class="col-2 no-border-btn btn btn-info"></button>
             </div>
       </div>
 

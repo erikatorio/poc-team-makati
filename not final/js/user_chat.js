@@ -1,6 +1,18 @@
 var user = sessionStorage.getItem("username");
 var name = sessionStorage.getItem("username");
-
+var isChatOpen = false;
+window.addEventListener('load', 
+  function() { 
+      showChat();
+    
+  }, false)
+function hideChat(){
+  if(isChatOpen){
+     $('#chat-toast').toast('hide');
+     exit();
+     isChatOpen = false;
+  }
+}
 function getUserType() {
   var type = document.cookie.split(';');
   try {
@@ -162,7 +174,7 @@ function displayMessages() {
         }
       } else {
         if (msg.message.sender != user) {
-
+    
           onMessageRead(msg.message.id);
           otherMsg(msg.publisher, msg.message.timestamp, msg.message);
           //addaction(msg.timetoken, "message_deliver");
@@ -247,7 +259,6 @@ function displayMessages() {
       }
       addRead();
       autoScrollToBottom();
-      readAll();
     });
   // start, end, count are optional
   glpubnub.fetchMessages({
@@ -279,13 +290,14 @@ function addRead() {
     },
     function (status, response) {
       for (var i = 0; i < response.messages.length - 1; i++) {
-        console.log(response.messages[i]);
+        console.log(response.messages[i].entry.lastSeen);
         var div = document.getElementById(response.messages[i].entry.lastSeen)
         if (div) {
           read = div.querySelector('.read');
           read.textContent = 'read ';
         }
       }
+      readAll();
       console.log(tt)
       pubnub.messageCounts({
         channels: [name],
@@ -320,7 +332,7 @@ function postMsg(msg, lastRead) {
   div.setAttribute('timestamp', timestamp);
   console.log(msg.entry.sender);
   console.log(user);
-  console.log(msg.entry.sender == user);
+  console.log(msg.entry.sender == user );
   sender = msg.entry.sender == sessionStorage.getItem('username') ? sender : msg.entry.sender;
   var timestamp1 = div.querySelector('.timestamp');
   var senderDiv = div.querySelector('.sender');
@@ -426,7 +438,7 @@ function enter() {
       if (msg.message.user != user) {
         //if new receipt is not from current user,
         //update read
-        if (msg.message.lastSeen) {
+        if(msg.message.lastSeen){
           var div = document.getElementById(msg.message.lastSeen)
           read = div.querySelector('.read');
           read.textContent = 'read ';
@@ -531,16 +543,16 @@ function sendMessage() {
         console.log(myLatestMessage)
         appendMessage(message, response.timetoken, "You");
         pubnub.publish({
-          channel: name + '_receipts',
-          message: {
+            channel: name + '_receipts',
+            message: {
             //   lastSeen: messageId,
-            user: sessionStorage.getItem('username'),
-          }
-        }, (status, response) => {
-          // handle state setting response
-          console.log(response)
-        });
-
+              user: sessionStorage.getItem('username'),
+            }
+          }, (status, response) => {
+            // handle state setting response
+            console.log(response)
+          });
+        
       });
     }
   }
@@ -632,10 +644,10 @@ function appendMessage(message, timetoken, sender) {
   //   sender = msg.entry.sender;
   //   $('#message-container').append('<div class="d-flex justify-content-between"><span class="badge badge-pill" id="user-name">'+sender+'<br></span><span class="timestamp text-muted">'+timestamp+'</span></div><div class="card mb-3"><div class="row no-gutters"><div class="col"><div id="message_display" class="text-wrap"><p>'+message.replace( /[<>]/g, '' )+'</p></div></div></div></div>');
   // }
-
+  
   $('#message-container').append(div);
   autoScrollToBottom();
-
+  
 }
 
 function messageCounter() {
@@ -673,12 +685,12 @@ function messageCounter() {
 }
 
 function autoScrollToBottom() {
-  $("#message-container").animate({
-    scrollTop: $('#message-container').get(0).scrollHeight
-  }, 1000);
-  // var  messageListElement = document.getElementById('message-container');
-  // messageListElement.scrollTop = messageListElement.scrollHeight;
-  // console.log(messageListElement.scrollTop);
+//   $("#message-container").animate({
+//     scrollTop: $('#message-container').get(0).scrollHeight
+//   }, 1000);
+  var  messageListElement = document.getElementById('message-container');
+  messageListElement.scrollTop = messageListElement.scrollHeight;
+  console.log(messageListElement.scrollTop);
 }
 
 function checkRead(div) {
@@ -694,11 +706,12 @@ function readAll() {
     let div = msgs[i];
     // console.log(msgs[i]);
     if (div.querySelector('.sender').textContent != "You") {
-      onMessageRead(div.id);
-      console.log(msgs[i]);
+      console.log(div.querySelector('.read').textContent  );
+      if(div.querySelector('.read').textContent == "")
+        onMessageRead(div.id);
     }
 
-    // div.querySelector('.col').onclick = function(){checkRead(div.querySelector('.read'))};;
+    // div.querySelector('  .col').onclick = function(){checkRead(div.querySelector('.read'))};;
 
   }
   // msgs[-1]
@@ -706,20 +719,13 @@ function readAll() {
 
 
 function showChat() {
-
-  $('#chat-toast').toast('show');
-  //  messageCounter();
-  console.log(user);
-  enter();
-  displayMessages();
-}
-
-
-$("#textarea-message").keydown(function (e) {
-  if (event.keyCode == 13) {
-    if (!event.shiftKey) {
-      e.preventDefault();
-      sendMessage();
-    }
+  if(!isChatOpen){
+    $('#message-container').html('');
+    $('#chat-toast').toast('show');
+    //  messageCounter();
+    console.log(user);
+    enter();
+    displayMessages();
+    isChatOpen=true;
   }
-});
+}
