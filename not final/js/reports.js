@@ -14,7 +14,8 @@ window.addEventListener("load", async () => {
         dom: 'Bfrtip',
         scrollY: '60vh',
         buttons: [],
-        responsive: true
+        responsive: true,
+        pageLength: 5
     });
 
     await db
