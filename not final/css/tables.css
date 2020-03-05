@@ -53,3 +53,21 @@ label {
 #table-container {
     margin-top: 50px;
 }
+
+@media only screen and (max-width: 1029px) {
+  #table-container {
+      width: 930px;
+  }
+}
+
+@media only screen and (max-width: 999px) {
+    #table-container {
+        width: 910px;
+    }
+  }
+
+@media only screen and (max-width: 789px) {
+    #table-container {
+        width: 680px;
+    }
+  }
