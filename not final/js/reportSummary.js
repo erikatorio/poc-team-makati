@@ -1,12 +1,16 @@
 // import { decodeBase64 } from "bcryptjs";
 
 // var latestReportsTable
-
+var tempUsers = [];
+var tempLogs = [];
 window.addEventListener("load", async () => {
     isloaded = true;
     //await getGroupsAndCategories();
     await showNotif();
     await reportSummary();
+    await getLogs();
+    tempLogs = logs;
+    await showLogs();
     generateColors(1);
     initArray();
     byGroup();
@@ -15,6 +19,7 @@ window.addEventListener("load", async () => {
     loadData(1).then(function () {
         drawVisualization(data);
         drawVisualizationTrend(0);
+        showPage("trendloader");
     });
 
     $('#latestReportsTable').DataTable({
@@ -29,7 +34,61 @@ window.addEventListener("load", async () => {
         info: false
     });
 
+    $('#logsTable').DataTable({
+        paging: false,
+        info: false,
+        scrollY: 210,
+        responsive: true,
+        searching: false,
+        lengthChange: false,
+        ordering: false,
+        paging: false,
+        info: false
+    });
+
+    showPage("reportloader");
 });
+
+
+
+async function showLogs(){
+    // BUILD THE TABLE
+    $("#allLogs").html("");
+    let options = { hour12:false, month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' };
+    let head = "<table id='logsTable' class='display'>" +
+        "<thead>" +
+        "<tr>" +
+        "<th style='width:70%;'>Action</th>" +
+        "<th style='width:30%;'>Date/Time</th>" +
+        // "<th style='width:30%;'>Category</th>" +
+        // "<th style='width:40%;'>Date</th>" +
+        "</tr></thead>";
+    let body = "<tbody class='scroll-secondary'>";
+    tempLogs.forEach(function (userLog) {
+        let date = userLog && userLog.timeStamp && userLog.timeStamp.toDate().toLocaleString("en-US", options);
+        body += "<tr>";
+        switch(userLog.actionId){
+            case 1:
+                body += "<td style='width:70%;'>New Report Submitted</td>"; 
+                break;
+            case 2:
+                body += "<td style='width:70%;'>Report Details Updated</td>";
+                break;
+            case 3:
+                body += "<td style='width:70%;'>Report Deleted</td>";
+                break;
+            default:
+                body += "<td style='width:70%;'>Unspecified</td>";
+        }
+        body +=
+            "<td style='text-align: right; width:30%;'>" +
+            date +
+            "</td>" +
+            "</tr>";
+    });
+
+    $("#allLogs").append(head + body + "</tbody></table>");
+}
 
 function showLatest() {
     let options = { month: '2-digit', day: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' };
@@ -150,6 +209,7 @@ function downloadPNG(){
             link.click();
         }
     });
+    
 }
 
 // ----- Notifications -----
@@ -221,12 +281,6 @@ async function selectReport(reportID) {
                     });
                 });
             });
-            
-            // loadReportDetails(report).then(() => {
-            //     $('#reportDetails').modal('show');
-            // }).then(()=>{
-            //     showNotif()
-            // });
         }
     })
 }
@@ -243,5 +297,11 @@ async function loadReportDetails(reportSelected) {
     } else {
         $("#sattachment").html('Link to attachment: <a target=_blank href= ' + reportSelected.attachFile + '>Link</a>');
     }
+}
+
+//function to hide loader after Content has successfully loaded 
+function showPage(divid) {
+    console.log("test");
+    document.getElementById(divid).style.display = "none";
 }
 

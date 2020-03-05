@@ -5,6 +5,7 @@ window.addEventListener("load", async () => {
     await getCategoriesData();
     tempCategories = categories;
     populateCategoryTable();
+    showPage();
 });
 
 async function populateCategoryTable(){
@@ -86,4 +87,10 @@ async function deleteCategory(category_id){
                 console.error("Error category deletion: ", error);
             });
     }
+}
+
+//function to hide loader after Content has successfully loaded 
+function showPage() {
+    console.log("test");
+    document.getElementById("loader").style.display = "none";
 }
