@@ -3,6 +3,8 @@ var user = getUserType();
 var name;
 var isChatOpen = false;
 var countListener = null;
+var readListener = null;
+var readReceipts = null
 
 var totalCount = 0;
 
@@ -202,7 +204,15 @@ function displayMessagePreviews() {
                   console.log(restring)
                   console.log(len);
                   console.log(preview.channels[0])
-                  recent_message = preview.channels[restring][0].message.content;
+                  recent_message = "";
+                  
+                  var possible_file = preview.channels[restring][0].message.imageURL;
+                  
+                  recent_message = ""
+                  if(possible_file != undefined){
+                    recent_message = "File attached. ";
+                  }
+                  recent_message += preview.channels[restring][0].message.content;
                   recent_message = recent_message.substr(0, 15) + (recent_message.length > 15 ? '&hellip;' : '');
                   var recent_datestamp = preview.channels[restring][0].message.timestamp;
 
@@ -297,7 +307,14 @@ function displayMessagePreviews() {
               break;
             }
             var restring = c.replace(/ /gi, "%20");
-            recent_message = preview.channels[restring][len].message.content;
+            recent_message = "";      
+            var possible_file = preview.channels[restring][0].message.imageURL;
+                  
+            recent_message = ""
+            if(possible_file != undefined){
+              recent_message = "File attached. ";
+            }
+            recent_message += preview.channels[restring][len].message.content;
             recent_message = recent_message.substr(0, 15) + (recent_message.length > 15 ? '&hellip;' : '');
             var recent_datestamp = preview.channels[restring][len].message.timestamp;
 
@@ -378,14 +395,8 @@ function getCount(obj) {
 }
 function displayMessages() {
 
-  glpubnub = new PubNub({
-    publishKey: 'pub-c-8266b3af-df4a-4508-91de-0a06b9634a69',
-    subscribeKey: 'sub-c-b20376b2-5215-11ea-80a4-42690e175160',
-    uuid: user
-  });
-
   //listener
-  glpubnub.addListener({
+  readReceipts = {
     status: function (statusEvent) {
       if (statusEvent.category === "PNConnectedCategory") {
         console.log("connected");
@@ -447,9 +458,9 @@ function displayMessages() {
         }
       }
     }
-  });
+  };
   //listener end
-
+  glpubnub.addListener(readReceipts);
   glpubnub.subscribe({
     channels: [name, name + '_receipts'],
   });
@@ -699,15 +710,13 @@ function otherMsg(sender, timestamp, msg) {
 }
 
 function enter() {
-  var pubnub = new PubNub({
+
+  glpubnub = new PubNub({
     publishKey: 'pub-c-8266b3af-df4a-4508-91de-0a06b9634a69',
     subscribeKey: 'sub-c-b20376b2-5215-11ea-80a4-42690e175160',
     uuid: user
   });
-  var user = user
-
-
-  pubnub.setState({
+  glpubnub.setState({
     state: {
       mood: 'in',
     },
@@ -725,7 +734,7 @@ function enter() {
   $('#' + name).html("")
 
   //listen to receipts channel
-  pubnub.addListener({
+  readListener = {
     status: function (statusEvent) { },
     message: function (msg) {
       console.log(msg);
@@ -773,8 +782,9 @@ function enter() {
         }
       }
     }
-  });
-  pubnub.subscribe({
+  };
+  glpubnub.addListener(readListener);
+  glpubnub.subscribe({
     channels: [name + "_receipts"],
   });
 }
@@ -795,10 +805,12 @@ function exit() {
     // handle state setting response
     console.log(response)
   });
-
-  glpubnub.unsubscribe({
-    channels: [name, name + '_receipts'],
-  });
+ readListener = null;
+ glpubnub.removeListener(readListener)
+ glpubnub.removeListener(readReceipts)
+ glpubnub.unsubscribe({
+  channels:[name+"_receipts"]
+ })
   glpubnub = null;
 
 }
@@ -1176,7 +1188,15 @@ function countUpdate() {
           //get the latest msg
           console.log(response);
           var date = response.channels[target_user][0].message.timestamp;
-          var recent_message = response.channels[target_user][0].message.content;
+          var recent_message = "";
+                  
+          var possible_file = preview.channels[restring][0].message.imageURL;
+                  
+          recent_message = ""
+          if(possible_file != undefined){
+            recent_message = "File attached. ";
+          }
+          recent_message += response.channels[target_user][0].message.content;
           recent_message = recent_message.substr(0, 15) + (recent_message.length > 15 ? '&hellip;' : '');
 
           const gmtDate = new Date(date * 1000);
@@ -1220,7 +1240,14 @@ function countUpdate() {
             //get the latest msg
             console.log(response);
             var date = response.channels[target_user][0].message.timestamp;
-            var recent_message = response.channels[target_user][0].message.content;
+            var recent_message = "";
+                  
+            var possible_file = preview.channels[restring][0].message.imageURL;
+                
+            if(possible_file != undefined){
+              recent_message = "File attached. ";
+            }
+            recent_message += response.channels[target_user][0].message.content;
             recent_message = recent_message.substr(0, 15) + (recent_message.length > 15 ? '&hellip;' : '');
 
             const gmtDate = new Date(date * 1000);
