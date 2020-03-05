@@ -43,6 +43,22 @@ window.addEventListener("load", async () => {
         info: false
     });
 
+    await db
+        .collection('reports')
+        .orderBy('created', 'desc')
+        .onSnapshot(async function(querySnapshot) {
+            if (isloaded) {
+                querySnapshot.docChanges().forEach(async function(change) {
+                    if (change.type === 'added') {  
+                        await showNotif();
+                        await reportSummary();
+                    }
+                });
+            } else {
+                isloaded = true;
+            }
+        });
+
     showPage("reportloader");
 });
 
@@ -156,7 +172,7 @@ function showLatest() {
 
 
 async function reportSummary() {
-
+    let options = { month: '2-digit', day: '2-digit', year: 'numeric' };
     let cat = {};
     let group = {};
     let cCtr = {};
@@ -191,6 +207,23 @@ async function reportSummary() {
     $("#categoryCount").text(categories[cat["key"]]);
     $("#groupCount").text(group["key"]);
     $("#reportCount").text(reports.length);
+
+    let date = new Date();
+
+    //console.log(date.toLocaleString("en-US", options));
+
+    let nowDate = date.toLocaleString("en-US", options);
+
+    let todayCtr = 0;
+
+    reports.forEach(function (report){
+        if (nowDate === report.created.toDate().toLocaleString("en-US", options)){
+            todayCtr += 1;
+        }
+    });
+
+    $('#reportToday').text(todayCtr);
+
     showLatest();
 }
 
@@ -233,7 +266,6 @@ async function showNotif() {
 
             $('#indiv_notifs').append('<div class="toast-body-notif"><p class="p-0 m-0">' + categories[report.category] + '" incident was reported.</p><p class="row text-info p-0 m-0 justify-content-between"> (' + report.created.toDate().toLocaleString("en-US", options) + ')</p></div>');
             //<a class="ml-auto py-0" href="#" onClick= selectReport(' + report.id + ')>more details...</a>
-            await selectReport(report.id);
         }
     });
     
@@ -248,7 +280,6 @@ async function showNotifs() {
     if (!isPaneOpen) {
         await appendNotifPane();
         $('#notif-toast').toast('show');
-        console.log("here");
         await showNotif();
         isPaneOpen = true;
     } else {
@@ -263,7 +294,12 @@ async function appendNotifPane() {
 }
 
 async function removeNotifPane() {
-    $('.notifications-container').remove()
+    reports.forEach(async function (report) {
+        if (report.read === false) {
+            await selectReport(report.id);
+        }
+    });
+    $('.notifications-container').remove();
 }
 
 async function selectReport(reportID) {
