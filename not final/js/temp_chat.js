@@ -205,11 +205,11 @@ function displayMessagePreviews() {
                   console.log(len);
                   console.log(preview.channels[0])
                   recent_message = "";
-                  
+
                   var possible_file = preview.channels[restring][0].message.imageURL;
-                  
+
                   recent_message = ""
-                  if(possible_file != undefined){
+                  if (possible_file != undefined) {
                     recent_message = "File attached. ";
                   }
                   recent_message += preview.channels[restring][0].message.content;
@@ -307,11 +307,11 @@ function displayMessagePreviews() {
               break;
             }
             var restring = c.replace(/ /gi, "%20");
-            recent_message = "";      
+            recent_message = "";
             var possible_file = preview.channels[restring][0].message.imageURL;
-                  
+
             recent_message = ""
-            if(possible_file != undefined){
+            if (possible_file != undefined) {
               recent_message = "File attached. ";
             }
             recent_message += preview.channels[restring][len].message.content;
@@ -816,12 +816,12 @@ function exit() {
     // handle state setting response
     console.log(response)
   });
- readListener = null;
- glpubnub.removeListener(readListener)
- glpubnub.removeListener(readReceipts)
- glpubnub.unsubscribe({
-  channels:[name+"_receipts"]
- })
+  readListener = null;
+  glpubnub.removeListener(readListener)
+  glpubnub.removeListener(readReceipts)
+  glpubnub.unsubscribe({
+    channels: [name + "_receipts"]
+  })
   glpubnub = null;
 
 }
@@ -1086,18 +1086,21 @@ function messageCounter() {
       });*/
 }
 function showChat() {
-  if (countListener == null) {
-    console.log("is null")
+  isChatOpen = true;
+  $('#chat-toast').toast('show');
+  displayMessagePreviews();
+  inboxState = true;
+  if (glpubnub == null) {
+    console.log("removed")
+    glpubnub.removeListener(messageCountingListener);
   }
+}
+
+function showOrHide() {
   if (isChatOpen == false) {
-    $('#chat-toast').toast('show');
-    displayMessagePreviews();
-    inboxState = true;
-    if (glpubnub == null) {
-      console.log("removed")
-      // glpubnub.removeListener(messageCountingListener);
-    }
-    isChatOpen = true;
+    showChat()
+  } else {
+    hideChat()
   }
 }
 
@@ -1200,11 +1203,11 @@ function countUpdate() {
           console.log(response);
           var date = response.channels[target_user][0].message.timestamp;
           var recent_message = "";
-                  
+
           var possible_file = preview.channels[restring][0].message.imageURL;
-                  
+
           recent_message = ""
-          if(possible_file != undefined){
+          if (possible_file != undefined) {
             recent_message = "File attached. ";
           }
           recent_message += response.channels[target_user][0].message.content;
@@ -1252,10 +1255,10 @@ function countUpdate() {
             console.log(response);
             var date = response.channels[target_user][0].message.timestamp;
             var recent_message = "";
-                  
+
             var possible_file = preview.channels[restring][0].message.imageURL;
-                
-            if(possible_file != undefined){
+
+            if (possible_file != undefined) {
               recent_message = "File attached. ";
             }
             recent_message += response.channels[target_user][0].message.content;

@@ -5,7 +5,6 @@ var tempUsers = [];
 var tempLogs = [];
 window.addEventListener("load", async () => {
     isloaded = true;
-    //await getGroupsAndCategories();
     await showNotif();
     await reportSummary();
     await getLogs();
@@ -36,20 +35,36 @@ window.addEventListener("load", async () => {
 
     $('#logsTable').DataTable({
         dom: 'Bfrtip',
-        scrollY: '40vh',
+        scrollY: '20vh',
         responsive: true,
         buttons: [],
         paging: false,
         info: false
     });
 
+    await db
+        .collection('reports')
+        .orderBy('created', 'desc')
+        .onSnapshot(async function (querySnapshot) {
+            if (isloaded) {
+                querySnapshot.docChanges().forEach(async function (change) {
+                    if (change.type === 'added') {
+                        await showNotif();
+                        await reportSummary();
+                    }
+                });
+            } else {
+                isloaded = true;
+            }
+        });
+
     showPage("reportloader");
 });
 
-async function showLogs(){
+async function showLogs() {
     // BUILD THE TABLE
     $("#allLogs").html("");
-    let options = { hour12:false, month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' };
+    let options = { hour12: false, month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' };
     let head = "<table id='logsTable' class='display'>" +
         "<thead>" +
         "<tr>" +
@@ -61,10 +76,10 @@ async function showLogs(){
     let body = "<tbody class='scroll-secondary'>";
     tempLogs.forEach(function (userLog) {
         let date = userLog && userLog.timeStamp && userLog.timeStamp.toDate().toLocaleString("en-US", options);
-        body += "<tr>";
-        switch(userLog.actionId){
+        body += "<tr id='reports-ds'>";
+        switch (userLog.actionId) {
             case 1:
-                body += "<td style='width:60%;'>New Report Submitted</td>"; 
+                body += "<td style='width:60%;'>New Report Submitted</td>";
                 break;
             case 2:
                 body += "<td style='width:60%;'>Report Details Updated</td>";
@@ -119,7 +134,7 @@ function showLatest() {
             } else {
                 gCtr[report.group] += 1;
             }
-            
+
             body +=
                 "<tr ondblclick= selectReport(" + report.id + ")>" +
                 "<td>" +
@@ -156,7 +171,7 @@ function showLatest() {
 
 
 async function reportSummary() {
-
+    let options = { month: '2-digit', day: '2-digit', year: 'numeric' };
     let cat = {};
     let group = {};
     let cCtr = {};
@@ -191,20 +206,33 @@ async function reportSummary() {
     $("#categoryCount").text(categories[cat["key"]]);
     $("#groupCount").text(group["key"]);
     $("#reportCount").text(reports.length);
+
+    let date = new Date();
+    let nowDate = date.toLocaleString("en-US", options);
+    let todayCtr = 0;
+
+    reports.forEach(function (report) {
+        if (nowDate === report.created.toDate().toLocaleString("en-US", options)) {
+            todayCtr += 1;
+        }
+    });
+
+    $('#reportToday').text(todayCtr);
+
     showLatest();
 }
 
-function downloadPNG(){
+function downloadPNG() {
     html2canvas($("#weeklyReports"), {
-        onrendered: function(canvas) {         
+        onrendered: function (canvas) {
             var imgData = canvas.toDataURL('image/png').replace("image/png", "image/octet-stream");
-            let link  = document.createElement('a');
+            let link = document.createElement('a');
             link.download = "Weekly Report.png";
             link.href = imgData;
             link.click();
         }
     });
-    
+
 }
 
 // ----- Notifications -----
@@ -222,10 +250,10 @@ async function showNotif() {
             if (ctr === 0) {
                 $('#notifItem').html('<div class="px-4 py-0"><hr class="m-2 mb-3"></div>');
             }
-            
+
             ctr += 1;
 
-            if (ctr > 99){
+            if (ctr > 99) {
                 $('#notifDropdown').html('<i class="material-icons text-danger">notifications_active</i><span id="notif_badge" class="badge badge-pill badge-danger p-1">99+</span>');
             } else {
                 $('#notifDropdown').html('<i class="material-icons text-danger">notifications_active</i><span id="notif_badge" class="badge badge-pill badge-danger p-1">' + ctr + '</span>');
@@ -233,10 +261,9 @@ async function showNotif() {
 
             $('#indiv_notifs').append('<div class="toast-body-notif"><p class="p-0 m-0">' + categories[report.category] + '" incident was reported.</p><p class="row text-info p-0 m-0 justify-content-between"> (' + report.created.toDate().toLocaleString("en-US", options) + ')</p></div>');
             //<a class="ml-auto py-0" href="#" onClick= selectReport(' + report.id + ')>more details...</a>
-            await selectReport(report.id);
         }
     });
-    
+
     if (ctr === 0) {
         $('#notifDropdown').html('<i class="fa fa-bell fa-fw mr-3 nav_icon"></i>');
         $('#notif-toast').append('<div class="toast-body">No new reports.</div>');
@@ -248,8 +275,8 @@ async function showNotifs() {
     if (!isPaneOpen) {
         await appendNotifPane();
         $('#notif-toast').toast('show');
-        console.log("here");
         await showNotif();
+
         isPaneOpen = true;
     } else {
         $('#notif-toast').toast('hide');
@@ -263,7 +290,12 @@ async function appendNotifPane() {
 }
 
 async function removeNotifPane() {
-    $('.notifications-container').remove()
+    reports.forEach(async function (report) {
+        if (report.read === false) {
+            await selectReport(report.id);
+        }
+    });
+    $('.notifications-container').remove();
 }
 
 async function selectReport(reportID) {

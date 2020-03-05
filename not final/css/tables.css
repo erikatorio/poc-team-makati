@@ -1,101 +1,118 @@
 @media only screen and (max-width: 1029px) {
-    #table-container {
-        width: 930px;
-    }
+  #table-container {
+    width: 930px;
   }
-  
+}
+
 @media only screen and (max-width: 999px) {
-    #table-container {
-        width: 910px;
-    }
+  #table-container {
+    width: 910px;
+  }
 }
 
 @media only screen and (max-width: 789px) {
-    #table-container {
-        width: 680px;
-    }
+  #table-container {
+    width: 680px;
+  }
 }
 
-.table-header, .table-count, .modal-title, #header-title {
-    font-family: 'Lato';
+.table-header,
+.table-count,
+.modal-title,
+#header-title {
+  font-family: 'Lato';
 }
 
-.table-content, .modal-body, #example_info, #header-title small, small, .dropdown-toggle {
-    font-family: 'Roboto Condensed' !important;
+.table-content,
+.modal-body,
+#example_info,
+#header-title small,
+small,
+.dropdown-toggle {
+  font-family: 'Roboto Condensed' !important;
 }
 
 #header-title small {
-    font-size: 17px;
+  font-size: 17px;
 }
 
 #header-title {
-    margin-bottom: 70px;
+  margin-bottom: 70px;
 }
 
-.btn-main, #example_previous {
-    background-color: #FF9999;
-    font-family: 'Roboto Condensed'
+.btn-main,
+#example_previous {
+  background-color: #ff9999;
+  font-family: 'Roboto Condensed';
 }
 
 td .btn-row {
-    background-color: none;
-    padding: 0px !important;
+  background-color: none;
+  padding: 0px !important;
 }
 
 .page-item.active a {
-    background-color: #FF9999 !important;
-    border: none !important;
-    color: #3D3028 !important;
+  background-color: #ff9999 !important;
+  border: none !important;
+  color: #3d3028 !important;
 }
 
 .btn-secondary {
-    font-family: 'Roboto Condensed';
+  font-family: 'Roboto Condensed';
 }
 
 .fa-trash-alt {
-    margin-left: 10px;
+  margin-left: 10px;
 }
 
 #add-user-btn {
-    margin: 10px;
+  margin: 10px;
 }
 
 #flat-row {
-    background-color: #FFFAFA !important;
+  background-color: #fffafa !important;
 }
 
 label {
-    font-family: 'Roboto Condensed';
+  font-family: 'Roboto Condensed';
 }
 
 #table-container {
-    margin-top: 50px;
+  margin-top: 50px;
 }
 
 /* CSS for Loading spinner */
 #loader {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    z-index: 1;
-    width: 150px;
-    height: 150px;
-    margin: -75px 0 0 -75px;
-    border: 16px solid #f3f3f3;
-    border-radius: 50%;
-    border-top: 16px solid #ff9999;
-    width: 120px;
-    height: 120px;
-    -webkit-animation: spin 2s linear infinite;
-    animation: spin 2s linear infinite;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 1;
+  width: 150px;
+  height: 150px;
+  margin: -75px 0 0 -75px;
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #ff9999;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
   }
-  
-  @-webkit-keyframes spin {
-    0% { -webkit-transform: rotate(0deg); }
-    100% { -webkit-transform: rotate(360deg); }
+  100% {
+    -webkit-transform: rotate(360deg);
   }
-  
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
   }
+  100% {
+    transform: rotate(360deg);
+  }
+}

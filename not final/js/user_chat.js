@@ -6,17 +6,15 @@ var readReceipts = null;
 var isChatOpen = false;
 window.addEventListener(
   'load',
-  function() {
+  function () {
     showChat();
   },
   false
 );
 function hideChat() {
-  if (isChatOpen) {
-    $('#chat-toast').toast('hide');
-    exit();
-    isChatOpen = false;
-  }
+  isChatOpen = false;
+  $('#chat-toast').toast('hide');
+  exit();
 }
 
 var myLatestMessage, theirLatestMessage;
@@ -126,14 +124,14 @@ function displayMessages() {
 
   //listener
   readReceipts = {
-    status: function(statusEvent) {
+    status: function (statusEvent) {
       if (statusEvent.category === 'PNConnectedCategory') {
         console.log('connected');
         console.log(statusEvent);
         // publishMsg();
       }
     },
-    message: function(msg) {
+    message: function (msg) {
       console.log(msg);
       console.log(msg.timetoken);
       if (msg.subscribedChannel == name + '_receipts') {
@@ -153,7 +151,7 @@ function displayMessages() {
         }
       }
     },
-    presence: function(p) {
+    presence: function (p) {
       // handle presence
       var action = p.action; // Can be join, leave, state-change or timeout
       // var channelName = p.channel; // The channel for which the message belongs
@@ -198,7 +196,7 @@ function displayMessages() {
       channel: name + '_receipts',
       count: 100 // how many items to fetch
     },
-    function(status, response) {
+    function (status, response) {
       console.log('AAAAA');
       console.log(response.messages);
       for (var i = 0; i < response.messages.length - 1; i++) {
@@ -212,7 +210,7 @@ function displayMessages() {
           channels: [name],
           channelTimetokens: [tt]
         },
-        function(status, results) {
+        function (status, results) {
           console.log(results);
         }
       );
@@ -227,7 +225,7 @@ function displayMessages() {
       includeMessageActions: true,
       stringifiedTimeToken: true // false is the default
     },
-    function(status, response) {
+    function (status, response) {
       response.messages.forEach(postMsg);
       console.log('mine: ' + myLatestMessage);
       console.log('their: ' + theirLatestMessage);
@@ -266,7 +264,7 @@ function addRead() {
       channel: name + '_receipts',
       count: 100 // how many items to fetch
     },
-    function(status, response) {
+    function (status, response) {
       for (var i = 0; i < response.messages.length - 1; i++) {
         console.log(response.messages[i].entry.lastSeen);
         var div = document.getElementById(response.messages[i].entry.lastSeen);
@@ -282,7 +280,7 @@ function addRead() {
           channels: [name],
           channelTimetokens: [tt]
         },
-        function(status, results) {
+        function (status, results) {
           console.log(results);
         }
       );
@@ -441,7 +439,7 @@ function onMessageRead(messageId) {
 }
 
 function enter() {
-  
+
   glpubnub = new PubNub({
     publishKey: 'pub-c-8266b3af-df4a-4508-91de-0a06b9634a69',
     subscribeKey: 'sub-c-b20376b2-5215-11ea-80a4-42690e175160',
@@ -464,8 +462,8 @@ function enter() {
 
   //listen to receipts channel
   readListener = {
-    status: function(statusEvent) {},
-    message: function(msg) {
+    status: function (statusEvent) { },
+    message: function (msg) {
       console.log(msg);
       console.log(user);
       if (msg.message.user != user) {
@@ -476,7 +474,7 @@ function enter() {
           read.textContent = 'read ';
       }
     },
-    presence: function(p) {
+    presence: function (p) {
       var action = p.action; // Can be join, leave, state-change or timeout
       // var channelName = p.channel; // The channel for which the message belongs
       //var occupancy = p.occupancy; // No. of users connected with the channel
@@ -517,7 +515,7 @@ function exit() {
       user: user
     }
   };
-  glpubnub.publish(publishConfig, function(status, response) {
+  glpubnub.publish(publishConfig, function (status, response) {
     console.log(response);
   });
   glpubnub.setState(
@@ -537,7 +535,7 @@ function exit() {
   glpubnub.removeListener(readListener);
   glpubnub.removeListener(readReceipts);
   glpubnub.unsubscribe({
-    channels: [ name + '_receipts']
+    channels: [name + '_receipts']
   });
   glpubnub = null;
 }
@@ -555,7 +553,7 @@ function removeAttachment() {
 var att;
 function addAttachment(attach) {
   if (attach.files && attach.files[0]) {
-    reader.onload = function(e) {
+    reader.onload = function (e) {
       $('#attach-prev').attr('src', e.target.result);
     };
 
@@ -594,7 +592,7 @@ function sendMessage() {
         var storageRef = firebase.storage().ref('/chat/' + att);
         var attachURL = storageRef
           .putString(reader.result, 'data_url')
-          .then(function(snapshot) {
+          .then(function (snapshot) {
             console.log('Uploaded a blob or file!');
           })
           .then(() => {
@@ -602,7 +600,7 @@ function sendMessage() {
               .ref()
               .child('chat/' + att)
               .getDownloadURL()
-              .then(function(url) {
+              .then(function (url) {
                 var publishConfig = {
                   channel: name,
                   message: {
@@ -614,7 +612,7 @@ function sendMessage() {
                   }
                 };
 
-                pubnub.publish(publishConfig, function(status, response) {
+                pubnub.publish(publishConfig, function (status, response) {
                   console.log(response);
                   console.log(myLatestMessage);
                   appendMessage(message, url, response.timetoken, 'You');
@@ -634,7 +632,7 @@ function sendMessage() {
               });
           });
       } else {
-        pubnub.publish(publishConfig, function(status, response) {
+        pubnub.publish(publishConfig, function (status, response) {
           console.log(response);
           console.log(myLatestMessage);
           appendMessage(message, attachURL, response.timetoken, 'You');
@@ -668,7 +666,7 @@ function sendMessage() {
         },
         uuid: user
       },
-      function(status, response) {
+      function (status, response) {
         console.log(status);
         console.log(response);
       }
@@ -677,7 +675,7 @@ function sendMessage() {
       {
         channel: name
       },
-      function(status, response) {
+      function (status, response) {
         console.log(status);
         console.log(response);
       }
@@ -687,15 +685,15 @@ function sendMessage() {
 
   //listener
   pubnub.addListener({
-    status: function(statusEvent) {
+    status: function (statusEvent) {
       if (statusEvent.category === 'PNConnectedCategory') {
         console.log('connected');
         console.log(statusEvent);
         publishMsg();
       }
     },
-    message: function(msg) {},
-    presence: function(p) {}
+    message: function (msg) { },
+    presence: function (p) { }
   });
   //listener end
 
@@ -708,7 +706,7 @@ function sendMessage() {
   //add to database
 }
 
-function addSeen() {}
+function addSeen() { }
 
 function appendMessage(message, attachment, timetoken, sender) {
   const unixTimestamp = timetoken / 10000000;
@@ -770,7 +768,7 @@ function messageCounter() {
         customFields: true
       }
     },
-    function(status, response) {
+    function (status, response) {
       console.log(response);
       console.log(status);
     }
@@ -824,18 +822,23 @@ function readAll() {
 }
 
 function showChat() {
-  if (!isChatOpen) {
-    $('#message-container').html('');
-    $('#chat-toast').toast('show');
-    //  messageCounter();
-    console.log(user);
-    enter();
-    displayMessages();
-    isChatOpen = true;
+  isChatOpen = true;
+  $('#message-container').html('');
+  $('#chat-toast').toast('show');
+  //  messageCounter();
+  console.log(user);
+  enter();
+  displayMessages();
+}
+function showOrHide() {
+  if (isChatOpen == false) {
+    showChat()
+  } else {
+    hideChat()
   }
 }
 
-$('#textarea-message').keydown(function(e) {
+$('#textarea-message').keydown(function (e) {
   if (event.keyCode == 13) {
     if (!event.shiftKey) {
       e.preventDefault();

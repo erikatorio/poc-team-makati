@@ -8,7 +8,7 @@ window.addEventListener("load", async () => {
         paging: false,
         info: false,
         dom: 'Bfrtip',
-        scrollY: '40vh',
+        scrollY: '13vh',
         buttons: ['csv', 'excel', 'pdf'],
         responsive: true
     });
@@ -17,7 +17,7 @@ window.addEventListener("load", async () => {
 });
 
 async function showTables() {
-    let options = {year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+    let options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
     $('#showCategoriesTable div').html("");
 
     let cat = {};
@@ -35,7 +35,7 @@ async function showTables() {
         "<th style='width:20%;'>デパートメント</th>" +
         "<th style='width:20%;'>カテゴリー</th>" +
         "<th style='width:20%;'>日付" +
-        "<th style='width:40%;'>状態" + 
+        "<th style='width:40%;'>状態" +
         "</th></tr></thead>";
 
     //Add body
