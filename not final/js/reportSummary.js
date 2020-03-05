@@ -25,13 +25,13 @@ window.addEventListener("load", async () => {
     $('#latestReportsTable').DataTable({
         paging: false,
         info: false,
-        scrollY: 210,
+        scrollY: 200,
         responsive: true,
         searching: false,
         lengthChange: false,
         ordering: false,
         paging: false,
-        info: false
+        info: false,
     });
 
     $('#logsTable').DataTable({
@@ -48,8 +48,6 @@ window.addEventListener("load", async () => {
 
     showPage("reportloader");
 });
-
-
 
 async function showLogs(){
     // BUILD THE TABLE
