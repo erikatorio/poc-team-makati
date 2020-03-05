@@ -137,6 +137,8 @@ async function sendReport(reportData) {
             $("input[name='where']").val("");
             $("input[name='how']").val("");
             $('#submit_btn2').attr('disabled', false);
+            
+            logAction(1);
         })
         .catch(function (error) {
             console.error("Error writing document: ", error);
