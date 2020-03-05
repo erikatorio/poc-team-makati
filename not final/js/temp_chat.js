@@ -405,9 +405,9 @@ function hideChat(){
               }
         }else{
           if(msg.message.sender != user){
-            
-            onMessageRead(msg.message.id);        
+            console.log('in user');
             otherMsg(msg.publisher,msg.message.timestamp, msg.message);
+            onMessageRead(msg.message.id);        
             //addaction(msg.timetoken, "message_deliver");
           }else{
           //addaction(msg.timetoken, "message_read");
@@ -1070,7 +1070,7 @@ function sendMessage() {
       inboxState = true;
       if(glpubnub == null){
         console.log("removed")
-        glpubnub.removeListener(messageCountingListener);
+        // glpubnub.removeListener(messageCountingListener);
       }
       isChatOpen = true;
     }
