@@ -15,6 +15,7 @@ var colors = [];
 var pieColors = [];
 var csvData = [];
 var users = [];
+var logs = [];
 var reportSelected = {};
 var maxZvalue = 0;
 var loaded = false;
@@ -213,6 +214,19 @@ async function getUsersData() {
         .then(function (querySnapshot) {
             querySnapshot.forEach(function (doc) {
                 users.push(doc.data());
+            });
+        });
+}
+
+async function getLogs(){
+    await getUsersData();
+    await db
+        .collection("logs")
+        .orderBy("timeStamp", "desc")
+        .get()
+        .then(function (querySnapshot) {
+            querySnapshot.forEach(function (doc) {
+                logs.push(doc.data());
             });
         });
 }
