@@ -1,16 +1,16 @@
 html {
   height: 100vh;
 }
-@import "https://fonts.googleapis.com/css?family=Roboto&display=swap";
+@import 'https://fonts.googleapis.com/css?family=Roboto&display=swap';
 @import url('https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300&display=swap');
 body {
-  font-family: "Poppins", sans-serif;
+  font-family: 'Poppins', sans-serif;
   background: #fafafa;
   height: 100vh;
 }
 
 p {
-  font-family: "Poppins", sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 1.1em;
   font-weight: 300;
   line-height: 1.7em;
@@ -53,22 +53,23 @@ span {
 }
 
 /* Notif badge */
-#notif_badge, #totalCount {
+#notif_badge,
+#totalCount {
   position: absolute;
   top: 0;
   right: 0;
-  display:inline-block;
-  min-width:10px;
-  padding:3px 7px;
-  font-size:12px;
-  font-weight:700;
-  line-height:1;
-  color:#fff;
-  text-align:center;
-  white-space:nowrap;
-  vertical-align:baseline;
-  background-color:#777;
-  border-radius:10px;
+  display: inline-block;
+  min-width: 10px;
+  padding: 3px 7px;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+  color: #fff;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  background-color: #777;
+  border-radius: 10px;
 }
 
 /* Notifications */
@@ -85,14 +86,14 @@ span {
   width: 20px;
 }
 
-#indiv_notifs{
+#indiv_notifs {
   max-height: 400px;
   overflow-y: auto;
   overflow-x: hidden;
 }
 
 .toast-body-notif {
-  background-color: #FFFAFA;
+  background-color: #fffafa;
   width: 300px;
   margin-left: 0.2px;
   border-bottom: 0.5px solid gray;
@@ -111,10 +112,11 @@ span {
 } */
 
 .toast-body-notif .text-info {
-  color: #FF9999 !important;
+  color: #ff9999 !important;
 }
 
-.toast-body-notif, .toast-body-notif p {
+.toast-body-notif,
+.toast-body-notif p {
   font-family: 'Roboto Condensed';
 }
 
@@ -130,194 +132,202 @@ span {
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #C2C5CC;
+  background: #c2c5cc;
   border-radius: 10px;
 }
-
-
 
 /* ---------------------------------------------------
       SIDEBAR STYLE
   ----------------------------------------------------- */
-  /* *{
+/* *{
     font-family: Roboto;
   } */
-  
-  #body-row {
-      margin-left:0;
-      margin-right:0;
-  }
-  #sidebar-container {
-      min-height: 100vh;   
-      background-color: #282421;
-      padding: 0;
-  }
-  
-  #body-col{
-    padding:0;
-  }
-  
-  .list-group-item{
-    border-radius: 0;
-    border: none;
-    padding-right: 3px;
-  }
-  
-  /* Sidebar sizes when expanded and expanded */
-  .sidebar-expanded {
-      width: 230px;
-  }
-  .sidebar-collapsed {
-      width: 60px;
-  }
-  
-  /* Menu item*/
-  #sidebar-container .list-group a {
-      height: 50px;
-      color: white;
-  }
-  
-  /* Submenu item*/
-  #sidebar-container .list-group .sidebar-submenu a {
-      height: 45px;
-      padding-left: 30px;
-  }
-  .sidebar-submenu {
-      font-size: 0.9rem;
-  }
-  
-  /* Separators */
-  .sidebar-separator-title {
-      background-color: #FFFAFA;
-      height: 5px;
-  }
-  .sidebar-separator {
-      background-color: #333;
-      height: 25px;
-  }
 
-  /* Closed submenu icon */
-  #sidebar-container .list-group .list-group-item[aria-expanded="false"] .submenu-icon::after {
-    content: " \f0d7";
-    font-family: FontAwesome;
-    display: inline;
-    text-align: right;
-    padding-left: 10px;
-  }
-  /* Opened submenu icon */
-  #sidebar-container .list-group .list-group-item[aria-expanded="true"] .submenu-icon::after {
-    content: " \f0da";
-    font-family: FontAwesome;
-    display: inline;
-    text-align: right;
-    padding-left: 10px;
-  }
+#body-row {
+  margin-left: 0;
+  margin-right: 0;
+}
+#sidebar-container {
+  min-height: 100vh;
+  background-color: #282421;
+  padding: 0;
+}
 
-  .card.summary_reports, .card.other_displays{
-    /*width: 160px;*/
-    height: 120px;
-  
-    background: #FFFFFF;
-    /*border: 1px solid #8A6E59;*/
-    box-sizing: border-box;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.10);
-    border-radius: 5px;
-    padding: 0;
-  }
-  
-  .card-body{
-    position: relative;
-    margin: 2px;
-    /*margin: none;*/
-  }
+#body-col {
+  padding: 0;
+}
 
-  #tooltip_span{
-    position: absolute;
-    right: 0;
-    top: 0;
-    cursor: pointer;
-  }
-  
-  .card-text{
-    position: absolute;
-    top: 8px;
-    right: 16px;
-    font-style: normal;
-    font-weight: bold;
-    font-size: 15px;
-    line-height: 28px;
-    text-align: right;
-    width: 60%;
-    color: #FF9999;
-  }
-  
-  .card_icon{
-    position: absolute;
-    top: 20px;
-    left: 16px;
-    font-size: 55px;
-  }
-  
-  .card-num{
-    position: absolute;
-    bottom: 8px;
-    right: 16px;
-    /*padding: 10px;*/
-    font-style: normal;
-    font-weight: bold;
-    font-size: 30px;
-    line-height: 59px;
-    margin: 0;
-    color: #3D3028;
-  }
+.list-group-item {
+  border-radius: 0;
+  border: none;
+  padding-right: 3px;
+}
 
-  #categoryCount{
-    font-size: inherit;
-  }
-  
-  table {
-    border-collapse: collapse;
-    width: 100%;
-  }
-  
-  th, td {
-    padding: 4px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-  }
-  
-  tr{
-    background-color: #8A6E59;
-  }
-  
-  [type=search]{
-    border: 1px solid #8A6E59;
-    border-radius: 5px;
-  }
+/* Sidebar sizes when expanded and expanded */
+.sidebar-expanded {
+  width: 230px;
+}
+.sidebar-collapsed {
+  width: 60px;
+}
 
-  .dt-button.buttons-csv.buttons-html5,.dt-button.buttons-excel.buttons-html5,.dt-button.buttons-pdf.buttons-html5{
-    border: 1px solid #8A6E59;
-    padding: 2px;
-    border-radius: 5px;
-    background-color: #FFFAFA;
-    color: #3D3028;
-  }
+/* Menu item*/
+#sidebar-container .list-group a {
+  height: 50px;
+  color: white;
+}
 
-  .tblModal tr{
-    background: white!important;
-    color: black!important;
-  }
+/* Submenu item*/
+#sidebar-container .list-group .sidebar-submenu a {
+  height: 45px;
+  padding-left: 30px;
+}
+.sidebar-submenu {
+  font-size: 0.9rem;
+}
 
-  .tblModal th {
-    /* text-align: right; */
-    width: 30% !important;
-    border-bottom: none!important;
-  }
+/* Separators */
+.sidebar-separator-title {
+  background-color: #fffafa;
+  height: 5px;
+}
+.sidebar-separator {
+  background-color: #333;
+  height: 25px;
+}
 
-  .tblModal td{
-    width: 70% !important;
-    border-bottom: none!important;
-  }
+/* Closed submenu icon */
+#sidebar-container
+  .list-group
+  .list-group-item[aria-expanded='false']
+  .submenu-icon::after {
+  content: ' \f0d7';
+  font-family: FontAwesome;
+  display: inline;
+  text-align: right;
+  padding-left: 10px;
+}
+/* Opened submenu icon */
+#sidebar-container
+  .list-group
+  .list-group-item[aria-expanded='true']
+  .submenu-icon::after {
+  content: ' \f0da';
+  font-family: FontAwesome;
+  display: inline;
+  text-align: right;
+  padding-left: 10px;
+}
+
+.card.summary_reports,
+.card.other_displays {
+  /*width: 160px;*/
+  height: 120px;
+
+  background: #ffffff;
+  /*border: 1px solid #8A6E59;*/
+  box-sizing: border-box;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  padding: 0;
+}
+
+.card-body {
+  position: relative;
+  margin: 2px;
+  /*margin: none;*/
+}
+
+#tooltip_span {
+  position: absolute;
+  right: 0;
+  top: 0;
+  cursor: pointer;
+}
+
+.card-text {
+  position: absolute;
+  top: 8px;
+  right: 16px;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 15px;
+  line-height: 28px;
+  text-align: right;
+  width: 60%;
+  color: #ff9999;
+}
+
+.card_icon {
+  position: absolute;
+  top: 20px;
+  left: 16px;
+  font-size: 55px;
+}
+
+.card-num {
+  position: absolute;
+  bottom: 8px;
+  right: 16px;
+  /*padding: 10px;*/
+  font-style: normal;
+  font-weight: bold;
+  font-size: 30px;
+  line-height: 59px;
+  margin: 0;
+  color: #3d3028;
+}
+
+#categoryCount {
+  font-size: inherit;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th,
+td {
+  padding: 4px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+tr {
+  background-color: #8a6e59;
+}
+
+[type='search'] {
+  border: 1px solid #8a6e59;
+  border-radius: 5px;
+}
+
+.dt-button.buttons-csv.buttons-html5,
+.dt-button.buttons-excel.buttons-html5,
+.dt-button.buttons-pdf.buttons-html5 {
+  border: 1px solid #8a6e59;
+  padding: 2px;
+  border-radius: 5px;
+  background-color: #fffafa;
+  color: #3d3028;
+}
+
+.tblModal tr {
+  background: white !important;
+  color: black !important;
+}
+
+.tblModal th {
+  /* text-align: right; */
+  width: 30% !important;
+  border-bottom: none !important;
+}
+
+.tblModal td {
+  width: 70% !important;
+  border-bottom: none !important;
+}
 /* .wrapper {
   display: flex;
   align-items: stretch;
@@ -414,32 +424,31 @@ span {
   display: block;
 }
 
-
 /* ------------------------------------------------------
     HOVER ON ITEM ON SIDEBAR
 ---------------------------------------------------------*/
-  #sidebar ul li a:hover {
-    color: white;
-    /* Use background: color; if no gradient is to be applied */
-    background: lightskyblue;
-    /* background: white url('../Images/hover-item.png'); */
-  }
+#sidebar ul li a:hover {
+  color: white;
+  /* Use background: color; if no gradient is to be applied */
+  background: lightskyblue;
+  /* background: white url('../Images/hover-item.png'); */
+}
 
-  #sidebar ul li a i {
-    margin-right: 10px;
-  }
-  
+#sidebar ul li a i {
+  margin-right: 10px;
+}
+
 /* ------------------------------------------------------
     ACTIVE BUTTON ON SIDEBAR
 ---------------------------------------------------------*/
 #sidebar ul li.active > a,
-a[aria-expanded="true"] {
+a[aria-expanded='true'] {
   color: #fff;
   background: skyblue;
   /* background-image: linear-gradient(to right, #222F51, #28647E, #CCDFCC, #FCF6DC); */
 }
 
-a[data-toggle="collapse"] {
+a[data-toggle='collapse'] {
   position: relative;
 }
 
@@ -489,12 +498,12 @@ ul.CTAs a {
   /* background-image: linear-gradient(180deg, #ebbeab, #e1decb); */
 }
 
-#header_text{
+#header_text {
   /* font-family: Catamaran;
   font-weight: bold; */
   /* color: #050122; */
   color: white;
-  font-family: Avenir,Helvetica,Arial,sans-serif;
+  font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   font-weight: 900;
   letter-spacing: 2.2px;
@@ -504,7 +513,7 @@ ul.CTAs a {
         COLLAPSE ADMIN MENU BUTTON
 ---------------------------------------------------------*/
 #sidebarCollapse {
-  color:white;
+  color: white;
   background-color: blue;
 }
 
@@ -535,7 +544,7 @@ ul.CTAs a {
 }
 
 #content:after {
-  content: "";
+  content: '';
   position: fixed;
   z-index: -1;
   left: 0;
@@ -614,28 +623,28 @@ ul.CTAs a {
 ---------------------------------------------------------*/
 #maincontainer {
   background-color: white;
-  color: #0D1C3D;;
+  color: #0d1c3d;
   min-width: 50px;
 }
 #stats-container {
-  color: #0D1C3D;;
+  color: #0d1c3d;
   min-width: 50px;
 }
 
 /* ------------------------------------------------------
     CSS FOR CONTENT CARD HEADERS
 ---------------------------------------------------------*/
-.bg-custom{
-  font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+.bg-custom {
+  font-family: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
   font-weight: bold;
-  color:white;
+  color: white;
   background-color: skyblue;
 }
 
 /* ------------------------------------------------------
     CSS FOR ALL REPORTS BUTTON
 ---------------------------------------------------------*/
-#all_reports_btn{
+#all_reports_btn {
   margin-top: 5px;
   margin-bottom: 5px;
   border-radius: 5px;
@@ -652,37 +661,42 @@ ul.CTAs a {
 /* ------------------------------------------------------  
     CSS For Fade in Animation
 ---------------------------------------------------------*/
-@keyframes fadein{
-	0% {opacity: 0;}
-	100% {opacity: 1;
-		display: none;}
+@keyframes fadein {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+    display: none;
+  }
 }
 
 /* ------------------------------------------------------  
     CSS For Card Icon Color
 ---------------------------------------------------------*/
-.card_icon{
-  color: #3D3028
+.card_icon {
+  color: #3d3028;
 }
 
 /* ------------------------------------------------------  
     CSS For Side Navbar Icon Color
 ---------------------------------------------------------*/
-.nav_icon{
-  color: #8A6E59;
+.nav_icon {
+  color: #8a6e59;
 }
 
 #reports-ds {
   font-family: 'Roboto Condensed' !important;
 }
 
-.act{
-  background-color: #FF9999 !important;
+.act {
+  background-color: #ff9999 !important;
 }
 /* ------------------------------------------------------  
     Dashboard Tables
 ---------------------------------------------------------*/
-#reportsTable, #usersTable_wrapper {
+#reportsTable,
+#usersTable_wrapper {
   font-size: 14px;
 }
 
@@ -691,7 +705,12 @@ label {
   font-family: 'Roboto Condensed' !important;
 }
 
-.dt-button.buttons-csv.buttons-html5, .dt-button.buttons-excel.buttons-html5, .dt-button.buttons-pdf.buttons-html5 {
+.dt-button.buttons-csv.buttons-html5,
+.dt-button.buttons-excel.buttons-html5,
+.dt-button.buttons-pdf.buttons-html5 {
   font-size: 13px;
   font-family: 'Roboto Condensed' !important;
+}
+.dataTables_scrollBody {
+  border-bottom: none !important;
 }
