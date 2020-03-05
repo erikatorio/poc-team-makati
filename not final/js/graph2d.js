@@ -49,7 +49,7 @@ function printPieGraphs(value) {
                         'image/png');              
                     var doc = new jsPDF('l', 'mm', 'letter');
                     doc.text(docTitle, 140, 25, null, null, "center");
-                    doc.addImage(imgData, 'PNG', 10, 40);
+                    doc.addImage(imgData, 'PNG', 10, 40, 260, 150);
                     doc.save(docTitle);
                 }
             });
@@ -274,7 +274,7 @@ function printBarGraphs(value) {
                         'image/png');              
                     var doc = new jsPDF('l', 'mm', 'letter');
                     doc.text(docName, 140, 25, null, null, "center");
-                    doc.addImage(imgData, 'PNG', 10, 40);
+                    doc.addImage(imgData, 'PNG', 10, 40, 260, 150);
                     doc.save(docName);
                 }
             });
@@ -447,7 +447,7 @@ function generateDataSet(sortBy){
     for(let i = 0; i < groups.length; i++){
         let color = generateColor();
         dataSet.push({
-            label: groups[i] + " デパートメント", // Name the series
+            label: groups[i], // Name the series
             data: countReportsByGroup[i], // Specify the data values array
             fill: false,
             borderColor: color, // Add custom color border (Line)
@@ -529,7 +529,7 @@ function drawVisualizationTrend(displayBy){
                     scaleLabel: {
                         display: true,
                         labelString: 'レポートの数',
-                        fontSize: 14
+                        fontSize: 12
                     }
                 }],
                 xAxes: [{
@@ -585,7 +585,7 @@ function printGraphs(value) {
                         'image/png');              
                     var doc = new jsPDF('l', 'mm', 'letter');
                     doc.text(docText, 140, 25, null, null, "center");
-                    doc.addImage(imgData, 'PNG', 10, 40);
+                    doc.addImage(imgData, 'PNG', 10, 40, 260, 150);
                     doc.save(docText);
                 }
             });
