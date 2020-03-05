@@ -44,6 +44,10 @@
     border-radius: 5px;
 }  
 
+.dropdown-item:hover{
+    background-color: #ff9999;
+}
+
 #loader {
     position: absolute;
     left: 50%;
