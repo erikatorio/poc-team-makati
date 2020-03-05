@@ -145,6 +145,17 @@
             <!-- 3d graph container -->
             <div class="tab-pane container active" id="firstgraph">
                 <div class="container graph-container">
+                    <div class="form-check form-check-inline mr-0 btn-group"> 
+                        <button style="background-color: #ff9999; height: 38px; border-color: #ff9999; margin-left: 0px;" 
+                                class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="material-icons">cloud_download</i>
+                        </button>
+                        <div id="dropdownMenu" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="#" onclick="print3DGraphs(0)">PDF</a>
+                            <a class="dropdown-item" href="#" onclick="print3DGraphs(1)">JPG</a>
+                            <a class="dropdown-item" href="#" onclick="print3DGraphs(2)">PNG</a>
+                        </div>
+                    </div>
                     <div id="loader"></div>
                     <div id="graph3d" class="h-100"></div>
                 </div>
