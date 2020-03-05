@@ -15,6 +15,7 @@ window.addEventListener("load", async () => {
     loadData(1).then(function () {
         drawVisualization(data);
         drawVisualizationTrend(0);
+        showPage("trendloader");
     });
 
     $('#latestReportsTable').DataTable({
@@ -28,7 +29,7 @@ window.addEventListener("load", async () => {
         paging: false,
         info: false
     });
-
+    showPage("reportloader");
 });
 
 function showLatest() {
@@ -150,6 +151,7 @@ function downloadPNG(){
             link.click();
         }
     });
+    
 }
 
 // ----- Notifications -----
@@ -243,5 +245,11 @@ async function loadReportDetails(reportSelected) {
     } else {
         $("#sattachment").html('Link to attachment: <a target=_blank href= ' + reportSelected.attachFile + '>Link</a>');
     }
+}
+
+//function to hide loader after Content has successfully loaded 
+function showPage(divid) {
+    console.log("test");
+    document.getElementById(divid).style.display = "none";
 }
 
