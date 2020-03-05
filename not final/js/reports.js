@@ -76,7 +76,6 @@ async function getReports() {
 }
 
 // MARK A REPORT AS HIDDEN
-
 async function deleteReport(reportID) {
     if(confirm('レポートを削除しますか?')){
         reports.forEach(async function (report) {
@@ -89,12 +88,13 @@ async function deleteReport(reportID) {
                             status: '隠された'
                         });
                     });
-                    if(!alert('削除成功!')){
-                        setTimeout(location.reload(), 1500);
-                    }
+                    logAction(3);
                 });
             }
         });
+        // if(!alert('削除成功!')){
+        //     setTimeout(location.reload(), 1500);
+        // }
     }
 }
 
@@ -137,18 +137,35 @@ async function doUpdate(reportData) {
                 });
             });
 
-            console.log(report);
-
-            if(!alert('Success!')){
-                $('#reportDetails').modal('hide');
-                setTimeout(location.reload.bind(location), 500);
-            }
+            logAction(2);  
         }
     })
 }
 
-// MARK A REPORT AS HIDDEN
+//LOG ACTION
+async function logAction(actionID){
+    await db.collection("logs").get().then(function (querySnapshot) {
+        var userId = sessionStorage.getItem("userId");
+        var timeStamp = firebase.firestore.FieldValue.serverTimestamp();
+        actionId = actionID;
+        status = "new";
 
+        var logEntry = {userId, timeStamp, actionId, status};
+
+        db.collection("logs").doc().set(logEntry)
+            .catch(function (error) {
+                console.error("Error logging activity: ", error);
+            });
+    });
+              
+
+    if(!alert('成功!')){
+        $('#reportDetails').modal('hide');
+        setTimeout(location.reload.bind(location), 500);
+    }
+}
+
+// REMOVE ATTACHED FILE
 async function removeFile(reportID) {
     if(confirm('ファイルを削除しますか?')){
         reports.forEach(async function (report) {
@@ -257,7 +274,7 @@ async function showTables() {
     //Add body
     let body = '<tbody>';
     reports.forEach(function (report) {
-        if(report.status != "hidden" && report.username == sessionStorage.getItem('username') ){
+        if(report.status != "隠された" && report.username == sessionStorage.getItem('username') ){
             if (typeof cCtr[report.category] === "undefined") {
                 cCtr[report.category] = 0;
             } else {

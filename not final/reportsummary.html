@@ -206,6 +206,7 @@
                     <div class="card-body h-75 w-80 py-0">
                       <!-- Container for graph to be displayed -->
                       <div id="graph3d" class="container px-0 h-100">
+                        <div class="loader"></div>
                       </div>
                     </div>
                   </div>
@@ -224,7 +225,9 @@
                     </div>
                     <div class="card-body" style="overflow: auto; padding: 5px;">
                       <div class="col p-0 d-flex justify-content-center h-100 w-100">
-                        <div id="allReports" class='w-100'></div>
+                        <div id="allReports" class='w-100'>
+                          <div id="reportloader" class="loader"></div>
+                        </div>
                       </div>
                       <!-- <div class="col p-0 d-flex justify-content-center h-100 w-100">
                         <div id="allReports" class="pt-2" style="height: 125px !important;"></div>
@@ -254,7 +257,9 @@
                     </div>
                     <div class="card-body" style="overflow: auto; padding: 0;">
                       <!-- Container for Table to be Displayed -->
-                      <div id="showUsersTable" class="pt-2" style="padding: 3px;"></div>
+                      <div id="showUsersTable" style="overflow: auto; padding: 0;">
+                        <div id="userloader" class="loader"></div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -270,11 +275,11 @@
                         <strong>アクティビティログ</strong>
                       </a>
                     </div>
-                    <div class="card-body">
-                      <div class="col p-0 d-flex justify-content-center h-100 w-100">
+                    <div class="card-body"  style="overflow: auto; padding: 0;">
                         <!-- Container for Activity Log to be presented -->
-                        <div id="allReport" class='w-100'></div>
-                      </div>
+                        <div id="allLogs" class='w-100' style="overflow: auto; padding: 0;">
+                          <div class="loader"></div>
+                        </div>
                     </div>
                   </div>
                 </div>
@@ -299,6 +304,7 @@
                     <div class="card-body p-0 w-100">
                       <!-- Container for Weekly report trend chart -->
                       <div class="chartContainer" style="position: relative; height:27vh; width:30vw">
+                        <div id="trendloader" class="loader"></div>
                         <canvas id="weeklyReports"></canvas>
                       </div>
                     </div>

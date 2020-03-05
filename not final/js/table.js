@@ -12,6 +12,7 @@ window.addEventListener("load", async () => {
         buttons: ['csv', 'excel', 'pdf'],
         responsive: true
     });
+    
 
 });
 
@@ -87,3 +88,4 @@ async function showTables() {
 
     $("#allReports").append(head + body + "</tbody></table>");
 }
+

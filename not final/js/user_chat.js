@@ -1,6 +1,8 @@
 var reader = new FileReader();
 var user = sessionStorage.getItem('username');
 var name = sessionStorage.getItem('username');
+var readListener = null;
+var readReceipts = null;
 var isChatOpen = false;
 window.addEventListener(
   'load',
@@ -121,14 +123,9 @@ function getCount(obj) {
 }
 
 function displayMessages() {
-  glpubnub = new PubNub({
-    publishKey: 'pub-c-8266b3af-df4a-4508-91de-0a06b9634a69',
-    subscribeKey: 'sub-c-b20376b2-5215-11ea-80a4-42690e175160',
-    uuid: user
-  });
 
   //listener
-  glpubnub.addListener({
+  readReceipts = {
     status: function(statusEvent) {
       if (statusEvent.category === 'PNConnectedCategory') {
         console.log('connected');
@@ -190,9 +187,9 @@ function displayMessages() {
         }
       }
     }
-  });
+  };
   //listener end
-
+  glpubnub.addListener(readReceipts);
   glpubnub.subscribe({
     channels: [name, name + '_receipts']
   });
@@ -444,13 +441,14 @@ function onMessageRead(messageId) {
 }
 
 function enter() {
-  var pubnub = new PubNub({
+  
+  glpubnub = new PubNub({
     publishKey: 'pub-c-8266b3af-df4a-4508-91de-0a06b9634a69',
     subscribeKey: 'sub-c-b20376b2-5215-11ea-80a4-42690e175160',
     uuid: user
   });
 
-  pubnub.setState(
+  glpubnub.setState(
     {
       state: {
         mood: 'in'
@@ -465,7 +463,7 @@ function enter() {
   //enter chat
 
   //listen to receipts channel
-  pubnub.addListener({
+  readListener = {
     status: function(statusEvent) {},
     message: function(msg) {
       console.log(msg);
@@ -502,8 +500,9 @@ function enter() {
         }
       }
     }
-  });
-  pubnub.subscribe({
+  };
+  glpubnub.addListener(readListener);
+  glpubnub.subscribe({
     channels: [name + '_receipts']
   });
 }
@@ -537,8 +536,10 @@ function exit() {
     }
   );
 
+  glpubnub.removeListener(readListener);
+  glpubnub.removeListener(readReceipts);
   glpubnub.unsubscribe({
-    channels: [name, name + '_receipts']
+    channels: [ name + '_receipts']
   });
   glpubnub = null;
 }

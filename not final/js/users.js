@@ -16,7 +16,8 @@ window.addEventListener("load", async () => {
             userDepartments.push(doc.data().name); 
         });
     });
-    userDepartments.sort().forEach((dep)=> $("#department").append('<option value="'+ dep +'">'+ dep +'</option>'));
+    userDepartments.sort()
+        .forEach( (dep) => $("#department").append('<option value="'+ dep +'">'+ dep +'</option>'));
     var pubnub = new PubNub({
         publishKey : 'pub-c-8266b3af-df4a-4508-91de-0a06b9634a69',
         subscribeKey : 'sub-c-b20376b2-5215-11ea-80a4-42690e175160',
@@ -31,7 +32,7 @@ window.addEventListener("load", async () => {
         function(status, response) {
         });
       populateUserTable();
-      
+      showPage();
 });
 
 async function populateUserTable(){
@@ -141,4 +142,10 @@ async function deleteUser(user_id){
             });
             
     }
+}
+
+//function to hide loader after Content has successfully loaded 
+function showPage() {
+    console.log("test");
+    document.getElementById("loader").style.display = "none";
 }

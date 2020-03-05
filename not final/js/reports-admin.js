@@ -5,6 +5,7 @@ window.addEventListener("load", async () => {
     await getGroupsAndCategories();
     tempReports = reports;
     populateReportTable();
+    showPage();
 });
 
 async function populateReportTable(){
@@ -246,4 +247,10 @@ async function updateStatus(reportID){
             }
         });
     }
+}
+
+//function to hide loader after Content has successfully loaded 
+function showPage() {
+    console.log("test");
+    document.getElementById("loader").style.display = "none";
 }

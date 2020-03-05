@@ -21,6 +21,7 @@ window.addEventListener("load", async () => {
         drawVisualization2d(search, 2);
         drawPie(2);
         drawVisualizationTrend(0);
+        showPage();
     });
     
     $('#category').change(function () {
@@ -51,4 +52,8 @@ window.addEventListener("load", async () => {
         var tabtrend = document.getElementById("trendgraphtab").click();
     }
 });
+
+function showPage() {
+    document.getElementById("loader").style.display = "none";
+}
 
