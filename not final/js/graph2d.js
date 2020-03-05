@@ -49,7 +49,7 @@ function printPieGraphs(value) {
                         'image/png');              
                     var doc = new jsPDF('l', 'mm', 'letter');
                     doc.text(docTitle, 140, 25, null, null, "center");
-                    doc.addImage(imgData, 'PNG', 10, 40);
+                    doc.addImage(imgData, 'PNG', 10, 40, 260, 150);
                     doc.save(docTitle);
                 }
             });
@@ -274,7 +274,7 @@ function printBarGraphs(value) {
                         'image/png');              
                     var doc = new jsPDF('l', 'mm', 'letter');
                     doc.text(docName, 140, 25, null, null, "center");
-                    doc.addImage(imgData, 'PNG', 10, 40);
+                    doc.addImage(imgData, 'PNG', 10, 40, 260, 150);
                     doc.save(docName);
                 }
             });
@@ -585,7 +585,7 @@ function printGraphs(value) {
                         'image/png');              
                     var doc = new jsPDF('l', 'mm', 'letter');
                     doc.text(docText, 140, 25, null, null, "center");
-                    doc.addImage(imgData, 'PNG', 10, 40);
+                    doc.addImage(imgData, 'PNG', 10, 40, 260, 150);
                     doc.save(docText);
                 }
             });
