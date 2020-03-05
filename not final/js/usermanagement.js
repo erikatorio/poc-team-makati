@@ -58,6 +58,9 @@ window.addEventListener("load", async () => {
     $('.popover-dismiss').popover({
         trigger: 'focus'
     })
+
+    showPage("userloader");
+    
 });
 
 async function addusers() {
@@ -387,4 +390,10 @@ function userGroupSearch() {
     }).focus(function () {
         $(this).autocomplete("search");
     });
+}
+
+//function to hide loader after Content has successfully loaded 
+function showPage(divid) {
+    console.log("test");
+    document.getElementById(divid).style.display = "none";
 }

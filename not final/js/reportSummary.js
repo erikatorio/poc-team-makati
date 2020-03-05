@@ -19,6 +19,7 @@ window.addEventListener("load", async () => {
     loadData(1).then(function () {
         drawVisualization(data);
         drawVisualizationTrend(0);
+        showPage("trendloader");
     });
 
     $('#latestReportsTable').DataTable({
@@ -45,6 +46,7 @@ window.addEventListener("load", async () => {
         info: false
     });
 
+    showPage("reportloader");
 });
 
 
@@ -207,6 +209,7 @@ function downloadPNG(){
             link.click();
         }
     });
+    
 }
 
 // ----- Notifications -----
@@ -233,28 +236,39 @@ async function showNotif() {
                 $('#notifDropdown').html('<i class="material-icons text-danger">notifications_active</i><span id="notif_badge" class="badge badge-pill badge-danger p-1">' + ctr + '</span>');
             }
 
-            $('#notif-toast').append('<div class="toast-body"><p class="p-0 m-0">' + categories[report.category] + '" incident was reported.</p><p class="row text-info p-0 m-0 justify-content-between"> (' + report.created.toDate().toLocaleString("en-US", options) + ')</p></div>');
+            $('#indiv_notifs').append('<div class="toast-body-notif"><p class="p-0 m-0">' + categories[report.category] + '" incident was reported.</p><p class="row text-info p-0 m-0 justify-content-between"> (' + report.created.toDate().toLocaleString("en-US", options) + ')</p></div>');
             //<a class="ml-auto py-0" href="#" onClick= selectReport(' + report.id + ')>more details...</a>
-            //await selectReport(report.id);
+            await selectReport(report.id);
         }
     });
     
     if (ctr === 0) {
-        console.log("no new repos");
         $('#notifDropdown').html('<i class="fa fa-bell fa-fw mr-3 nav_icon"></i>');
         $('#notif-toast').append('<div class="toast-body">No new reports.</div>');
     }
 }
 
 var isPaneOpen = false;
-function showNotifs() {
+async function showNotifs() {
     if (!isPaneOpen) {
+        await appendNotifPane();
         $('#notif-toast').toast('show');
+        console.log("here");
+        await showNotif();
         isPaneOpen = true;
     } else {
         $('#notif-toast').toast('hide');
+        await removeNotifPane();
         isPaneOpen = false;
     }
+}
+
+async function appendNotifPane() {
+    $('#chat-container').after('<div class="notifications-container"><div id="notif-toast" class="toast" role="alert" data-autohide="false" aria-live="assertive" aria-atomic="true"><div id="notif-header" class="toast-header"><img src="./img/flower.png" class="rounded mr-2" alt="..."><strong class="mr-auto">Notifications</strong></div><div id="indiv_notifs"></div></div></div>');
+}
+
+async function removeNotifPane() {
+    $('.notifications-container').remove()
 }
 
 async function selectReport(reportID) {
@@ -284,3 +298,10 @@ async function loadReportDetails(reportSelected) {
         $("#sattachment").html('Link to attachment: <a target=_blank href= ' + reportSelected.attachFile + '>Link</a>');
     }
 }
+
+//function to hide loader after Content has successfully loaded 
+function showPage(divid) {
+    console.log("test");
+    document.getElementById(divid).style.display = "none";
+}
+

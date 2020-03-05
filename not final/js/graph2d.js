@@ -32,6 +32,54 @@ async function drawPie(groupBy) {
     });
 }
 
+//print pie graph
+function printPieGraphs(value) {
+    let docTitle = '';
+    if(document.getElementById('dept').checked){
+        docTitle = 'Department Report';
+    } else {
+        docTitle = 'Category Report';
+    }
+
+    switch(value){
+        case 0:
+            html2canvas($("#piechart"), {
+                onrendered: function(canvas) {         
+                    var imgData = canvas.toDataURL(
+                        'image/png');              
+                    var doc = new jsPDF('l', 'mm', 'letter');
+                    doc.text(docTitle, 140, 25, null, null, "center");
+                    doc.addImage(imgData, 'PNG', 10, 40, 260, 150);
+                    doc.save(docTitle);
+                }
+            });
+            break;
+        case 1:
+            html2canvas($("#piechart"), {
+                onrendered: function(canvas) {         
+                    var imgData = canvas.toDataURL('image/jpg').replace("image/jpg", "image/octet-stream");
+                    let link  = document.createElement('a');
+                    link.download = docTitle + ".jpg";
+                    link.href = imgData;
+                    link.click();
+                }
+            });
+            break;
+        case 2:
+            html2canvas($("#piechart"), {
+                onrendered: function(canvas) {         
+                    var imgData = canvas.toDataURL('image/png').replace("image/png", "image/octet-stream");
+                    let link  = document.createElement('a');
+                    link.download = docTitle + ".png";
+                    link.href = imgData;
+                    link.click();
+                }
+            });
+            break;
+    }
+}
+
+let barTitle = '';
 async function drawVisualization2d(search, sortBy) {
     let displayLabel = [];
     let displayData = [];
@@ -126,6 +174,7 @@ async function drawVisualization2d(search, sortBy) {
             }
         }
     });
+    barTitle = arrayLabel[index];
 }
 
 var search = 0;
@@ -209,6 +258,49 @@ function searchBoxField(){
     
     if((event.key === 'Enter' || event.type === 'click') && searchString != ''){
         findString(searchString.toLowerCase());
+    }
+}
+
+//print 2dbar graph
+function printBarGraphs(value) {
+    let docName = '';
+    docName = barTitle + ' Report';
+
+    switch(value){
+        case 0:
+            html2canvas($("#bargraph"), {
+                onrendered: function(canvas) {         
+                    var imgData = canvas.toDataURL(
+                        'image/png');              
+                    var doc = new jsPDF('l', 'mm', 'letter');
+                    doc.text(docName, 140, 25, null, null, "center");
+                    doc.addImage(imgData, 'PNG', 10, 40, 260, 150);
+                    doc.save(docName);
+                }
+            });
+            break;
+        case 1:
+            html2canvas($("#bargraph"), {
+                onrendered: function(canvas) {         
+                    var imgData = canvas.toDataURL('image/jpg').replace("image/jpg", "image/octet-stream");
+                    let link  = document.createElement('a');
+                    link.download = docName + ".jpg";
+                    link.href = imgData;
+                    link.click();
+                }
+            });
+            break;
+        case 2:
+            html2canvas($("#bargraph"), {
+                onrendered: function(canvas) {         
+                    var imgData = canvas.toDataURL('image/png').replace("image/png", "image/octet-stream");
+                    let link  = document.createElement('a');
+                    link.download = docName + ".png";
+                    link.href = imgData;
+                    link.click();
+                }
+            });
+            break;
     }
 }
 
@@ -355,7 +447,7 @@ function generateDataSet(sortBy){
     for(let i = 0; i < groups.length; i++){
         let color = generateColor();
         dataSet.push({
-            label: groups[i] + " デパートメント", // Name the series
+            label: groups[i], // Name the series
             data: countReportsByGroup[i], // Specify the data values array
             fill: false,
             borderColor: color, // Add custom color border (Line)
@@ -437,7 +529,7 @@ function drawVisualizationTrend(displayBy){
                     scaleLabel: {
                         display: true,
                         labelString: 'レポートの数',
-                        fontSize: 14
+                        fontSize: 12
                     }
                 }],
                 xAxes: [{
@@ -474,6 +566,7 @@ function changeDropdownLabel(value){
     }
 }
 
+//print Trend graph
 function printGraphs(value) {
     // let docText = '';
     // if(document.getElementById('yearly')){
@@ -492,7 +585,7 @@ function printGraphs(value) {
                         'image/png');              
                     var doc = new jsPDF('l', 'mm', 'letter');
                     doc.text(docText, 140, 25, null, null, "center");
-                    doc.addImage(imgData, 'PNG', 10, 40);
+                    doc.addImage(imgData, 'PNG', 10, 40, 260, 150);
                     doc.save(docText);
                 }
             });

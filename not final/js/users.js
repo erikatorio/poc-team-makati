@@ -8,6 +8,15 @@ window.addEventListener("load", async () => {
     let isloaded = false;
     await getUsersData();
     tempUsers = users;
+    userDepartments = [];
+    await db.collection("groups")
+        .get()
+        .then(function (querySnapshot) {
+        querySnapshot.forEach(function (doc) {
+            userDepartments.push(doc.data().name); 
+        });
+    });
+    userDepartments.sort().forEach((dep)=> $("#department").append('<option value="'+ dep +'">'+ dep +'</option>'));
     var pubnub = new PubNub({
         publishKey : 'pub-c-8266b3af-df4a-4508-91de-0a06b9634a69',
         subscribeKey : 'sub-c-b20376b2-5215-11ea-80a4-42690e175160',
@@ -22,6 +31,7 @@ window.addEventListener("load", async () => {
         function(status, response) {
         });
       populateUserTable();
+      showPage();
 });
 
 async function populateUserTable(){
@@ -60,19 +70,23 @@ async function addUser(){
     let user_password = $("input[name='password']").val();
     let user_department = $("#department option:selected").val();
 
-    let size = 0;
+    let newID = 0;
 
-    await db.collection("users")
-        .where("userType", "==", 2)
+    await db.collection("ids")
         .get()
-        .then(function (querySnapshot){
-            size = querySnapshot.docs.length;
+        .then(function (querySnapshot) {
+        newID = querySnapshot.docs[0].data().userId + 1;
+        querySnapshot.forEach(function (doc) {
+            let newID = doc.data().userId + 1;
+            db.collection("ids").doc(doc.id).update({
+                userId: newID
+            });
         });
+    });
     
     db.collection("users")
-        .doc()
-        .set({
-            id: size,
+        .add({
+            id: newID,
             username: user_name,
             password: user_password,
             group: user_department,
@@ -84,7 +98,7 @@ async function addUser(){
             var pubnub = new PubNub({
                 publishKey : 'pub-c-8266b3af-df4a-4508-91de-0a06b9634a69',
                 subscribeKey : 'sub-c-b20376b2-5215-11ea-80a4-42690e175160',
-             });
+             });   
              
             pubnub.createUser({id: doc.id.toString(), name: user_name.toString()}, function(status, response) {
                 console.log(response);
@@ -127,4 +141,10 @@ async function deleteUser(user_id){
             });
             
     }
+}
+
+//function to hide loader after Content has successfully loaded 
+function showPage() {
+    console.log("test");
+    document.getElementById("loader").style.display = "none";
 }
