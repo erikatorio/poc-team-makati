@@ -5,7 +5,6 @@ var tempUsers = [];
 var tempLogs = [];
 window.addEventListener("load", async () => {
     isloaded = true;
-    //await getGroupsAndCategories();
     await showNotif();
     await reportSummary();
     await getLogs();
@@ -209,11 +208,7 @@ async function reportSummary() {
     $("#reportCount").text(reports.length);
 
     let date = new Date();
-
-    //console.log(date.toLocaleString("en-US", options));
-
     let nowDate = date.toLocaleString("en-US", options);
-
     let todayCtr = 0;
 
     reports.forEach(function (report){
@@ -281,6 +276,7 @@ async function showNotifs() {
         await appendNotifPane();
         $('#notif-toast').toast('show');
         await showNotif();
+        
         isPaneOpen = true;
     } else {
         $('#notif-toast').toast('hide');
