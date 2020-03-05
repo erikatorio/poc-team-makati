@@ -447,7 +447,7 @@ function generateDataSet(sortBy){
     for(let i = 0; i < groups.length; i++){
         let color = generateColor();
         dataSet.push({
-            label: groups[i] + " デパートメント", // Name the series
+            label: groups[i], // Name the series
             data: countReportsByGroup[i], // Specify the data values array
             fill: false,
             borderColor: color, // Add custom color border (Line)
@@ -529,7 +529,7 @@ function drawVisualizationTrend(displayBy){
                     scaleLabel: {
                         display: true,
                         labelString: 'レポートの数',
-                        fontSize: 14
+                        fontSize: 12
                     }
                 }],
                 xAxes: [{
