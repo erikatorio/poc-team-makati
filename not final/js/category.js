@@ -8,7 +8,7 @@ window.addEventListener("load", async () => {
     showPage();
 });
 
-async function populateCategoryTable(){
+async function populateCategoryTable() {
     $('#categoryTable div').html("");
 
     let head =
@@ -25,8 +25,8 @@ async function populateCategoryTable(){
     let body = "<tbody>";
 
     tempCategories.forEach(function (category) {
-        body += 
-            "<tr class='report-row' id='flat-row'>" + 
+        body +=
+            "<tr class='report-row' id='flat-row'>" +
             "<th scope='row' class='table-id'>" + category.id + "</th>" +
             "<td class='table-content'>" + category.name + "</td>" +
             "<td class='table-content'>" + category.description + "</td>" +
@@ -35,10 +35,14 @@ async function populateCategoryTable(){
     });
 
     $("#categoryTable").append(head + body + "</tbody></table>");
-    $('#example').DataTable();
+    $('#example').DataTable({
+        scrollY: '40vh',
+        responsive: true,
+        columnDefs: [{ orderable: false, targets: 3 }]
+    });
 }
 
-async function addCategory(){
+async function addCategory() {
     let category_name = $("input[name='category_name']").val();
     let category_desc = $("input[name='description']").val();
 
@@ -46,10 +50,10 @@ async function addCategory(){
 
     await db.collection("categories")
         .get()
-        .then(function (querySnapshot){
+        .then(function (querySnapshot) {
             size = querySnapshot.docs.length;
         });
-    
+
     db.collection("categories")
         .doc()
         .set({
@@ -57,8 +61,8 @@ async function addCategory(){
             name: category_name,
             description: category_desc
         })
-        .then(async function(){
-            if(!alert('Successfully added!')){
+        .then(async function () {
+            if (!alert('Successfully added!')) {
                 $('#addNewUserModal').modal('hide');
                 populateCategoryTable();
                 setTimeout(location.reload(), 1500);
@@ -69,8 +73,8 @@ async function addCategory(){
         });
 }
 
-async function deleteCategory(category_id){
-    if(confirm('Delete category?')){
+async function deleteCategory(category_id) {
+    if (confirm('Delete category?')) {
         db.collection("categories")
             .where("id", "==", category_id)
             .get()
@@ -78,7 +82,7 @@ async function deleteCategory(category_id){
                 querySnapshot.forEach(function (doc) {
                     doc.ref.delete();
                 });
-                if(!alert('Category Deletion Successful!')){
+                if (!alert('Category Deletion Successful!')) {
                     populateCategoryTable();
                     setTimeout(location.reload(), 1500);
                 }
