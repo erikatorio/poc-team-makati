@@ -35,13 +35,10 @@ window.addEventListener("load", async () => {
     });
 
     $('#logsTable').DataTable({
-        paging: false,
-        info: false,
-        scrollY: 210,
+        dom: 'Bfrtip',
+        scrollY: '40vh',
         responsive: true,
-        searching: false,
-        lengthChange: false,
-        ordering: false,
+        buttons: [],
         paging: false,
         info: false
     });
@@ -58,8 +55,8 @@ async function showLogs(){
     let head = "<table id='logsTable' class='display'>" +
         "<thead>" +
         "<tr>" +
-        "<th style='width:70%;'>Action</th>" +
-        "<th style='width:30%;'>Date/Time</th>" +
+        "<th style='width:60%; color: white'>Action</th>" +
+        "<th style='width:40%; color: white'>日付</th>" +
         // "<th style='width:30%;'>Category</th>" +
         // "<th style='width:40%;'>Date</th>" +
         "</tr></thead>";
@@ -69,19 +66,19 @@ async function showLogs(){
         body += "<tr>";
         switch(userLog.actionId){
             case 1:
-                body += "<td style='width:70%;'>New Report Submitted</td>"; 
+                body += "<td style='width:60%;'>New Report Submitted</td>"; 
                 break;
             case 2:
-                body += "<td style='width:70%;'>Report Details Updated</td>";
+                body += "<td style='width:60%;'>Report Details Updated</td>";
                 break;
             case 3:
-                body += "<td style='width:70%;'>Report Deleted</td>";
+                body += "<td style='width:60%;'>Report Deleted</td>";
                 break;
             default:
-                body += "<td style='width:70%;'>Unspecified</td>";
+                body += "<td style='width:60%;'>Unspecified</td>";
         }
         body +=
-            "<td style='text-align: right; width:30%;'>" +
+            "<td style='text-align: right; width:40%;'>" +
             date +
             "</td>" +
             "</tr>";
