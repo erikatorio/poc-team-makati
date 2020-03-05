@@ -17,14 +17,11 @@ window.addEventListener("load", async () => {
     findMax();
     
     loadData(2).then(async function () {
-        var myVar;
         drawVisualization(data);
         drawVisualization2d(search, 2);
         drawPie(2);
         drawVisualizationTrend(0);
-        // myVar = setTimeout(showPage, 1500);
         showPage();
-        
     });
     
     $('#category').change(function () {
@@ -58,6 +55,5 @@ window.addEventListener("load", async () => {
 
 function showPage() {
     document.getElementById("loader").style.display = "none";
-    document.getElementById("graph3d").style.display = "block";
 }
 
