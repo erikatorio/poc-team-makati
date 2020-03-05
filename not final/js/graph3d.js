@@ -116,3 +116,46 @@ async function drawVisualization(data) {
   
     graph.setCameraPosition({ horizontal: 0, vertical: 0.5, distance: 1.5 }); // restore camera position
 }
+
+
+//print 3d graph
+function print3DGraphs(value) {
+  let docText = '3D Graph Report';
+
+  switch(value){
+      case 0:
+          html2canvas($("#graph3d"), {
+              onrendered: function(canvas) {         
+                  var imgData = canvas.toDataURL(
+                      'image/png');              
+                  var doc = new jsPDF('l', 'mm', 'letter');
+                  doc.text(docText, 140, 25, null, null, "center");
+                  doc.addImage(imgData, 'PNG', 10, 40, 260, 150);
+                  doc.save(docText);
+              }
+          });
+          break;
+      case 1:
+          html2canvas($("#graph3d"), {
+              onrendered: function(canvas) {         
+                  var imgData = canvas.toDataURL('image/jpg').replace("image/jpg", "image/octet-stream");
+                  let link  = document.createElement('a');
+                  link.download = docText + ".jpg";
+                  link.href = imgData;
+                  link.click();
+              }
+          });
+          break;
+      case 2:
+          html2canvas($("#graph3d"), {
+              onrendered: function(canvas) {         
+                  var imgData = canvas.toDataURL('image/png').replace("image/png", "image/octet-stream");
+                  let link  = document.createElement('a');
+                  link.download = docText + ".png";
+                  link.href = imgData;
+                  link.click();
+              }
+          });
+          break;
+  }
+}
