@@ -477,12 +477,12 @@ function displayMessages() {
 
   glpubnub.history({
     channel: name,
-    count: 100, // how many items to fetch
+    count: 25, // how many items to fetch
     includeMessageActions: true,
     stringifiedTimeToken: true // false is the default
   },
     function (status, response) {
-      response.messages.forEach(postMsg);
+      response.messages.forEach(postMsg,true);
       console.log("mine: " + myLatestMessage);
       console.log("their: " + theirLatestMessage)
       if (myLatestMessage == undefined && theirLatestMessage == undefined) {
@@ -540,19 +540,16 @@ function addRead() {
     });
 }
 
-function postMsg(msg, lastRead) {
+function postMsg(msg, append) {
   var sender = 'You';
   console.log(msg);
   var message = msg.entry.content;
   var id = msg.entry.id;
+  if(document.getElementById(id))
+    return;
   //const unixTimestamp = msg.entry.timestamp / 10000000;
   const gmtDate = new Date(msg.entry.timestamp * 1000);
   const timestamp = gmtDate.toLocaleString();
-  //is read?
-  var read = 'sent ';
-  if (msg.entry.timestamp < lastRead) {
-    read = 'read ';
-  }
   const container = document.createElement('div');
   var MESSAGE_TEMPLATE =
     '<div class="msg d-none" ><div class="d-flex justify-content-between"><span class="badge badge-pill sender" ><br></span><span class="text-muted"><span class="read"></span> <span class="timestamp"></span></span></div><div class="card mb-3"><div class="row no-gutters"><div class="col d-flex"><div id="message_display" class="p-2 text-wrap d-flex"><p class="messageDisplay pl-2 m-0"></p></div></div></div></div></div>';
@@ -586,7 +583,7 @@ function postMsg(msg, lastRead) {
   console.log(div);
   div.setAttribute('id', id);
   console.log(timestamp);
-  div.setAttribute('timestamp', timestamp);
+  div.setAttribute('timestamp', msg.entry.timestamp);
   sender = msg.entry.sender == user ? sender : name;
   var timestamp1 = div.querySelector('.timestamp');
   var senderDiv = div.querySelector('.sender');
@@ -602,14 +599,20 @@ function postMsg(msg, lastRead) {
   if (msg.entry.sender == user) {
     myLatestMessage = msg.entry.id;
     // $('#message-container').append('<div class="d-flex justify-content-between"><span class="badge badge-pill" id="admin-name">'+sender+'<br></span><span class="timestamp text-muted"><span id="'+myLatestMessage+'"></span>'+timestamp+'</span></div><div class="card mb-3"><div class="row no-gutters"><div class="col"><div id="message_display" class="text-wrap"><p>'+message.replace( /[<>]/g, '' )+'</p></div></div></div></div>');
-    $('#message-container').append(div);
+    if(append)
+      $('#message-container').append(div);
+    else
+      $('#message-container').prepend(div);
     console.log(myLatestMessage);
   } else {
     theirLatestMessage = msg.entry.id;
     console.log(theirLatestMessage);
     sender = name;
     // $('#message-container').append('<div class="d-flex justify-content-between"><span class="badge badge-pill" id="user-name">'+sender+'<br></span><span class="timestamp text-muted">'+timestamp+'</span></div><div class="card mb-3"><div class="row no-gutters"><div class="col"><div id="message_display" class="text-wrap"><p>'+message.replace( /[<>]/g, '' )+'</p></div></div></div></div>');
-    $('#message-container').append(div);
+    if(append)
+      $('#message-container').append(div);
+    else
+       $('#message-container').prepend(div);
   }
   console.log(sender);
 
@@ -1066,19 +1069,13 @@ function showChat() {
   if (countListener == null) {
     console.log("is null")
   }
-  function showChat(){
-    if(countListener == null){
-      console.log("is null")
-    }
-    if(isChatOpen == false){
-      $('#chat-toast').toast('show');
-      displayMessagePreviews();
-      inboxState = true;
-      if(glpubnub == null){
-        console.log("removed")
-        glpubnub.removeListener(messageCountingListener);
-      }
-      isChatOpen = true;
+  if (isChatOpen == false) {
+    $('#chat-toast').toast('show');
+    displayMessagePreviews();
+    inboxState = true;
+    if (glpubnub == null) {
+      console.log("removed")
+      // glpubnub.removeListener(messageCountingListener);
     }
     isChatOpen = true;
   }
@@ -1279,3 +1276,54 @@ function adjustTotalCount(operation, number) {
     $('#totalCount').html("" + totalCount);
   }
 }
+
+
+$('#message-container').scroll(function() {
+  if($('#message-container').scrollTop() == $('#message-container').height() - $('#message-container').height()) {
+         // ajax call get data from server and append to the div
+    
+      var div = document.getElementById('message-container');
+
+      console.log(div.querySelector('.msg'));
+      glpubnub.history({
+        channel: name + '_receipts',
+        count: 25, // how many items to fetch
+        reverse: false,
+        start: div.querySelector('.msg').timestamp
+      },
+        function (status, response) {
+          console.log("AAAAA");
+          console.log(response.messages);
+          for (var i = 0; i < response.messages.length - 1; i++) {
+            if (response.messages[i].entry.user == user) {
+              tt = response.messages[i].timetoken;
+            }
+          }
+          console.log(tt)
+          glpubnub.messageCounts({
+            channels: [name],
+            channelTimetokens: [tt]
+          }, function (status, results) {
+            console.log(results);
+          });
+          console.log(tt)
+        });
+    
+      glpubnub.history({
+        channel: name,
+        count: 25, // how many items to fetch
+        includeMessageActions: true,
+        stringifiedTimeToken: true // false is the default
+      },
+        function (status, response) {
+          response.messages.forEach(postMsg, false);
+          console.log("mine: " + myLatestMessage);
+          console.log("their: " + theirLatestMessage)
+          if (myLatestMessage == undefined && theirLatestMessage == undefined) {
+            $('#message-container').html('<div class="announcement"><span>Start messaging.</span></div><br>');
+          }
+          addRead();
+          // autoScrollToBottom();
+        });
+  }
+});
