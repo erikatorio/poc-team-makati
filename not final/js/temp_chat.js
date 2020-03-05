@@ -488,12 +488,12 @@ function displayMessages() {
 
   glpubnub.history({
     channel: name,
-    count: 25, // how many items to fetch
+    count: 5, // how many items to fetch
     includeMessageActions: true,
     stringifiedTimeToken: true // false is the default
   },
     function (status, response) {
-      response.messages.forEach(postMsg,true);
+      response.messages.forEach((msg) => postMsg(msg, true));
       console.log("mine: " + myLatestMessage);
       console.log("their: " + theirLatestMessage)
       if (myLatestMessage == undefined && theirLatestMessage == undefined) {
@@ -551,7 +551,7 @@ function addRead() {
     });
 }
 
-function postMsg(msg, append) {
+function postMsg(msg, isAppend) {
   var sender = 'You';
   console.log(msg);
   var message = msg.entry.content;
@@ -591,10 +591,10 @@ function postMsg(msg, append) {
   }
   container.innerHTML = MESSAGE_TEMPLATE;
   const div = container.firstElementChild;
-  console.log(div);
+  console.log(id);
   div.setAttribute('id', id);
   console.log(timestamp);
-  div.setAttribute('timestamp', msg.entry.timestamp);
+  div.setAttribute('timestamp', msg.timetoken);
   sender = msg.entry.sender == user ? sender : name;
   var timestamp1 = div.querySelector('.timestamp');
   var senderDiv = div.querySelector('.sender');
@@ -610,20 +610,28 @@ function postMsg(msg, append) {
   if (msg.entry.sender == user) {
     myLatestMessage = msg.entry.id;
     // $('#message-container').append('<div class="d-flex justify-content-between"><span class="badge badge-pill" id="admin-name">'+sender+'<br></span><span class="timestamp text-muted"><span id="'+myLatestMessage+'"></span>'+timestamp+'</span></div><div class="card mb-3"><div class="row no-gutters"><div class="col"><div id="message_display" class="text-wrap"><p>'+message.replace( /[<>]/g, '' )+'</p></div></div></div></div>');
-    if(append)
+    if(isAppend){
       $('#message-container').append(div);
-    else
-      $('#message-container').prepend(div);
+    }else{
+      console.log('hello 12312');
+      let parentElement = document.getElementById('message-container');
+      let theFirstChild = parentElement.firstChild;
+      parentElement.insertBefore(div, theFirstChild)
+    }
     console.log(myLatestMessage);
   } else {
     theirLatestMessage = msg.entry.id;
     console.log(theirLatestMessage);
     sender = name;
     // $('#message-container').append('<div class="d-flex justify-content-between"><span class="badge badge-pill" id="user-name">'+sender+'<br></span><span class="timestamp text-muted">'+timestamp+'</span></div><div class="card mb-3"><div class="row no-gutters"><div class="col"><div id="message_display" class="text-wrap"><p>'+message.replace( /[<>]/g, '' )+'</p></div></div></div></div>');
-    if(append)
+    if(isAppend){
       $('#message-container').append(div);
-    else
-       $('#message-container').prepend(div);
+    }else{
+      console.log('hello 1231');
+      let parentElement = document.getElementById('message-container');
+      let theFirstChild = parentElement.firstChild;
+      parentElement.insertBefore(div, theFirstChild);
+    }
   }
   console.log(sender);
 
@@ -1306,17 +1314,18 @@ function adjustTotalCount(operation, number) {
 
 
 $('#message-container').scroll(function() {
-  if($('#message-container').scrollTop() == $('#message-container').height() - $('#message-container').height()) {
+  if($('#message-container').scrollTop() ==  0) {
          // ajax call get data from server and append to the div
     
       var div = document.getElementById('message-container');
-
-      console.log(div.querySelector('.msg'));
+      
+      console.log(div.querySelector('.msg').getAttribute('timestamp'));
+      $('#message-container').prepend('<div id="chatloader" class="chat-loader"></div>');
       glpubnub.history({
         channel: name + '_receipts',
-        count: 25, // how many items to fetch
+        count: 100, // how many items to fetch
         reverse: false,
-        start: div.querySelector('.msg').timestamp
+        start: div.querySelector('.msg').getAttribute('timestamp')
       },
         function (status, response) {
           console.log("AAAAA");
@@ -1331,21 +1340,21 @@ $('#message-container').scroll(function() {
             channels: [name],
             channelTimetokens: [tt]
           }, function (status, results) {
-            console.log(results);
+
           });
-          console.log(tt)
         });
     
       glpubnub.history({
         channel: name,
-        count: 25, // how many items to fetch
+        count: 5, // how many items to fetch
         includeMessageActions: true,
-        stringifiedTimeToken: true // false is the default
+        stringifiedTimeToken: true ,// false is the default
+        start: div.querySelector('.msg').getAttribute('timestamp')
       },
         function (status, response) {
-          response.messages.forEach(postMsg, false);
-          console.log("mine: " + myLatestMessage);
-          console.log("their: " + theirLatestMessage)
+          console.log(response)
+          div.removeChild(div.firstElementChild);
+          response.messages.reverse().forEach((msg) => postMsg(msg, false));
           if (myLatestMessage == undefined && theirLatestMessage == undefined) {
             $('#message-container').html('<div class="announcement"><span>Start messaging.</span></div><br>');
           }
