@@ -1076,9 +1076,6 @@ function messageCounter() {
 }
 function showChat() {
   isChatOpen = true;
-  if (countListener == null) {
-    console.log("is null")
-  }
   $('#chat-toast').toast('show');
   displayMessagePreviews();
   inboxState = true;
@@ -1092,7 +1089,7 @@ function showOrHide() {
   if (isChatOpen == false) {
     showChat()
   } else {
-    hideChat();
+    hideChat()
   }
 }
 

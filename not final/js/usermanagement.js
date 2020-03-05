@@ -184,10 +184,10 @@ async function showUsers() {
         "<table id='usersTable' class='display'>" +
         "<thead class='thead-inverse bg-custom text-custom'>" +
         "<tr>" +
-        "<th style='width:20%;'>ＩＤ</th>" +
-        "<th style='width:40%;'>名前</th>" +
-        "<th style='width:30%;'>デパートメント</th>" +
-        "<th style='width:10%;'>設定</th>" +
+        "<th style='width:10%;'>ＩＤ</th>" +
+        "<th style='width:30%;'>名前</th>" +
+        "<th style='width:40%;'>デパートメント</th>" +
+        "<th style='width:20%;'>設定</th>" +
         "</tr>" +
         "</thead>";
 

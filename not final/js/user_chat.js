@@ -12,11 +12,9 @@ window.addEventListener(
   false
 );
 function hideChat() {
-  if (isChatOpen) {
-    $('#chat-toast').toast('hide');
-    exit();
-    isChatOpen = false;
-  }
+  isChatOpen = false;
+  $('#chat-toast').toast('hide');
+  exit();
 }
 
 var myLatestMessage, theirLatestMessage;
@@ -836,9 +834,10 @@ function showOrHide() {
   if (isChatOpen == false) {
     showChat()
   } else {
-    hideChat();
+    hideChat()
   }
 }
+
 $('#textarea-message').keydown(function (e) {
   if (event.keyCode == 13) {
     if (!event.shiftKey) {
