@@ -10,130 +10,234 @@ class User {
     }
 }
 
+// var tempUsers = [];
+// var pubnub = new PubNub({
+//           publishKey : 'pub-c-8266b3af-df4a-4508-91de-0a06b9634a69',
+//           subscribeKey : 'sub-c-b20376b2-5215-11ea-80a4-42690e175160',
+//           uuid: "admin"
+//     });
+    
 window.addEventListener("load", async () => {
-    isloaded = true;
-    newUserTable = $('#addUsersTable').DataTable({
-        paging: false,
-        info: false,
-        sorting: false,
-        searching: false,
-        language: {
-            emptyTable: 'No new user'
-        }
-    });
+    let isloaded = false;
+    await getUsersData();
+    tempUsers = users;
+    userDepartments = [];
 
-    $('#addUsersTable').parent().append(addUserElement(1))
-    showUsers().then(() => {
-        $('#usersTable').DataTable({
-            paging: false,
-            info: false,
-            dom: 'Bfrtip',
-            scrollY: '20vh',
-            buttons: ['csv', 'excel', 'pdf'],
-            responsive: true,
-            columnDefs: [{ orderable: false, targets: 3 }]
-        });
-    })
-
-    await db
-        .collection("groups")
-        .orderBy("id")
+    await db.collection("groups")
         .get()
         .then(function (querySnapshot) {
-            querySnapshot.forEach(function (doc) {
-                locGrps.push(doc.data().name);
-            });
+        querySnapshot.forEach(function (doc) {
+            userDepartments.push(doc.data().name); 
         });
-
-
-    $('#userModalButton').click(() => {
-        if (!$('#userModalButton').hasClass('disabled'))
-            addusers()
-    })
-    $('#addNewUser').click(() => {
-        $('#newUserDetails').remove()
-        $('#addUsersTable').parent().append(addUserElement(1))
-
-    })
-    $('.popover-dismiss').popover({
-        trigger: 'focus'
-    })
-
+    });
+    userDepartments.sort()
+        .forEach( (dep) => $("#department").append('<option value="'+ dep +'">'+ dep +'</option>'));
+    var pubnub = new PubNub({
+        publishKey : 'pub-c-8266b3af-df4a-4508-91de-0a06b9634a69',
+        subscribeKey : 'sub-c-b20376b2-5215-11ea-80a4-42690e175160',
+        uuid: "admin"
+     });
+    pubnub.getUsers(
+        {
+          include: {
+            customFields: true
+          }
+        },
+        function(status, response) {
+        });
+    populateUserTable();
     showPage("userloader");
 
 });
 
-async function addusers() {
+async function populateUserTable(){
+    $('#showUsersTable div').html("");
 
-    $('#userName').prop('required', false)
-    $('#userGroup').prop('required', false)
-    var users = []
-    let size = 0
-    let userDetails = newUserTable.cells().data();
-    for (let i = 0; i < userDetails.length; i += 2) {
-        users.push(new User(userDetails[i], userDetails[i + 1]))
+    let head = 
+        "<table id='example' class='table'>" +
+        "<thead>" +
+        "<tr id='flat-row'>" +
+        "<th scope='col' class='table-header th-sm'>#</th>" +
+        "<th scope='col' class='table-header th-sm'>ユーザー名</th>" +
+        "<th scope='col' class='table-header th-sm'>デパートメント</th>" +
+        "<th class='table-header th-sm'>設定</th>" +
+        "</tr>" +
+        "</thead>";
+
+    let body = "<tbody>";
+
+    tempUsers.forEach(function (user){
+        body += 
+            "<tr class='report-row' id='flat-row'>" + 
+            "<th scope='row' class='table-id'>" + user.id + "</th>" +
+            "<td class='table-content'>" + user.username + "</td>" +
+            "<td class='table-content'>" + user.group + "</td>" +
+            "<td><button class='btn btn-row' onclick='deleteUser(" + user.id + ")'><i class='fas fa-trash-alt'></i></button></td>" +
+            "</tr>";
+    });
+
+    $('#showUsersTable').append(head + body + "</tbody></table>");
+    $('#example').DataTable({
+                paging: false,
+                info: false,
+                dom: 'Bfrtip',
+                scrollY: '20vh',
+                buttons: ['csv', 'excel', 'pdf'],
+                responsive: true,
+                columnDefs: [{ orderable: false, targets: 3 }]
+            });
+}
+
+async function addUser(){
+    
+    let user_name = $("input[name='username']").val();
+    let user_password = $("input[name='password']").val();
+    let user_department = $("#department option:selected").val();
+
+    let newID = 0;
+
+    await db.collection("ids")
+        .get()
+        .then(function (querySnapshot) {
+        newID = querySnapshot.docs[0].data().userId + 1;
+        querySnapshot.forEach(function (doc) {
+            let newID = doc.data().userId + 1;
+            db.collection("ids").doc(doc.id).update({
+                userId: newID
+            });
+        });
+    });
+    
+    db.collection("users")
+        .add({
+            id: newID,
+            username: user_name,
+            password: user_password,
+            group: user_department,
+            userPicture: "",
+            userType: 2,
+            enableAnonymousSending: false
+        })
+        .then(async function(doc){
+            var pubnub = new PubNub({
+                publishKey : 'pub-c-8266b3af-df4a-4508-91de-0a06b9634a69',
+                subscribeKey : 'sub-c-b20376b2-5215-11ea-80a4-42690e175160',
+             });   
+             
+            pubnub.createUser({id: doc.id.toString(), name: user_name.toString()}, function(status, response) {
+                console.log(response);
+                if(!alert('追加成功!')){
+                    $('#addNewUserModal').modal('hide');
+                    populateUserTable();
+                    location.reload();
+                }
+            });
+        })
+        .catch(function (error) {
+            console.error("Error adding user: ", error);
+        });
+}
+
+async function deleteUser(user_id){
+    if(confirm('このユーザーを削除しますか?')){
+        db.collection("users")
+            .where("id", "==", user_id)
+            .get()
+            .then(async function (querySnapshot) {
+                var pubnub = new PubNub({
+                    publishKey : 'pub-c-8266b3af-df4a-4508-91de-0a06b9634a69',
+                    subscribeKey : 'sub-c-b20376b2-5215-11ea-80a4-42690e175160',
+                    uuid: "admin"
+                });
+                querySnapshot.forEach(function (doc) {
+                    doc.ref.delete();
+                });
+                pubnub.deleteUser(user_id.toString(), function(status, response) {
+                    console.log(response);
+                    if(!alert('ユーザー削除成功!')){
+                        populateUserTable();
+                        location.reload();
+                    }
+                });
+            })
+            .catch(function (error) {
+                console.error("Error category deletion: ", error);
+            });
+            
     }
-    console.log(userDetails)
-    console.log(users)
-    await db.collection("ids").get().then(function (querySnapshot) {
-        size = querySnapshot.docs[0].data().userId;
-    })
-    users.forEach(async (user) => {
-        size += 1;
-        db.collection("users").doc().set({
-            id: size,
-            dateCreated: firebase.firestore.FieldValue.serverTimestamp(),
-            username: user.name,
-            group: user.group,
-            userType: user.type,
-            defaultPassword: user.password,
-            password: user.password
-        });
-    })
-    // .then(async function () {
-    console.log("Document successfully written!");
-    sessionStorage.removeItem("category");
+}
 
-    PNotify.success({
-        title: "Successfully added Users",
-        delay: 2000,
-        modules: {
-            Buttons: {
-                closer: true,
-                closerHover: true,
-                sticker: false
-            },
-            Mobile: {
-                swipeDismiss: true,
-                styling: true
-            }
-        }
-    });
+// async function addusers() {
 
-    showUsers().then(() => {
-        $('#usersTable').DataTable({
-            dom: 'Bfrtip',
-            scrollY: '40vh',
-            buttons: ['csv', 'excel', 'pdf'],
-            responsive: true
-        });
-    });
+//     $('#userName').prop('required', false)
+//     $('#userGroup').prop('required', false)
+//     var users = []
+//     let size = 0
+//     let userDetails = newUserTable.cells().data();
+//     for (let i = 0; i < userDetails.length; i += 2) {
+//         users.push(new User(userDetails[i], userDetails[i + 1]))
+//     }
+//     console.log(userDetails)
+//     console.log(users)
+//     await db.collection("ids").get().then(function (querySnapshot) {
+//         size = querySnapshot.docs[0].data().userId;
+//     })
+//     users.forEach(async (user) => {
+//         size += 1;
+//         db.collection("users").doc().set({
+//             id: size,
+//             dateCreated: firebase.firestore.FieldValue.serverTimestamp(),
+//             username: user.name,
+//             group: user.group,
+//             userType: user.type,
+//             defaultPassword: user.password,
+//             password: user.password
+//         });
+//     })
+//     // .then(async function () {
+//     console.log("Document successfully written!");
+//     sessionStorage.removeItem("category");
 
-    newUserTable.clear().draw();
-    $('#userModal').modal('hide')
+//     PNotify.success({
+//         title: "Successfully added Users",
+//         delay: 2000,
+//         modules: {
+//             Buttons: {
+//                 closer: true,
+//                 closerHover: true,
+//                 sticker: false
+//             },
+//             Mobile: {
+//                 swipeDismiss: true,
+//                 styling: true
+//             }
+//         }
+//     });
+
+//     showUsers().then(() => {
+//         $('#usersTable').DataTable({
+//             dom: 'Bfrtip',
+//             scrollY: '40vh',
+//             buttons: ['csv', 'excel', 'pdf'],
+//             responsive: true
+//         });
+//     });
+
+//     newUserTable.clear().draw();
+//     $('#userModal').modal('hide')
     // })
     // .catch(function (error) {
     //     console.error("Error adding users: ", error);
     // });
 
-    db.collection("ids").get().then(function (querySnapshot) {
-        querySnapshot.forEach(async function (doc) {
-            await db.collection("ids").doc(doc.id).update({
-                userId: size
-            });
-        });
-    })
-}
+//     db.collection("ids").get().then(function (querySnapshot) {
+//         querySnapshot.forEach(async function (doc) {
+//             await db.collection("ids").doc(doc.id).update({
+//                 userId: size
+//             });
+//         });
+//     })
+// }
 
 function newUser() {
     $('#userName').prop('required', true)
@@ -311,73 +415,73 @@ async function updateUser(value) {
     }
 }
 
-async function removeUser(value) {
-    const notice = PNotify.notice({
-        title: "Delete User",
-        text: "Confirm Delete?",
-        icon: "fas fa-question-circle",
-        hide: false,
-        modules: {
-            Confirm: {
-                confirm: true,
-            },
-            Buttons: {
-                closer: true,
-                closerHover: true,
-                sticker: false
-            },
-            Desktop: {
-                desktop: true,
-                fallback: true,
-                icon: null
-            },
-            Mobile: {
-                swipeDismiss: true,
-                styling: true
-            }
-        }
-    });
+// async function removeUser(value) {
+//     const notice = PNotify.notice({
+//         title: "Delete User",
+//         text: "Confirm Delete?",
+//         icon: "fas fa-question-circle",
+//         hide: false,
+//         modules: {
+//             Confirm: {
+//                 confirm: true,
+//             },
+//             Buttons: {
+//                 closer: true,
+//                 closerHover: true,
+//                 sticker: false
+//             },
+//             Desktop: {
+//                 desktop: true,
+//                 fallback: true,
+//                 icon: null
+//             },
+//             Mobile: {
+//                 swipeDismiss: true,
+//                 styling: true
+//             }
+//         }
+//     });
 
-    notice.on('pnotify.confirm', () => {
-        db.collection("users")
-            .where("id", "==", value)
-            .get()
-            .then(function (querySnapshot) {
-                querySnapshot.forEach(function (doc) {
-                    doc.ref.delete();
-                });
+//     notice.on('pnotify.confirm', () => {
+//         db.collection("users")
+//             .where("id", "==", value)
+//             .get()
+//             .then(function (querySnapshot) {
+//                 querySnapshot.forEach(function (doc) {
+//                     doc.ref.delete();
+//                 });
 
-                PNotify.success({
-                    title: "Delete Successful!",
-                    delay: 2000,
-                    modules: {
-                        Buttons: {
-                            closer: true,
-                            closerHover: true,
-                            sticker: false
-                        },
-                        Mobile: {
-                            swipeDismiss: true,
-                            styling: true
-                        }
-                    }
-                });
+//                 PNotify.success({
+//                     title: "Delete Successful!",
+//                     delay: 2000,
+//                     modules: {
+//                         Buttons: {
+//                             closer: true,
+//                             closerHover: true,
+//                             sticker: false
+//                         },
+//                         Mobile: {
+//                             swipeDismiss: true,
+//                             styling: true
+//                         }
+//                     }
+//                 });
 
-                showUsers().then(() => {
-                    $('#usersTable').DataTable({
-                        dom: 'Bfrtip',
-                        scrollY: '40vh',
-                        buttons: ['csv', 'excel', 'pdf'],
-                        responsive: true,
-                        columnDefs: [{ orderable: false, targets: 3 }]
-                    });
-                });
-            })
-            .catch(function (error) {
-                console.error("Error user deletion: ", error);
-            });
-    });
-}
+//                 showUsers().then(() => {
+//                     $('#usersTable').DataTable({
+//                         dom: 'Bfrtip',
+//                         scrollY: '40vh',
+//                         buttons: ['csv', 'excel', 'pdf'],
+//                         responsive: true,
+//                         columnDefs: [{ orderable: false, targets: 3 }]
+//                     });
+//                 });
+//             })
+//             .catch(function (error) {
+//                 console.error("Error user deletion: ", error);
+//             });
+//     });
+// }
 
 function duplicateHandling() {
 
