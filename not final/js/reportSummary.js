@@ -265,7 +265,7 @@ async function showNotif() {
     });
     
     if (ctr === 0) {
-        $('#notifDropdown').html('<i class="fa fa-bell fa-fw mr-3 nav_icon"></i>');
+        //$('#notifDropdown').html('<i class="fa fa-bell fa-fw mr-3 nav_icon"></i>');
         $('#notif-toast').append('<div class="toast-body">No new reports.</div>');
     }
 }
@@ -274,9 +274,9 @@ var isPaneOpen = false;
 async function showNotifs() {
     if (!isPaneOpen) {
         await appendNotifPane();
-        $('#notif-toast').toast('show');
         await showNotif();
-        
+        $('#notif-toast').toast('show');
+        $('#notifDropdown').html('<i class="fa fa-bell fa-fw mr-3 nav_icon"></i>');
         isPaneOpen = true;
     } else {
         $('#notif-toast').toast('hide');
@@ -286,7 +286,7 @@ async function showNotifs() {
 }
 
 async function appendNotifPane() {
-    $('#chat-container').after('<div class="notifications-container"><div id="notif-toast" class="toast" role="alert" data-autohide="false" aria-live="assertive" aria-atomic="true"><div id="notif-header" class="toast-header"><img src="./img/flower.png" class="rounded mr-2" alt="..."><strong class="mr-auto">Notifications</strong></div><div id="indiv_notifs"></div></div></div>');
+    $('#test').html('<div class="notifications-container"><div id="notif-toast" class="toast" role="alert" data-autohide="false" aria-live="assertive" aria-atomic="true"><div id="notif-header" class="toast-header"><img src="./img/flower.png" class="rounded mr-2" alt="..."><strong class="mr-auto">Notifications</strong></div><div id="indiv_notifs"></div></div></div>');
 }
 
 async function removeNotifPane() {
