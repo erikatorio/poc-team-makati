@@ -35,7 +35,7 @@ window.addEventListener("load", async () => {
 
     $('#logsTable').DataTable({
         dom: 'Bfrtip',
-        scrollY: '40vh',
+        scrollY: '20vh',
         responsive: true,
         buttons: [],
         paging: false,
@@ -76,7 +76,7 @@ async function showLogs(){
     let body = "<tbody class='scroll-secondary'>";
     tempLogs.forEach(function (userLog) {
         let date = userLog && userLog.timeStamp && userLog.timeStamp.toDate().toLocaleString("en-US", options);
-        body += "<tr>";
+        body += "<tr id='reports-ds'>";
         switch(userLog.actionId){
             case 1:
                 body += "<td style='width:60%;'>New Report Submitted</td>"; 
