@@ -488,12 +488,12 @@ function displayMessages() {
 
   glpubnub.history({
     channel: name,
-    count: 100, // how many items to fetch
+    count: 5, // how many items to fetch
     includeMessageActions: true,
     stringifiedTimeToken: true // false is the default
   },
     function (status, response) {
-      response.messages.forEach(postMsg);
+      response.messages.forEach((msg) => postMsg(msg, true));
       console.log("mine: " + myLatestMessage);
       console.log("their: " + theirLatestMessage)
       if (myLatestMessage == undefined && theirLatestMessage == undefined) {
@@ -551,19 +551,16 @@ function addRead() {
     });
 }
 
-function postMsg(msg, lastRead) {
+function postMsg(msg, isAppend) {
   var sender = 'You';
   console.log(msg);
   var message = msg.entry.content;
   var id = msg.entry.id;
+  if(document.getElementById(id))
+    return;
   //const unixTimestamp = msg.entry.timestamp / 10000000;
   const gmtDate = new Date(msg.entry.timestamp * 1000);
   const timestamp = gmtDate.toLocaleString();
-  //is read?
-  var read = 'sent ';
-  if (msg.entry.timestamp < lastRead) {
-    read = 'read ';
-  }
   const container = document.createElement('div');
   var MESSAGE_TEMPLATE =
     '<div class="msg d-none" ><div class="d-flex justify-content-between"><span class="badge badge-pill sender" ><br></span><span class="text-muted"><span class="read"></span> <span class="timestamp"></span></span></div><div class="card mb-3"><div class="row no-gutters"><div class="col d-flex"><div id="message_display" class="p-2 text-wrap d-flex"><p class="messageDisplay pl-2 m-0"></p></div></div></div></div></div>';
@@ -594,10 +591,10 @@ function postMsg(msg, lastRead) {
   }
   container.innerHTML = MESSAGE_TEMPLATE;
   const div = container.firstElementChild;
-  console.log(div);
+  console.log(id);
   div.setAttribute('id', id);
   console.log(timestamp);
-  div.setAttribute('timestamp', timestamp);
+  div.setAttribute('timestamp', msg.timetoken);
   sender = msg.entry.sender == user ? sender : name;
   var timestamp1 = div.querySelector('.timestamp');
   var senderDiv = div.querySelector('.sender');
@@ -613,14 +610,28 @@ function postMsg(msg, lastRead) {
   if (msg.entry.sender == user) {
     myLatestMessage = msg.entry.id;
     // $('#message-container').append('<div class="d-flex justify-content-between"><span class="badge badge-pill" id="admin-name">'+sender+'<br></span><span class="timestamp text-muted"><span id="'+myLatestMessage+'"></span>'+timestamp+'</span></div><div class="card mb-3"><div class="row no-gutters"><div class="col"><div id="message_display" class="text-wrap"><p>'+message.replace( /[<>]/g, '' )+'</p></div></div></div></div>');
-    $('#message-container').append(div);
+    if(isAppend){
+      $('#message-container').append(div);
+    }else{
+      console.log('hello 12312');
+      let parentElement = document.getElementById('message-container');
+      let theFirstChild = parentElement.firstChild;
+      parentElement.insertBefore(div, theFirstChild)
+    }
     console.log(myLatestMessage);
   } else {
     theirLatestMessage = msg.entry.id;
     console.log(theirLatestMessage);
     sender = name;
     // $('#message-container').append('<div class="d-flex justify-content-between"><span class="badge badge-pill" id="user-name">'+sender+'<br></span><span class="timestamp text-muted">'+timestamp+'</span></div><div class="card mb-3"><div class="row no-gutters"><div class="col"><div id="message_display" class="text-wrap"><p>'+message.replace( /[<>]/g, '' )+'</p></div></div></div></div>');
-    $('#message-container').append(div);
+    if(isAppend){
+      $('#message-container').append(div);
+    }else{
+      console.log('hello 1231');
+      let parentElement = document.getElementById('message-container');
+      let theFirstChild = parentElement.firstChild;
+      parentElement.insertBefore(div, theFirstChild);
+    }
   }
   console.log(sender);
 
@@ -1303,3 +1314,55 @@ function adjustTotalCount(operation, number) {
     $('#totalCount').html("" + totalCount);
   }
 }
+
+
+$('#message-container').scroll(function() {
+  if($('#message-container').scrollTop() ==  0) {
+         // ajax call get data from server and append to the div
+    
+      var div = document.getElementById('message-container');
+      
+      console.log(div.querySelector('.msg').getAttribute('timestamp'));
+      $('#message-container').prepend('<div id="chatloader" class="chat-loader"></div>');
+      glpubnub.history({
+        channel: name + '_receipts',
+        count: 100, // how many items to fetch
+        reverse: false,
+        start: div.querySelector('.msg').getAttribute('timestamp')
+      },
+        function (status, response) {
+          console.log("AAAAA");
+          console.log(response.messages);
+          for (var i = 0; i < response.messages.length - 1; i++) {
+            if (response.messages[i].entry.user == user) {
+              tt = response.messages[i].timetoken;
+            }
+          }
+          console.log(tt)
+          glpubnub.messageCounts({
+            channels: [name],
+            channelTimetokens: [tt]
+          }, function (status, results) {
+
+          });
+        });
+    
+      glpubnub.history({
+        channel: name,
+        count: 5, // how many items to fetch
+        includeMessageActions: true,
+        stringifiedTimeToken: true ,// false is the default
+        start: div.querySelector('.msg').getAttribute('timestamp')
+      },
+        function (status, response) {
+          console.log(response)
+          div.removeChild(div.firstElementChild);
+          response.messages.reverse().forEach((msg) => postMsg(msg, false));
+          if (myLatestMessage == undefined && theirLatestMessage == undefined) {
+            $('#message-container').html('<div class="announcement"><span>Start messaging.</span></div><br>');
+          }
+          addRead();
+          // autoScrollToBottom();
+        });
+  }
+});

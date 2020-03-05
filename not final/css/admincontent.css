@@ -692,6 +692,11 @@ ul.CTAs a {
   font-family: 'Roboto Condensed' !important;
 }
 
+#flat-row{
+  font-family: 'Roboto Condensed' !important;
+  font-size: 14px;
+}
+
 .act {
   background-color: #ff9999 !important;
 }
@@ -699,7 +704,8 @@ ul.CTAs a {
     Dashboard Tables
 ---------------------------------------------------------*/
 #reportsTable,
-#usersTable_wrapper {
+#usersTable_wrapper,
+#allLogs {
   font-size: 14px;
 }
 

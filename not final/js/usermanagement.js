@@ -16,7 +16,7 @@ class User {
 //           subscribeKey : 'sub-c-b20376b2-5215-11ea-80a4-42690e175160',
 //           uuid: "admin"
 //     });
-    
+
 window.addEventListener("load", async () => {
     let isloaded = false;
     await getUsersData();
@@ -26,49 +26,49 @@ window.addEventListener("load", async () => {
     await db.collection("groups")
         .get()
         .then(function (querySnapshot) {
-        querySnapshot.forEach(function (doc) {
-            userDepartments.push(doc.data().name); 
+            querySnapshot.forEach(function (doc) {
+                userDepartments.push(doc.data().name);
+            });
         });
-    });
     userDepartments.sort()
-        .forEach( (dep) => $("#department").append('<option value="'+ dep +'">'+ dep +'</option>'));
+        .forEach((dep) => $("#department").append('<option value="' + dep + '">' + dep + '</option>'));
     var pubnub = new PubNub({
-        publishKey : 'pub-c-8266b3af-df4a-4508-91de-0a06b9634a69',
-        subscribeKey : 'sub-c-b20376b2-5215-11ea-80a4-42690e175160',
+        publishKey: 'pub-c-8266b3af-df4a-4508-91de-0a06b9634a69',
+        subscribeKey: 'sub-c-b20376b2-5215-11ea-80a4-42690e175160',
         uuid: "admin"
-     });
+    });
     pubnub.getUsers(
         {
-          include: {
-            customFields: true
-          }
+            include: {
+                customFields: true
+            }
         },
-        function(status, response) {
+        function (status, response) {
         });
     populateUserTable();
     showPage("userloader");
 
 });
 
-async function populateUserTable(){
+async function populateUserTable() {
     $('#showUsersTable div').html("");
 
-    let head = 
+    let head =
         "<table id='example' class='table'>" +
         "<thead>" +
         "<tr id='flat-row'>" +
-        "<th scope='col' class='table-header th-sm'>#</th>" +
-        "<th scope='col' class='table-header th-sm'>ユーザー名</th>" +
-        "<th scope='col' class='table-header th-sm'>デパートメント</th>" +
-        "<th class='table-header th-sm'>設定</th>" +
+        "<th width='5' scope='col' class='table-header th-sm text-white' >#</th>" +
+        "<th width='20' scope='col' class='table-header th-sm text-white' style='font-size:14px'>ユーザー名</th>" +
+        "<th width='60' scope='col' class='table-header th-sm text-white' style='font-size:11px'>デパートメント</th>" +
+        "<th width='15' class='table-header th-sm text-white' style='font-size:12px'>設定</th>" +
         "</tr>" +
         "</thead>";
 
     let body = "<tbody>";
 
-    tempUsers.forEach(function (user){
-        body += 
-            "<tr class='report-row' id='flat-row'>" + 
+    tempUsers.forEach(function (user) {
+        body +=
+            "<tr class='report-row' id='flat-row'>" +
             "<th scope='row' class='table-id'>" + user.id + "</th>" +
             "<td class='table-content'>" + user.username + "</td>" +
             "<td class='table-content'>" + user.group + "</td>" +
@@ -78,18 +78,18 @@ async function populateUserTable(){
 
     $('#showUsersTable').append(head + body + "</tbody></table>");
     $('#example').DataTable({
-                paging: false,
-                info: false,
-                dom: 'Bfrtip',
-                scrollY: '20vh',
-                buttons: ['csv', 'excel', 'pdf'],
-                responsive: true,
-                columnDefs: [{ orderable: false, targets: 3 }]
-            });
+        paging: false,
+        info: false,
+        dom: 'Bfrtip',
+        scrollY: '20vh',
+        buttons: ['csv', 'excel', 'pdf'],
+        responsive: true,
+        columnDefs: [{ orderable: false, targets: 3 }]
+    });
 }
 
-async function addUser(){
-    
+async function addUser() {
+
     let user_name = $("input[name='username']").val();
     let user_password = $("input[name='password']").val();
     let user_department = $("#department option:selected").val();
@@ -99,15 +99,15 @@ async function addUser(){
     await db.collection("ids")
         .get()
         .then(function (querySnapshot) {
-        newID = querySnapshot.docs[0].data().userId + 1;
-        querySnapshot.forEach(function (doc) {
-            let newID = doc.data().userId + 1;
-            db.collection("ids").doc(doc.id).update({
-                userId: newID
+            newID = querySnapshot.docs[0].data().userId + 1;
+            querySnapshot.forEach(function (doc) {
+                let newID = doc.data().userId + 1;
+                db.collection("ids").doc(doc.id).update({
+                    userId: newID
+                });
             });
         });
-    });
-    
+
     db.collection("users")
         .add({
             id: newID,
@@ -118,15 +118,15 @@ async function addUser(){
             userType: 2,
             enableAnonymousSending: false
         })
-        .then(async function(doc){
+        .then(async function (doc) {
             var pubnub = new PubNub({
-                publishKey : 'pub-c-8266b3af-df4a-4508-91de-0a06b9634a69',
-                subscribeKey : 'sub-c-b20376b2-5215-11ea-80a4-42690e175160',
-             });   
-             
-            pubnub.createUser({id: doc.id.toString(), name: user_name.toString()}, function(status, response) {
+                publishKey: 'pub-c-8266b3af-df4a-4508-91de-0a06b9634a69',
+                subscribeKey: 'sub-c-b20376b2-5215-11ea-80a4-42690e175160',
+            });
+
+            pubnub.createUser({ id: doc.id.toString(), name: user_name.toString() }, function (status, response) {
                 console.log(response);
-                if(!alert('追加成功!')){
+                if (!alert('追加成功!')) {
                     $('#addNewUserModal').modal('hide');
                     populateUserTable();
                     location.reload();
@@ -138,23 +138,23 @@ async function addUser(){
         });
 }
 
-async function deleteUser(user_id){
-    if(confirm('このユーザーを削除しますか?')){
+async function deleteUser(user_id) {
+    if (confirm('このユーザーを削除しますか?')) {
         db.collection("users")
             .where("id", "==", user_id)
             .get()
             .then(async function (querySnapshot) {
                 var pubnub = new PubNub({
-                    publishKey : 'pub-c-8266b3af-df4a-4508-91de-0a06b9634a69',
-                    subscribeKey : 'sub-c-b20376b2-5215-11ea-80a4-42690e175160',
+                    publishKey: 'pub-c-8266b3af-df4a-4508-91de-0a06b9634a69',
+                    subscribeKey: 'sub-c-b20376b2-5215-11ea-80a4-42690e175160',
                     uuid: "admin"
                 });
                 querySnapshot.forEach(function (doc) {
                     doc.ref.delete();
                 });
-                pubnub.deleteUser(user_id.toString(), function(status, response) {
+                pubnub.deleteUser(user_id.toString(), function (status, response) {
                     console.log(response);
-                    if(!alert('ユーザー削除成功!')){
+                    if (!alert('ユーザー削除成功!')) {
                         populateUserTable();
                         location.reload();
                     }
@@ -163,7 +163,7 @@ async function deleteUser(user_id){
             .catch(function (error) {
                 console.error("Error category deletion: ", error);
             });
-            
+
     }
 }
 
@@ -225,10 +225,10 @@ async function deleteUser(user_id){
 
 //     newUserTable.clear().draw();
 //     $('#userModal').modal('hide')
-    // })
-    // .catch(function (error) {
-    //     console.error("Error adding users: ", error);
-    // });
+// })
+// .catch(function (error) {
+//     console.error("Error adding users: ", error);
+// });
 
 //     db.collection("ids").get().then(function (querySnapshot) {
 //         querySnapshot.forEach(async function (doc) {
