@@ -101,7 +101,7 @@ function saveProfile(e) {
                         subscribeKey : 'sub-c-b20376b2-5215-11ea-80a4-42690e175160',
                     });  
                     pubnub.createUser({
-                        id: Pubnub.GenerateUUID(),
+                        id: Pubnub.generateUUID(),
                         name: newName
                     });
                 })
