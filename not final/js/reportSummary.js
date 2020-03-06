@@ -24,7 +24,7 @@ window.addEventListener("load", async () => {
     $('#latestReportsTable').DataTable({
         paging: false,
         info: false,
-        scrollY: 200,
+        scrollY: '20vh',
         responsive: true,
         searching: false,
         lengthChange: false,
