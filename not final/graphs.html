@@ -27,6 +27,7 @@
     <!-- Google fonts -->
     <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
@@ -54,10 +55,10 @@
                         <!-- <span id="collapse-text" class="menu-collapsed">Collapse</span> -->
                     </div>
                 </a>
-                <a href="#submenu1" data-toggle="collapse" aria-expanded="false" class="bg-light list-group-item list-group-item-action flex-column align-items-start" title="Notification">
+                <a href="#" id="notifDropdown" class="list-group-item list-group-item-action d-flex align-items-center"
+                    role="button" aria-haspopup="true" aria-expanded="false" onclick="showNotifs()">
                     <div class="d-flex w-100 justify-content-start align-items-center">
-                        <span class="fa fa-bell fa-fw mr-3" style="color: #8A6E59"></span> 
-                        <span class="submenu-icon d-none ml-auto"></span>
+                        <i class="fa fa-bell fa-fw mr-3 nav_icon"></i>
                     </div>
                 </a>
                 <a data-toggle="collapse" aria-expanded="false" class="bg-light list-group-item list-group-item-action flex-column align-items-start" title="Chat" style="cursor: pointer;">
@@ -302,6 +303,8 @@
         </div>
       </div>
     </div>
+
+    <div id="test" style="position:absolute;top:0px!important; left:0px!important;z-index:5"></div>
     <!-- scripts -->
 
     <!-- jQuery -->
@@ -369,8 +372,10 @@
     <!-- Custom JS -->
     <script src="js/dataloader.js"></script>
     <script src="js/graphWindowLoader.js"></script>
+    <script src="js/reportSummary.js"></script>
     <script src="js/graph3d.js"></script>
     <script src="js/graph2d.js"></script>
+    <script src="js/reportSummary.js"></script>
 
     <script>
         var ctxTrend = document.getElementById('trendgraph').getContext('2d');
