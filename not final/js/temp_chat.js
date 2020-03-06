@@ -6,12 +6,13 @@ var countListener = null;
 var readListener = null;
 var readReceipts = null
 
+var searchCache = "";
 var totalCount = 0;
 
 function getUserType() {
   var type = document.cookie.split(';');
   try {
-    console.log(type[3])
+    //console.log(type[3])
     return type[3].split('=')[1];
   } catch{
     return "admin";
@@ -37,23 +38,23 @@ var messageCountingListener = {
     var pubTT = m.timetoken; // Publish timetoken
     var msg = m.message; // The Payload
     var publisher = m.publisher; //The Publisher
-    console.log(channelName)
-    console.log(channelGroup)
-    console.log(msg)
-    console.log(publisher)
+    //console.log(channelName)
+    //console.log(channelGroup)
+    //console.log(msg)
+    //console.log(publisher)
   }
 }
 
 
 function hideChat() {
-  console.log(isChatOpen)
+  //console.log(isChatOpen)
   isChatOpen = false;
   $('#chat-toast').toast('hide');
   exit();
   back();
   inboxState = false;
   glpubnub.addListener(messageCountingListener);
-  console.log("added")
+  //console.log("added")
 }
 
 function back() {
@@ -68,9 +69,12 @@ function back() {
   $('#user-chat').css('display', 'inline');
   $('#chat-title').html('&nbsp;Chat');
   inboxState = true;
-  console.log("backed")
+  //console.log("backed")
+  $('#searcharea-message').val(searchCache);
   exit();
-  displayMessagePreviews();
+  if($('#searcharea-message').val() == ""){
+    displayMessagePreviews();
+  }
 }
 function viewMessage(u_name) {
   $('#admin-search').css('display', 'none');
@@ -82,7 +86,9 @@ function viewMessage(u_name) {
   $('#back-btn').css('display', 'inline');
   name = u_name;
   $('#chat-title').html('&nbsp;' + u_name);
-
+  searchCache =   $('#searcharea-message').val();
+  $('#searcharea-message').val('');
+  //console.log(totalCount)
   enter();
   displayMessages();
 
@@ -105,10 +111,10 @@ function displayMessagePreviews() {
       }
     },
       function (status, response) {
-        //console.log(response)
+        ////console.log(response)
         var users = response.data; //store array of users in users
         global_user_list = response.data;
-        console.log(users)
+        //console.log(users)
         //temporary data
         var is_read = false; //or true, for UI purposes
         var unread_list = [];
@@ -119,15 +125,15 @@ function displayMessagePreviews() {
           var temp = users[i].name + '_receipts';
           user_channels.push(temp)
         }
-        //console.log(user_channels)
+        ////console.log(user_channels)
 
         //get message counts
         pubnub.fetchMessages({
           channels: [user_channels, users],
           count: 100
         }, function (status, response) {
-          //console.log(response)
-          // console.log(user_channels)
+          ////console.log(response)
+          // //console.log(user_channels)
 
           //loop through the channels and count the unread msgs
           var tts = [];
@@ -137,38 +143,38 @@ function displayMessagePreviews() {
           //and their timetokens
           for (channel in response.channels) {
             var channel_receipts = response.channels[channel];
-            console.log(response)
+            //console.log(response)
             var len = channel_receipts.length - 1;
-            console.log(len)
-            console.log(channel_receipts[len])
+            //console.log(len)
+            //console.log(channel_receipts[len])
             tt = channel_receipts[len].timetoken;
-            console.log(tt)
+            //console.log(tt)
 
 
             if (tt == undefined || tt == 0) {
               tt = 1000000000000000
               /*parseInt(response.messages[len].timetoken) -*/
             }
-            console.log(tt)
+            //console.log(tt)
             //if latest reader is not admin
             //get the timestamp of the first instance before previous read
             for (var b = len - 1; b >= 0; b--) {
               var first_unread = channel_receipts[b];
-              console.log(first_unread)
-              console.log(first_unread.message.user)
+              //console.log(first_unread)
+              //console.log(first_unread.message.user)
               if (first_unread.message.user == "admin") {
-                console.log(channel_receipts[b + 1].timetoken)
+                //console.log(channel_receipts[b + 1].timetoken)
                 tt = channel_receipts[b + 1].timetoken;
                 break;
               }
               tt = channel_receipts[0].timetoken;
             }
-            console.log(tt)
+            //console.log(tt)
             if (channel_receipts[len].message.user != user) {
               chnl.push(channel_receipts[len].message.user);
               tt = parseInt(tt) - 20000000;
               tts.push(tt);
-              console.log("is not same")
+              //console.log("is not same")
             } else {
               var subbed = (channel_receipts[len].channel).replace(/%20/gi, " ");
               subbed = subbed.replace("_receipts", "");
@@ -176,8 +182,8 @@ function displayMessagePreviews() {
               tt = Math.round(new Date().getTime() * 10000);
               tts.push(tt);
             }
-            console.log(chnl)
-            console.log(tts)
+            //console.log(chnl)
+            //console.log(tts)
           }
           //end of loop
           //this counts the number of messages left unread by
@@ -186,7 +192,7 @@ function displayMessagePreviews() {
             channels: chnl,
             channelTimetokens: tts
           }, function (status, results) {
-            //console.log(results.channels);
+            ////console.log(results.channels);
             unread_list = results.channels;
             // start, end, count are optional
             pubnub.fetchMessages(
@@ -196,15 +202,15 @@ function displayMessagePreviews() {
               },
               (status, preview) => {
                 // handle response
-                console.log(preview)
-                console.log(results)
+                //console.log(preview)
+                //console.log(results)
                 for (c in results.channels) {
                   count = results.channels[c]
 
                   var restring = c.replace(/ /gi, "%20");
-                  console.log(restring)
-                  console.log(len);
-                  console.log(preview.channels[0])
+                  //console.log(restring)
+                  //console.log(len);
+                  //console.log(preview.channels[0])
                   recent_message = "";
 
                   var possible_file = preview.channels[restring][0].message.imageURL;
@@ -220,7 +226,7 @@ function displayMessagePreviews() {
                   const gmtDate = new Date(recent_datestamp * 1000);
                   recent_datestamp = gmtDate.toLocaleString("default", { month: "short", day: 'numeric' });
                   var recent_timestamp = gmtDate.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
-                  console.log(totalCount + " + " + count)
+                  //console.log(totalCount + " + " + count)
                   adjustTotalCount(true, count)
                   if (count == 0) {
                     count = "";
@@ -253,15 +259,15 @@ function displayMessagePreviews() {
       var temp = users[i].name + '_receipts';
       user_channels.push(temp)
     }
-    //console.log(user_channels)
+    ////console.log(user_channels)
 
     //get message counts
     pubnub.fetchMessages({
       channels: [user_channels],
       count: 100
     }, function (status, response) {
-      console.log(response)
-      //console.log(user_channels)
+      //console.log(response)
+      ////console.log(user_channels)
 
       //loop through the channels and count the unread msgs
       var tts = [];
@@ -271,19 +277,19 @@ function displayMessagePreviews() {
       //and their timetokens
       for (channel in response.channels) {
         var channel_receipts = response.channels[channel];
-        console.log(response)
+        //console.log(response)
         var len = channel_receipts.length - 1;
-        console.log(len)
-        console.log(channel_receipts[len])
+        //console.log(len)
+        //console.log(channel_receipts[len])
         tt = channel_receipts[len].timetoken;
-        console.log(tt)
+        //console.log(tt)
 
 
         if (tt == undefined || tt == 0) {
           tt = 1000000000000000
           /*parseInt(response.messages[len].timetoken) -*/
         }
-        //console.log(channel_receipts)
+        ////console.log(channel_receipts)
         chnl.push(channel_receipts[len].message.user);
         tts.push(tt);
       }
@@ -300,8 +306,8 @@ function displayMessagePreviews() {
           count: 1
         }, (status, preview) => {
           // handle response
-          console.log(preview)
-          console.log(results.channels)
+          //console.log(preview)
+          //console.log(results.channels)
           for (c in results.channels) {
             count = results.channels[c]
             if (count == 0) {
@@ -343,7 +349,7 @@ function displayMessagePreviews() {
 }
 var msgCount = 0;
 function getLatestExit(log) {
-  console.log(log);
+  //console.log(log);
   if (log.message.user == user) {
     msgCount = log.timetoken;
   }
@@ -358,7 +364,7 @@ function isRead(msgtoken) {
   /*pubnub.getMessageActions({
       channel: 'test_area4'},
     function(status, response) {
-      console.log(response.data[response.data.length-1]['uuid'])
+      //console.log(response.data[response.data.length-1]['uuid'])
     
   });*/
   pubnub.hereNow({
@@ -367,7 +373,7 @@ function isRead(msgtoken) {
     includeState: true,
   }, (status, response) => {
     // handle status, response
-    console.log(response);
+    //console.log(response);
     if (response.channels.test_area4.occupants[0].uuid != user) {
       //check if in or out
       if (response.channels.test_area4.occupants[0].state.mood == "in") {
@@ -392,24 +398,24 @@ function getCount(obj) {
   if (obj.entry.user == user) {
     tt = obj.timetoken;
   }
-  console.log(tt + " user: " + obj.entry.user)
+  //console.log(tt + " user: " + obj.entry.user)
 }
 function displayMessages() {
-   
+
   //listener
   readReceipts = {
     status: function (statusEvent) {
       if (statusEvent.category === "PNConnectedCategory") {
-        console.log("connected");
-        console.log(statusEvent)
+        //console.log("connected");
+        //console.log(statusEvent)
         // publishMsg();
       }
     },
     message: function (msg) {
-      console.log(msg)
-      console.log(msg.timetoken)
+      //console.log(msg)
+      //console.log(msg.timetoken)
       if (msg.subscribedChannel == name + "_receipts") {
-        console.log("RAD")
+        //console.log("RAD")
         if (msg.message.user != user) {
           //if new receipt is not from current user,
           //update read
@@ -435,24 +441,24 @@ function displayMessages() {
       //var occupancy = p.occupancy; // No. of users connected with the channel
       var state = p.state; // User State
       var uuid = p.uuid;
-      console.log(uuid + " is " + action + " and " + state)
+      //console.log(uuid + " is " + action + " and " + state)
       if (uuid != user) {
         //other user has performed smth
         if (state.mood == "in") {
           //user opened chat
           //check if latest message action is messaged_delivered
           //if delivered, update to read
-          console.log("this is where u set the delivered to read")
+          //console.log("this is where u set the delivered to read")
           //$('#msg_status').html("read");
           var timetoken = p.timetoken;
-          console.log(timetoken)
+          //console.log(timetoken)
           pubnub.messageCounts({
             channels: [name],
             channelTimetokens: [timetoken],
           }, (status, results) => {
             // handle status, response
-            console.log(status);
-            console.log(results);
+            //console.log(status);
+            //console.log(results);
           });
         } else {
           //user closed chat
@@ -470,34 +476,33 @@ function displayMessages() {
     count: 100// how many items to fetch
   },
     function (status, response) {
-      console.log("AAAAA");
-      console.log(response.messages);
+      //console.log("AAAAA");
+      //console.log(response.messages);
       for (var i = 0; i < response.messages.length - 1; i++) {
         if (response.messages[i].entry.user == user) {
           tt = response.messages[i].timetoken;
         }
       }
-      console.log(tt)
+      //console.log(tt)
       glpubnub.messageCounts({
         channels: [name],
         channelTimetokens: [tt]
       }, function (status, results) {
-        console.log(results);
+        //console.log(results);
       });
-      console.log(tt)
+      //console.log(tt)
     });
 
   glpubnub.history({
     channel: name,
-    count: 100, // how many items to fetch
+    count: 5, // how many items to fetch
     includeMessageActions: true,
     stringifiedTimeToken: true // false is the default
   },
     function (status, response) {
-      console.log(response.messages);
       response.messages.forEach((msg) => postMsg(msg, true));
-      console.log("mine: " + myLatestMessage);
-      console.log("their: " + theirLatestMessage)
+      //console.log("mine: " + myLatestMessage);
+      //console.log("their: " + theirLatestMessage)
       if (myLatestMessage == undefined && theirLatestMessage == undefined) {
         $('#message-container').html('<div class="announcement"><span>Start messaging.</span></div><br>');
       }
@@ -512,7 +517,7 @@ function displayMessages() {
   },
     (status, response) => {
       // handle response
-      console.log(response)
+      //console.log(response)
     });
 
 
@@ -534,7 +539,7 @@ function addRead() {
   },
     function (status, response) {
       for (var i = 0; i < response.messages.length - 1; i++) {
-        console.log(response.messages[i]);
+        //console.log(response.messages[i]);
         var div = document.getElementById(response.messages[i].entry.lastSeen)
         if (div) {
           read = div.querySelector('.read');
@@ -542,20 +547,20 @@ function addRead() {
         }
       }
       readAll();
-      console.log(tt)
+      //console.log(tt)
       pubnub.messageCounts({
         channels: [name],
         channelTimetokens: [tt]
       }, function (status, results) {
-        console.log(results);
+        //console.log(results);
       });
-      console.log(tt)
+      //console.log(tt)
     });
 }
 
 function postMsg(msg, isAppend) {
   var sender = 'You';
-  console.log(msg);
+  //console.log(msg);
   var message = msg.entry.content;
   var id = msg.entry.id;
   if(document.getElementById(id))
@@ -593,9 +598,9 @@ function postMsg(msg, isAppend) {
   }
   container.innerHTML = MESSAGE_TEMPLATE;
   const div = container.firstElementChild;
-  console.log(id);
+  //console.log(id);
   div.setAttribute('id', id);
-  console.log(timestamp);
+  //console.log(timestamp);
   div.setAttribute('timestamp', msg.timetoken);
   sender = msg.entry.sender == user ? sender : name;
   var timestamp1 = div.querySelector('.timestamp');
@@ -615,27 +620,27 @@ function postMsg(msg, isAppend) {
     if(isAppend){
       $('#message-container').append(div);
     }else{
-      console.log('hello 12312');
+      //console.log('hello 12312');
       let parentElement = document.getElementById('message-container');
       let theFirstChild = parentElement.firstChild;
       parentElement.insertBefore(div, theFirstChild)
     }
-    console.log(myLatestMessage);
+    //console.log(myLatestMessage);
   } else {
     theirLatestMessage = msg.entry.id;
-    console.log(theirLatestMessage);
+    //console.log(theirLatestMessage);
     sender = name;
     // $('#message-container').append('<div class="d-flex justify-content-between"><span class="badge badge-pill" id="user-name">'+sender+'<br></span><span class="timestamp text-muted">'+timestamp+'</span></div><div class="card mb-3"><div class="row no-gutters"><div class="col"><div id="message_display" class="text-wrap"><p>'+message.replace( /[<>]/g, '' )+'</p></div></div></div></div>');
     if(isAppend){
       $('#message-container').append(div);
     }else{
-      console.log('hello 1231');
+      //console.log('hello 1231');
       let parentElement = document.getElementById('message-container');
       let theFirstChild = parentElement.firstChild;
       parentElement.insertBefore(div, theFirstChild);
     }
   }
-  console.log(sender);
+  //console.log(sender);
 
   message = message.substr(0, 15) + (message.length > 15 ? '&hellip;' : '');
   var date = gmtDate.toLocaleString('default', {
@@ -652,7 +657,7 @@ function postMsg(msg, isAppend) {
   $('#' + name).html('');
 }
 function otherMsg(sender, timestamp, msg) {
-  console.log(msg);
+  //console.log(msg);
   if (document.getElementById(msg.id)) return;
   var message = msg.content;
   theirLatestMessage = msg.id;
@@ -689,9 +694,9 @@ function otherMsg(sender, timestamp, msg) {
   }
   container.innerHTML = MESSAGE_TEMPLATE;
   const div = container.firstElementChild;
-  console.log(div);
+  //console.log(div);
   div.setAttribute('id', msg.id);
-  console.log(timestamp);
+  //console.log(timestamp);
   div.setAttribute('timestamp', timestamp);
   var timestamp1 = div.querySelector('.timestamp');
   var senderDiv = div.querySelector('.sender');
@@ -715,7 +720,7 @@ function otherMsg(sender, timestamp, msg) {
   });
   $('#' + sender + '_recentMsg').html('[' + recent_timestamp + '] ' + message);
   $('#' + sender + '_datestamp').html(date);
-  console.log(totalCount + ' - ' + $('#' + sender).html());
+  //console.log(totalCount + ' - ' + $('#' + sender).html());
   //totalCount -= parseInt($('#' + sender).html());
   adjustTotalCount(false, $('#' + sender).html());
   //$('#totalCount').html(totalCount);
@@ -737,12 +742,12 @@ function enter() {
     channels: [name],
   }, (status, response) => {
     // handle state setting response
-    console.log(response)
+    //console.log(response)
   });
   //enter chat
 
   //remove msg count 
-  console.log(totalCount + " - " + parseInt($('#' + name).html()))
+  //console.log(totalCount + " - " + parseInt($('#' + name).html()))
 
   adjustTotalCount(false, $('#' + name).html())
   $('#' + name).html("")
@@ -751,7 +756,7 @@ function enter() {
   readListener = {
     status: function (statusEvent) { },
     message: function (msg) {
-      console.log(msg);
+      //console.log(msg);
       if (msg.message.user != user) {
         //if new receipt is not from current user,
         //update read
@@ -779,17 +784,17 @@ function enter() {
       //var occupancy = p.occupancy; // No. of users connected with the channel
       var state = p.state; // User State
       var uuid = p.uuid;
-      console.log(uuid + " is " + action + " and " + state)
+      //console.log(uuid + " is " + action + " and " + state)
       if (uuid != user) {
         //other user has performed smth
         if (state.mood == "in") {
           //user opened chat
           //check if latest message action is messaged_delivered
           //if delivered, update to read
-          console.log("this is where u set the delivered to read")
+          //console.log("this is where u set the delivered to read")
           //$('#msg_status').html("read");
           var timetoken = p.timetoken;
-          console.log(timetoken)
+          //console.log(timetoken)
 
         } else {
           //user closed chat
@@ -817,7 +822,7 @@ function exit() {
     channels: [name],
   }, (status, response) => {
     // handle state setting response
-    console.log(response)
+    //console.log(response)
   });
   readListener = null;
   glpubnub.removeListener(readListener)
@@ -891,7 +896,7 @@ function sendMessage() {
         var attachURL = storageRef
           .putString(reader.result, 'data_url')
           .then(function (snapshot) {
-            console.log('Uploaded a blob or file!');
+            //console.log('Uploaded a blob or file!');
           })
           .then(() => {
             storage
@@ -911,8 +916,8 @@ function sendMessage() {
                 };
 
                 pubnub.publish(publishConfig, function (status, response) {
-                  console.log(response);
-                  console.log(myLatestMessage);
+                  //console.log(response);
+                  //console.log(myLatestMessage);
                   appendMessage(message, url, response.timetoken, 'You');
                   pubnub.publish(
                     {
@@ -922,7 +927,7 @@ function sendMessage() {
                       }
                     },
                     (status, response) => {
-                      console.log(response);
+                      //console.log(response);
                     }
                   );
                 });
@@ -930,8 +935,8 @@ function sendMessage() {
           });
       } else {
         pubnub.publish(publishConfig, function (status, response) {
-          console.log(response);
-          console.log(myLatestMessage);
+          //console.log(response);
+          //console.log(myLatestMessage);
           appendMessage(message, attachURL, response.timetoken, 'You');
           pubnub.publish(
             {
@@ -941,7 +946,7 @@ function sendMessage() {
               }
             },
             (status, response) => {
-              console.log(response);
+              //console.log(response);
             }
           );
         });
@@ -963,15 +968,15 @@ function sendMessage() {
       uuid: user
     },
       function (status, response) {
-        console.log(status);
-        console.log(response);
+        //console.log(status);
+        //console.log(response);
       });
     pubnub.getMessageActions({
       channel: name
     },
       function (status, response) {
-        console.log(status)
-        console.log(response)
+        //console.log(status)
+        //console.log(response)
       });
   }
   //end addaction
@@ -980,8 +985,8 @@ function sendMessage() {
   pubnub.addListener({
     status: function (statusEvent) {
       if (statusEvent.category === "PNConnectedCategory") {
-        console.log("connected");
-        console.log(statusEvent)
+        //console.log("connected");
+        //console.log(statusEvent)
         publishMsg();
       }
     },
@@ -996,7 +1001,7 @@ function sendMessage() {
   });
   //listener end
 
-  console.log("subbing");
+  //console.log("subbing");
   pubnub.subscribe({
     channels: [name, name + "_receipts"],
     withPresence: true
@@ -1030,7 +1035,7 @@ function appendMessage(message, attachment, timetoken, sender) {
   }
   container.innerHTML = MESSAGE_TEMPLATE;
   const div = container.firstElementChild;
-  console.log(div);
+  //console.log(div);
   div.setAttribute('id', myLatestMessage);
   div.setAttribute('timestamp', timetoken);
   sender = sender == 'You' ? 'You' : sender;
@@ -1069,23 +1074,23 @@ function messageCounter() {
       }
     },
     function (status, response) {
-      console.log(response)
-      console.log(status)
+      //console.log(response)
+      //console.log(status)
     }
   );
   pubnub.getState({
     channels: ['test_area4', 'test_area4_receipts'],
   }, (status, response) => {
     // handle state getting response
-    console.log(response)
+    //console.log(response)
   });
   /*    pubnub.messageCounts({
         channels: ['test_area4'],
         channelTimetokens: [msgtoken],
       }, (status, results) => {
         // handle status, response
-        console.log(status);
-        console.log(results);
+        //console.log(status);
+        //console.log(results);
       });*/
 }
 function showChat() {
@@ -1094,7 +1099,7 @@ function showChat() {
   displayMessagePreviews();
   inboxState = true;
   if (glpubnub == null) {
-    console.log("removed")
+    //console.log("removed")
     glpubnub.removeListener(messageCountingListener);
   }
 }
@@ -1113,7 +1118,7 @@ function autoScrollToBottom() {
   // }, 1000); 
   var messageListElement = document.getElementById('message-container');
   messageListElement.scrollTop = messageListElement.scrollHeight;
-  console.log(messageListElement.scrollTop);
+  //console.log(messageListElement.scrollTop);
 }
 
 
@@ -1131,7 +1136,7 @@ function onMessageRead(messageId) {
     }
   }, (status, response) => {
     // handle state setting response
-    console.log(response)
+    //console.log(response)
   });
 }
 
@@ -1146,11 +1151,11 @@ function readAll() {
   var msgs = $(".msg");
   for (let i = 0; i < msgs.length; i++) {
     let div = msgs[i];
-    // console.log(msgs[i]);
+    // //console.log(msgs[i]);
     if (div.querySelector('.sender').textContent != "You") {
       if (div.querySelector('.read').textContent == "")
         onMessageRead(div.id);
-      console.log(msgs[i]);
+      //console.log(msgs[i]);
     }
   }
 }
@@ -1160,11 +1165,12 @@ function searchUser() {
   var query = $("#searcharea-message").val().trim().toUpperCase();
   if (query == "") {
     $('#user_list').html(user_list_cache);
+    //console.log(user_list_cache)
   } else {
 
     for (member in global_user_list) {
       if (global_user_list[member].name.toUpperCase().indexOf(query) > -1) {
-        $('#user_list').append('<div onclick="viewMessage(\'' + global_user_list[member].name + '\')" class="col-message chat-preview"><div class="row no-gutters"><div class="col-auto pad-5 d-flex align-items-center justify-content-center"><center><img src="css/user.png"></center></div><div class="col-8 pad-10"><br><div class="w-100"></div><div class="d-flex justify-content-between" ><strong><span style="font-size:medium;">' + global_user_list[member].name + '</span></strong></div><div class="w-100"></div><small class="text-muted text-truncate"></small><div class="w-100"></div></div><div class="col-auto" ><br><div class="w-100"></div><div class="d-flex justify-content-end"><small class="text-muted"></small></div><div class="w-100"></div><br><div class="d-flex justify-content-center"><span class="badge badge-pill badge-info"></span></div></div></div></div>');
+        $('#user_list').append('<div onclick="viewMessage(\'' + global_user_list[member].name + '\')" class="col-message chat-preview"><div class="row no-gutters"><div class="col-auto pad-5 d-flex align-items-center justify-content-center"><center><img src="css/user.png"></center></div><div class="col-8 pad-10"><br><div class="w-100"></div><div class="d-flex justify-content-between" ><strong><span style="font-size:medium;">' + global_user_list[member].name + '</span></strong></div><div class="w-100"></div><small class="text-muted text-truncate"></small><div class="w-100"></div></div><div class="col-auto" ><br><div class="w-100"></div><div class="d-flex justify-content-end"><small class="text-muted"></small></div><div class="w-100"></div><br><div class="d-flex justify-content-center"><span id='+global_user_list[member].id+' class="badge badge-pill badge-info"></span></div></div></div></div>');
       }
     }
     if ($('#user_list').html() == "") {
@@ -1195,7 +1201,7 @@ function countUpdate() {
   countListener = {
     status: function (statusEvent) { },
     message: function (msg) {
-      console.log(msg)
+      //console.log(msg)
       if (msg.publisher == "admin") {
         var target_user = msg.channel;
         pubnub.fetchMessages({
@@ -1203,7 +1209,7 @@ function countUpdate() {
           count: 1
         }, function (status, response) {
           //get the latest msg
-          console.log(response);
+          //console.log(response);
           var date = response.channels[target_user][0].message.timestamp;
           var recent_message = "";
 
@@ -1235,18 +1241,43 @@ function countUpdate() {
 
         //update message count
         //if inboxState == true;
-        console.log(msg.channel != (target_user + "_receipts"))
+        //console.log(msg.channel != (target_user + "_receipts"))
         var target_user = msg.publisher;
 
         if ((inboxState == true) && (msg.channel != (target_user + "_receipts"))) {
-          console.log(msg.publisher)
+          //console.log(msg.publisher)
           var existing_count = $('#' + target_user).html();
           if (existing_count == "") {
             $('#' + target_user).html("1");
             adjustTotalCount(true, 1)
-          } else {
+          }
+          else if(existing_count == undefined){
+            //append
+            var c = msg.publisher;
+            var recent_message = "";
+            var possible_file = msg.message.imageURL;
+
+                  recent_message = ""
+            if (possible_file != undefined) {
+              recent_message = "File attached. ";
+            }
+            recent_message += msg.message.content;
+
+            recent_message = recent_message.substr(0, 15) + (recent_message.length > 15 ? '&hellip;' : '');
+            var recent_datestamp = msg.timetoken;
+
+            const gmtDate = new Date(recent_datestamp * 1000);
+            recent_datestamp = gmtDate.toLocaleString("default", { month: "short", day: 'numeric' });
+            var recent_timestamp = gmtDate.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
+            var temp_list = $('#user_list').html();
+            $('#user_list').html('<div onclick="viewMessage(\'' + c + '\')" class="col-message chat-preview"><div class="row no-gutters"><div class="col-auto pad-5 d-flex align-items-center justify-content-center"><center><img src="css/user.png"></center></div><div class="col-8 pad-10"><br><div class="w-100"></div><div class="d-flex justify-content-between" ><strong><span style="font-size:medium;">' + c + '</span></strong></div><div class="w-100"></div><small id="' + c + '_recentMsg" class="text-muted text-truncate">[' + recent_timestamp + '] ' + recent_message + '</small><div class="w-100"></div></div><div class="col-auto" ><br><div class="w-100"></div><div class="d-flex justify-content-end"><small id="' + c + '_datestamp" class="text-muted">' + recent_datestamp + '</small></div><div class="w-100"></div><div class="d-flex justify-content-right"><span id="' + c + '" class="badge badge-pill badge-info">1</span></div></div></div></div>');
+            $('#user_list').append(temp_list);
+            user_list_cache = $('#user_list').html();      
+            adjustTotalCount(true,1);
+          }
+          else {
             existing_count = parseInt(existing_count) + 1
-            console.log(totalCount + " + " + existing_count)
+            //console.log(totalCount + " + " + existing_count)
             adjustTotalCount(true, 1)
             $('#' + target_user).html(existing_count);
           }
@@ -1255,7 +1286,7 @@ function countUpdate() {
             count: 1
           }, function (status, response) {
             //get the latest msg
-            console.log(response);
+            //console.log(response);
             var date = response.channels[target_user][0].message.timestamp;
             var recent_message = "";
 
@@ -1280,26 +1311,36 @@ function countUpdate() {
   };
 
 
+  pubnub.addListener(countListener);
   pubnub.getUsers({
     include: {
       customFields: true
     }
   },
     function (status, response) {
-      pubnub.addListener(countListener);
-      pubnub.subscribe({
-        channels: [name],
-      });
+      //console.log("AAAAA ")
+      //console.log(response)
+      for(u in response.data){
+        pubnub.subscribe({
+          channels: [response.data[u].name],
+        },function(status,res){
+          //console.log(status)
+        //console.log(response.data[u].name)
+        });
+
+      }
     });
 
 }
 
 function adjustTotalCount(operation, number) {
-  if (number == "") {
+  //console.log(number)
+  if (number == "" || number == undefined) {
     number = 0;
   }
   totalCount = $('#totalCount').html()
-  if(totalCount == ""){
+  //console.log($('#totalCount').html())
+  if(totalCount == "" || totalCount == undefined){
     totalCount = 0;
   }else{
     totalCount = parseInt(totalCount)
@@ -1311,21 +1352,21 @@ function adjustTotalCount(operation, number) {
   } else {
     totalCount -= parseInt(number)
   }
-  console.log(totalCount)
-
-  $('#totalCount').css('display', '');
-  if (totalCount == 0) {
-    $('#totalCount').html("");
+  //console.log(totalCount)
+  if(totalCount == NaN){     
     $('#totalCount').css('display', 'none');
-  } else if (totalCount > 99) {
-    $('#totalCount').html("99+");
-  } else if(totalCount == NaN){
-
-  $('#totalCount').css('display', 'none');
-  } 
-  else {
-    $('#totalCount').html("" + totalCount);
+  }else{
+    if (totalCount == 0) {
+      $('#totalCount').html("");
+      $('#totalCount').css('display', 'none');
+    } else if (totalCount > 99) {
+      $('#totalCount').html("99+");
+    } 
+    else {
+      $('#totalCount').html("" + totalCount);
+    }
   }
+  $('#totalCount').css('display', '');
 }
 
 
@@ -1335,7 +1376,7 @@ $('#message-container').scroll(function() {
     
       var div = document.getElementById('message-container');
       
-      console.log(div.querySelector('.msg').getAttribute('timestamp'));
+      //console.log(div.querySelector('.msg').getAttribute('timestamp'));
       $('#message-container').prepend('<div id="chatloader" class="chat-loader"></div>');
       glpubnub.history({
         channel: name + '_receipts',
@@ -1344,14 +1385,14 @@ $('#message-container').scroll(function() {
         start: div.querySelector('.msg').getAttribute('timestamp')
       },
         function (status, response) {
-          console.log("AAAAA");
-          console.log(response.messages);
+          //console.log("AAAAA");
+          //console.log(response.messages);
           for (var i = 0; i < response.messages.length - 1; i++) {
             if (response.messages[i].entry.user == user) {
               tt = response.messages[i].timetoken;
             }
           }
-          console.log(tt)
+          //console.log(tt)
           glpubnub.messageCounts({
             channels: [name],
             channelTimetokens: [tt]
@@ -1368,7 +1409,7 @@ $('#message-container').scroll(function() {
         start: div.querySelector('.msg').getAttribute('timestamp')
       },
         function (status, response) {
-          console.log(response)
+          //console.log(response)
           div.removeChild(div.firstElementChild);
           response.messages.reverse().forEach((msg) => postMsg(msg, false));
           if (myLatestMessage == undefined && theirLatestMessage == undefined) {
