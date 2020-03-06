@@ -64,6 +64,7 @@
           style="cursor: pointer;" onclick="showOrHide()">
           <div class="d-flex w-100 justify-content-start align-items-center">
             <span class="fa fa-comment fa-fw mr-3 nav_icon"></span>
+            <span id="totalCount" class="badge badge-pill badge-danger p-1"></span>
             <span class="submenu-icon d-none ml-auto"></span>
           </div>
         </a>
@@ -231,7 +232,7 @@
         <div id="user-chat">
           <img src="./img/flower.png" style="width: 30px; height: 30px;" > 
         </div>
-        <strong id="chat-title" class="mr-auto">&nbsp;Chat</strong>
+        <strong id="chat-title" class="mr-auto">&nbsp;チャット</strong>
         <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
           <span onclick="hideChat()" aria-hidden="true">&times;</span>
         </button>
@@ -240,7 +241,7 @@
       <div id="admin-search">
         <div class="input-group mb-3 row no-gutters">
           <input type="text" id="searcharea-message" class="form-control" onkeyup="searchUser()"
-            placeholder="Search user..." aria-label="Search user..." aria-describedby="basic-addon2">
+            placeholder="ユーザーを探して..." aria-label="ユーザーを探して..." aria-describedby="basic-addon2">
           <div class="input-group-append">
             <button type="button" id="search-btn" class="btn btn-info"></button>
           </div>
@@ -258,7 +259,7 @@
 
       </div>
       <div id="chat-footer" class="form-group row no-gutters"
-        style="display:inline;height:50px!important;background-color: red">
+        style="display:inline;height:50px!important;">
         <textarea class="form-control textarea col-10 scrollbar scrollbar-rare-wind" rows="1" cols="3"
           disabled></textarea>
         <button type="button" disabled class="col-2 btn btn-info"></button>

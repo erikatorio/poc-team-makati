@@ -66,10 +66,11 @@
                     </div>
                 </a>
                 <a data-toggle="collapse" aria-expanded="false"
-                    class="bg-light list-group-item list-group-item-action flex-column align-items-start" title="Chat"
-                    style="cursor: pointer;">
+                class="bg-light list-group-item list-group-item-action flex-column align-items-start" title="Chat"
+                style="cursor: pointer;" onclick="showOrHide()">
                     <div class="d-flex w-100 justify-content-start align-items-center">
-                        <span class="fa fa-comment fa-fw mr-3" style="color: #8A6E59"></span>
+                        <span class="fa fa-comment fa-fw mr-3 nav_icon"></span>
+                        <span id="totalCount" class="badge badge-pill badge-danger p-1" style=""></span>
                         <span class="submenu-icon d-none ml-auto"></span>
                     </div>
                 </a>
@@ -162,11 +163,11 @@
 
 
                 <div class="tab-pane container active" id="firstgraph">
-                    <div class="dialog1" title="How to use" style="display: none;">
+                    <div class="dialog1" title="使い方" style="display: none;">
                         <p>
-                            In order to download the graphs, click on the cloud (<i
-                                class="material-icons">cloud_download</i>) icon
-                            on the upper left and select on the type of file you would like to download.
+                            グラフをダウンロードする場合, この (<i
+                                class="material-icons">cloud_download</i>) アイコンを
+                            押して、ファイルのタイプを選んでください。
                         </p>
                     </div>
                     <button class="graph_ins"><i class="fas fa-info-circle"
@@ -191,15 +192,15 @@
                     </div>
                 </div>
                 <div class="tab-pane container fade" id="secondgraph">
-                    <div class="dialog2" title="How to use" style="display: none;">
+                    <div class="dialog2" title="使い方" style="display: none;">
                         <p>
-                            Choose between the department or the category radio button in order to
-                            choose which data to show.
+
+                            表示するデータを選択するには、デパートメントまたはカテゴリのラジオボタンから選択して下さい。
                             </br>
                             </br>
-                            In order to download the graphs, click on the cloud (<i
-                                class="material-icons">cloud_download</i>) icon
-                            at the top and select on the type of file you would like to download.
+                            グラフをダウンロードする場合, この (<i
+                                class="material-icons">cloud_download</i>) アイコンを
+                            押して、ファイルのタイプを選んでください。
                         </p>
                     </div>
                     <button class="graph_ins"><i class="fas fa-info-circle"
@@ -261,15 +262,14 @@
                     </div>
                 </div>
                 <div class="tab-pane container fade" id="piegraph">
-                    <div class="dialog3" title="How to use" style="display: none;">
+                    <div class="dialog3" title="使い方" style="display: none;">
                         <p>
-                            Choose between the department or the category radio button in order to
-                            choose which data to show.
+                            表示するデータを選択するには、デパートメントまたはカテゴリのラジオボタンから選択して下さい。
                             </br>
                             </br>
-                            In order to download the graphs, click on the cloud (<i
-                                class="material-icons">cloud_download</i>) icon
-                            at the top and select on the type of file you would like to download.
+                            グラフをダウンロードする場合, この (<i
+                                class="material-icons">cloud_download</i>) アイコンを
+                            押して、ファイルのタイプを選んでください。
                         </p>
                     </div>
                     <button class="graph_ins"><i class="fas fa-info-circle"
@@ -310,15 +310,14 @@
                     </div>
                 </div>
                 <div class="tab-pane container fade" id="trend">
-                    <div class="dialog4" title="How to use" style="display: none;">
+                    <div class="dialog4" title="使い方" style="display: none;">
                         <p>
-                            Click on the first button on the upper left in order to
-                            choose whether to display reports on a weekly, monthly or yearly basis.
+                            期間のボタンを押すと、トレンドグラフの期間を変更するです。
                             </br>
                             </br>
-                            In order to download the graphs, click on the cloud (<i
-                                class="material-icons">cloud_download</i>) icon
-                            on the upper left and select on the type of file you would like to download.
+                            グラフをダウンロードする場合, この (<i
+                                class="material-icons">cloud_download</i>) アイコンを
+                            押して、ファイルのタイプを選んでください。
                         </p>
                     </div>
                     <button class="graph_ins"><i class="fas fa-info-circle"
@@ -371,15 +370,15 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">ログアウトしますか？</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-body">このアカウントからログアウトしますか？</div>
                 <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <button class="btn btn-primary" onclick="logOut()">Logout</button>
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">キャンセル</button>
+                    <button class="btn btn-primary" onclick="logOut()">ログアウト</button>
                 </div>
             </div>
         </div>
@@ -395,7 +394,7 @@
                 <div id="user-chat">
                     <img src="./img/flower.png" style="width: 30px; height: 30px;">
                 </div>
-                <strong id="chat-title" class="mr-auto">&nbsp;Chat</strong>
+                <strong id="chat-title" class="mr-auto">&nbsp;チャット</strong>
                 <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
                     <span onclick="hideChat()" aria-hidden="true">&times;</span>
                 </button>
@@ -404,7 +403,7 @@
             <div id="admin-search">
                 <div class="input-group mb-3 row no-gutters">
                     <input type="text" id="searcharea-message" class="form-control" onkeyup="searchUser()"
-                        placeholder="Search user..." aria-label="Search user..." aria-describedby="basic-addon2">
+                        placeholder="ユーザーを探して..." aria-label="ユーザーを探して"..." aria-describedby="basic-addon2">
                     <div class="input-group-append">
                         <button type="button" id="search-btn" class="btn btn-info"></button>
                     </div>
@@ -490,15 +489,16 @@
     <!-- <script src="https://code.jquery.com/jquery-1.12.4.js"></script> -->
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-    <!-- Popper JS
+    <!-- Popper JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"
       integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
       crossorigin="anonymous"></script>
       
-    Bootstrap JS
+    <!-- Bootstrap JS -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
     integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-    crossorigin="anonymous"></script> -->
+    crossorigin="anonymous"></script> 
+
 
     <!-- Vis Js core JavaScript-->
     <script type="text/javascript" src="https://unpkg.com/vis-graph3d@latest/dist/vis-graph3d.min.js"></script>
@@ -512,11 +512,12 @@
         integrity="sha256-gJWdmuCRBovJMD9D/TVdo4TIK8u5Sti11764sZT1DhI=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"
         integrity="sha256-c3RzsUWg+y2XljunEQS0LqWdQ04X1D3j22fd/8JCAKw=" crossorigin="anonymous"></script>
-    <script src="js/temp_chat.js"></script>
+    
     <!-- Custom JS -->
     <script src="js/dataloader.js"></script>
     <script src="js/graphWindowLoader.js"></script>
     <script src="js/notification.js"></script>
+    <script src="js/temp_chat.js"></script>
     <script src="js/graph3d.js"></script>
     <script src="js/graph2d.js"></script>
 
