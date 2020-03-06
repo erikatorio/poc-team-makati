@@ -21,17 +21,17 @@ window.addEventListener("load", async () => {
         showPage("trendloader");
     });
 
-    // $('#latestReportsTable').DataTable({
-    //     paging: false,
-    //     info: false,
-    //     scrollY: 200,
-    //     responsive: true,
-    //     searching: false,
-    //     lengthChange: false,
-    //     ordering: false,
-    //     paging: false,
-    //     info: false,
-    // });
+    $('#latestReportsTable').DataTable({
+        paging: false,
+        info: false,
+        scrollY: '20vh',
+        responsive: true,
+        searching: false,
+        lengthChange: false,
+        ordering: false,
+        paging: false,
+        info: false,
+    });
 
     $('#logsTable').DataTable({
         dom: 'Bfrtip',
