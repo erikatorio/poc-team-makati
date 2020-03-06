@@ -190,3 +190,13 @@ label {
 .paginate_button {
     font-family: 'Lato' !important;
 }
+
+.progress {
+    margin-top: 10px;
+    height: 10px;
+}
+
+.progress-bar {
+    background-color: #FF9999;
+}
+ 
