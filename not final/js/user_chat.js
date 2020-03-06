@@ -143,8 +143,8 @@ function displayMessages() {
         }
       } else {
         if (msg.message.sender != user) {
-          otherMsg(msg.publisher, msg.message.timestamp, msg.message);
           onMessageRead(msg.message.id);
+          otherMsg(msg.publisher, msg.message.timestamp, msg.message);
           //addaction(msg.timetoken, "message_deliver");
         } else {
           //addaction(msg.timetoken, "message_read");
@@ -465,13 +465,16 @@ function enter() {
     status: function (statusEvent) { },
     message: function (msg) {
       console.log(msg);
-      console.log(user);
-      if (msg.message.user != user) {
+      console.log(msg.message);
+      console.log(msg.message.user != user);
+      if (msg.message.user) {
         //if new receipt is not from current user,
         //update rea
+        if (msg.message.lastSeen) {
           var div = document.getElementById(msg.message.lastSeen);
           read = div.querySelector('.read');
           read.textContent = 'read ';
+        }
       }
     },
     presence: function (p) {
@@ -620,7 +623,7 @@ function sendMessage() {
                     {
                       channel: name + '_receipts',
                       message: {
-                        lastSeen:myLatestMessage,
+                        lastSeen: myLatestMessage,
                         user: sessionStorage.getItem('username')
                       }
                     },
