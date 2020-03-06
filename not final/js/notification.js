@@ -1,5 +1,4 @@
 window.addEventListener("load", async () => {
-    await reportSummary();
 
     await db
         .collection('reports')
