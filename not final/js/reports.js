@@ -209,6 +209,7 @@ async function selectReport(reportID) {
 }
 
 async function loadReportDetails(reportSelected) {
+    $("#reasonDiv").attr("hidden", "hidden");
     $("#exampleModalLabel").html("Report ID #" + reportSelected.id);
     $("#reportDate").val(reportSelected.created.toDate().toLocaleString("en-PH"));
     // $("#sgroup").val(reportSelected.group);
@@ -245,6 +246,11 @@ async function loadReportDetails(reportSelected) {
         $("#foundFile").removeAttr("hidden");
         $("#foundFile").html("<label for='exampleFormControlTextarea1'>ファイルを選択</label><span class='form-control' id='sattachment'><a target=_blank href= '" + reportSelected.attachFile + "'>Link</a><button type='button' class='close' data-dismiss='alert' aria-label='Close' onclick='removeFile(" + reportSelected.id + ")'><span aria-hidden='true'><a title='Remove File'>&times;</a></span></button></span>");
     }
+    if(reportSelected.status == "拒否された"){
+        $("#reasonDiv").removeAttr("hidden");
+        $("#reason").val(reportSelected.reason);
+    }
+
     $("#sfooter").html('<button type="button" class="btn btn-light" data-dismiss="modal">閉じる</button><button type="button" class="btn btn-primary" id="submit_btn2" onclick="saveChanges(' + reportSelected.id + ')">送信する</button>');
 }
 
