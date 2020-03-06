@@ -27,7 +27,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.13.0/css/mdb.min.css" rel="stylesheet">
     <!-- Your custom styles (optional) -->
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/chat.css">
+    <link rel="stylesheet" href="css/temp_chat.css">
   </head>
   <body>
   
@@ -43,7 +43,7 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent-555">
         <ul class="navbar-nav ml-auto nav-flex-icons">
           <li class="nav-item">
-            <a class="nav-link t-nav" onclick="showChat()" href="#"><i class="fas fa-comments"></i>チャット</a>
+            <a class="nav-link t-nav" onclick="showOrHide()" href="#"><i class="fas fa-comments"></i>チャット</a>
           </li>
           <li class="nav-item">
             <a class="nav-link t-nav" href="reports.html"><i class="fas fa-list"></i>レポート</a>
@@ -111,7 +111,7 @@
                 <!-- username -->
                 <div class="md-form">
                     <input type="email" id="materialFormCardEmailEx" class="form-control" placeholder="新しいユーザー名">
-                    <label for="materialFormCardEmailEx" class="font-weight-light">ユーザー名(*if you change your username, you won't be able to access your old chat)</label>
+                    <label for="materialFormCardEmailEx" class="font-weight-light">ユーザー名(*ユーザー名を変更する場合には、以前のチャットをもうアクセスできませんのでご注意ください。)</label>
                 </div>
 
                 <!-- enable username encryption -->
@@ -134,63 +134,39 @@
     </div>
   </div>
   <!-- edit profile end -->
-<!-- Chat Container-->
-<div id="chat-container" >
-  <div id="chat-toast" class="toast" role="alert" data-autohide="false" aria-live="assertive" aria-atomic="true">
-    <div class="toast-header">
-      <i class="fas fa-comments"></i>
-      <strong id="chat-title" class="mr-auto t-content">&nbsp;Admin</strong>
-      <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
+<div id="chat-container">
+    <div id="chat-toast" class="toast" role="alert" data-autohide="false" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header">
+        <img id="user-chat" src="img/flower.png" alt="logo" style="width:30px;height:30px">
+        <strong id="chat-title" class="mr-auto">&nbsp;Chat</strong>
+        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+          <span onclick="hideChat()">&times;</span>
+        </button>
+      </div>
+      <div id="message-container" class="toast-body scrollbar scrollbar-rare-wind" style="background-color: #F5F5F5">
+
+      </div>
+      <div id="chat-footer" class="form-group row no-gutters" style="display:inline; height:50px!important;">
+      </div>
+      <div id="send-message" class="form-group row no-gutters justify-content-around">
+        <label for="attachment" id="attach-label" class="col-2 no-border-btn waves-effect waves-light">
+          <input type="file" id="attachment" onchange="addAttachment(this)" name="attachment"
+            accept=".zip,.rar,.7zip,image/*">
+        </label>
+        <div class="col-8 bg-white mb-1 d-flex">
+          <div id="attach-group">
+            <img src="" id="attach-prev">
+            <span class="font-weight-bold" id="remove-attach" onclick="removeAttachment()">X</span>
+          </div>
+          <textarea class="form-control scrollbar textarea scrollbar-rare-wind" id="textarea-message" rows="1" cols="3"
+            placeholder="Type a message"></textarea>
+        </div>
+        <button type="button" id="chat-btn" onclick="sendMessage()"
+          class="col-2 no-border-btn waves-effect waves-light"></button>
+      </div>
     </div>
 
-    <div id="message-container" class="toast-body scrollbar scrollbar-rare-wind" style="background-color: #F5F5F5">
-      <div class="announcement">
-          <!-- <span>Previous messages have been deleted.</span> -->
-          <span>Start messaging.</span>
-      </div>
-      <br>
-      <!--admin message sample-->
-      <div class="d-flex justify-content-between">
-        <img id="chat_pic" src="./img/user.png"
-                  class="rounded-circle">
-        <span class="timestamp text-muted">01/21/2020 9:56AM</span>
-      </div>
-        <div class="row no-gutters">
-          <div class="col">
-            <div id="admin_message" class="message_display badge badge-light text-wrap d-inline-flex p-2 col-example">Tell me how you feel.</div>
-          </div>
-        </div>
-      <!--user message sample-->
-      <div class="d-flex justify-content-between">
-        <span class="timestamp text-muted">01/21/2020 9:56AM</span>
-        <img id="chat_pic" src="./img/user.png"
-                  class="rounded-circle">
-      </div>
-      <div class="row no-gutters">
-        <div class="col">
-          <div id="user_message" class="message_display badge badge-secondary text-wrap d-inline-flex p-2 col-example">I don't feel safe</div>
-        </div>
-      </div>
-      <!--user message sample-->
-      <div class="d-flex justify-content-between">
-        <span class="timestamp text-muted">01/21/2020 9:56AM</span>
-        <img id="chat_pic" src="./img/user.png"
-                  class="rounded-circle">
-      </div>
-      <div class="row no-gutters">
-        <div class="col">
-          <div id="user_message" class="message_display badge badge-secondary text-wrap d-inline-flex p-2 col-example">What must i do</div>
-        </div>
-      </div>
-    </div>
-         <div id="send-message" class="form-group row no-gutters">
-          <textarea class="form-control col-10 scrollbar textarea scrollbar-rare-wind" id="textarea-message" rows="1" cols="3" placeholder="Type a message" ></textarea>
-          <button type="button" id="chat-btn" onclick="sendMessage()" class="col-1 no-border-btn btn btn-info"></button>
-        </div>
   </div>
-</div>
 
   <!-- content end -->
   
@@ -213,42 +189,13 @@
   <!-- Custom JS -->
   <script src="js/editprofile.js"></script>
   <script src="js/file.js"></script>
-
+  <script src="js/user_chat.js"></script>
   <script>
-function showChat(){
-		  $('.toast').toast('show');
-		}
-		 function autoScrollToBottom(){
-        $("#message-container").animate({ 
-          scrollTop: $('#message-container').get(0).scrollHeight 
-        }, 1000); 
-      }
-      
-      function sendMessage(){
-        var message =   $('textarea#textarea-message').val().trim();
-        if(message != ""){
-          $('#textarea-message').val('');
-          appendMessage(message);
-        }
-        autoScrollToBottom();
-        //add to database
-      }
-       function appendMessage(message){
-        //if user, check if received or sending
-        //if admin, check if receeived or sending and who is
-        //the user/chatbox owner
-        var sender = "./img/user.png";
-
-        //get current timestamp
-        var timestamp = "01/23/2020 10:56AM"
-        $('#message-container').append('<div class="d-flex justify-content-between"><span class="timestamp text-muted">'+timestamp+'</span><img id="chat_pic" src="'+sender+'" class="rounded-circle"></div><div class="row no-gutters"><div class="col"><div id="user_message" class="message_display badge badge-secondary text-wrap d-inline-flex p-2 col-example">'+message+'</div></div></div>');
-        
-      }
-
     function showDialog() {
         $('#fileid').click();
     }
   </script>
 
+  <script src="https://cdn.pubnub.com/sdk/javascript/pubnub.4.27.1.js"></script>
 </body>
 </html>

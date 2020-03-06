@@ -21,7 +21,7 @@ window.addEventListener("load", async () => {
         drawVisualization2d(search, 2);
         drawPie(2);
         drawVisualizationTrend(0);
-        showPage();
+        showPage3D();
     });
     
     $('#category').change(function () {
@@ -53,7 +53,7 @@ window.addEventListener("load", async () => {
     }
 });
 
-function showPage() {
+function showPage3D() {
     document.getElementById("loader").style.display = "none";
 }
 
