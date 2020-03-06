@@ -48,6 +48,28 @@
     background-color: #ff9999;
 }
 
+.tab-content{
+    position: relative;
+}
+
+.graph_ins{
+    position: absolute;
+    top: 0;
+    right: 0; 
+    background-color: transparent;
+    border: none;
+}
+
+.ui-draggable .ui-dialog-titlebar{
+    background-color: #ff9999;
+    color: #f3f3f3;
+}
+
+.ui-dialog .ui-dialog-content p{
+    color: #3D3028;
+    font-size: 14px;
+}
+
 #loader {
     position: absolute;
     left: 50%;
