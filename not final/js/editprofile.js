@@ -48,14 +48,21 @@ function saveProfile(e) {
     e.preventDefault();
     
     let sessionUserID = sessionStorage.getItem('userId');
+    var prev_enableAnon = sessionStorage.getItem('enableAnonymous');
+    var anon_isChanged = true;
 
     let newName = $('#materialFormCardEmailEx').val();
     let newPass = $('#materialFormCardPasswordEx').val();
     let enableAnonymous = $('#customSwitches').prop('checked');
 
-    // console.log(newName);
-    // console.log(newPass);
-    // console.log(enableAnonymous);
+    //CHECK IF enable anon has changed
+    if(prev_enableAnon.toString() == enableAnonymous.toString()){
+        anon_isChanged = false;
+    }
+
+    // console.log("New Name is " + newName);
+    // console.log("New Pass is " + newPass);
+    // console.log(anon_isChanged);
     // path = $("#fileid").val()
     // $('#user_picture').attr('src', 'img/flower.png');
     // console.log($("#fileid").val());
@@ -68,91 +75,73 @@ function saveProfile(e) {
     // } else {
     //     console.log(typeof(JSON.parse(sessionStorage.getItem("enableAnonymous"))));
     // }
-
-    if(newName != "" && newPass != ""){
-        db.collection("users")
-            .where("id", "==", parseInt(sessionUserID))
-            .get()
-            .then(function (querySnapshot) {
-                querySnapshot.forEach(function (doc) {
-                    doc.ref.update({
-                        username: newName,
-                        password: newPass,
-                        enableAnonymousSending: enableAnonymous
+    if(newName!="" || newPass !="" || anon_isChanged){
+        console.log("Something changed");
+        if(newName != ""){
+            console.log("Name changed");
+            db.collection("users")
+                .where("id", "==", parseInt(sessionUserID))
+                .get()
+                .then(function (querySnapshot) {
+                    querySnapshot.forEach(function (doc) {
+                        doc.ref.update({
+                            username: newName
+                        });
                     });
-                });
-
-                if(!alert('Username and Password Change Success!')){
                     sessionStorage.setItem("username", newName);
-                    sessionStorage.setItem("enableAnonymous", enableAnonymous);
-                    setTimeout(location.reload.bind(location), 1000);
-                }
-            })
-            .catch(function (error) {
-                console.error("Error user update: ", error);
-            });
-    
-    } else if (newName != ""){
-        db.collection("users")
-            .where("id", "==", parseInt(sessionUserID))
-            .get()
-            .then(function (querySnapshot) {
-                querySnapshot.forEach(function (doc) {
-                    doc.ref.update({
-                        username: newName,
-                        enableAnonymousSending: enableAnonymous
+                    
+                    var pubnub = new PubNub({
+                        publishKey : 'pub-c-8266b3af-df4a-4508-91de-0a06b9634a69',
+                        subscribeKey : 'sub-c-b20376b2-5215-11ea-80a4-42690e175160',
+                    });  
+                    pubnub.createUser({
+                        id: Pubnub.GenerateUUID(),
+                        name: newName
                     });
+                })
+                .catch(function (error) {
+                    console.error("Error user update: ", error);
                 });
-
-                if(!alert('Username Change Success!')){
-                    sessionStorage.setItem("username", newName);
-                    sessionStorage.setItem("enableAnonymous", enableAnonymous);
-                    setTimeout(location.reload.bind(location), 1000);
-                }
-
-            })
-            .catch(function (error) {
-                console.error("Error user update: ", error);
-            });
-
-    } else if(newPass != ""){
-        db.collection("users")
-            .where("id", "==", parseInt(sessionUserID))
-            .get()
-            .then(function (querySnapshot) {
-                querySnapshot.forEach(function (doc) {
-                    doc.ref.update({
-                        password: newPass,
-                        enableAnonymousSending: enableAnonymous
+        
+        } else if(newPass != ""){
+            console.log("Pass changed");
+            db.collection("users")
+                .where("id", "==", parseInt(sessionUserID))
+                .get()
+                .then(function (querySnapshot) {
+                    querySnapshot.forEach(function (doc) {
+                        doc.ref.update({
+                            password: newPass,
+                        });
                     });
+                })
+                .catch(function (error) {
+                    console.error("Error user update: ", error);
                 });
-
-                if(!alert('Change Password Success!')){
+        } else if(anon_isChanged) {
+            console.log("Anon changed");
+            db.collection("users")
+                .where("id", "==", parseInt(sessionUserID))
+                .get()
+                .then(function (querySnapshot) {
+                    querySnapshot.forEach(function (doc) {
+                        doc.ref.update({
+                            enableAnonymousSending: enableAnonymous
+                        });
+                    });
+                    
                     sessionStorage.setItem("enableAnonymous", enableAnonymous);
-                    setTimeout(location.reload.bind(location), 1000);
-                }
-            })
-            .catch(function (error) {
-                console.error("Error user update: ", error);
-            });
+                })
+                .catch(function (error) {
+                    console.error("Error user update: ", error);
+                });
+        }
+
+        if(!alert('Success!')){
+            setTimeout(location.reload.bind(location), 1000);
+        }
+
     } else {
-        db.collection("users")
-            .where("id", "==", parseInt(sessionUserID))
-            .get()
-            .then(function (querySnapshot) {
-                querySnapshot.forEach(function (doc) {
-                    doc.ref.update({
-                        enableAnonymousSending: enableAnonymous
-                    });
-                });
-
-                if(!alert('Anonymous Reporting Set!')){
-                    sessionStorage.setItem("enableAnonymous", enableAnonymous);
-                    setTimeout(location.reload.bind(location), 1000);
-                }
-            })
-            .catch(function (error) {
-                console.error("Error user update: ", error);
-            });
+        alert("No changes made");
     }
 }
