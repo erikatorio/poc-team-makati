@@ -49,7 +49,7 @@ async function fileUpload(file_data, reportData, action) {
     
     task.on('state_changed', function (snapshot) {
         progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        //document.getElementById('progress').innerHTML = Math.round(progress) + "\%";
+        document.getElementById('prog').innerHTML = '<div class="progress-bar" role="progressbar" style="width:'+Math.round(progress)+'%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">'+Math.round(progress)+ '%</div>';
         $('#submit_btn2').attr('disabled', true);
         console.log(progress);
     }, 
