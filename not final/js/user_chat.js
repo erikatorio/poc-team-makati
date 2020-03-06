@@ -304,20 +304,20 @@ function postMsg(msg, lastRead) {
   }
   const container = document.createElement('div');
   var MESSAGE_TEMPLATE =
-    '<div class="msg d-none" ><div class="d-flex justify-content-between"><span class="badge badge-pill sender" ><br></span><span class="text-muted"><span class="read"></span> <span class="timestamp"></span></span></div><div class="card mb-3"><div class="row no-gutters"><div class="col d-flex"><div id="message_display" class="p-2 text-wrap d-flex"><p class="messageDisplay pl-2 m-0"></p></div></div></div></div></div>';
+    '<div class="msg d-none" ><div class="d-flex justify-content-between"><span class="badge badge-pill sender" ><br></span><span class="text-muted"><span class="read"></span> <span class="timestamp"></span></span></div><div class="card mb-3" style="overflow:hidden"><div class="row no-gutters"><div class="col d-flex"><div id="message_display" style="word-wrap:break-word"  class="p-2 text-break d-flex"><p class="messageDisplay pl-2 m-0"></p></div></div></div></div></div>';
   if (message !== '' && msg.entry.imageURL === undefined) {
     MESSAGE_TEMPLATE =
-      '<div class="msg" ><div class="d-flex justify-content-between"><span class="badge badge-pill sender" ><br></span><span class="text-muted"><span class="read"></span> <span class="timestamp"></span></span></div><div class="card mb-3"><div class="row no-gutters"><div class="col d-flex"><div id="message_display" class="p-2 text-wrap d-flex"><p class="messageDisplay pl-2 m-0"></p></div></div></div></div></div>';
+      '<div class="msg" ><div class="d-flex justify-content-between"><span class="badge badge-pill sender" ><br></span><span class="text-muted"><span class="read"></span> <span class="timestamp"></span></span></div><div class="card mb-3" style="overflow:hidden"><div class="row no-gutters"><div class="col d-flex"><div id="message_display" style="word-wrap:break-word"  class="p-2 text-break d-flex"><p class="messageDisplay pl-2 m-0"></p></div></div></div></div></div>';
   } else if (msg.entry.imageURL !== undefined && message === '') {
     MESSAGE_TEMPLATE =
-      '<div class="msg" ><div class="d-flex justify-content-between"><span class="badge badge-pill sender" ><br></span><span class="text-muted"><span class="read"></span> <span class="timestamp"></span></span></div><div class="card mb-3"><div class="row no-gutters"><div class="col d-flex"><div id="message_display" class="p-2 text-wrap d-flex"><a href="' +
+      '<div class="msg" ><div class="d-flex justify-content-between"><span class="badge badge-pill sender" ><br></span><span class="text-muted"><span class="read"></span> <span class="timestamp"></span></span></div><div class="card mb-3" style="overflow:hidden"><div class="row no-gutters"><div class="col d-flex"><div id="message_display" style="word-wrap:break-word"  class="p-2 text-break d-flex"><a href="' +
       msg.entry.imageURL +
       '" target="_blank"><img class="attach" src="' +
       msg.entry.imageURL +
       '" height="100px" width="100px"></a><p class="messageDisplay pl-2 m-0 d-none"></p></div></div></div></div></div>';
   } else if (msg.entry.imageURL !== undefined && message !== '') {
     MESSAGE_TEMPLATE =
-      '<div class="msg" ><div class="d-flex justify-content-between"><span class="badge badge-pill sender" ><br></span><span class="text-muted"><span class="read"></span> <span class="timestamp"></span></span></div><div class="card mb-3"><div class="row no-gutters"><div class="col d-flex"><div id="message_display" class="p-2 text-wrap d-flex"><a href="' +
+      '<div class="msg" ><div class="d-flex justify-content-between"><span class="badge badge-pill sender" ><br></span><span class="text-muted"><span class="read"></span> <span class="timestamp"></span></span></div><div class="card mb-3" style="overflow:hidden"><div class="row no-gutters"><div class="col d-flex"><div id="message_display" style="word-wrap:break-word"  class="p-2 text-break d-flex"><a href="' +
       msg.entry.imageURL +
       '" target="_blank"><img class="attach" src="' +
       msg.entry.imageURL +
@@ -328,7 +328,7 @@ function postMsg(msg, lastRead) {
     msg.entry.imageURL === Object
   ) {
     MESSAGE_TEMPLATE =
-      '<div class="msg d-none" ><div class="d-flex justify-content-between"><span class="badge badge-pill sender" ><br></span><span class="text-muted"><span class="read"></span> <span class="timestamp"></span></span></div><div class="card mb-3"><div class="row no-gutters"><div class="col d-flex"><div id="message_display" class="p-2 text-wrap d-flex"><p class="messageDisplay pl-2 m-0"></p></div></div></div></div></div>';
+      '<div class="msg d-none" ><div class="d-flex justify-content-between"><span class="badge badge-pill sender" ><br></span><span class="text-muted"><span class="read"></span> <span class="timestamp"></span></span></div><div class="card mb-3" style="overflow:hidden"><div class="row no-gutters"><div class="col d-flex"><div id="message_display" style="word-wrap:break-word"  class="p-2 text-break d-flex"><p class="messageDisplay pl-2 m-0"></p></div></div></div></div></div>';
   }
   container.innerHTML = MESSAGE_TEMPLATE;
   const div = container.firstElementChild;
@@ -358,14 +358,14 @@ function postMsg(msg, lastRead) {
   console.log(msg.entry.sender);
   if (msg.entry.sender == user) {
     myLatestMessage = msg.entry.id;
-    // $('#message-container').append('<div class="d-flex justify-content-between"><span class="badge badge-pill" id="admin-name">'+sender+'<br></span><span class="timestamp text-muted"><span id="'+myLatestMessage+'"></span>'+timestamp+'</span></div><div class="card mb-3"><div class="row no-gutters"><div class="col"><div id="message_display" class="text-wrap"><p>'+message.replace( /[<>]/g, '' )+'</p></div></div></div></div>');
+    // $('#message-container').append('<div class="d-flex justify-content-between"><span class="badge badge-pill" id="admin-name">'+sender+'<br></span><span class="timestamp text-muted"><span id="'+myLatestMessage+'"></span>'+timestamp+'</span></div><div class="card mb-3" style="overflow:hidden"><div class="row no-gutters"><div class="col"><div id="message_display" class="text-wrap"><p>'+message.replace( /[<>]/g, '' )+'</p></div></div></div></div>');
     $('#message-container').append(div);
     console.log(myLatestMessage);
   } else {
     theirLatestMessage = msg.entry.id;
     console.log(theirLatestMessage);
     sender = name;
-    // $('#message-container').append('<div class="d-flex justify-content-between"><span class="badge badge-pill" id="user-name">'+sender+'<br></span><span class="timestamp text-muted">'+timestamp+'</span></div><div class="card mb-3"><div class="row no-gutters"><div class="col"><div id="message_display" class="text-wrap"><p>'+message.replace( /[<>]/g, '' )+'</p></div></div></div></div>');
+    // $('#message-container').append('<div class="d-flex justify-content-between"><span class="badge badge-pill" id="user-name">'+sender+'<br></span><span class="timestamp text-muted">'+timestamp+'</span></div><div class="card mb-3" style="overflow:hidden"><div class="row no-gutters"><div class="col"><div id="message_display" class="text-wrap"><p>'+message.replace( /[<>]/g, '' )+'</p></div></div></div></div>');
     $('#message-container').append(div);
   }
   console.log(sender);
@@ -383,17 +383,17 @@ function otherMsg(sender, timestamp, msg) {
   var MESSAGE_TEMPLATE = '<div><div>';
   if (message !== '' && msg.imageURL === undefined) {
     MESSAGE_TEMPLATE =
-      '<div class="msg" ><div class="d-flex justify-content-between"><span class="badge badge-pill sender" ><br></span><span class="text-muted"><span class="read"></span> <span class="timestamp"></span></span></div><div class="card mb-3"><div class="row no-gutters"><div class="col d-flex"><div id="message_display" class="p-2 text-wrap d-flex"><p class="messageDisplay pl-2 m-0"></p></div></div></div></div></div>';
+      '<div class="msg" ><div class="d-flex justify-content-between"><span class="badge badge-pill sender" ><br></span><span class="text-muted"><span class="read"></span> <span class="timestamp"></span></span></div><div class="card mb-3" style="overflow:hidden"><div class="row no-gutters"><div class="col d-flex"><div id="message_display" style="word-wrap:break-word"  class="p-2 text-break d-flex"><p class="messageDisplay pl-2 m-0"></p></div></div></div></div></div>';
   } else if (msg.imageURL !== undefined && message === '') {
     MESSAGE_TEMPLATE =
-      '<div class="msg" ><div class="d-flex justify-content-between"><span class="badge badge-pill sender" ><br></span><span class="text-muted"><span class="read"></span> <span class="timestamp"></span></span></div><div class="card mb-3"><div class="row no-gutters"><div class="col d-flex"><div id="message_display" class="p-2 text-wrap d-flex"><a href="' +
+      '<div class="msg" ><div class="d-flex justify-content-between"><span class="badge badge-pill sender" ><br></span><span class="text-muted"><span class="read"></span> <span class="timestamp"></span></span></div><div class="card mb-3" style="overflow:hidden"><div class="row no-gutters"><div class="col d-flex"><div id="message_display" style="word-wrap:break-word"  class="p-2 text-break d-flex"><a href="' +
       msg.imageURL +
       '" target="_blank"><img class="attach" src="' +
       msg.imageURL +
       '" height="50px" width="50px"></a><p class="messageDisplay pl-2 m-0 d-none"></p></div></div></div></div></div>';
   } else if (msg.imageURL !== undefined && message !== '') {
     MESSAGE_TEMPLATE =
-      '<div class="msg" ><div class="d-flex justify-content-between"><span class="badge badge-pill sender" ><br></span><span class="text-muted"><span class="read"></span> <span class="timestamp"></span></span></div><div class="card mb-3"><div class="row no-gutters"><div class="col d-flex"><div id="message_display" class="p-2 text-wrap d-flex"><a href="' +
+      '<div class="msg" ><div class="d-flex justify-content-between"><span class="badge badge-pill sender" ><br></span><span class="text-muted"><span class="read"></span> <span class="timestamp"></span></span></div><div class="card mb-3" style="overflow:hidden"><div class="row no-gutters"><div class="col d-flex"><div id="message_display" style="word-wrap:break-word"  class="p-2 text-break d-flex"><a href="' +
       msg.imageURL +
       '" target="_blank"><img class="attach" src="' +
       msg.imageURL +
@@ -472,9 +472,9 @@ function enter() {
         //update rea
         if (msg.message.lastSeen) {
           var div = document.getElementById(msg.message.lastSeen);
-          if(msg.message.user == user && div.querySelector('.sender').textContent == 'You'){
+          if (msg.message.user == user && div.querySelector('.sender').textContent == 'You') {
             return;
-          }else{
+          } else {
             read = div.querySelector('.read');
             read.textContent = 'read ';
           }
@@ -722,15 +722,15 @@ function appendMessage(message, attachment, timetoken, sender) {
   const container = document.createElement('div');
   if (message !== '' && attachment === undefined) {
     MESSAGE_TEMPLATE =
-      '<div class="msg" ><div class="d-flex justify-content-between"><span class="badge badge-pill sender" ><br></span><span class="text-muted"><span class="read"></span> <span class="timestamp"></span></span></div><div class="card mb-3"><div class="row no-gutters"><div class="col d-flex"><div id="message_display" class="p-2 text-wrap d-flex"><p class="messageDisplay pl-2 m-0"></p></div></div></div></div></div>';
+      '<div class="msg" ><div class="d-flex justify-content-between"><span class="badge badge-pill sender" ><br></span><span class="text-muted"><span class="read"></span> <span class="timestamp"></span></span></div><div class="card mb-3" style="overflow:hidden"><div class="row no-gutters"><div class="col d-flex"><div id="message_display" style="word-wrap:break-word"  class="p-2 text-break d-flex"><p class="messageDisplay pl-2 m-0"></p></div></div></div></div></div>';
   } else if (attachment !== undefined && message === '') {
     MESSAGE_TEMPLATE =
-      '<div class="msg" ><div class="d-flex justify-content-between"><span class="badge badge-pill sender" ><br></span><span class="text-muted"><span class="read"></span> <span class="timestamp"></span></span></div><div class="card mb-3"><div class="row no-gutters"><div class="col d-flex"><div id="message_display" class="p-2 text-wrap d-flex"><img class="attach" src="' +
+      '<div class="msg" ><div class="d-flex justify-content-between"><span class="badge badge-pill sender" ><br></span><span class="text-muted"><span class="read"></span> <span class="timestamp"></span></span></div><div class="card mb-3" style="overflow:hidden"><div class="row no-gutters"><div class="col d-flex"><div id="message_display" style="word-wrap:break-word"  class="p-2 text-break d-flex"><img class="attach" src="' +
       attachment +
       '" height="100px" width="100px"><p class="messageDisplay pl-2 m-0 d-none"></p></div></div></div></div></div>';
   } else if (attachment !== undefined && message !== '') {
     MESSAGE_TEMPLATE =
-      '<div class="msg" ><div class="d-flex justify-content-between"><span class="badge badge-pill sender" ><br></span><span class="text-muted"><span class="read"></span> <span class="timestamp"></span></span></div><div class="card mb-3"><div class="row no-gutters"><div class="col d-flex"><div id="message_display" class="p-2 text-wrap d-flex"><img class="attach" src="' +
+      '<div class="msg" ><div class="d-flex justify-content-between"><span class="badge badge-pill sender" ><br></span><span class="text-muted"><span class="read"></span> <span class="timestamp"></span></span></div><div class="card mb-3" style="overflow:hidden"><div class="row no-gutters"><div class="col d-flex"><div id="message_display" style="word-wrap:break-word"  class="p-2 text-break d-flex"><img class="attach" src="' +
       attachment +
       '" height="100px" width="100px"><p class="messageDisplay pl-2 m-0"></p></div></div></div></div></div>';
   }
@@ -750,10 +750,10 @@ function appendMessage(message, attachment, timetoken, sender) {
   var nameAttribute = sender == 'You' ? 'admin-name' : 'user-name';
   senderDiv.setAttribute('id', nameAttribute);
   // if(sender == "You"){
-  //   $('#message-container').append('<div class="d-flex justify-content-between"><span class="badge badge-pill" id="admin-name">'+sender+'<br></span><span class="timestamp text-muted"><span id="'+myLatestMessage+'"></span>'+timestamp+'</span></div><div class="card mb-3"><div class="row no-gutters"><div class="col"><div id="message_display" class="text-wrap"><p>'+message.replace( /[<>]/g, '' )+'</p></div></div></div></div>');
+  //   $('#message-container').append('<div class="d-flex justify-content-between"><span class="badge badge-pill" id="admin-name">'+sender+'<br></span><span class="timestamp text-muted"><span id="'+myLatestMessage+'"></span>'+timestamp+'</span></div><div class="card mb-3" style="overflow:hidden"><div class="row no-gutters"><div class="col"><div id="message_display" class="text-wrap"><p>'+message.replace( /[<>]/g, '' )+'</p></div></div></div></div>');
   // }else{
   //   sender = msg.entry.sender;
-  //   $('#message-container').append('<div class="d-flex justify-content-between"><span class="badge badge-pill" id="user-name">'+sender+'<br></span><span class="timestamp text-muted">'+timestamp+'</span></div><div class="card mb-3"><div class="row no-gutters"><div class="col"><div id="message_display" class="text-wrap"><p>'+message.replace( /[<>]/g, '' )+'</p></div></div></div></div>');
+  //   $('#message-container').append('<div class="d-flex justify-content-between"><span class="badge badge-pill" id="user-name">'+sender+'<br></span><span class="timestamp text-muted">'+timestamp+'</span></div><div class="card mb-3" style="overflow:hidden"><div class="row no-gutters"><div class="col"><div id="message_display" class="text-wrap"><p>'+message.replace( /[<>]/g, '' )+'</p></div></div></div></div>');
   // }
 
   $('#message-container').append(div);
