@@ -24,7 +24,7 @@ window.addEventListener("load", async () => {
     $('#latestReportsTable').DataTable({
         paging: false,
         info: false,
-        scrollY: 200,
+        scrollY: '20vh',
         responsive: true,
         searching: false,
         lengthChange: false,
@@ -265,7 +265,7 @@ async function showNotif() {
     });
 
     if (ctr === 0) {
-        $('#notifDropdown').html('<i class="fa fa-bell fa-fw mr-3 nav_icon"></i>');
+        //$('#notifDropdown').html('<i class="fa fa-bell fa-fw mr-3 nav_icon"></i>');
         $('#notif-toast').append('<div class="toast-body">No new reports.</div>');
     }
 }
@@ -274,9 +274,9 @@ var isPaneOpen = false;
 async function showNotifs() {
     if (!isPaneOpen) {
         await appendNotifPane();
-        $('#notif-toast').toast('show');
         await showNotif();
-
+        $('#notif-toast').toast('show');
+        $('#notifDropdown').html('<i class="fa fa-bell fa-fw mr-3 nav_icon"></i>');
         isPaneOpen = true;
     } else {
         $('#notif-toast').toast('hide');
@@ -286,7 +286,7 @@ async function showNotifs() {
 }
 
 async function appendNotifPane() {
-    $('#chat-container').after('<div class="notifications-container"><div id="notif-toast" class="toast" role="alert" data-autohide="false" aria-live="assertive" aria-atomic="true"><div id="notif-header" class="toast-header"><img src="./img/flower.png" class="rounded mr-2" alt="..."><strong class="mr-auto">Notifications</strong></div><div id="indiv_notifs"></div></div></div>');
+    $('#notif-cont').html('<div class="notifications-container"><div id="notif-toast" class="toast" role="alert" data-autohide="false" aria-live="assertive" aria-atomic="true"><div id="notif-header" class="toast-header"><img src="./img/flower.png" class="rounded mr-2" alt="..."><strong class="mr-auto">Notifications</strong><button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close"><span aria-hidden="true">&times;</span></button></div><div id="indiv_notifs"></div></div></div>');
 }
 
 async function removeNotifPane() {

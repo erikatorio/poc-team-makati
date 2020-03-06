@@ -9,9 +9,9 @@
     <!-- Session -->
     <script>
         if (!sessionStorage.getItem("username"))
-        location.href = "index.html";
+            location.href = "index.html";
     </script>
-    
+
     <title>User Management</title>
 
     <!-- Bootstrap CSS CDN -->
@@ -19,7 +19,7 @@
         integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
     <!-- Our Custom CSS -->
     <link rel="stylesheet" href="css/admincontent.css">
-    <link rel="stylesheet" href="css/chat.css">
+    <link rel="stylesheet" href="css/temp_chat.css">
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
@@ -84,8 +84,9 @@
                         </li>
                         <li>
                             <a href="bargraphs.html">
-                                <i class="fas fa-chart-bar sidebaricon" data-toggle="tooltip" data-placement="top" title="3d"
-                                    aria-hidden="true"></i><span class="pl-2 sidebartext">Bar Graphs</span></a>
+                                <i class="fas fa-chart-bar sidebaricon" data-toggle="tooltip" data-placement="top"
+                                    title="3d" aria-hidden="true"></i><span class="pl-2 sidebartext">Bar
+                                    Graphs</span></a>
                         </li>
                     </ul>
                 </li>
@@ -103,11 +104,13 @@
                 </li>
 
                 <li>
-                    <a href="table.html"><i class="fas fa-table sidebaricon"></i> <span class="sidebartext">  Table</span></a>
+                    <a href="table.html"><i class="fas fa-table sidebaricon"></i> <span class="sidebartext">
+                            Table</span></a>
                 </li>
 
                 <li>
-                    <a href="print.html"><i class="fas fa-print sidebaricon"></i> <span class="sidebartext">Print Report</span></a>
+                    <a href="print.html"><i class="fas fa-print sidebaricon"></i> <span class="sidebartext">Print
+                            Report</span></a>
                 </li>
             </ul>
 
@@ -282,95 +285,77 @@
         </div>
     </div>
     <!-- Chat  -->
-    <div id="open-button" class="btn btn-raised" onclick="openForm(1)">
-        <div id="chat-overlay"></div>
-        <i class="material-icons" style="font-size: 30px;">message</i>
-    </div>
-
-    <div class="chat-popup" id="myForm">
-        <div class="card-header">
-            <button class="minimize" onclick="closeForm(1);" class="cursor-pointer">
-                <i class="material-icons">minimize</i>
-            </button>
-            <div class="input-group">
-                <div id="peopleIcon">
-                    <i class="material-icons">people</i>
-                </div>
-                <input onkeyup="searchUser()" id="searchUser" type="text" placeholder="Search..." name=""
-                    class="form-control search">
-                <div class="input-group-prepend">
-                    <span class="input-group-text search_btn"><i class="fas fa-search"></i></span>
-                </div>
+    <div id="chat-container" style="z-index: 1;">
+        <div id="chat-toast" class="toast" role="alert" data-autohide="false" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <button style="display:none" type="button" id="back-btn" onclick="back()" class="btn btn-info"></button>
+                <svg id="user-chat" class="rounded mr-2" width="20" height="20" xmlns="http://www.w3.org/2000/svg"
+                    preserveAspectRatio="xMidYMid slice" focusable="false" role="img">
+                    <rect fill="#007aff" width="100%" height="100%" />
+                </svg>
+                <strong id="chat-title" class="mr-auto">&nbsp;Chat</strong>
+                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                    <span onclick="hideChat()" aria-hidden="true">&times;</span>
+                </button>
             </div>
-        </div>
-        <div class="card-body contacts_body scroll">
-            <ui id="users" class="contacts">
-            </ui>
-        </div>
-    </div>
 
-    <div class="chat-popup" id="messageBox">
-        <div class="card-header">
-            <button class="minimize" onclick="closeForm(1);">
-                <i class="material-icons">minimize</i>
-            </button>
-            <button onclick="backToContacts();" class="back-button">
-                <i class="material-icons">keyboard_backspace</i>
-            </button>
-            <div class="input-group">
-                <div>
-                    <img src="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-ios7-contact-512.png"
-                        class="rounded-circle user_img">
-                </div>
-                <div class="user_info">
-                    <span id="user_name"></span>
-                    <p id="user_group"></p>
-                </div>
-            </div>
-        </div>
-
-        <div id="messagesList">
-            <!-- <li class="pl-2 pr-2 bg-primary rounded text-white text-center send-msg mb-1">
-              hiii
-            </li>
-            <li class="p-1 rounded mb-1">
-                <div class="receive-msg">
-                    <img src="http://nicesnippets.com/demo/image1.jpg">
-                    <div class="receive-msg-desc  text-center mt-1 ml-1 pl-2 pr-2">
-                        <p class="pl-2 pr-2 rounded">hello</p>
+            <div id="admin-search">
+                <div class="input-group mb-3 row no-gutters">
+                    <input type="text" id="searcharea-message" class="form-control" onkeyup="searchUser()"
+                        placeholder="Search user..." aria-label="Search user..." aria-describedby="basic-addon2">
+                    <div class="input-group-append">
+                        <button type="button" id="search-btn" class="btn btn-info"></button>
                     </div>
                 </div>
-            </li> -->
-        </div>
-        <div class="message-box ">
-            <form id="message-form" action="#" autocomplete="off" class="row justify-content-between mx-2">
-                <input id="messageInput" type="text" class="pl-1 pr-0" placeholder="Type a message..." />
-                <div class="buttons">
-                    <input id="mediaCapture" type="file" accept="image/*" capture="camera">
-                    <button id="submitImage"><i class="material-icons">image</i></button>
-                    <button id="submitMessage" type="submit" disabled><i class="material-icons">send</i></button>
+
+                <!--list of chat from users-->
+                <div id="user_list"
+                    class="toast-body row no-gutters d-flex justify-content-center scrollbar scrollbar-rare-wind"
+                    style="max-height:300px;overflow-y: scroll;">
                 </div>
-            </form>
+
+            </div>
+            <div id="message-container" class="toast-body scrollbar scrollbar-rare-wind"
+                style="display:none;background-color: #F5F5F5">
+
+            </div>
+            <div id="chat-footer" class="form-group row no-gutters"
+                style="display:inline;height:50px!important;background-color: red">
+                <textarea class="form-control textarea col-10 scrollbar scrollbar-rare-wind" rows="1" cols="3"
+                    disabled></textarea>
+                <button type="button" disabled class="col-2 btn btn-info"></button>
+            </div>
+            <div id="send-message" style="display:none;" class="form-group row no-gutters justify-content-around mb-0">
+                <label for="attachment" id="attach-label" class="col-2 no-border-btn waves-effect waves-light">
+                    <input type="file" id="attachment" onchange="addAttachment(this)" name="attachment"
+                        accept="image/*">
+                </label>
+                <div class="col-8 bg-white mb-1 d-flex">
+                    <div id="attach-group">
+                        <img src="" id="attach-prev">
+                        <span class="font-weight-bold" id="remove-attach" onclick="removeAttachment()">X</span>
+                    </div>
+                    <textarea class="form-control scrollbar textarea scrollbar-rare-wind" id="textarea-message" rows="1"
+                        cols="3" placeholder="Type a message"></textarea>
+                </div>
+                <button type="button" id="chat-btn" onclick="sendMessage()"
+                    class="col-2 no-border-btn waves-effect waves-light"></button>
+            </div>
         </div>
     </div>
+    <!-- End of Chat -->
+    <!-- jQuery  -->
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <!-- Firebase core Javascript-->
     <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-firestore.js"> </script>
     <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-messaging.js"> </script>
     <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-storage.js"></script>
-    <!-- jQuery CDN - Slim version (=without AJAX) -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
     <!-- Popper.JS -->
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-        crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
         integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
         crossorigin="anonymous"></script>
     <!-- Bootstrap JS -->
-
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"
         integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
         crossorigin="anonymous"></script>
@@ -405,7 +390,7 @@
     <script src="js/firestore.js"> </script>
     <script src="js/notif.js"></script>
     <script src="js/usermanagement.js"></script>
-    <script src="js/chat.js"></script>
+    <script src="js/temp_chat.js"></script>
 
 
 </body>

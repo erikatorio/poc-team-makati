@@ -32,7 +32,7 @@ window.addEventListener("load", async () => {
         function (status, response) {
         });
     populateUserTable();
-    showPage();
+    showPageUser();
 });
 
 async function populateUserTable() {
@@ -149,7 +149,7 @@ async function deleteUser(user_id) {
 }
 
 //function to hide loader after Content has successfully loaded 
-function showPage() {
+function showPageUser() {
     console.log("test");
     document.getElementById("loader").style.display = "none";
 }
