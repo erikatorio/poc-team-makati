@@ -23,7 +23,8 @@ var glpubnub;
 var myLatestMessage, theirLatestMessage;
 var inboxState = false;
 window.addEventListener('load',
-  function () {
+  function () {    
+    $('#totalCount').css('display', 'none');
     countUpdate();
     showChat();
   }, false);
@@ -713,9 +714,10 @@ function otherMsg(sender, timestamp, msg) {
   });
   $('#' + sender + '_recentMsg').html('[' + recent_timestamp + '] ' + message);
   $('#' + sender + '_datestamp').html(date);
-  console.log(totalCount + ' - ' + parseInt($('#' + sender).html()));
-  totalCount -= parseInt($('#' + sender).html());
-  $('#totalCount').html(totalCount);
+  console.log(totalCount + ' - ' + $('#' + sender).html());
+  //totalCount -= parseInt($('#' + sender).html());
+  adjustTotalCount(false, $('#' + sender).html());
+  //$('#totalCount').html(totalCount);
   $('#' + sender).html('');
   autoScrollToBottom();
 }
@@ -741,7 +743,7 @@ function enter() {
   //remove msg count 
   console.log(totalCount + " - " + parseInt($('#' + name).html()))
 
-  adjustTotalCount(false, parseInt($('#' + name).html()))
+  adjustTotalCount(false, $('#' + name).html())
   $('#' + name).html("")
 
   //listen to receipts channel
@@ -1204,7 +1206,7 @@ function countUpdate() {
           var date = response.channels[target_user][0].message.timestamp;
           var recent_message = "";
 
-          var possible_file = preview.channels[restring][0].message.imageURL;
+          var possible_file = response.channels[target_user][0].message.imageURL;
 
           recent_message = ""
           if (possible_file != undefined) {
@@ -1256,7 +1258,7 @@ function countUpdate() {
             var date = response.channels[target_user][0].message.timestamp;
             var recent_message = "";
 
-            var possible_file = preview.channels[restring][0].message.imageURL;
+            var possible_file = response.channels[target_user][0].message.imageURL;
 
             if (possible_file != undefined) {
               recent_message = "File attached. ";
@@ -1295,6 +1297,12 @@ function adjustTotalCount(operation, number) {
   if (number == "") {
     number = 0;
   }
+  totalCount = $('#totalCount').html()
+  if(totalCount == ""){
+    totalCount = 0;
+  }else{
+    totalCount = parseInt(totalCount)
+  }
 
   //true is add
   if (operation) {
@@ -1307,10 +1315,14 @@ function adjustTotalCount(operation, number) {
   $('#totalCount').css('display', '');
   if (totalCount == 0) {
     $('#totalCount').html("");
-    $('#totalCount').css('display', 'hidden');
+    $('#totalCount').css('display', 'none');
   } else if (totalCount > 99) {
     $('#totalCount').html("99+");
-  } else {
+  } else if(totalCount == NaN){
+
+  $('#totalCount').css('display', 'none');
+  } 
+  else {
     $('#totalCount').html("" + totalCount);
   }
 }

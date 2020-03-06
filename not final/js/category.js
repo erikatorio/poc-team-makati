@@ -5,7 +5,7 @@ window.addEventListener("load", async () => {
     await getCategoriesData();
     tempCategories = categories;
     populateCategoryTable();
-    showPage();
+    showPageCategory();
 });
 
 async function populateCategoryTable() {
@@ -94,7 +94,7 @@ async function deleteCategory(category_id) {
 }
 
 //function to hide loader after Content has successfully loaded 
-function showPage() {
+function showPageCategory() {
     console.log("test");
     document.getElementById("loader").style.display = "none";
 }

@@ -1,6 +1,6 @@
 // Initialize Firebase
 let config = {
-    //MyFirebaseProject
+    // MyFirebaseProject
     apiKey: "AIzaSyDEtbinbscaxVKpa6GAyrOxh9moQsXO9-U",
     authDomain: "myfirstfirebaseproject-7cd16.firebaseapp.com",
     databaseURL: "https://myfirstfirebaseproject-7cd16.firebaseio.com",
