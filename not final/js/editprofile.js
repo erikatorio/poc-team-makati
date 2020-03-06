@@ -83,7 +83,7 @@ function saveProfile(e) {
         if(newName != ""){
             console.log("Name changed");
             if(whatChanged == ""){
-                whatChanged += "Username";
+                whatChanged = "Username";
             }
             db.collection("users")
                 .where("id", "==", parseInt(sessionUserID))
@@ -109,12 +109,14 @@ function saveProfile(e) {
                     console.error("Error user update: ", error);
                 });
         
-        } else if(newPass != ""){
+        }
+        
+        if(newPass != ""){
             console.log("Pass changed");
             if(whatChanged == ""){
-                whatChanged += "Password";
+                whatChanged = "Password";
             } else {
-                whatChanged += " and Password";
+                whatChanged += ", Password";
             }
             db.collection("users")
                 .where("id", "==", parseInt(sessionUserID))
@@ -129,12 +131,14 @@ function saveProfile(e) {
                 .catch(function (error) {
                     console.error("Error user update: ", error);
                 });
-        } else if(anon_isChanged) {
+        }
+        
+        if(anon_isChanged) {
             console.log("Anon changed");
             if(whatChanged == ""){
-                whatChanged += "'Enable Anonymous' Setting";
+                whatChanged = "'Enable Anonymous' Setting";
             } else {
-                whatChanged += " and 'Enable Anonymous' Setting";
+                whatChanged += ", 'Enable Anonymous' Setting";
             }
             db.collection("users")
                 .where("id", "==", parseInt(sessionUserID))
