@@ -756,7 +756,7 @@ function enter() {
   readListener = {
     status: function (statusEvent) { },
     message: function (msg) {
-      //console.log(msg);
+      console.log(msg);
       if (msg.message.user != user) {
         //if new receipt is not from current user,
         //update read

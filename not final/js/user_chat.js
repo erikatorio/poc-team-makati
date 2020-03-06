@@ -472,8 +472,12 @@ function enter() {
         //update rea
         if (msg.message.lastSeen) {
           var div = document.getElementById(msg.message.lastSeen);
-          read = div.querySelector('.read');
-          read.textContent = 'read ';
+          if(msg.message.user == user && div.querySelector('.sender').textContent == 'You'){
+            return;
+          }else{
+            read = div.querySelector('.read');
+            read.textContent = 'read ';
+          }
         }
       }
     },
