@@ -104,7 +104,7 @@ function saveProfile(e) {
                     });
                 });
 
-                if(!alert('Success!')){
+                if(!alert('Username Change Success!')){
                     sessionStorage.setItem("username", newName);
                     sessionStorage.setItem("enableAnonymous", enableAnonymous);
                     setTimeout(location.reload.bind(location), 1000);
@@ -127,7 +127,7 @@ function saveProfile(e) {
                     });
                 });
 
-                if(!alert('Success!')){
+                if(!alert('Change Password Success!')){
                     sessionStorage.setItem("enableAnonymous", enableAnonymous);
                     setTimeout(location.reload.bind(location), 1000);
                 }
@@ -146,7 +146,7 @@ function saveProfile(e) {
                     });
                 });
 
-                if(!alert('Success!')){
+                if(!alert('Anonymous Reporting Set!')){
                     sessionStorage.setItem("enableAnonymous", enableAnonymous);
                     setTimeout(location.reload.bind(location), 1000);
                 }
