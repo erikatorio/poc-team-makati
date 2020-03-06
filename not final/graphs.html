@@ -1,26 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    
+
     <!-- Session -->
     <script>
         if (!sessionStorage.getItem("username"))
-        location.href = "index.html";
+            location.href = "index.html";
     </script>
 
     <title>ITR</title>
-    
+
     <link rel="icon" href="./img/flower.png" type="image/x-icon">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="./css/graphs.css">
     <link rel="stylesheet" href="css/admincontent.css">
     <link rel="stylesheet" href="css/temp_chat.css">
     <!-- jQuery UI -->
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    
+
     <!-- Material Icons -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
@@ -28,20 +30,21 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    
+
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
     <!-- Font Awesome JS -->
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"
-    integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ"
-    crossorigin="anonymous"></script>
+        integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ"
+        crossorigin="anonymous"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"
-      integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY"
-      crossorigin="anonymous"></script>
+        integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY"
+        crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/moment@2.24.0/moment.min.js"></script>
     <script src="js/admin_animation.js"></script>
-    
+
 </head>
+
 <body>
     <div class="row" id="body-row">
         <!-- Sidebar  -->
@@ -49,7 +52,8 @@
             <!-- Bootstrap List Group -->
             <ul class="list-group">
                 <!-- Menu with submenu -->
-                <a style="padding: 0;" href="reportsummary.html" data-toggle="sidebar-colapse" class="bg-light list-group-item list-group-item-action d-flex align-items-center" title="Sakura">
+                <a style="padding: 0;" href="reportsummary.html" data-toggle="sidebar-colapse"
+                    class="bg-light list-group-item list-group-item-action d-flex align-items-center" title="Sakura">
                     <div class="d-flex w-100 justify-content-start align-items-center">
                         <span><img src="img/flower.png" alt="logo" style="width:40px; margin-left: 10px;"></span>
                         <!-- <span id="collapse-text" class="menu-collapsed">Collapse</span> -->
@@ -61,24 +65,28 @@
                         <i class="fa fa-bell fa-fw mr-3 nav_icon"></i>
                     </div>
                 </a>
-                <a data-toggle="collapse" aria-expanded="false" class="bg-light list-group-item list-group-item-action flex-column align-items-start" title="Chat" style="cursor: pointer;">
+                <a data-toggle="collapse" aria-expanded="false"
+                    class="bg-light list-group-item list-group-item-action flex-column align-items-start" title="Chat"
+                    style="cursor: pointer;">
                     <div class="d-flex w-100 justify-content-start align-items-center">
-                        <span class="fa fa-comment fa-fw mr-3" style="color: #8A6E59"></span> 
+                        <span class="fa fa-comment fa-fw mr-3" style="color: #8A6E59"></span>
                         <span class="submenu-icon d-none ml-auto"></span>
                     </div>
-                </a>	
-                <a class="act" href="graphs.html" class="bg-light list-group-item list-group-item-action" title="Charts">
+                </a>
+                <a class="act" href="graphs.html" class="bg-light list-group-item list-group-item-action"
+                    title="Charts">
                     <div class="d-flex w-100 justify-content-start align-items-center">
-                        <span class="fa fa-cube fa-fw mr-3" style="color: #8A6E59; margin-left: 35%; margin-top: 25%;"></span> 
+                        <span class="fa fa-cube fa-fw mr-3"
+                            style="color: #8A6E59; margin-left: 35%; margin-top: 25%;"></span>
                         <span class="submenu-icon d-none ml-auto"></span>
                     </div>
                 </a>
                 <a href="category.html" class="bg-light list-group-item list-group-item-action" title="Category">
-                        <div class="d-flex w-100 justify-content-start align-items-center">
-                            <span class="fa fa-list fa-fw mr-3" style="color: #8A6E59"></span>
-                            <!-- <span class="menu-collapsed"></span>     -->
-                        </div>
-                    </a>          
+                    <div class="d-flex w-100 justify-content-start align-items-center">
+                        <span class="fa fa-list fa-fw mr-3" style="color: #8A6E59"></span>
+                        <!-- <span class="menu-collapsed"></span>     -->
+                    </div>
+                </a>
                 <a href="users.html" class="bg-light list-group-item list-group-item-action" title="Users">
                     <div class="d-flex w-100 justify-content-start align-items-center">
                         <span class="fa fa-user fa-fw mr-3" style="color: #8A6E59"></span>
@@ -88,7 +96,7 @@
                     <div class="d-flex w-100 justify-content-start align-items-center">
                         <span class="fa fa-table fa-fw mr-3" style="color: #8A6E59"></span>
                     </div>
-                </a>   
+                </a>
                 <!-- <a href="print.html" class="bg-light list-group-item list-group-item-action" title="Table">
                         <div class="d-flex w-100 justify-content-start align-items-center">
                             <span class="fa fa-print fa-fw mr-3" style="color: #8A6E59"></span>
@@ -96,11 +104,14 @@
                         </div>
                 </a>    -->
                 <!-- Separator -->
-                <li class="list-group-item sidebar-separator-title text-muted d-flex align-items-center menu-collapsed" style="background-color: #282421;">
+                <li class="list-group-item sidebar-separator-title text-muted d-flex align-items-center menu-collapsed"
+                    style="background-color: #282421;">
                     <small></small>
                 </li>
-                <!-- /END Separator -->	 
-                <a href="#language" data-toggle="collapse" aria-expanded="false" class="bg-light list-group-item list-group-item-action flex-column align-items-start" title="Language">
+                <!-- /END Separator -->
+                <a href="#language" data-toggle="collapse" aria-expanded="false"
+                    class="bg-light list-group-item list-group-item-action flex-column align-items-start"
+                    title="Language">
                     <div class="d-flex w-100 justify-content-start align-items-center">
                         <span class="fa fa-language fa-fw mr-3" style="color: #8A6E59"></span>
                         <span class="submenu-icon d-none ml-auto"></span>
@@ -108,14 +119,19 @@
                 </a>
                 <!-- Submenu content -->
                 <div id='language' class="collapse sidebar-submenu" style="border-radius: none;">
-                    <a href="#" class="list-group-item list-group-item-action bg-light justify-content-start align-items-center" style="padding: 0;">
+                    <a href="#"
+                        class="list-group-item list-group-item-action bg-light justify-content-start align-items-center"
+                        style="padding: 0;">
                         <p style="color: #8A6E59; padding-left:20px; padding-top: 10px;">EN</p>
                     </a>
-                    <a href="JP/reportsummary.html" class="list-group-item list-group-item-action bg-light justify-content-start align-items-center" style="padding: 0;">
+                    <a href="JP/reportsummary.html"
+                        class="list-group-item list-group-item-action bg-light justify-content-start align-items-center"
+                        style="padding: 0;">
                         <p style="color: #8A6E59; padding-left:20px; padding-top: 10px;">JP</p>
                     </a>
-                </div>           
-                <a href="#" class="bg-light list-group-item list-group-item-action" title="Logout" data-toggle="modal" data-target="#logoutModal">
+                </div>
+                <a href="#" class="bg-light list-group-item list-group-item-action" title="Logout" data-toggle="modal"
+                    data-target="#logoutModal">
                     <div class="d-flex w-100 justify-content-start align-items-center">
                         <span class="fa fa-sign-out-alt fa-fw mr-3" style="color: #8A6E59"></span>
                     </div>
@@ -128,35 +144,40 @@
         <div class="container" id="graph-whole">
             <ul class="nav nav-tabs" style="margin-top: -40px;">
                 <li class="nav-item">
-                <a class="nav-link active" data-toggle="tab" href="#firstgraph">３Ｄグラフ</a>
+                    <a class="nav-link active" data-toggle="tab" href="#firstgraph">３Ｄグラフ</a>
                 </li>
                 <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#secondgraph">棒グラフ</a>
+                    <a class="nav-link" data-toggle="tab" href="#secondgraph">棒グラフ</a>
                 </li>
                 <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#piegraph">円グラフ</a>
+                    <a class="nav-link" data-toggle="tab" href="#piegraph">円グラフ</a>
                 </li>
                 <li class="nav-item">
-                <a id="trendgraphtab" class="nav-link" data-toggle="tab" href="#trend">トレンド</a>
+                    <a id="trendgraphtab" class="nav-link" data-toggle="tab" href="#trend">トレンド</a>
                 </li>
-            </ul>        
+            </ul>
             <!-- Tab panes -->
             <div class="tab-content">
                 <!-- 3d graph container -->
-                
-                
+
+
                 <div class="tab-pane container active" id="firstgraph">
                     <div class="dialog1" title="How to use" style="display: none;">
                         <p>
-                            In order to download the graphs, click on the cloud (<i class="material-icons">cloud_download</i>) icon
+                            In order to download the graphs, click on the cloud (<i
+                                class="material-icons">cloud_download</i>) icon
                             on the upper left and select on the type of file you would like to download.
                         </p>
                     </div>
-                    <button class="graph_ins"><i class="fas fa-info-circle" title="Click to show instructions on how to use." style="font-size: 15px; color: #3D3028;" onclick="showDialog1()"></i></button>
+                    <button class="graph_ins"><i class="fas fa-info-circle"
+                            title="Click to show instructions on how to use." style="font-size: 15px; color: #3D3028;"
+                            onclick="showDialog1()"></i></button>
                     <div class="container graph-container">
-                        <div class="form-check form-check-inline mr-0 btn-group"> 
-                            <button style="background-color: #ff9999; height: 38px; border-color: #ff9999; margin-left: 0px;" 
-                                    class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <div class="form-check form-check-inline mr-0 btn-group">
+                            <button
+                                style="background-color: #ff9999; height: 38px; border-color: #ff9999; margin-left: 0px;"
+                                class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="material-icons">cloud_download</i>
                             </button>
                             <div id="dropdownMenu" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -172,55 +193,58 @@
                 <div class="tab-pane container fade" id="secondgraph">
                     <div class="dialog2" title="How to use" style="display: none;">
                         <p>
-                            Choose between the department or the category radio button in order to 
+                            Choose between the department or the category radio button in order to
                             choose which data to show.
                             </br>
                             </br>
-                            In order to download the graphs, click on the cloud (<i class="material-icons">cloud_download</i>) icon
+                            In order to download the graphs, click on the cloud (<i
+                                class="material-icons">cloud_download</i>) icon
                             at the top and select on the type of file you would like to download.
                         </p>
                     </div>
-                    <button class="graph_ins"><i class="fas fa-info-circle" title="Click to show instructions on how to use." style="font-size: 15px; color: #3D3028;" onclick="showDialog2()"></i></button>
+                    <button class="graph_ins"><i class="fas fa-info-circle"
+                            title="Click to show instructions on how to use." style="font-size: 15px; color: #3D3028;"
+                            onclick="showDialog2()"></i></button>
 
                     <div class="container graph-container">
                         <div class="row">
                             <!-- Container for search bar and search button -->
                             <div class="d-flex inline">
-                                <input id="searchBox" type="text" size="15"
-                                    style="text-align: left;" placeholder="Search" value=""
-                                    onkeypress="searchBoxField()" onfocus="this.value=''">
-                                <input id="searchButton" class="material-icons" type="button"
-                                    value="search" onclick="searchBoxField()">
+                                <input id="searchBox" type="text" size="15" style="text-align: left;"
+                                    placeholder="Search" value="" onkeypress="searchBoxField()" onfocus="this.value=''">
+                                <input id="searchButton" class="material-icons" type="button" value="search"
+                                    onclick="searchBoxField()">
                             </div>
                             <!-- End of Search Bar and Search Button -->
 
                             <!-- Container for Change Bar Graph Page Buttons -->
                             <div class="d-flex inline">
-                                <input id="prev" class="material-icons" type="button"
-                                    value="chevron_left" onclick="prevButton()" disabled="true" 
+                                <input id="prev" class="material-icons" type="button" value="chevron_left"
+                                    onclick="prevButton()" disabled="true"
                                     style="background-color: #ff9999; border-color: #ff9999;">
-                                <input id="search" type="text" size="1" disabled
-                                    style="text-align: center;" placeholder="Search" value="1"
-                                    hidden>
-                                <input id="next" class="material-icons" type="button"
-                                    value="chevron_right" onclick="nextButton()"
-                                    style="background-color: #ff9999; border-color: #ff9999;">
+                                <input id="search" type="text" size="1" disabled style="text-align: center;"
+                                    placeholder="Search" value="1" hidden>
+                                <input id="next" class="material-icons" type="button" value="chevron_right"
+                                    onclick="nextButton()" style="background-color: #ff9999; border-color: #ff9999;">
                             </div>
                             <!-- End of Change Bar Graph Page Buttons -->
                             <div class="form-check form-check-inline">
                                 <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="inlineRadioOptions" id="group" value="1" checked="checked">デパートメント
+                                    <input type="radio" class="form-check-input" name="inlineRadioOptions" id="group"
+                                        value="1" checked="checked">デパートメント
                                 </label>
                             </div>
                             <div class="form-check-inline">
                                 <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="inlineRadioOptions" id="category" value="2">カテゴリー
+                                    <input type="radio" class="form-check-input" name="inlineRadioOptions" id="category"
+                                        value="2">カテゴリー
                                 </label>
                             </div>
 
-                            <div class="form-check form-check-inline mr-0 btn-group"> 
-                                <button style="background-color: #ff9999; height: 38px; border-color: #ff9999;" 
-                                        class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <div class="form-check form-check-inline mr-0 btn-group">
+                                <button style="background-color: #ff9999; height: 38px; border-color: #ff9999;"
+                                    class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="material-icons">cloud_download</i>
                                 </button>
                                 <div id="dropdownMenu" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -239,32 +263,38 @@
                 <div class="tab-pane container fade" id="piegraph">
                     <div class="dialog3" title="How to use" style="display: none;">
                         <p>
-                            Choose between the department or the category radio button in order to 
+                            Choose between the department or the category radio button in order to
                             choose which data to show.
                             </br>
                             </br>
-                            In order to download the graphs, click on the cloud (<i class="material-icons">cloud_download</i>) icon
+                            In order to download the graphs, click on the cloud (<i
+                                class="material-icons">cloud_download</i>) icon
                             at the top and select on the type of file you would like to download.
                         </p>
                     </div>
-                    <button class="graph_ins"><i class="fas fa-info-circle" title="Click to show instructions on how to use." style="font-size: 15px; color: #3D3028;" onclick="showDialog3()"></i></button>
+                    <button class="graph_ins"><i class="fas fa-info-circle"
+                            title="Click to show instructions on how to use." style="font-size: 15px; color: #3D3028;"
+                            onclick="showDialog3()"></i></button>
 
                     <div class="container graph-container">
                         <div class="row">
                             <div class="form-check-inline">
                                 <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="inlineRadioOptionsPie" id="dept" value="1" checked="checked">デパートメント
+                                    <input type="radio" class="form-check-input" name="inlineRadioOptionsPie" id="dept"
+                                        value="1" checked="checked">デパートメント
                                 </label>
                             </div>
                             <div class="form-check-inline">
                                 <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="inlineRadioOptionsPie" id="incident" value="2">カテゴリー
+                                    <input type="radio" class="form-check-input" name="inlineRadioOptionsPie"
+                                        id="incident" value="2">カテゴリー
                                 </label>
                             </div>
 
-                            <div class="form-check form-check-inline mr-0 btn-group"> 
-                                <button style="background-color: #ff9999; height: 38px; border-color: #ff9999;" 
-                                        class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <div class="form-check form-check-inline mr-0 btn-group">
+                                <button style="background-color: #ff9999; height: 38px; border-color: #ff9999;"
+                                    class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="material-icons">cloud_download</i>
                                 </button>
                                 <div id="dropdownMenu" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -282,33 +312,41 @@
                 <div class="tab-pane container fade" id="trend">
                     <div class="dialog4" title="How to use" style="display: none;">
                         <p>
-                            Click on the first button on the upper left in order to 
+                            Click on the first button on the upper left in order to
                             choose whether to display reports on a weekly, monthly or yearly basis.
                             </br>
                             </br>
-                            In order to download the graphs, click on the cloud (<i class="material-icons">cloud_download</i>) icon
+                            In order to download the graphs, click on the cloud (<i
+                                class="material-icons">cloud_download</i>) icon
                             on the upper left and select on the type of file you would like to download.
                         </p>
                     </div>
-                    <button class="graph_ins"><i class="fas fa-info-circle" title="Click to show instructions on how to use." style="font-size: 15px; color: #3D3028;" onclick="showDialog4()"></i></button>
+                    <button class="graph_ins"><i class="fas fa-info-circle"
+                            title="Click to show instructions on how to use." style="font-size: 15px; color: #3D3028;"
+                            onclick="showDialog4()"></i></button>
 
                     <div class="container graph-container">
                         <div class="row">
                             <div class="dropdown show">
-                                <a class="btn dropdown-toggle" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <a class="btn dropdown-toggle" id="dropdownMenuLink" data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false">
                                     期間
                                 </a>
-                            
+
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                <a class="dropdown-item" id="weekly" href="#" onclick="changeDropdownLabel(0)">週間</a>
-                                <a class="dropdown-item" id="monthly" href="#" onclick="changeDropdownLabel(1)">月間</a>
-                                <a class="dropdown-item" id="yearly" href="#" selcted onclick="changeDropdownLabel(2)">年間</a>
+                                    <a class="dropdown-item" id="weekly" href="#"
+                                        onclick="changeDropdownLabel(0)">週間</a>
+                                    <a class="dropdown-item" id="monthly" href="#"
+                                        onclick="changeDropdownLabel(1)">月間</a>
+                                    <a class="dropdown-item" id="yearly" href="#" selcted
+                                        onclick="changeDropdownLabel(2)">年間</a>
                                 </div>
                             </div>
-                            
+
                             <div class="form-check form-check-inline mr-0 btn-group">
-                                <button style="background-color: #ff9999; height: 38px; border-color: #ff9999;" 
-                                        class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <button style="background-color: #ff9999; height: 38px; border-color: #ff9999;"
+                                    class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="material-icons">cloud_download</i>
                                 </button>
                                 <div id="dropdownMenu" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -323,28 +361,28 @@
                         </div>
                     </div>
                 </div>
-            </div>    
+            </div>
         </div>
     </div>
 
     <!-- Logout Modal-->
     <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-      aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">×</span>
-            </button>
-          </div>
-          <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-          <div class="modal-footer">
-            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-            <button class="btn btn-primary" onclick="logOut()">Logout</button>
-          </div>
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <button class="btn btn-primary" onclick="logOut()">Logout</button>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
 
     <div id="notif-cont" style="position:absolute;top:0px!important; left:0px!important;z-index:5"></div>
@@ -352,79 +390,85 @@
 
     <div id="chat-container" style="z-index: 1; margin-left: 60px !important;">
         <div id="chat-toast" class="toast" role="alert" data-autohide="false" aria-live="assertive" aria-atomic="true">
-          <div class="toast-header">
-            <button style="display:none" type="button" id="back-btn" onclick="back()" class="btn btn-info"></button>
-            <div id="user-chat">
-                <img src="./img/flower.png" style="width: 30px; height: 30px;" > 
+            <div class="toast-header">
+                <button style="display:none" type="button" id="back-btn" onclick="back()" class="btn btn-info"></button>
+                <div id="user-chat">
+                    <img src="./img/flower.png" style="width: 30px; height: 30px;">
+                </div>
+                <strong id="chat-title" class="mr-auto">&nbsp;Chat</strong>
+                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                    <span onclick="hideChat()" aria-hidden="true">&times;</span>
+                </button>
             </div>
-            <strong id="chat-title" class="mr-auto">&nbsp;Chat</strong>
-            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-              <span onclick="hideChat()" aria-hidden="true">&times;</span>
-            </button>
-          </div>
-  
-          <div id="admin-search">
-            <div class="input-group mb-3 row no-gutters">
-              <input type="text" id="searcharea-message" class="form-control" onkeyup="searchUser()"
-                placeholder="Search user..." aria-label="Search user..." aria-describedby="basic-addon2">
-              <div class="input-group-append">
-                <button type="button" id="search-btn" class="btn btn-info"></button>
-              </div>
+
+            <div id="admin-search">
+                <div class="input-group mb-3 row no-gutters">
+                    <input type="text" id="searcharea-message" class="form-control" onkeyup="searchUser()"
+                        placeholder="Search user..." aria-label="Search user..." aria-describedby="basic-addon2">
+                    <div class="input-group-append">
+                        <button type="button" id="search-btn" class="btn btn-info"></button>
+                    </div>
+                </div>
+
+                <!--list of chat from users-->
+                <div id="user_list"
+                    class="toast-body row no-gutters d-flex justify-content-center scrollbar scrollbar-rare-wind"
+                    style="max-height:300px;overflow-y: scroll;">
+                </div>
+
             </div>
-  
-            <!--list of chat from users-->
-            <div id="user_list"
-              class="toast-body row no-gutters d-flex justify-content-center scrollbar scrollbar-rare-wind"
-              style="max-height:300px;overflow-y: scroll;">
+            <div id="message-container" class="toast-body scrollbar scrollbar-rare-wind"
+                style="display:none;background-color: #F5F5F5">
+
             </div>
-  
-          </div>
-          <div id="message-container" class="toast-body scrollbar scrollbar-rare-wind"
-            style="display:none;background-color: #F5F5F5">
-  
-          </div>
-          <div id="chat-footer" class="form-group row no-gutters"
-            style="display:inline;height:50px!important;background-color: red">
-            <textarea class="form-control textarea col-10 scrollbar scrollbar-rare-wind" rows="1" cols="3"
-              disabled></textarea>
-            <button type="button" disabled class="col-2 btn btn-info"></button>
-          </div>
-          <div id="send-message" style="display:none;" class="form-group row no-gutters justify-content-around mb-0">
-            <label for="attachment" id="attach-label" class="col-2 no-border-btn waves-effect waves-light">
-              <input type="file" id="attachment" onchange="addAttachment(this)" name="attachment" accept="image/*">
-            </label>
-            <div class="col-8 bg-white mb-1 d-flex">
-              <div id="attach-group">
-                <img src="" id="attach-prev">
-                <span class="font-weight-bold" id="remove-attach" onclick="removeAttachment()">X</span>
-              </div>
-              <textarea class="form-control scrollbar textarea scrollbar-rare-wind" id="textarea-message" rows="1"
-                cols="3" placeholder="Type a message"></textarea>
+            <div id="chat-footer" class="form-group row no-gutters" style="display:inline;height:50px!important;">
+                <textarea class="form-control textarea col-10 scrollbar scrollbar-rare-wind" rows="1" cols="3"
+                    disabled></textarea>
+                <button type="button" disabled class="col-2 btn btn-info"></button>
             </div>
-            <button type="button" id="chat-btn" onclick="sendMessage()"
-              class="col-2 no-border-btn waves-effect waves-light"></button>
-          </div>
+            <div id="send-message" style="display:none;" class="form-group row no-gutters justify-content-around mb-0">
+                <label for="attachment" id="attach-label" class="col-2 no-border-btn waves-effect waves-light">
+                    <input type="file" id="attachment" onchange="addAttachment(this)" name="attachment"
+                        accept="image/*">
+                </label>
+                <div class="col-8 bg-white mb-1 d-flex">
+                    <div id="attach-group">
+                        <img src="" id="attach-prev">
+                        <span class="font-weight-bold" id="remove-attach" onclick="removeAttachment()">X</span>
+                    </div>
+                    <textarea class="form-control scrollbar textarea scrollbar-rare-wind" id="textarea-message" rows="1"
+                        cols="3" placeholder="Type a message"></textarea>
+                </div>
+                <button type="button" id="chat-btn" onclick="sendMessage()"
+                    class="col-2 no-border-btn waves-effect waves-light"></button>
+            </div>
         </div>
-      </div>
+    </div>
 
     <!-- jQuery -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <!-- <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
 
-     <!-- Popper.JS -->
-     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"
+    <!-- Popper.JS -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"
      integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
      crossorigin="anonymous"></script> -->
 
     <!-- Bootstrap jQuery -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
     <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
     <script>
-        function showGraph(element)  {
+        function showGraph(element) {
             var tabContents = document.getElementsByClassName('tabContent');
-            for (var i = 0; i < tabContents.length; i++) { 
+            for (var i = 0; i < tabContents.length; i++) {
                 tabContents[i].style.display = 'none';
             }
 
@@ -461,7 +505,7 @@
 
     <!-- Chart JS -->
     <script type="text/javascript"
-    src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.min.js"></script>
+        src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.min.js"></script>
 
     <!-- jsPDF Javascript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"
@@ -482,17 +526,17 @@
         });
 
         // var isDialogOpen = false;
-        
-        function showDialog1(){
+
+        function showDialog1() {
             $(".dialog1").dialog();
         }
-        function showDialog2(){
+        function showDialog2() {
             $(".dialog2").dialog();
         }
-        function showDialog3(){
+        function showDialog3() {
             $(".dialog3").dialog();
         }
-        function showDialog4(){
+        function showDialog4() {
             $(".dialog4").dialog();
         }
     </script>
@@ -504,4 +548,5 @@
     </script>
     <script src="https://cdn.pubnub.com/sdk/javascript/pubnub.4.27.1.js"></script>
 </body>
+
 </html>
