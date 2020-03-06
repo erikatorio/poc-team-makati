@@ -82,7 +82,7 @@ function saveProfile(e) {
                     });
                 });
 
-                if(!alert('Success!')){
+                if(!alert('Username and Password Change Success!')){
                     sessionStorage.setItem("username", newName);
                     sessionStorage.setItem("enableAnonymous", enableAnonymous);
                     setTimeout(location.reload.bind(location), 1000);
