@@ -70,7 +70,7 @@
                     style="cursor: pointer;" onclick="showOrHide()">
                     <div class="d-flex w-100 justify-content-start align-items-center">
                         <span class="fa fa-comment fa-fw mr-3 nav_icon"></span>
-                        <span id="totalCount" class="badge badge-pill badge-danger p-1" style=""></span>
+                        <span id="totalCount" class="badge badge-pill badge-danger p-1" style="display:none"></span>
                         <span class="submenu-icon d-none ml-auto"></span>
                     </div>
                 </a>
@@ -436,7 +436,7 @@
                         <span class="font-weight-bold" id="remove-attach" onclick="removeAttachment()">X</span>
                     </div>
                     <textarea class="form-control scrollbar textarea scrollbar-rare-wind" id="textarea-message" rows="1"
-                        cols="3" placeholder="Type a message"></textarea>
+                        cols="3" placeholder="メッセージを入力してください"></textarea>
                 </div>
                 <button type="button" id="chat-btn" onclick="sendMessage()"
                     class="col-2 no-border-btn waves-effect waves-light"></button>
@@ -449,9 +449,9 @@
     <!-- <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
 
     <!-- Popper.JS -->
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"
      integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
-     crossorigin="anonymous"></script> -->
+     crossorigin="anonymous"></script>
 
     <!-- Bootstrap jQuery -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"

@@ -67,7 +67,7 @@ function back() {
   $('#admin-search').css('display', 'inline');
   $('#chat-footer').css('display', 'inline');
   $('#user-chat').css('display', 'inline');
-  $('#chat-title').html('&nbsp;Chat');
+  $('#chat-title').html('&nbsp;チャット');
   inboxState = true;
   //console.log("backed")
   $('#searcharea-message').val(searchCache);
@@ -538,12 +538,12 @@ function addRead() {
     count: 100// how many items to fetch
   },
     function (status, response) {
-      for (var i = 0; i < response.messages.length - 1; i++) {
+      for (var i = 0; i < response.messages.length; i++) {
         //console.log(response.messages[i]);
         var div = document.getElementById(response.messages[i].entry.lastSeen)
         if (div) {
           read = div.querySelector('.read');
-          read.textContent = 'read ';
+          read.textContent = '既読 ';
         }
       }
       readAll();
@@ -763,7 +763,7 @@ function enter() {
         if (msg.message.lastSeen) {
           var div = document.getElementById(msg.message.lastSeen)
           read = div.querySelector('.read');
-          read.textContent = 'read ';
+          read.textContent = '既読 ';
         }
       }
       if (msg.message.sender != "admin") {
@@ -772,7 +772,7 @@ function enter() {
         if (msg.message.lastSeen) {
           var div = document.getElementById(msg.message.lastSeen)
           read = div.querySelector('.read');
-          read.textContent = 'read ';
+          read.textContent = '既読 ';
         }
 
 
@@ -1174,7 +1174,7 @@ function searchUser() {
       }
     }
     if ($('#user_list').html() == "") {
-      $('#user_list').html("No such user exists... Sorry.");
+      $('#user_list').html("そのようなユーザーを見つかりません。");
     }
     //$('#user_list').append('<div class="col-message chat-preview"><div class="row no-gutters"><div class="col-auto pad-5 d-flex align-items-center justify-content-center"><center></center></div><div class="col-8 pad-10"><br><div class="w-100"></div><div class="d-flex justify-content-between" ><strong><span style="font-size:medium;"></span></strong></div><div class="w-100"></div><small class="text-muted text-truncate"></small><div class="w-100"></div></div><div class="col-auto" ><br><div class="w-100"></div><div class="d-flex justify-content-end"><small class="text-muted"></small></div><div class="w-100"></div><br><div class="d-flex justify-content-center"><span class="badge badge-pill badge-info"></span></div></div></div></div>'); 
   }
@@ -1236,7 +1236,7 @@ function countUpdate() {
         if (msg.message.lastSeen) {
           var div = document.getElementById(msg.message.lastSeen)
           read = div.querySelector('.read');
-          read.textContent = 'read ';
+          read.textContent = '既読 ';
         }
 
         //update message count
@@ -1356,9 +1356,11 @@ function adjustTotalCount(operation, number) {
   if (totalCount == NaN) {
     $('#totalCount').css('display', 'none');
   } else {
+    $('#totalCount').css('display', '');
     if (totalCount == 0) {
       $('#totalCount').html("");
       $('#totalCount').css('display', 'none');
+      console.log("zero total")
     } else if (totalCount > 99) {
       $('#totalCount').html("99+");
     }
@@ -1366,7 +1368,7 @@ function adjustTotalCount(operation, number) {
       $('#totalCount').html("" + totalCount);
     }
   }
-  $('#totalCount').css('display', '');
+  
 }
 
 

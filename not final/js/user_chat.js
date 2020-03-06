@@ -265,12 +265,12 @@ function addRead() {
       count: 100 // how many items to fetch
     },
     function (status, response) {
-      for (var i = 0; i < response.messages.length - 1; i++) {
+      for (var i = 0; i < response.messages.length; i++) {
         console.log(response.messages[i].entry.lastSeen);
         var div = document.getElementById(response.messages[i].entry.lastSeen);
         if (div) {
           read = div.querySelector('.read');
-          read.textContent = 'read ';
+          read.textContent = '既読 ';
         }
       }
       readAll();
@@ -300,7 +300,7 @@ function postMsg(msg, lastRead) {
   //is read?
   var read = 'sent ';
   if (msg.entry.timestamp < lastRead) {
-    read = 'read ';
+    read = '既読 ';
   }
   const container = document.createElement('div');
   var MESSAGE_TEMPLATE =
@@ -476,7 +476,7 @@ function enter() {
             return;
           } else {
             read = div.querySelector('.read');
-            read.textContent = 'read ';
+            read.textContent = '既読 ';
           }
         }
       }

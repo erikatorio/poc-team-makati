@@ -410,6 +410,8 @@ function initTrendArray() {
     }
 }
 
+var maxReportsCount = 0;
+
 function generateDataSet(sortBy){
     let date = new Date();
     let options = {};
@@ -445,6 +447,10 @@ function generateDataSet(sortBy){
     }
 
     for(let i = 0; i < groups.length; i++){
+        if (maxReportsCount < Math.max( ...countReportsByGroup[i] )){
+            maxReportsCount = Math.max( ...countReportsByGroup[i] );
+        }
+    
         let color = generateColor();
         dataSet.push({
             label: groups[i], // Name the series
@@ -523,7 +529,7 @@ function drawVisualizationTrend(displayBy){
                     display: true,
                     ticks: {
                         stepSize: 1,
-                        max: maxGroupCount + 5,
+                        max: maxReportsCount + 5,
                         beginAtZero: true,
                     },
                     scaleLabel: {
