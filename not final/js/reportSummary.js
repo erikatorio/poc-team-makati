@@ -281,12 +281,11 @@ async function showNotifs() {
     } else {
         $('#notif-toast').toast('hide');
         await removeNotifPane();
-        isPaneOpen = false;
     }
 }
 
 async function appendNotifPane() {
-    $('#notif-cont').html('<div class="notifications-container"><div id="notif-toast" class="toast" role="alert" data-autohide="false" aria-live="assertive" aria-atomic="true"><div id="notif-header" class="toast-header"><img src="./img/flower.png" class="rounded mr-2" alt="..."><strong class="mr-auto">Notifications</strong><button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close"><span aria-hidden="true">&times;</span></button></div><div id="indiv_notifs"></div></div></div>');
+    $('#notif-cont').html('<div class="notifications-container"><div id="notif-toast" class="toast" role="alert" data-autohide="false" aria-live="assertive" aria-atomic="true"><div id="notif-header" class="toast-header"><img src="./img/flower.png" class="rounded mr-2" alt="..."><strong class="mr-auto">Notifications</strong><button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close" onclick="removeNotifPane()"><span aria-hidden="true">&times;</span></button></div><div id="indiv_notifs"></div></div></div>');
 }
 
 async function removeNotifPane() {
@@ -295,6 +294,7 @@ async function removeNotifPane() {
             await selectReport(report.id);
         }
     });
+    isPaneOpen = false;
     $('.notifications-container').remove();
 }
 
