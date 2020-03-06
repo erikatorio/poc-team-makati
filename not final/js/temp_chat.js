@@ -1298,6 +1298,12 @@ function adjustTotalCount(operation, number) {
   if (number == "") {
     number = 0;
   }
+  totalCount = $('#totalCount').html()
+  if(totalCount == ""){
+    totalCount = 0;
+  }else{
+    totalCount = parseInt(totalCount)
+  }
 
   //true is add
   if (operation) {
