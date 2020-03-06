@@ -523,7 +523,7 @@ function drawVisualizationTrend(displayBy){
                     display: true,
                     ticks: {
                         stepSize: 1,
-                        max: dataSet.length + 5,
+                        max: maxGroupCount + 5,
                         beginAtZero: true,
                     },
                     scaleLabel: {
