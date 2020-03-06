@@ -395,7 +395,7 @@ function getCount(obj) {
   console.log(tt + " user: " + obj.entry.user)
 }
 function displayMessages() {
-
+   
   //listener
   readReceipts = {
     status: function (statusEvent) {
@@ -489,11 +489,12 @@ function displayMessages() {
 
   glpubnub.history({
     channel: name,
-    count: 5, // how many items to fetch
+    count: 100, // how many items to fetch
     includeMessageActions: true,
     stringifiedTimeToken: true // false is the default
   },
     function (status, response) {
+      console.log(response.messages);
       response.messages.forEach((msg) => postMsg(msg, true));
       console.log("mine: " + myLatestMessage);
       console.log("their: " + theirLatestMessage)
@@ -1296,6 +1297,12 @@ function countUpdate() {
 function adjustTotalCount(operation, number) {
   if (number == "") {
     number = 0;
+  }
+  totalCount = $('#totalCount').html()
+  if(totalCount == ""){
+    totalCount = 0;
+  }else{
+    totalCount = parseInt(totalCount)
   }
 
   //true is add

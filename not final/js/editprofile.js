@@ -60,9 +60,9 @@ function saveProfile(e) {
         anon_isChanged = false;
     }
 
-    // console.log("New Name is " + newName);
-    // console.log("New Pass is " + newPass);
-    // console.log(anon_isChanged);
+    console.log("New Name is " + newName);
+    console.log("New Pass is " + newPass);
+    console.log(anon_isChanged);
     // path = $("#fileid").val()
     // $('#user_picture').attr('src', 'img/flower.png');
     // console.log($("#fileid").val());
@@ -75,10 +75,16 @@ function saveProfile(e) {
     // } else {
     //     console.log(typeof(JSON.parse(sessionStorage.getItem("enableAnonymous"))));
     // }
+
+    var whatChanged = "";
+
     if(newName!="" || newPass !="" || anon_isChanged){
         console.log("Something changed");
         if(newName != ""){
             console.log("Name changed");
+            if(whatChanged == ""){
+                whatChanged = "Username";
+            }
             db.collection("users")
                 .where("id", "==", parseInt(sessionUserID))
                 .get()
@@ -95,7 +101,7 @@ function saveProfile(e) {
                         subscribeKey : 'sub-c-b20376b2-5215-11ea-80a4-42690e175160',
                     });  
                     pubnub.createUser({
-                        id: Pubnub.GenerateUUID(),
+                        id: Pubnub.generateUUID(),
                         name: newName
                     });
                 })
@@ -103,8 +109,15 @@ function saveProfile(e) {
                     console.error("Error user update: ", error);
                 });
         
-        } else if(newPass != ""){
+        }
+        
+        if(newPass != ""){
             console.log("Pass changed");
+            if(whatChanged == ""){
+                whatChanged = "Password";
+            } else {
+                whatChanged += ", Password";
+            }
             db.collection("users")
                 .where("id", "==", parseInt(sessionUserID))
                 .get()
@@ -118,8 +131,15 @@ function saveProfile(e) {
                 .catch(function (error) {
                     console.error("Error user update: ", error);
                 });
-        } else if(anon_isChanged) {
+        }
+        
+        if(anon_isChanged) {
             console.log("Anon changed");
+            if(whatChanged == ""){
+                whatChanged = "'Enable Anonymous' Setting";
+            } else {
+                whatChanged += ", 'Enable Anonymous' Setting";
+            }
             db.collection("users")
                 .where("id", "==", parseInt(sessionUserID))
                 .get()
@@ -129,6 +149,7 @@ function saveProfile(e) {
                             enableAnonymousSending: enableAnonymous
                         });
                     });
+                    console.log("Here EA is " + enableAnonymous)
                     
                     sessionStorage.setItem("enableAnonymous", enableAnonymous);
                 })
@@ -137,7 +158,7 @@ function saveProfile(e) {
                 });
         }
 
-        if(!alert('Success!')){
+        if(!alert(whatChanged + ' successfully updated!')){
             setTimeout(location.reload.bind(location), 1000);
         }
 
