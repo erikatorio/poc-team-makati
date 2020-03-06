@@ -335,11 +335,21 @@ async function showTables() {
                 "</td>" +
                 "<td>" +
                 report.created.toDate().toLocaleString("en-US", options) +
-                "</td>" +
-                "<td>" +
-                report.status +
-                "</td>" +
-                "<td><button class='btn btn-danger' onclick='deleteReport(" + report.id + ")'>削除</button><button class='btn btn-primary' onclick='selectReport(" + report.id + ")'>変更</button>" +
+                "</td>";
+
+                if (report.status == "検討中") {
+                    body += "<td class='text-warning'>検討中</td>";
+                } else if (report.status == "検証済み") {
+                    body += "<td class='text-primary'>検証済み</td>";
+                } else if (report.status == "解決した") {
+                    body += "<td class='text-success'>解決した</td>";
+                } else if (report.status == "拒否された") {
+                    body += "<td class='text-danger'>拒否された</td>";
+                } else if (report.status == "隠された") {
+                    body += "<td>隠された</td>";
+                }
+
+                body += "<td><button class='btn btn-danger' onclick='deleteReport(" + report.id + ")'>削除</button><button class='btn btn-primary' onclick='selectReport(" + report.id + ")'>変更</button>" +
                 "</tr>";
         }
     });
