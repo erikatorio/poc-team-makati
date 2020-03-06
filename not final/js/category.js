@@ -62,7 +62,7 @@ async function addCategory() {
             description: category_desc
         })
         .then(async function () {
-            if (!alert('Successfully added!')) {
+            if (!alert('追加成功!')) {
                 $('#addNewUserModal').modal('hide');
                 populateCategoryTable();
                 setTimeout(location.reload(), 1500);
@@ -82,7 +82,7 @@ async function deleteCategory(category_id) {
                 querySnapshot.forEach(function (doc) {
                     doc.ref.delete();
                 });
-                if (!alert('Category Deletion Successful!')) {
+                if (!alert('削除成功!')) {
                     populateCategoryTable();
                     setTimeout(location.reload(), 1500);
                 }
