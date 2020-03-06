@@ -28,7 +28,7 @@ async function uploadPicture(file_data) {
 
     var task = storageRef.put(file_data);
     var progress = 0;
-    
+
     task.on('state_changed', function (snapshot) {
         progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
         //document.getElementById('progress').innerHTML = Math.round(progress) + "\%";
@@ -46,7 +46,7 @@ async function uploadPicture(file_data) {
 
 function saveProfile(e) {
     e.preventDefault();
-    
+
     let sessionUserID = sessionStorage.getItem('userId');
     var prev_enableAnon = sessionStorage.getItem('enableAnonymous');
     var anon_isChanged = true;
@@ -56,7 +56,7 @@ function saveProfile(e) {
     let enableAnonymous = $('#customSwitches').prop('checked');
 
     //CHECK IF enable anon has changed
-    if(prev_enableAnon.toString() == enableAnonymous.toString()){
+    if (prev_enableAnon.toString() == enableAnonymous.toString()) {
         anon_isChanged = false;
     }
 
@@ -78,12 +78,12 @@ function saveProfile(e) {
 
     var whatChanged = "";
 
-    if(newName!="" || newPass !="" || anon_isChanged){
+    if (newName != "" || newPass != "" || anon_isChanged) {
         console.log("Something changed");
-        if(newName != ""){
+        if (newName != "") {
             console.log("Name changed");
-            if(whatChanged == ""){
-                whatChanged = "Username";
+            if (whatChanged == "") {
+                whatChanged += "ユーザー名";
             }
             db.collection("users")
                 .where("id", "==", parseInt(sessionUserID))
@@ -95,28 +95,26 @@ function saveProfile(e) {
                         });
                     });
                     sessionStorage.setItem("username", newName);
-                    
+
                     var pubnub = new PubNub({
-                        publishKey : 'pub-c-8266b3af-df4a-4508-91de-0a06b9634a69',
-                        subscribeKey : 'sub-c-b20376b2-5215-11ea-80a4-42690e175160',
-                    });  
+                        publishKey: 'pub-c-8266b3af-df4a-4508-91de-0a06b9634a69',
+                        subscribeKey: 'sub-c-b20376b2-5215-11ea-80a4-42690e175160',
+                    });
                     pubnub.createUser({
                         id: Pubnub.generateUUID(),
                         name: newName
                     });
                 })
                 .catch(function (error) {
-                    console.error("Error user update: ", error);
+                    console.error("ユーザー変更エラー: ", error);
                 });
-        
-        }
-        
-        if(newPass != ""){
+
+        } else if (newPass != "") {
             console.log("Pass changed");
-            if(whatChanged == ""){
-                whatChanged = "Password";
+            if (whatChanged == "") {
+                whatChanged += "パスワード";
             } else {
-                whatChanged += ", Password";
+                whatChanged += "　とパスワード";
             }
             db.collection("users")
                 .where("id", "==", parseInt(sessionUserID))
@@ -129,16 +127,14 @@ function saveProfile(e) {
                     });
                 })
                 .catch(function (error) {
-                    console.error("Error user update: ", error);
+                    console.error("ユーザー変更エラー: ", error);
                 });
-        }
-        
-        if(anon_isChanged) {
+        } else if (anon_isChanged) {
             console.log("Anon changed");
-            if(whatChanged == ""){
-                whatChanged = "'Enable Anonymous' Setting";
+            if (whatChanged == "") {
+                whatChanged += "匿名送信を許可するの設定";
             } else {
-                whatChanged += ", 'Enable Anonymous' Setting";
+                whatChanged += " と匿名送信を許可するの設定";
             }
             db.collection("users")
                 .where("id", "==", parseInt(sessionUserID))
@@ -150,19 +146,19 @@ function saveProfile(e) {
                         });
                     });
                     console.log("Here EA is " + enableAnonymous)
-                    
+
                     sessionStorage.setItem("enableAnonymous", enableAnonymous);
                 })
                 .catch(function (error) {
-                    console.error("Error user update: ", error);
+                    console.error("ユーザー変更エラー :", error);
                 });
         }
 
-        if(!alert(whatChanged + ' successfully updated!')){
+        if (!alert(whatChanged + ' の変更成功!')) {
             setTimeout(location.reload.bind(location), 1000);
         }
 
     } else {
-        alert("No changes made");
+        alert("変更なし");
     }
 }

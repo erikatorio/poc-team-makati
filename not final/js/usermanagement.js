@@ -134,7 +134,7 @@ async function addUser() {
             });
         })
         .catch(function (error) {
-            console.error("Error adding user: ", error);
+            console.error("ユーザー追加エラー: ", error);
         });
 }
 
@@ -161,7 +161,7 @@ async function deleteUser(user_id) {
                 });
             })
             .catch(function (error) {
-                console.error("Error category deletion: ", error);
+                console.error("ユーザー削除エラー: ", error);
             });
 
     }
