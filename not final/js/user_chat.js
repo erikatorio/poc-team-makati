@@ -7,7 +7,7 @@ var isChatOpen = false;
 window.addEventListener(
   'load',
   function () {
-    showChat();
+    // showChat();
   },
   false
 );
