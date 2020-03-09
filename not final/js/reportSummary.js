@@ -332,3 +332,36 @@ function showPage(divid) {
     document.getElementById(divid).style.display = "none";
 }
 
+function expandStatDeck(){
+    var miniIcons = document.getElementsByClassName("collapsed-icon");
+    for (var i = 0; i < miniIcons.length; i++) {
+        miniIcons[i].setAttribute("hidden", "hidden");
+    }
+
+    // document.getElementById("card1").classList.add("expanded");
+    // document.getElementById("card2").classList.add("expanded");
+    // document.getElementById("card3").classList.add("expanded");
+    // document.getElementById("card4").classList.add("expanded");
+
+    var cardInfo = document.getElementsByClassName("card-info");
+    for (var i = 0; i < cardInfo.length; i++) {
+        cardInfo[i].removeAttribute("hidden");
+    }
+}
+
+function collapseStatDeck(){
+    var miniIcons = document.getElementsByClassName("collapsed-icon");
+    for (var i = 0; i < miniIcons.length; i++) {
+        miniIcons[i].removeAttribute("hidden");
+    }
+
+    // document.getElementById("card1").classList.remove("expanded");
+    // document.getElementById("card2").classList.remove("expanded");
+    // document.getElementById("card3").classList.remove("expanded");
+    // document.getElementById("card4").classList.remove("expanded");
+    
+    var cardInfo = document.getElementsByClassName("card-info");
+    for (var i = 0; i < cardInfo.length; i++) {
+        cardInfo[i].setAttribute("hidden", "hidden");
+    }
+}

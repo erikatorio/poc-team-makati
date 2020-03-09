@@ -132,13 +132,14 @@
       <!-- End of Dashboard Header -->
 
       <div style="height: 100%;">
-        <div class="row mt-3">
+        <div class="row mt-2 ml-2 mr-1"> 
           <div class="col-sm-12">
-            <div class="card-deck">
+            <div class="card-deck" id="statDeck" onmouseover="expandStatDeck()" onmouseout="collapseStatDeck()">
 
               <!-- Card for Most Reported Category -->
               <div id="card1" class="card summary_reports col-lg-3">
-                <div class="card-body">
+                <i class="fa fa-exclamation collapsed-icon"></i>
+                <div class="card-body card-info" hidden>
                   <span id="tooltip_span"><i class="fas fa-info-circle" data-toggle="tooltip" data-placement="bottom"
                       title="Shows the most reported Category." style="font-size: 15px; color: #3D3028;"></i></span>
                   <p class="card-text">一番レポートの数が高いカテゴリー</p>
@@ -150,7 +151,8 @@
 
               <!-- Card for Department w/ Most Reports -->
               <div id="card2" class="card summary_reports col-lg-3">
-                <div class="card-body">
+                <i class="fa fa-flag collapsed-icon"></i>
+                <div class="card-body card-info" hidden>
                   <span id="tooltip_span"><i class="fas fa-info-circle" data-toggle="tooltip" data-placement="bottom"
                       title="Shows the department with most reports."
                       style="font-size: 15px; color: #3D3028;"></i></span>
@@ -163,7 +165,8 @@
 
               <!-- Card for Total Reports -->
               <div id="card3" class="card summary_reports col-lg-3">
-                <div class="card-body">
+                <i class="fa fa-plus collapsed-icon"></i>
+                <div class="card-body card-info" hidden>
                   <span id="tooltip_span"><i class="fas fa-info-circle" data-toggle="tooltip" data-placement="bottom"
                       title="Total number of reports reported." style="font-size: 15px; color: #3D3028;"></i></span>
                   <p class="card-text">レポートの数</p>
@@ -175,7 +178,8 @@
 
               <!-- Card for Today's Reports -->
               <div id="card4" class="card summary_reports col-lg-3">
-                <div class="card-body">
+                <i class="fa fa-chart-line collapsed-icon"></i>
+                <div class="card-body card-info" hidden>
                   <span id="tooltip_span"><i class="fas fa-info-circle" data-toggle="tooltip" data-placement="bottom"
                       title="Number of reports sent today." style="font-size: 15px; color: #3D3028;"></i></span>
                   <p class="card-text">今日のレポートの数</p>
@@ -188,14 +192,14 @@
             </div>
           </div>
         </div>
-        <div class="row">
+        <div class="row ml-2 mr-1">
           <div class="col-sm-12" style="padding-top: 10px;">
-            <!-- First Row of Cards -->
+            <!-- Second Row of Cards -->
             <div class="row">
               <!-- Card for Graph -->
-              <div class="col-sm-4">
+              <div class="col-sm-5">
                 <div class="card-deck">
-                  <div class="card other_displays" style="height: 225px;">
+                  <div class="card other_displays" style="height: 350px;">
                     <div class="card-header" style="padding: 2px 0 0 4px; background-color: transparent; border: none;">
                       <a href="graphs.html">
                         <strong>グラフ</strong>
@@ -210,8 +214,58 @@
                   </div>
                 </div>
               </div>
-              <!-- End of Card for Graph -->
+              <!-- End of Card for User Management -->
 
+              <!-- Card for Activity Log -->
+              <!-- <div class="col-sm-4">
+                <div class="card-deck">
+                  <div class="card other_displays" style="height: 255px;">
+                    <div class="card-header" style="padding: 2px 0 0 4px; background-color: transparent; border: none;">
+                      <a href="">
+                        <strong>アクティビティログ</strong>
+                      </a>
+                    </div>
+                    <div class="card-body" style="padding: 0;">
+                      <div id="allLogs" class='w-100' style="overflow: auto; padding: 0;">
+                        <div class="loader"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div> -->
+              <!-- End of Card for Activity Log -->
+
+              <!-- Card for Weekly Report Trend -->
+              <div class="col-sm-7">
+                <div class="card-deck">
+                  <div class="card other_displays" style="height: 350px;">
+                    <div class="card-header" style="padding: 2px 0 0 4px; background-color: transparent; border: none;">
+                      <a href="graphs.html#trend">
+                        <strong>毎週のレポートトレンド</strong>
+                      </a>
+                      <button
+                        style="background-color: #8A6E59; height: 25px !important; border-color: #8A6E59; float: right;"
+                        class="btn btn-primary " type="button" id="download_icon" value="vertical_align_bottom"
+                        aria-haspopup="true" aria-expanded="false" onclick="downloadPNG()">
+                        <i class="material-icons" style="margin-top: -20px;">cloud_download</i>
+                      </button>
+                    </div>
+                    <div class="card-body p-0 w-100">
+                      <!-- Container for Weekly report trend chart -->
+                      <div class="chartContainer" style="position: relative; height:100%; width:100%">
+                        <div id="trendloader" class="loader"></div>
+                        <canvas id="weeklyReports"></canvas>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- End of Card for Weekly Report Trend -->
+            </div>
+            <!-- End of Second Row of Cards -->
+
+            <!-- First Row of Cards -->
+            <div class="row" style="padding-top: 10px; max-height: 80px;">
               <!-- Card for Reports Table -->
               <div class="col-sm-8">
                 <div class="card-deck">
@@ -227,23 +281,17 @@
                           <div id="reportloader" class="loader"></div>
                         </div>
                       </div>
-                      <!-- <div class="col p-0 d-flex justify-content-center h-100 w-100">
-                        <div id="allReports" class="pt-2" style="height: 125px !important;"></div>
-                      </div> -->
                     </div>
                   </div>
                 </div>
               </div>
-              <!-- End of Card for Reports Table -->
-            </div>
-            <!-- End of First Row of Cards -->
+              <!-- End of Card for Reports Table  -->
 
-            <!-- Second Row of Cards -->
-            <div class="row" style="padding-top: 10px; max-height: 80px;">
               <!-- Card for User Management -->
               <div class="col-sm-4">
                 <div class="card-deck">
-                  <div class="card other_displays" style="height: 255px;">
+                  <div class="card other_displays" style="height: 225px;">
+
                     <div class="card-header d-flex justify-content-between"
                       style="padding: 2px 0 0 4px; background-color: transparent; border: none;">
                       <a href="users.html">
@@ -255,64 +303,18 @@
                       </button>
                     </div>
                     <div class="card-body" style="overflow: hidden; padding: 0;">
-                      <!-- Container for Table to be Displayed -->
                       <div id="showUsersTable" style="overflow: auto; padding: 0;">
                         <div id="userloader" class="loader"></div>
                       </div>
-                    </div>
+                    </div>                    
                   </div>
                 </div>
               </div>
               <!-- End of Card for User Management -->
-
-              <!-- Card for Activity Log -->
-              <div class="col-sm-4">
-                <div class="card-deck">
-                  <div class="card other_displays" style="height: 255px;">
-                    <div class="card-header" style="padding: 2px 0 0 4px; background-color: transparent; border: none;">
-                      <a href="">
-                        <strong>アクティビティログ</strong>
-                      </a>
-                    </div>
-                    <div class="card-body" style="padding: 0;">
-                      <!-- Container for Activity Log to be presented -->
-                      <div id="allLogs" class='w-100' style="overflow: auto; padding: 0;">
-                        <div class="loader"></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- End of Card for Activity Log -->
-
-              <!-- Card for Weekly Report Trend -->
-              <div class="col-sm-4">
-                <div class="card-deck">
-                  <div class="card other_displays" style="height: 255px;">
-                    <div class="card-header" style="padding: 2px 0 0 4px; background-color: transparent; border: none;">
-                      <a href="graphs.html#trend">
-                        <strong>毎週のレポートトレンド</strong>
-                      </a>
-                      <button
-                        style="background-color: #8A6E59; height: 25px !important; border-color: #8A6E59; float: right;"
-                        class="btn btn-primary " type="button" id="download_icon" value="vertical_align_bottom"
-                        aria-haspopup="true" aria-expanded="false" onclick="downloadPNG()">
-                        <i class="material-icons" style="margin-top: -20px;">cloud_download</i>
-                      </button>
-                    </div>
-                    <div class="card-body p-0 w-100">
-                      <!-- Container for Weekly report trend chart -->
-                      <div class="chartContainer" style="position: relative; height:27vh; width:30vw">
-                        <div id="trendloader" class="loader"></div>
-                        <canvas id="weeklyReports"></canvas>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- End of Card for Weekly Report Trend -->
             </div>
-            <!-- End of Second Row of Cards -->
+            <!-- End of First Row of Cards -->
+
+            
 
           </div>
         </div>

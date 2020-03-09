@@ -222,10 +222,15 @@ a.list-group-item:hover{
   padding-left: 10px;
 }
 
+.card-deck .card {
+  margin-right: 10px !important;
+  margin-left: 0px !important;
+}
+
 .card.summary_reports,
 .card.other_displays {
   /*width: 160px;*/
-  height: 120px;
+  height: 40px;
 
   background: #ffffff;
   /*border: 1px solid #8A6E59;*/
@@ -233,6 +238,8 @@ a.list-group-item:hover{
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
   padding: 0;
+
+  transition: 0.5s;
 }
 
 .card-body {
@@ -723,3 +730,49 @@ label {
 .dataTables_scrollBody {
   border-bottom: none !important;
 }
+
+.collapsed-icon{
+  display: block;
+  margin: auto;
+}
+
+#weeklyReports{
+  display: block !important;
+  height: 100% !important;
+  width: 80% !important;
+  margin: auto;
+}
+
+#statDeck:hover #card1{
+  height: 120px !important;
+  transition: 0.5s;
+}
+
+#statDeck:hover #card2{
+  height: 120px !important;
+  transition: 0.5s;
+}
+
+#statDeck:hover #card3{
+  height: 120px !important;
+  transition: 0.5s;
+}
+
+#statDeck:hover #card4{
+  height: 120px !important;
+  transition: 0.5s;
+}
+/* #card2:hover {
+  height: 120px !important;
+  transition: 0.5s;
+}
+
+#card3:hover {
+  height: 120px !important;
+  transition: 0.5s;
+}
+
+#card4:hover {
+  height: 120px !important;
+  transition: 0.5s;
+} */

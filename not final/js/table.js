@@ -8,7 +8,7 @@ window.addEventListener("load", async () => {
         paging: false,
         info: false,
         dom: 'Bfrtip',
-        scrollY: '13vh',
+        scrollY: '17vh',
         buttons: ['csv', 'excel', 'pdf'],
         responsive: true
     });

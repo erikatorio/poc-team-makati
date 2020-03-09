@@ -81,7 +81,7 @@ async function populateUserTable() {
         paging: false,
         info: false,
         dom: 'Bfrtip',
-        scrollY: '20vh',
+        scrollY: '17vh',
         buttons: ['csv', 'excel', 'pdf'],
         responsive: true,
         columnDefs: [{ orderable: false, targets: 3 }]

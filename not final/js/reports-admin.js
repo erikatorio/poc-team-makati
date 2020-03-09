@@ -221,7 +221,7 @@ async function updateStatus(reportID) {
                             });
                         });
 
-                    if (!alert('Success!')) {
+                    if (!alert('成功!')) {
                         $('#reportInfo').modal('hide');
                         setTimeout(location.reload.bind(location), 500);
                     }
@@ -244,7 +244,7 @@ async function updateStatus(reportID) {
                         });
                     });
 
-                if (!alert('Success!')) {
+                if (!alert('成功!')) {
                     $('#reportInfo').modal('hide');
                     setTimeout(location.reload.bind(location), 500);
                 }
