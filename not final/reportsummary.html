@@ -318,6 +318,21 @@
 
           </div>
         </div>
+        <div class="icon-bar">
+          <a onclick="openNav()"><i class="fa fa-history" aria-hidden="true"></i></a>
+        </div>
+
+        <div id="mySidenav" class="sidenav">
+          <a href="">
+              <strong>アクティビティログ</strong>
+              <a style="cursor: pointer; background: none; border: none; float: right; margin-right:10px;" onclick="closeNav()">
+                <i class="fa fa-times"></i>
+              </a>
+          </a>
+          <div id="allLogs" class='w-100' style="overflow: auto; padding: 0;">
+            <div class="loader"></div>
+          </div>
+        </div>
       </div>
     </div>
 
