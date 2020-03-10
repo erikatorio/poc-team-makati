@@ -269,7 +269,7 @@ async function showTables() {
 
     //Add Head
     let head =
-        "<table id='reportsTable' class='table table-sm'>" +
+        "<table id='reportsTable' class='table table-sm table-responsive'>" +
         "<thead>" +
         "<th scope='col' class='th-sm'>#</th>" +
         "<th scope='col' class='th-sm'>カテゴリー</th>" +
