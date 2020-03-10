@@ -204,3 +204,32 @@ label {
     background-color: #FF9999;
 }
  
+@media only screen and (max-width: 600px) {
+    .row {
+        width: 300px;
+    }
+    .col-3 {
+        height: 300px;
+        max-width: 100% !important;
+    }
+
+    .col-3.edit {
+        width: 300px !important;
+    }
+
+    .col-9 {
+        max-width: 100%;
+    }
+
+    .col-9.edit {
+        width: 300px;
+    }
+
+    .edit-profile {
+        width: 300px;
+    }
+
+    .t-header {
+        font-size: 30px;
+    }
+}
