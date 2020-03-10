@@ -27,6 +27,10 @@ bottom: .5em;
     margin-right: 10px;
 }
 
+.navbar-toggler-icon {
+    margin-top: 10px;
+}
+
 .t-nav {
     font-family: 'Lato';
     color: #3D3028;

@@ -35,7 +35,7 @@ window.addEventListener("load", async () => {
 
     $('#logsTable').DataTable({
         dom: 'Bfrtip',
-        scrollY: '20vh',
+        scrollY: '83vh',
         responsive: true,
         buttons: [],
         paging: false,
@@ -338,11 +338,6 @@ function expandStatDeck(){
         miniIcons[i].setAttribute("hidden", "hidden");
     }
 
-    // document.getElementById("card1").classList.add("expanded");
-    // document.getElementById("card2").classList.add("expanded");
-    // document.getElementById("card3").classList.add("expanded");
-    // document.getElementById("card4").classList.add("expanded");
-
     var cardInfo = document.getElementsByClassName("card-info");
     for (var i = 0; i < cardInfo.length; i++) {
         cardInfo[i].removeAttribute("hidden");
@@ -354,14 +349,17 @@ function collapseStatDeck(){
     for (var i = 0; i < miniIcons.length; i++) {
         miniIcons[i].removeAttribute("hidden");
     }
-
-    // document.getElementById("card1").classList.remove("expanded");
-    // document.getElementById("card2").classList.remove("expanded");
-    // document.getElementById("card3").classList.remove("expanded");
-    // document.getElementById("card4").classList.remove("expanded");
     
     var cardInfo = document.getElementsByClassName("card-info");
     for (var i = 0; i < cardInfo.length; i++) {
         cardInfo[i].setAttribute("hidden", "hidden");
     }
+}
+
+function openNav() {
+    document.getElementById("mySidenav").style.width = "370px";
+}
+  
+function closeNav() {
+    document.getElementById("mySidenav").style.width = "0px";
 }

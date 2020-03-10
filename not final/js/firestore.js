@@ -1,23 +1,23 @@
 // Initialize Firebase
 let config = {
     // MyFirebaseProject
-    apiKey: "AIzaSyDEtbinbscaxVKpa6GAyrOxh9moQsXO9-U",
-    authDomain: "myfirstfirebaseproject-7cd16.firebaseapp.com",
-    databaseURL: "https://myfirstfirebaseproject-7cd16.firebaseio.com",
-    projectId: "myfirstfirebaseproject-7cd16",
-    storageBucket: "myfirstfirebaseproject-7cd16.appspot.com",
-    messagingSenderId: "970304867141",
-    appId: "1:970304867141:web:e8d354070d615e91504c2c"
+    // apiKey: "AIzaSyDEtbinbscaxVKpa6GAyrOxh9moQsXO9-U",
+    // authDomain: "myfirstfirebaseproject-7cd16.firebaseapp.com",
+    // databaseURL: "https://myfirstfirebaseproject-7cd16.firebaseio.com",
+    // projectId: "myfirstfirebaseproject-7cd16",
+    // storageBucket: "myfirstfirebaseproject-7cd16.appspot.com",
+    // messagingSenderId: "970304867141",
+    // appId: "1:970304867141:web:e8d354070d615e91504c2c"
 
     //chat21
-    // apiKey: "AIzaSyDSTHA4XXfIygdcqR0CBtChgWsm9G9Hxjk",
-    // authDomain: "chat21-91cc4.firebaseapp.com",
-    // databaseURL: "https://chat21-91cc4.firebaseio.com",
-    // projectId: "chat21-91cc4",
-    // storageBucket: "gs://chat21-91cc4.appspot.com",
-    // messagingSenderId: "347375929066",
-    // appId: "1:347375929066:web:2b6101a98bbd8bd926b993",
-    // measurementId: "G-Y0QTHM5PGN"
+    apiKey: "AIzaSyDSTHA4XXfIygdcqR0CBtChgWsm9G9Hxjk",
+    authDomain: "chat21-91cc4.firebaseapp.com",
+    databaseURL: "https://chat21-91cc4.firebaseio.com",
+    projectId: "chat21-91cc4",
+    storageBucket: "gs://chat21-91cc4.appspot.com",
+    messagingSenderId: "347375929066",
+    appId: "1:347375929066:web:2b6101a98bbd8bd926b993",
+    measurementId: "G-Y0QTHM5PGN"
 };
 
 firebase.initializeApp(config);
