@@ -85,6 +85,12 @@ bottom: .5em;
 
 .container {
     margin-top: 30px;
+    position: relative;
+}
+
+.ui-dialog .ui-dialog-titlebar-close{
+    content: '\f00d';
+    color: black;
 }
 
 .gradient-card-header {

@@ -20,6 +20,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
   <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <!-- Bootstrap core CSS -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
   <!-- Material Design Bootstrap -->
@@ -27,6 +28,21 @@
   <!-- Your custom styles (optional) -->
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/temp_chat.css">
+
+  <!-- jQuery UI -->
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+  <style>
+    .ui-draggable .ui-dialog-titlebar{
+        background-color: #ff9999;
+        color: #f3f3f3;
+    }
+
+    .ui-dialog .ui-dialog-content p{
+        color: #3D3028;
+        font-size: 14px;
+    }
+  </style>
 </head>
 
 <body>
@@ -88,7 +104,21 @@
   <!-- navbar end -->
 
   <!-- categories -->
-  <div class="container">
+  <div class="container" style="position: relative;">
+    <div class="home_dialog" title="使い方" style="display: none;">
+      <p>
+        Choose on the given cards to send a report. Each card corresponds to one type of 
+        harassment. The last one though is an option for you to send other kind of harassment not on
+        the list. Once you have chosen, a modal will appear for you to add further information (optional)
+        about the report. 
+        </br>
+        </br>
+        Please be aware that you can set your self as anonymous upon sending the report. Just go to 'Edit Profile'
+        page in order to do so.
+      </p>
+    </div>
+    <button class="home_ins" style="position: absolute; top: 0; right: 0; background-color: transparent; border: none;"><i class="fas fa-info-circle"
+      title="Click to show instructions on how to use." style="font-size: 15px; color: #3D3028;" onclick="showDialog()"></i></button>
     <div class="row justify-content-center">
       <a href="#!" data-toggle="modal" data-target="#submit_modal" onclick="getCategory(0)">
         <div class="card card-home">
@@ -216,8 +246,10 @@
         <div class="card card-home">
           <!-- Card image -->
           <div class="view overlay gradient-card-header">
-            <h1 class="card-header-title white-text text-center category-text"></h1>
-
+            <!-- <h1 class="card-header-title white-text text-center category-text"></h1> -->
+            <div class="view overlay gradient-card-header">
+              <img src="./img/more5.png" alt="" class="card-image">
+            </div>
           </div>
           <!-- Card content -->
           <div class="mask rgba-white-slight"></div>
@@ -330,7 +362,9 @@
   <!-- content end -->
 
   <!-- JQuery -->
+  <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <!-- Bootstrap tooltips -->
   <script type="text/javascript"
     src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
@@ -345,14 +379,25 @@
   <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-storage.js"></script>
   <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-firestore.js"> </script>
   <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-messaging.js"> </script>
-  <script src="js/firestore.js"> </script> -->
+  <script src="js/firestore.js"> </script>
 
   <!-- Custom JS -->
   <script type="text/javascript" src="js/home.js"></script>
   <script type="text/javascript" src="js/reports.js"></script>
   <script type="text/javascript" src="js/file.js"></script>
 
+  <!-- jQuery UI JS -->
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
+  <script>
+    $(document).ready(function () {
+      $('[data-toggle="tooltip"]').tooltip();
+    });
+
+    function showDialog() {
+      $(".home_dialog").dialog();
+    }
+  </script>
 
     <!-- //chat
     $(document).ready(function () {
