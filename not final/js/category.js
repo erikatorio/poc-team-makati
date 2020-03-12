@@ -18,7 +18,7 @@ async function populateCategoryTable() {
         "<th scope='col' class='table-header th-sm'>#</th>" +
         "<th scope='col' class='table-header th-sm'>カテゴリー名</th>" +
         "<th scope='col' class='table-header th-sm'>カテゴリーの説明</th>" +
-        "<th class='table-header th-sm'>設定</th>" +
+        "<th scope='col' class='table-header th-sm'>設定</th>" +
         "</tr>" +
         "</thead>";
 
@@ -30,7 +30,7 @@ async function populateCategoryTable() {
             "<th scope='row' class='table-id'>" + category.id + "</th>" +
             "<td class='table-content'>" + category.name + "</td>" +
             "<td class='table-content'>" + category.description + "</td>" +
-            "<td><button class='btn btn-row' onclick='deleteCategory(" + category.id + ")'><i class='fas fa-trash-alt'></i></button></td>" +
+            "<td><button class='btn btn-row' onclick='updateCategoryDesc(" + category.id + ")'><i class='far fa-edit'></i></button><button class='btn btn-row' onclick='deleteCategory(" + category.id + ")'><i class='fas fa-trash-alt'></i></button></td>" +
             "</tr>";
     });
 
@@ -73,6 +73,40 @@ async function addCategory() {
         });
 }
 
+async function updateCategoryDesc(category_id){
+    
+    let newDesc = document.getElementById("catDesc").value;
+
+    document.getElementById("catDesc").value = "";
+    
+    if (newDesc == "")
+        return
+
+    db.collection("categories")
+        .where("id", "==", category_id)
+        .get()
+        .then(function (querySnapshot) {
+            querySnapshot.forEach(function (doc) {
+                doc.ref.update({
+                    description: newDesc
+                });
+            });
+            
+            if (!alert('更新成功!')) {
+                $('#updateCategoryModal').modal('hide');
+                populateCategoryTable();
+                setTimeout(location.reload(), 1500);
+            }
+
+            document.getElementById("catDesc").value = "";
+
+        })
+        .catch(function (error) {
+            console.error("Error category update: ", error);
+        });
+
+}
+
 async function deleteCategory(category_id) {
     if (confirm('Delete category?')) {
         db.collection("categories")
@@ -95,6 +129,5 @@ async function deleteCategory(category_id) {
 
 //function to hide loader after Content has successfully loaded 
 function showPageCategory() {
-    console.log("test");
     document.getElementById("loader").style.display = "none";
 }

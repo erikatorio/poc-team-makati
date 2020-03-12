@@ -161,9 +161,9 @@ bottom: .5em;
     opacity: 1;
 }
 
-#edit-profile {
+/* #edit-profile {
     width: 700px;
-}
+} */
 
 .save-profile {
     display: flex;
