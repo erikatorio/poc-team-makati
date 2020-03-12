@@ -16,7 +16,13 @@ async function drawPie(groupBy) {
     pieChart = new Chart(ctx, {
         type: "doughnut",
         options: {
-            maintainAspectRatio: true
+            maintainAspectRatio: true,
+            plugins: {
+                labels: {
+                    render: 'percentage',
+                    precision: 2
+                }
+            }
         },
         data: {
             labels: displayLabel,
