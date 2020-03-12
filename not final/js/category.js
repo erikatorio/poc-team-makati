@@ -30,7 +30,7 @@ async function populateCategoryTable() {
             "<th scope='row' class='table-id'>" + category.id + "</th>" +
             "<td class='table-content'>" + category.name + "</td>" +
             "<td class='table-content'>" + category.description + "</td>" +
-            "<td><button class='btn btn-row' onclick='deleteCategory(" + category.id + ")'><i class='fas fa-trash-alt'></i></button><button class='btn btn-row' onclick='deleteCategory(" + category.id + ")'><i class='fas fa-trash-alt'></i></button></td>" +
+            "<td class='table-content' style='width: 55px;'><button class='btn btn-row' onclick='updateCategoryDesc(" + category.id + ")'><i class='fas fa-edit'></i></button><button class='btn btn-row' onclick='deleteCategory(" + category.id + ")'><i class='fas fa-trash-alt'></i></button></td>" +
             "</tr>";
     });
 
