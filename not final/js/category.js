@@ -83,12 +83,13 @@ async function updateCategoryDesc(category_id){
         return
         //会社での暴力。脅威と物理的な嫌がらせ（例：パンチ、蹴りなど）のことです。
     
-    await db.collection("categories").where('id', '==', category_id)
+    await db.collection("categories")
+        .where('id', '==', category_id)
         .get()
         .then(function (querySnapshot) {
             querySnapshot.forEach(function (doc) {
                 db.collection("categories").doc(doc.id).update({
-                    description: newDesc
+                    description: "something"
                 });
             });
 
