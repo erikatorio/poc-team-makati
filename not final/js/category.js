@@ -86,47 +86,22 @@ async function updateCategoryDesc(category_id){
     await db.collection("categories")
         .where('id', '==', category_id)
         .get()
-        .then(function (querySnapshot) {
-            querySnapshot.forEach(function (doc) {
-                db.collection("categories").doc(doc.id).update({
-                    description: "something"
+        .then(async function (querySnapshot) {
+            querySnapshot.forEach(async function (doc) {
+                await db.collection("categories").doc(doc.id).update({
+                    description: newDesc
                 });
             });
-
-            if (!alert('更新成功!')) {
-                $('#editCategoryModal').modal('hide');
-                populateCategoryTable();
-                setTimeout(location.reload(), 1500);
-            }
-
-            $("input[name='description']").val("");
         })
         .catch(function (error) {
             console.error("Error category update: ", error);
         });
-    // await db.collection("categories")
-    //     .where("id", "==", category_id)
-    //     .get()
-    //     .then(function (querySnapshot) {
-    //         querySnapshot.forEach(function (doc) {
-    //             doc.ref.update({
-    //                 description: newDesc
-    //             });
-    //         });
-            
-    //         if (!alert('更新成功!')) {
-    //             $('#editCategoryModal').modal('hide');
-    //             populateCategoryTable();
-    //             setTimeout(location.reload(), 1500);
-    //         }
 
-    //         $("input[name='description']").val("");
-
-    //     })
-    //     .catch(function (error) {
-    //         console.error("Error category update: ", error);
-    //     });
-
+        if (!alert('更新成功!')) {
+            populateCategoryTable();
+            $('#editCategoryModal').modal('hide');
+            setTimeout(function(){ location.reload(); }, 1500);
+        }
 }
 
 async function deleteCategory(category_id) {
