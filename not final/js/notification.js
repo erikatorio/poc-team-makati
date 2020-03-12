@@ -1,5 +1,5 @@
 window.addEventListener("load", async () => {
-
+    isloaded = true;
     await db
         .collection('reports')
         .orderBy('created', 'desc')
