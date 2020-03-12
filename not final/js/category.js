@@ -18,7 +18,7 @@ async function populateCategoryTable() {
         "<th scope='col' class='table-header th-sm'>#</th>" +
         "<th scope='col' class='table-header th-sm'>カテゴリー名</th>" +
         "<th scope='col' class='table-header th-sm'>カテゴリーの説明</th>" +
-        "<th class='table-header th-sm'>設定</th>" +
+        "<th scope='col' class='table-header th-sm'>設定</th>" +
         "</tr>" +
         "</thead>";
 
@@ -30,7 +30,7 @@ async function populateCategoryTable() {
             "<th scope='row' class='table-id'>" + category.id + "</th>" +
             "<td class='table-content'>" + category.name + "</td>" +
             "<td class='table-content'>" + category.description + "</td>" +
-            "<td><button class='btn btn-row' onclick='deleteCategory(" + category.id + ")'><i class='fas fa-trash-alt'></i></button></td>" +
+            "<td><button class='btn btn-row' onclick='deleteCategory(" + category.id + ")'><i class='fas fa-trash-alt'></i></button><button class='btn btn-row' onclick='deleteCategory(" + category.id + ")'><i class='fas fa-trash-alt'></i></button></td>" +
             "</tr>";
     });
 

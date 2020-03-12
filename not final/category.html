@@ -139,34 +139,25 @@
         カテゴリーマネジメント
         <small class="text-muted">カテゴリーを追加または削除する</small>
       </h2>
-      <div class="row">
-        <button id="add-user-btn" type="button" class="btn btn-main" data-toggle="modal" data-target="#addNewUserModal">
-          <i class="fas fa-file-medical"></i> 新しいカテゴリーを追加
-        </button>
-      </div>
 
       <!-- CATEGORY TABLE -->
       <div id="categoryTable">
         <div id="loader"></div>
       </div>
 
-      <!-- Add category Modal -->
+      <!-- Edit category Modal -->
       <div class="modal fade" id="addNewUserModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">新しいカテゴリーを追加</h5>
+              <h5 class="modal-title" id="exampleModalLabel">[Category Name]</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
             <div class="modal-body">
               <form>
-                <div class="form-group">
-                  <label for="exampleFormControlInput1">カテゴリー名:</label>
-                  <input type="text" class="form-control" name="category_name" placeholder="">
-                </div>
                 <div class="form-group">
                   <label for="exampleFormControlInput1">カテゴリーの説明:</label>
                   <input type="text" class="form-control" name="description" placeholder="">
