@@ -30,7 +30,7 @@ async function populateCategoryTable() {
             "<th scope='row' class='table-id'>" + category.id + "</th>" +
             "<td class='table-content'>" + category.name + "</td>" +
             "<td class='table-content'>" + category.description + "</td>" +
-            "<td><button class='btn btn-row' onclick='updateCategoryDesc(" + category.id + ")'><i class='far fa-edit'></i></button><button class='btn btn-row' onclick='deleteCategory(" + category.id + ")'><i class='fas fa-trash-alt'></i></button></td>" +
+            "<td><button class='btn btn-row' data-toggle='modal' data-target='#editCategoryModal' onclick='$(\"#exampleModalLabel\").text(\" " + category.name + " \"); $(\"#updateCategoryButton\").attr(\"onclick\", \"updateCategoryDesc(" + category.id + ")\");'><i class='far fa-edit'></i></button><button class='btn btn-row' onclick='deleteCategory(" + category.id + ")'><i class='fas fa-trash-alt'></i></button></td>" +
             "</tr>";
     });
 
@@ -74,36 +74,57 @@ async function addCategory() {
 }
 
 async function updateCategoryDesc(category_id){
-    
-    let newDesc = document.getElementById("catDesc").value;
 
-    document.getElementById("catDesc").value = "";
+    let newDesc = $("input[name='description']").val();
+
+    $("input[name='description']").val("");
     
     if (newDesc == "")
         return
-
-    db.collection("categories")
-        .where("id", "==", category_id)
+        //会社での暴力。脅威と物理的な嫌がらせ（例：パンチ、蹴りなど）のことです。
+    
+    await db.collection("categories").where('id', '==', category_id)
         .get()
         .then(function (querySnapshot) {
             querySnapshot.forEach(function (doc) {
-                doc.ref.update({
+                db.collection("categories").doc(doc.id).update({
                     description: newDesc
                 });
             });
-            
+
             if (!alert('更新成功!')) {
-                $('#updateCategoryModal').modal('hide');
+                $('#editCategoryModal').modal('hide');
                 populateCategoryTable();
                 setTimeout(location.reload(), 1500);
             }
 
-            document.getElementById("catDesc").value = "";
-
+            $("input[name='description']").val("");
         })
         .catch(function (error) {
             console.error("Error category update: ", error);
         });
+    // await db.collection("categories")
+    //     .where("id", "==", category_id)
+    //     .get()
+    //     .then(function (querySnapshot) {
+    //         querySnapshot.forEach(function (doc) {
+    //             doc.ref.update({
+    //                 description: newDesc
+    //             });
+    //         });
+            
+    //         if (!alert('更新成功!')) {
+    //             $('#editCategoryModal').modal('hide');
+    //             populateCategoryTable();
+    //             setTimeout(location.reload(), 1500);
+    //         }
+
+    //         $("input[name='description']").val("");
+
+    //     })
+    //     .catch(function (error) {
+    //         console.error("Error category update: ", error);
+    //     });
 
 }
 
