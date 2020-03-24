@@ -1,0 +1,54 @@
+html:before {
+    content: "";
+    position: fixed;
+    left: 0;
+    right: 0;
+    z-index: -1;
+    display: block;
+    background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),url('https://xbrl.us/wp-content/uploads/2017/01/Blue-pink-graph.jpg');
+    overflow: hidden;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100%;
+}
+
+body {
+    overflow: hidden;
+}
+
+.row {
+    margin-top: 50px;
+    margin-bottom: 120px;
+}
+
+form img {
+    width: 50px;
+    height: 50px;
+    
+}
+
+form {
+    width: 300px;
+    margin-top: 100px;
+}
+
+form button {
+    width: 150px !important;
+}
+
+.form-item #username, .form-item #password, .md-form #login-username, .md-form #login-password {
+    font-family: 'Roboto Condensed' !important;
+    color: white;
+}
+
+.form-control {
+    color: #ffffe4;
+}
+
+.form-control:focus {
+    color: #ffffe4 ;
+}
+
+.md-form {
+    margin-bottom: 30px;
+}
