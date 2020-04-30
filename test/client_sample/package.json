@@ -41,7 +41,7 @@
     "express": "4.17.1",
     "highcharts": "^8.0.0",
     "highcharts-angular": "^2.4.0",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "jw-angular-pagination": "^1.1.0",
     "moment": "2.24.0",
     "ng-chat": "^2.0.5",
